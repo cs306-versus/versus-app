@@ -3,7 +3,10 @@ container:
   cpu: 4
   memory: 16G
   kvm: true
-
+  
+env:
+  CC_TEST_REPORTER_ID: ENCRYPTED[bffc00da37a3060b84c0d4412b3efa1e0abaca2c4165b6df7313bc3ab05a6df79fb1bf3c0fef5533473d2f4a79df26a6]
+  
 check_android_task:
   name: Run Android tests
   install_emulator_script:
