@@ -1,4 +1,4 @@
-package com.github.versus;
+package com.github.versus.auth;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.github.versus.MainActivity;
+import com.github.versus.R;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
