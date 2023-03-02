@@ -40,6 +40,7 @@
         android:layout_marginStart="161dp"
         android:layout_marginEnd="156dp"
         android:layout_marginBottom="80dp"
+        android:onClick="attemptAccountCreation"
         android:text="Button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
