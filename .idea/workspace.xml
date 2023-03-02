@@ -9,9 +9,9 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="86c38a87-a4dc-47a4-922f-96bd818f61f3" name="Changes" comment="Refactor Code related to the login activity">
+    <list default="true" id="86c38a87-a4dc-47a4-922f-96bd818f61f3" name="Changes" comment="Refactor the code of the EntryActivity - authentication side !">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/github/versus/EntryActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/github/versus/EntryActivity.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -229,7 +229,14 @@
       <option name="project" value="LOCAL" />
       <updated>1677789209901</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Refactor the code of the EntryActivity - authentication side !">
+      <created>1677790943374</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1677790943374</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -254,6 +261,7 @@
     <MESSAGE value="Refactor the code related to Sign In" />
     <MESSAGE value="Move Authentication related Activities to com.github.versus.auth" />
     <MESSAGE value="Refactor Code related to the login activity" />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactor Code related to the login activity" />
+    <MESSAGE value="Refactor the code of the EntryActivity - authentication side !" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactor the code of the EntryActivity - authentication side !" />
   </component>
 </project>
