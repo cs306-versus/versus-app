@@ -4,13 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.EditText;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import static java.util.Objects.*;
+
 
 public class EntryActivity extends AppCompatActivity {
 
@@ -26,8 +24,9 @@ public class EntryActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
-        //Class<?> activity = isNull(mAuth.getCurrentUser()) ? SignInActivity.class : MainActivity.class;
-        Intent intent = new Intent(this, SignInActivity.class);
+        mAuth.signOut();
+        Class<?> activity = isNull(mAuth.getCurrentUser()) ? LogInActivity.class : MainActivity.class;
+        Intent intent = new Intent(this, activity);
         startActivity(intent);
     }
 
