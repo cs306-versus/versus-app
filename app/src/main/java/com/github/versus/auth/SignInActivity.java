@@ -14,6 +14,9 @@ import com.github.versus.R;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+/**
+ * ???
+ */
 public class SignInActivity extends AppCompatActivity {
 
     private static final String TAG = "SignIn";

@@ -1,6 +1,5 @@
 package com.github.versus.auth;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -12,10 +11,12 @@ import android.widget.Toast;
 
 import com.github.versus.MainActivity;
 import com.github.versus.R;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+/**
+ * ???
+ */
 public final class LogInActivity extends AppCompatActivity {
 
     private static final String TAG = "SignIn";
@@ -49,24 +50,36 @@ public final class LogInActivity extends AppCompatActivity {
         String m = mail.getText().toString();
         String p = pwd.getText().toString();
         mAuth.signInWithEmailAndPassword(m, p)
-                .addOnCompleteListener(this, this::handleLogInResult);
+                .addOnSuccessListener(this, this::handleSuccessLogIn)
+                .addOnFailureListener(this, this::handleFailedLogIn)
+                .addOnCanceledListener(this, this::handleCanceledLogIn);
     }
 
     /**
      * ???
-     * @param task
+     * @param result
      */
-    private void handleLogInResult(@NonNull Task<AuthResult> task){
-        if (task.isSuccessful()) {
-            // Sign in success, update UI with the signed-in user's information
-            Log.d(TAG, "signInWithEmailAndPassword:success");
-            startActivity(new Intent(LogInActivity.this, MainActivity.class));
-        } else {
-            // If sign in fails, display a message to the user.
-            Log.w(TAG, "signInWithEmailAndPassword:failure", task.getException());
-            Toast.makeText(LogInActivity.this, "Authentication failed",
-                    Toast.LENGTH_SHORT).show();
-        }
+    private void handleSuccessLogIn(AuthResult result){
+        Log.d(TAG, "signInWithEmailAndPassword:success");
+        startActivity(new Intent(LogInActivity.this, MainActivity.class));
+    }
+
+    /**
+     * ???
+     * @param exception
+     */
+    private void handleFailedLogIn(Exception exception){
+        // If sign in fails, display a message to the user.
+        Log.w(TAG, "signInWithEmailAndPassword:failure", exception);
+        Toast.makeText(LogInActivity.this, "Authentication failed",
+                Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * ???
+     */
+    private void handleCanceledLogIn(){
+        throw new RuntimeException("Not Implemented");
     }
 
     /**
