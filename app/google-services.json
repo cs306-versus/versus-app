@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "27237804788",
+    "firebase_url": "https://bootcamp-e670b-default-rtdb.firebaseio.com",
+    "project_id": "bootcamp-e670b",
+    "storage_bucket": "bootcamp-e670b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:27237804788:android:55e08ea9775de4e7164ca1",
+        "android_client_info": {
+          "package_name": "com.github.aderouic.firebase_bootcamp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "27237804788-6n6mmidp2fpuegg9672afdnormppifmr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVdriKjkHFJx4T_iGEGL74MHIsULQQyec"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "27237804788-6n6mmidp2fpuegg9672afdnormppifmr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
