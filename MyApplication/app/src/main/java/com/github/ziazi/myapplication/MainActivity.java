@@ -1,5 +1,8 @@
 package com.github.ziazi.myapplication;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.text.util.Linkify;
 import android.view.View;
@@ -42,17 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<BoredActivity> call, Throwable t) {
-
-               String error_message = "Offline Mode: Cannot connect to BoredApi";
-                ((TextView)findViewById(R.id.linkView)).setText(error_message);
-
-                db_executor.submit(()-> {
-                           CachedActivity loaded = db.activityDao().randomSelect();
-                           if(loaded!= null) {
-                               ((TextView) findViewById(R.id.textView)).setText(textFormat(loaded.revert()));
-                           }
-                       }
-                       );
+                getCached();
             }
 
         };
@@ -63,6 +56,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getActivity(View view){
+        if(!isNetworkAvailable()) {
+            getCached();
+            return;
+        }
         RetrofitClient.getClient().getApi().getActivity().enqueue(callback_handler);
     }
     private void insertActivity(BoredActivity activity){
@@ -71,5 +68,25 @@ public class MainActivity extends AppCompatActivity {
     private static String textFormat(BoredActivity fetched){
        return  String.format("activity: %s \n accessibility: %s \n type: %s \n participants: %s \n price: %s \n key: %s \n ",
                 fetched.activity,fetched.accessibility,fetched.type,fetched.participants,fetched.price,fetched.key);
+    }
+
+    private void getCached(){
+        String error_message = "Offline Mode: Cannot connect to BoredApi";
+        ((TextView)findViewById(R.id.linkView)).setText(error_message);
+
+        db_executor.submit(()-> {
+                    CachedActivity loaded = db.activityDao().randomSelect();
+                    if(loaded!= null) {
+                        ((TextView) findViewById(R.id.textView)).setText(textFormat(loaded.revert()));
+                    }
+                }
+        );
+    }
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+
     }
 }
