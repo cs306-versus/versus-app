@@ -1,7 +1,5 @@
 package com.github.versus.database;
 
-
-import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.auth.User;
 
 import java.util.Date;

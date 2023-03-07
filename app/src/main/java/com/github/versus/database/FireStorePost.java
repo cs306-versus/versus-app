@@ -2,18 +2,22 @@ package com.github.versus.database;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public class FireStorePost implements Post{
 
-
+    private final String title;
+    private final Timestamp date;
+    private final Location location;
+    private final List<Object> Players;
 
     @Override
     public String getTitle() {
-        return null;
+        return title;
     }
 
     @Override
-    public Time getDate() {
+    public Timestamp getDate() {
         return null;
     }
 
@@ -30,5 +34,10 @@ public class FireStorePost implements Post{
     @Override
     public int getPlayerLimit() {
         return 0;
+    }
+
+    @Override
+    public Map<String, Object> getAllAttributes() {
+        return null;
     }
 }
