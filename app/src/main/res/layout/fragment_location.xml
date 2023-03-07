@@ -2,12 +2,22 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Location Fragment"
-        android:textSize="30sp"
-        android:layout_centerInParent="true"/>
+    <TextView android:id="@+id/__p__football_game"
+        android:fontFamily="Comic Neue"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:layout_marginLeft="136dp"
+        android:layout_marginTop="594dp"
+        android:layout_width="122dp"
+        android:layout_height="29dp"
+        android:text="FootballGame"
+        />
+    <View   android:id="@+id/rectangle_17"
+
+        android:layout_marginStart="77dp"
+        android:layout_marginTop="394dp"
+        android:layout_width="38dp"
+        android:layout_height="74dp" />
 
 
 </RelativeLayout>
