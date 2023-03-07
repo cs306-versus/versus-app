@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -27,7 +28,11 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         NavigationView naviguationview= findViewById(R.id.nav_view);
         naviguationview.setNavigationItemSelectedListener(this);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new ScheduleFragment()).commit();
-   naviguationview.setCheckedItem(R.id.nav_schedule);
+        naviguationview.setCheckedItem(R.id.nav_schedule);
+
+        //TODO: remove the transfer to that activity after that it is transformed into a fragment
+        Intent intent = new Intent(MainActivity.this, groupCreJoin.class);
+        startActivity(intent);
     }
 
 

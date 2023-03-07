@@ -11,14 +11,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Versus"
         tools:targetApi="31">
+        <activity
+            android:name=".groupCreJoin"
+            android:exported="false" />
 
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCfQX6VNkHcFZDl7nIcI_72vbb7mSo_D6o" />
+
         <activity
             android:name=".auth.LogInActivity"
             android:exported="false" />
