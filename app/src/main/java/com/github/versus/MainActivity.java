@@ -7,7 +7,9 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
@@ -29,6 +31,13 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new ScheduleFragment()).commit();
    naviguationview.setCheckedItem(R.id.nav_schedule);
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.current_place_menu, menu);
+        return true;
+    }
+
+
 
 
     @Override
@@ -36,6 +45,9 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         switch(item.getItemId()) {
             case R.id.nav_location:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new LocationFragment()).commit();
+
+                /*Intent intent = new Intent(this, MapsActivityCurrentPlace.class);
+                startActivity(intent);*/
                 break;
 
             case R.id.nav_schedule:
