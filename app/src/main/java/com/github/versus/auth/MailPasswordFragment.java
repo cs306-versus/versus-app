@@ -24,11 +24,6 @@ public class MailPasswordFragment extends BaseAuthFragment {
     private EditText pwd;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -38,12 +33,9 @@ public class MailPasswordFragment extends BaseAuthFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         mail = view.findViewById(R.id.auth_login_mail_mail);
         pwd = view.findViewById(R.id.auth_login_mail_password);
-        Button loginButton = view.findViewById(R.id.auth_login_mail_button);
-
-        loginButton.setOnClickListener(this::tryToLogin);
+        registerLoginButton(view.findViewById(R.id.auth_login_mail_button));
     }
 
     @Override
