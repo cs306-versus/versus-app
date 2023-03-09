@@ -31,11 +31,6 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new ScheduleFragment()).commit();
    naviguationview.setCheckedItem(R.id.nav_schedule);
     }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.current_place_menu, menu);
-        return true;
-    }
 
 
 

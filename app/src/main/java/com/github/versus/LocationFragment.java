@@ -7,15 +7,19 @@ import android.os.Bundle;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -27,6 +31,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.Circle;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -90,10 +96,10 @@ public class LocationFragment extends Fragment
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_location, container, false);
+        //call setHasOptionsMenu(true) to notify the fragment
+        // that it has options menu items that need to be created
+        setHasOptionsMenu(true);
 
-
-        // [START_EXCLUDE silent]
-        // [START maps_current_place_on_create_save_instance_state]
         // Retrieve location and camera position from saved instance state.
         if (savedInstanceState != null) {
             lastKnownLocation = savedInstanceState.getParcelable(KEY_LOCATION);
@@ -135,26 +141,28 @@ public class LocationFragment extends Fragment
      * @param menu The options menu.
      * @return Boolean.
      */
-    /*
+
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.current_place_menu, menu);
-        return true;
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.current_place_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
-*/
+
     /**
      * Handles a click on the menu option to get a place.
      * @param item The menu item to handle.
      * @return Boolean.
      */
     // [START maps_current_place_on_options_item_selected]
+    /*
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    /*public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.option_get_place) {
             showCurrentPlace();
         }
         return true;
-    }
+    }*/
+
     // [END maps_current_place_on_options_item_selected]
 
     /**
@@ -170,6 +178,8 @@ public class LocationFragment extends Fragment
         // [START map_current_place_set_info_window_adapter]
         // Use a custom info window adapter to handle multiple lines of text in the
         // info window contents.
+
+
         this.map.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
 
             @Override
@@ -193,6 +203,7 @@ public class LocationFragment extends Fragment
                 return infoWindow;
             }
         });
+        // Add markers for EPFL and Satellite
         LatLng epfl = new LatLng(46.520536, 6.568318);
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(epfl, 15));
         LatLng sat = new LatLng(46.520544, 6.567825);
@@ -204,7 +215,19 @@ public class LocationFragment extends Fragment
                 .position(sat)
                 .title("Satellite "));
 
-        // [START_EXCLUDE silent]
+
+// Instantiates a new CircleOptions object and defines the center and radius
+      /*  CircleOptions circleOptions = new CircleOptions()
+                .center(new LatLng(46.520536,6.568318 ))
+                .radius(1000); // In meters
+
+// Get back the mutable Circle
+        Circle circle = map.addCircle(circleOptions);*/
+
+
+
+
+
         map.moveCamera(CameraUpdateFactory.newLatLng(epfl));
         map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
@@ -214,11 +237,11 @@ public class LocationFragment extends Fragment
                 Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
             }
         });
-        // [END map_current_place_set_info_window_adapter]
+
 
         // Prompt the user for permission.
         getLocationPermission();
-        // [END_EXCLUDE]
+
 
         // Turn on the My Location layer and the related control on the map.
         updateLocationUI();
@@ -316,7 +339,7 @@ public class LocationFragment extends Fragment
      * current place on the map - provided the user has granted location permission.
      */
     // [START maps_current_place_show_current_place]
-    private void showCurrentPlace() {
+    /*private void showCurrentPlace() {
         if (map == null) {
             return;
         }
@@ -392,13 +415,17 @@ public class LocationFragment extends Fragment
             getLocationPermission();
         }
     }
+    */
+
     // [END maps_current_place_show_current_place]
 
     /**
      * Displays a form allowing the user to select a place from a list of likely places.
      */
     // [START maps_current_place_open_places_dialog]
-    private void openPlacesDialog() {
+
+
+  /*  private void openPlacesDialog() {
         // Ask the user to choose the place where they are now.
         DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
             @Override
@@ -430,7 +457,7 @@ public class LocationFragment extends Fragment
                 .show();
     }
     // [END maps_current_place_open_places_dialog]
-
+*/
     /**
      * Updates the map's UI settings based on whether the user has granted location permission.
      */
