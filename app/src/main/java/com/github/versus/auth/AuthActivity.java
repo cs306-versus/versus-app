@@ -18,34 +18,4 @@ public class AuthActivity extends AppCompatActivity {
         setContentView(R.layout.activity_auth);
     }
 
-    /**
-     * ???
-     * @param view
-     */
-    public void loginWithGoogleRequest(View view) {
-        // TODO : this method should be defined in the AuthFragment class
-        Toast.makeText(this, "loginWithGoogleRequest",
-                Toast.LENGTH_SHORT).show();
-    }
-
-    /**
-     * ???
-     * @param view
-     */
-    public void loginWithMailRequest(View view) {
-        // TODO : this method should be defined in the AuthFragment class
-        FragmentManager manager = getSupportFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.fragmentContainerView, MailPasswordFragment.class, null);
-        transaction.commit();
-    }
-
-    public void signInRequest(View view){
-        // TODO : this method should be defined in the AuthFragment class
-        FragmentManager manager = getSupportFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.fragmentContainerView, SignInFragment.class, null);
-        transaction.commit();
-    }
-
 }

@@ -17,7 +17,6 @@
             android:layout_marginStart="111dp"
             android:layout_marginEnd="111dp"
             android:layout_marginBottom="320dp"
-            android:onClick="loginWithGoogleRequest"
             android:text="@string/auth_login_google"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -30,7 +29,6 @@
             android:layout_marginStart="122dp"
             android:layout_marginEnd="123dp"
             android:layout_marginBottom="17dp"
-            android:onClick="loginWithMailRequest"
             android:text="@string/auth_with_mail"
             app:layout_constraintBottom_toTopOf="@+id/auth_login_google"
             app:layout_constraintEnd_toEndOf="parent"
@@ -56,7 +54,6 @@
             android:layout_marginEnd="79dp"
             android:layout_marginBottom="253dp"
             android:text="@string/auth_signin"
-            android:onClick="signInRequest"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/auth_missing_account" />

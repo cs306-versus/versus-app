@@ -23,12 +23,6 @@
             android:value="AIzaSyCfQX6VNkHcFZDl7nIcI_72vbb7mSo_D6o" />
 
         <activity
-            android:name=".auth.LogInActivity"
-            android:exported="false" />
-        <activity
-            android:name=".auth.SignInActivity"
-            android:exported="false" />
-        <activity
             android:name=".MainActivity"
             android:exported="false" />
         <activity

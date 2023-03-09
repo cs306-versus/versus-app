@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.github.versus.auth.AuthActivity;
-import com.github.versus.auth.LogInActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -19,7 +18,7 @@ import static java.util.Objects.*;
  *
  * This Activity will check if a user is logged in. If it's the case,
  * it will yield for the {@link MainActivity}. Otherwise, it will ask
- * the user to log in by starting the {@link LogInActivity}.
+ * the user to log in by starting the {@link AuthActivity}.
  */
 public class EntryActivity extends AppCompatActivity {
 
