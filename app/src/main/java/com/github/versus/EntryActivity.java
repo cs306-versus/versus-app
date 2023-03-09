@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.github.versus.auth.AuthActivity;
 import com.github.versus.auth.LogInActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -52,7 +53,7 @@ public class EntryActivity extends AppCompatActivity {
      */
     private void yieldActivity(@Nullable FirebaseUser user){
         Class<?> activity = isNull(user)
-                ? LogInActivity.class
+                ? AuthActivity.class
                 : MainActivity.class;
         Intent intent = new Intent(this, activity);
         startActivity(intent);
