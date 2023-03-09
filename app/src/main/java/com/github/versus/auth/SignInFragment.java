@@ -1,18 +1,15 @@
 package com.github.versus.auth;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.Toast;
 
-import com.github.versus.R;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import com.github.versus.databinding.FragmentSignInBinding;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 
@@ -21,36 +18,25 @@ import com.google.firebase.auth.AuthResult;
  */
 public class SignInFragment extends BaseAuthFragment {
 
-    private EditText name;
-    private EditText mail;
-    private EditText pwd;
-    private EditText phone;
-    private EditText zipCode;
+    private FragmentSignInBinding binding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sign_in, container, false);
+        binding = FragmentSignInBinding.inflate(inflater);
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        name = view.findViewById(R.id.auth_signin_name);
-        mail = view.findViewById(R.id.auth_signin_mail);
-        pwd = view.findViewById(R.id.auth_signin_pwd);
-        phone = view.findViewById(R.id.auth_signin_phone);
-        zipCode = view.findViewById(R.id.auth_signin_zip_code);
-
-        registerLoginButton(view.findViewById(R.id.auth_signin_button));
+        registerLoginButton(binding.authSigninButton);
     }
 
     @Override
     protected Task<AuthResult> requestAuthentication() {
-        String mailText = mail.getText().toString();
-        String pwdText = pwd.getText().toString();
+        String mailText = binding.authSigninMail.getText().toString();
+        String pwdText = binding.authSigninPwd.getText().toString();
         return auth.createAccountWithMail(mailText, pwdText);
     }
 

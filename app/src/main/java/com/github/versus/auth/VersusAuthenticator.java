@@ -16,15 +16,16 @@ public final class VersusAuthenticator implements Authenticator {
      */
     private final FirebaseAuth auth;
 
-    private VersusAuthenticator(FirebaseAuth auth){
+    private VersusAuthenticator(FirebaseAuth auth) {
         this.auth = auth;
     }
 
     /**
      * ???
+     *
      * @return
      */
-    public static VersusAuthenticator getInstance(){
+    public static VersusAuthenticator getInstance() {
         return new VersusAuthenticator(FirebaseAuth.getInstance());
     }
 

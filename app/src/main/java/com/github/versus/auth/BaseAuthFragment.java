@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment;
 import com.github.versus.MainActivity;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
 
 /**
  *
@@ -31,17 +30,19 @@ public abstract class BaseAuthFragment extends Fragment {
 
     /**
      * ???
+     *
      * @param button
      */
-    protected final void registerLoginButton(Button button){
+    protected final void registerLoginButton(Button button) {
         button.setOnClickListener(this::tryToLogin);
     }
 
     /**
      * ???
+     *
      * @param view
      */
-    private void tryToLogin(View view){
+    private void tryToLogin(View view) {
         Task<AuthResult> task = requestAuthentication();
         task.addOnSuccessListener(this::onSuccessfulLogin);
         task.addOnFailureListener(this::handleFailedConnection);
@@ -49,7 +50,7 @@ public abstract class BaseAuthFragment extends Fragment {
 
     }
 
-    private void onSuccessfulLogin(AuthResult result){
+    private void onSuccessfulLogin(AuthResult result) {
         handleSuccessfulConnection(result);
         // Switch to the MainActivity
         startActivity(new Intent(getContext(), MainActivity.class));
@@ -57,6 +58,7 @@ public abstract class BaseAuthFragment extends Fragment {
 
     /**
      * ???
+     *
      * @return
      */
     protected abstract Task<AuthResult> requestAuthentication();
@@ -64,12 +66,14 @@ public abstract class BaseAuthFragment extends Fragment {
     /**
      * ???
      * NO NEED TO SWITCH TO THE MAIN ACTIVITY
+     *
      * @param result
      */
     protected abstract void handleSuccessfulConnection(AuthResult result);
 
     /**
      * ???
+     *
      * @param exception
      */
     protected abstract void handleFailedConnection(Exception exception);

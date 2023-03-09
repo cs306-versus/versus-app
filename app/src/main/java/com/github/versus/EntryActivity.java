@@ -1,24 +1,23 @@
 package com.github.versus;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+import static java.util.Objects.isNull;
 
 import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.github.versus.auth.AuthActivity;
 import com.github.versus.auth.Authenticator;
 import com.github.versus.auth.VersusAuthenticator;
 import com.github.versus.user.User;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
-import static java.util.Objects.*;
 
 
 /**
  * Entry point to the Application.
- *
+ * <p>
  * This Activity will check if a user is logged in. If it's the case,
  * it will yield for the {@link MainActivity}. Otherwise, it will ask
  * the user to log in by starting the {@link AuthActivity}.
@@ -42,9 +41,10 @@ public class EntryActivity extends AppCompatActivity {
 
     /**
      * ???
+     *
      * @param user
      */
-    private void yieldActivity(@Nullable User user){
+    private void yieldActivity(@Nullable User user) {
         Class<?> activity = isNull(user)
                 ? AuthActivity.class
                 : MainActivity.class;
@@ -55,7 +55,7 @@ public class EntryActivity extends AppCompatActivity {
     /**
      * Initialize the authentication
      */
-    private void initAuthentication(){
+    private void initAuthentication() {
         auth = VersusAuthenticator.getInstance();
         //mAuth.addAuthStateListener(this::handleStateChange);
         //mAuth.addIdTokenListener(this::handleIdTokenChanged);
@@ -63,18 +63,20 @@ public class EntryActivity extends AppCompatActivity {
 
     /**
      * ???
+     *
      * @param auth
      */
-    private void handleStateChange(FirebaseAuth auth){
+    private void handleStateChange(FirebaseAuth auth) {
         // TODO HR : To protect the App from LogIn issues, add listeners
         //  so we can handle such errors
     }
 
     /**
      * ???
+     *
      * @param auth
      */
-    private void handleIdTokenChanged(FirebaseAuth auth){
+    private void handleIdTokenChanged(FirebaseAuth auth) {
         // TODO HR : To protect the App from LogIn issues, add listeners
         //  so we can handle such errors
     }

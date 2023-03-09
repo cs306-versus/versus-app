@@ -12,6 +12,7 @@ public interface Authenticator {
 
     /**
      * ???
+     *
      * @param mail
      * @param password
      * @return
@@ -20,6 +21,7 @@ public interface Authenticator {
 
     /**
      * ???
+     *
      * @param mail
      * @param password
      * @return
@@ -28,6 +30,7 @@ public interface Authenticator {
 
     /**
      * ???
+     *
      * @return
      */
     User currentUser();
