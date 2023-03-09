@@ -6,23 +6,18 @@ import android.location.Location;
 import android.os.Bundle;
 
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -31,8 +26,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.Circle;
-import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -54,7 +47,7 @@ import java.util.List;
  */
 
 
-public class LocationFragment extends Fragment
+public class MapsActivityCurrentPlace extends AppCompatActivity
         implements OnMapReadyCallback {
 
     private static final String TAG = MapsActivityCurrentPlace.class.getSimpleName();
@@ -92,34 +85,39 @@ public class LocationFragment extends Fragment
     private LatLng[] likelyPlaceLatLngs;
 
     // [START maps_current_place_on_create]
-
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_location, container, false);
-        //call setHasOptionsMenu(true) to notify the fragment
-        // that it has options menu items that need to be created
-        setHasOptionsMenu(true);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
+        // [START_EXCLUDE silent]
+        // [START maps_current_place_on_create_save_instance_state]
         // Retrieve location and camera position from saved instance state.
         if (savedInstanceState != null) {
             lastKnownLocation = savedInstanceState.getParcelable(KEY_LOCATION);
             cameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION);
         }
+        // [END maps_current_place_on_create_save_instance_state]
+        // [END_EXCLUDE]
 
+        // Retrieve the content view that renders the map.
+        setContentView(R.layout.fragment_location);
+
+        // [START_EXCLUDE silent]
         // Construct a PlacesClient
-        Places.initialize(getActivity().getApplicationContext(), "AIzaSyCfQX6VNkHcFZDl7nIcI_72vbb7mSo_D6o");
-        placesClient = Places.createClient(getActivity());
+        Places.initialize(getApplicationContext(),"AIzaSyCfQX6VNkHcFZDl7nIcI_72vbb7mSo_D6o");
+        placesClient = Places.createClient(this);
 
         // Construct a FusedLocationProviderClient.
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
-        // Build the map
-        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+        // Build the map.
+        // [START maps_current_place_map_fragment]
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
-        return view;
+        // [END maps_current_place_map_fragment]
+        // [END_EXCLUDE]
     }
-
     // [END maps_current_place_on_create]
 
     /**
@@ -127,7 +125,7 @@ public class LocationFragment extends Fragment
      */
     // [START maps_current_place_on_save_instance_state]
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(Bundle outState) {
         if (map != null) {
             outState.putParcelable(KEY_CAMERA_POSITION, map.getCameraPosition());
             outState.putParcelable(KEY_LOCATION, lastKnownLocation);
@@ -141,11 +139,10 @@ public class LocationFragment extends Fragment
      * @param menu The options menu.
      * @return Boolean.
      */
-
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.current_place_menu, menu);
-        super.onCreateOptionsMenu(menu, inflater);
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.current_place_menu, menu);
+        return true;
     }
 
     /**
@@ -154,15 +151,13 @@ public class LocationFragment extends Fragment
      * @return Boolean.
      */
     // [START maps_current_place_on_options_item_selected]
-    /*
     @Override
-    /*public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.option_get_place) {
             showCurrentPlace();
         }
         return true;
-    }*/
-
+    }
     // [END maps_current_place_on_options_item_selected]
 
     /**
@@ -173,13 +168,11 @@ public class LocationFragment extends Fragment
     @Override
     public void onMapReady(GoogleMap map) {
         this.map = map;
-        map.getUiSettings().setZoomControlsEnabled(true);
+
         // [START_EXCLUDE]
         // [START map_current_place_set_info_window_adapter]
         // Use a custom info window adapter to handle multiple lines of text in the
         // info window contents.
-
-
         this.map.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
 
             @Override
@@ -192,7 +185,7 @@ public class LocationFragment extends Fragment
             public View getInfoContents(Marker marker) {
                 // Inflate the layouts for the info window, title and snippet.
                 View infoWindow = getLayoutInflater().inflate(R.layout.custom_info_contents,
-                        getActivity().findViewById(R.id.map), false);
+                        (FrameLayout) findViewById(R.id.map), false);
 
                 TextView title = infoWindow.findViewById(R.id.title);
                 title.setText(marker.getTitle());
@@ -203,7 +196,6 @@ public class LocationFragment extends Fragment
                 return infoWindow;
             }
         });
-        // Add markers for EPFL and Satellite
         LatLng epfl = new LatLng(46.520536, 6.568318);
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(epfl, 15));
         LatLng sat = new LatLng(46.520544, 6.567825);
@@ -215,33 +207,21 @@ public class LocationFragment extends Fragment
                 .position(sat)
                 .title("Satellite "));
 
-
-// Instantiates a new CircleOptions object and defines the center and radius
-      /*  CircleOptions circleOptions = new CircleOptions()
-                .center(new LatLng(46.520536,6.568318 ))
-                .radius(1000); // In meters
-
-// Get back the mutable Circle
-        Circle circle = map.addCircle(circleOptions);*/
-
-
-
-
-
+        // [START_EXCLUDE silent]
         map.moveCamera(CameraUpdateFactory.newLatLng(epfl));
         map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
                 LatLng position = marker.getPosition();
                 String message = "Marker clicked at: " + position.latitude + ", " + position.longitude;
-                Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+                Toast.makeText(MapsActivityCurrentPlace.this, message, Toast.LENGTH_SHORT).show();
             }
         });
-
+        // [END map_current_place_set_info_window_adapter]
 
         // Prompt the user for permission.
         getLocationPermission();
-
+        // [END_EXCLUDE]
 
         // Turn on the My Location layer and the related control on the map.
         updateLocationUI();
@@ -263,7 +243,7 @@ public class LocationFragment extends Fragment
         try {
             if (locationPermissionGranted) {
                 Task<Location> locationResult = fusedLocationProviderClient.getLastLocation();
-                locationResult.addOnCompleteListener(getActivity(), new OnCompleteListener<Location>() {
+                locationResult.addOnCompleteListener(this, new OnCompleteListener<Location>() {
                     @Override
                     public void onComplete(@NonNull Task<Location> task) {
                         if (task.isSuccessful()) {
@@ -300,12 +280,12 @@ public class LocationFragment extends Fragment
          * device. The result of the permission request is handled by a callback,
          * onRequestPermissionsResult.
          */
-        if (ContextCompat.checkSelfPermission(getActivity().getApplicationContext(),
+        if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
                 android.Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             locationPermissionGranted = true;
         } else {
-            ActivityCompat.requestPermissions(getActivity(),
+            ActivityCompat.requestPermissions(this,
                     new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
                     PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
         }
@@ -339,7 +319,7 @@ public class LocationFragment extends Fragment
      * current place on the map - provided the user has granted location permission.
      */
     // [START maps_current_place_show_current_place]
-    /*private void showCurrentPlace() {
+    private void showCurrentPlace() {
         if (map == null) {
             return;
         }
@@ -394,7 +374,7 @@ public class LocationFragment extends Fragment
 
                         // Show a dialog offering the user the list of likely places, and add a
                         // marker at the selected place.
-                        openPlacesDialog();
+                        MapsActivityCurrentPlace.this.openPlacesDialog();
                     }
                     else {
                         Log.e(TAG, "Exception: %s", task.getException());
@@ -415,17 +395,14 @@ public class LocationFragment extends Fragment
             getLocationPermission();
         }
     }
-    */
-
     // [END maps_current_place_show_current_place]
 
     /**
      * Displays a form allowing the user to select a place from a list of likely places.
      */
+
     // [START maps_current_place_open_places_dialog]
-
-
-  /*  private void openPlacesDialog() {
+    private void openPlacesDialog() {
         // Ask the user to choose the place where they are now.
         DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
             @Override
@@ -451,13 +428,13 @@ public class LocationFragment extends Fragment
         };
 
         // Display the dialog.
-        AlertDialog dialog = new AlertDialog.Builder(getActivity())
+        AlertDialog dialog = new AlertDialog.Builder(this)
                 .setTitle(R.string.pick_place)
                 .setItems(likelyPlaceNames, listener)
                 .show();
     }
     // [END maps_current_place_open_places_dialog]
-*/
+
     /**
      * Updates the map's UI settings based on whether the user has granted location permission.
      */
@@ -482,3 +459,4 @@ public class LocationFragment extends Fragment
     }
     // [END maps_current_place_update_location_ui]
 }
+
