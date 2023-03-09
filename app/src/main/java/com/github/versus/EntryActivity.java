@@ -7,6 +7,9 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.github.versus.auth.AuthActivity;
+import com.github.versus.auth.Authenticator;
+import com.github.versus.auth.VersusAuthenticator;
+import com.github.versus.user.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -22,7 +25,7 @@ import static java.util.Objects.*;
  */
 public class EntryActivity extends AppCompatActivity {
 
-    private FirebaseAuth mAuth;
+    private Authenticator auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,24 +36,15 @@ public class EntryActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        mAuth.signOut();
-        FirebaseUser user = user();
+        User user = auth.currentUser();
         yieldActivity(user);
-    }
-
-    /**
-     * ???
-     * @return
-     */
-    private @Nullable FirebaseUser user(){
-        return mAuth.getCurrentUser();
     }
 
     /**
      * ???
      * @param user
      */
-    private void yieldActivity(@Nullable FirebaseUser user){
+    private void yieldActivity(@Nullable User user){
         Class<?> activity = isNull(user)
                 ? AuthActivity.class
                 : MainActivity.class;
@@ -62,9 +56,9 @@ public class EntryActivity extends AppCompatActivity {
      * Initialize the authentication
      */
     private void initAuthentication(){
-        mAuth = FirebaseAuth.getInstance();
-        mAuth.addAuthStateListener(this::handleStateChange);
-        mAuth.addIdTokenListener(this::handleIdTokenChanged);
+        auth = VersusAuthenticator.getInstance();
+        //mAuth.addAuthStateListener(this::handleStateChange);
+        //mAuth.addIdTokenListener(this::handleIdTokenChanged);
     }
 
     /**

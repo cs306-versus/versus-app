@@ -42,7 +42,7 @@ public class MailPasswordFragment extends BaseAuthFragment {
     protected Task<AuthResult> requestAuthentication() {
         String mailText = mail.getText().toString();
         String pwdText = pwd.getText().toString();
-        return auth.signInWithEmailAndPassword(mailText, pwdText);
+        return auth.signInWithMail(mailText, pwdText);
     }
 
     /**

@@ -51,7 +51,7 @@ public class SignInFragment extends BaseAuthFragment {
     protected Task<AuthResult> requestAuthentication() {
         String mailText = mail.getText().toString();
         String pwdText = pwd.getText().toString();
-        return auth.createUserWithEmailAndPassword(mailText, pwdText);
+        return auth.createAccountWithMail(mailText, pwdText);
     }
 
     @Override

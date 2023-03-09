@@ -21,12 +21,12 @@ public abstract class BaseAuthFragment extends Fragment {
     /**
      * Instance of the authenticator we use
      */
-    protected FirebaseAuth auth;
+    protected Authenticator auth;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.auth = FirebaseAuth.getInstance();
+        this.auth = VersusAuthenticator.getInstance();
     }
 
     /**
