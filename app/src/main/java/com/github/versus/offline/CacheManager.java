@@ -28,8 +28,11 @@ public final class CacheManager implements DataBaseManager<Post> {
     }
     @Override
     public Future<Boolean> insert(Post post) {
-
-        return CompletableFuture.runAsync((()->dao.insertAll(CachedPost.match(post)))).
+        CachedPost cached= CachedPost.match(post);
+        if(cached.isEmpty){
+            return CompletableFuture.completedFuture(Boolean.FALSE);
+        }
+        return CompletableFuture.runAsync((()->dao.insertAll(cached))).
                 handle((r,e)-> e!=null);
     }
 

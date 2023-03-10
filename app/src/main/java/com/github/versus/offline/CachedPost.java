@@ -56,7 +56,9 @@ public final class CachedPost {
     public final String  meridiem;
 
 
-    public CachedPost(Post post){
+    @ColumnInfo(name = "empty")
+    public final boolean  isEmpty;
+    private CachedPost(Post post){
 
         id= computeID(post);
         title= post.getTitle();
@@ -73,12 +75,30 @@ public final class CachedPost {
         minutes= timestamp.getMinutes();
         seconds= timestamp.getSeconds();
         meridiem= timestamp.getM().name();
+        isEmpty= false;
 
+    }
+    public CachedPost(){
+        isEmpty= true;
+        id= "Empty post";
+        title= null;
+        limit= -1;
+        Location location= null;
+        locationName= null;
+        latitude=-1;
+        longitude= -1;
+        year=  -1;
+        month= null;
+        day= -1;
+        hour= -1;
+        minutes= -1;
+        seconds= -1;
+        meridiem= null;
     }
 
     public static CachedPost match(Post post){
         if(post==null||post.getLocation()==null||post.getDate()==null) {
-            return null;
+            return new CachedPost();
         }
         return new CachedPost(post);
     }
