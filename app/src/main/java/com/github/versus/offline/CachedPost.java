@@ -18,7 +18,7 @@ import java.util.Map;
 public final class CachedPost {
 
     @PrimaryKey
-    public final int id;
+    public final String id;
     @ColumnInfo(name = "title")
     public final String title;
 
@@ -56,7 +56,7 @@ public final class CachedPost {
 
     private CachedPost(Post post){
 
-        id= post.hashCode();
+        id= String.valueOf(post.hashCode());
         title= post.getTitle();
         limit= post.getPlayerLimit();
         Location location= post.getLocation();
