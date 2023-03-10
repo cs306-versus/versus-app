@@ -30,12 +30,7 @@ public final class CacheManager implements DataBaseManager<Post> {
     public Future<Boolean> insert(Post post) {
 
         return CompletableFuture.runAsync((()->dao.insertAll(CachedPost.match(post)))).
-                handle((r,e)->{
-                    if(e!=null){
-                        return false;
-                    }
-                    return true;
-                });
+                handle((r,e)-> e!=null);
     }
 
     @Override
@@ -45,12 +40,6 @@ public final class CacheManager implements DataBaseManager<Post> {
 
     @Override
     public Future<Boolean> delete(String id) {
-        return CompletableFuture.runAsync((()->dao.delete(dao.loadById(id)))).
-                handle((r,e)->{
-                    if(e!=null){
-                        return false;
-                    }
-                    return true;
-                });
+        return CompletableFuture.runAsync((()->dao.deleteById(id))).handle((r,e)-> e!=null);
     }
 }

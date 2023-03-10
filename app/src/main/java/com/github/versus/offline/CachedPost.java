@@ -56,7 +56,7 @@ public final class CachedPost {
 
     private CachedPost(Post post){
 
-        id= String.valueOf(post.hashCode());
+        id= computeID(post);
         title= post.getTitle();
         limit= post.getPlayerLimit();
         Location location= post.getLocation();
@@ -111,5 +111,8 @@ public final class CachedPost {
         };
     }
 
+    public static String computeID(Post post){
+        return String.valueOf(post.hashCode());
+    }
 
 }

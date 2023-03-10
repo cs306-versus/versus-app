@@ -25,6 +25,10 @@ public interface PostDAO  {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(CachedPost... rows);
 
+    @Query("DELETE FROM CachedPost WHERE id LIKE :id")
+    void deleteById(String id);
+
+
     @Delete
     void delete(CachedPost row);
 
