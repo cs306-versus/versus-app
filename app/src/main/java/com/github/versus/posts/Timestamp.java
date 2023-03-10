@@ -92,6 +92,6 @@ public class Timestamp {
     /**
      * AM-PM enum
      */
-    enum Meridiem{
+    public enum Meridiem{
         AM, PM;
     }}
