@@ -19,45 +19,45 @@ import java.util.Map;
 public final class CachedPost {
 
     @PrimaryKey @NonNull
-    public final String id;
+    public  String id;
     @ColumnInfo(name = "title")
-    public final String title;
+    public  String title;
 
     @ColumnInfo(name = "limit")
-    public final int limit;
+    public  int limit;
 
     @ColumnInfo(name = "locationName")
-    public final String locationName;
+    public  String locationName;
 
     @ColumnInfo(name = "latitude")
-    public final double latitude;
+    public  double latitude;
 
     @ColumnInfo(name = "longitude")
-    public final double longitude;
+    public  double longitude;
 
     @ColumnInfo(name = "year")
-    public final int year;
+    public  int year;
     @ColumnInfo(name = "month")
-    public final String month;
+    public  String month;
 
     @ColumnInfo(name = "day")
-    public final int day;
+    public  int day;
 
     @ColumnInfo(name = "hour")
-    public final int hour;
+    public  int hour;
 
     @ColumnInfo(name = "minutes")
-    public final int minutes;
+    public  int minutes;
 
     @ColumnInfo(name = "seconds")
-    public final int seconds;
+    public  int seconds;
 
     @ColumnInfo(name = "meridiem")
-    public final String  meridiem;
+    public  String  meridiem;
 
 
     @ColumnInfo(name = "empty")
-    public final boolean  isEmpty;
+    public  boolean  isEmpty;
     private CachedPost(Post post){
 
         id= computeID(post);
@@ -81,19 +81,6 @@ public final class CachedPost {
     public CachedPost(){
         isEmpty= true;
         id= "Empty post";
-        title= null;
-        limit= -1;
-        Location location= null;
-        locationName= null;
-        latitude=-1;
-        longitude= -1;
-        year=  -1;
-        month= null;
-        day= -1;
-        hour= -1;
-        minutes= -1;
-        seconds= -1;
-        meridiem= null;
     }
 
     public static CachedPost match(Post post){
