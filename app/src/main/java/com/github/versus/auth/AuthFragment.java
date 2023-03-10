@@ -1,5 +1,6 @@
 package com.github.versus.auth;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,6 +47,10 @@ public class AuthFragment extends Fragment {
     private void loginWithGoogleRequest(View view) {
         Toast.makeText(getContext(), "loginWithGoogleRequest",
                 Toast.LENGTH_SHORT).show();
+        FragmentManager manager = getParentFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.fragmentContainerView, GoogleAuthFragment.class, null);
+        transaction.commit();
     }
 
     /**
@@ -71,4 +76,5 @@ public class AuthFragment extends Fragment {
         transaction.replace(R.id.fragmentContainerView, SignInFragment.class, null);
         transaction.commit();
     }
+
 }

@@ -57,6 +57,7 @@ public class EntryActivity extends AppCompatActivity {
      */
     private void initAuthentication() {
         auth = VersusAuthenticator.getInstance();
+        auth.signOut();
         //mAuth.addAuthStateListener(this::handleStateChange);
         //mAuth.addIdTokenListener(this::handleIdTokenChanged);
     }
