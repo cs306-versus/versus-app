@@ -58,6 +58,7 @@ public final class CachedPost {
 
     @ColumnInfo(name = "empty")
     public  boolean  isEmpty;
+    public static final String emptyID= "Empty";
     private CachedPost(Post post){
 
         id= computeID(post);
@@ -80,11 +81,11 @@ public final class CachedPost {
     }
     public CachedPost(){
         isEmpty= true;
-        id= "Empty post";
+        id= emptyID;
     }
 
     public static CachedPost match(Post post){
-        if(post==null||post.getLocation()==null||post.getDate()==null) {
+        if(postIsInvalid(post)) {
             return new CachedPost();
         }
         return new CachedPost(post);
@@ -125,7 +126,14 @@ public final class CachedPost {
     }
 
     public static String computeID(Post post){
+        if(postIsInvalid(post)){
+            return emptyID;
+        }
         return String.valueOf(post.hashCode());
+    }
+
+    public static boolean postIsInvalid(Post post){
+        return post==null||post.getLocation()==null||post.getDate()==null;
     }
 
 }
