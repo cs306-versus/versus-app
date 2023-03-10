@@ -1,5 +1,6 @@
 package com.github.versus.offline;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -17,7 +18,7 @@ import java.util.Map;
 @Entity
 public final class CachedPost {
 
-    @PrimaryKey
+    @PrimaryKey @NonNull
     public final String id;
     @ColumnInfo(name = "title")
     public final String title;
@@ -54,7 +55,8 @@ public final class CachedPost {
     @ColumnInfo(name = "meridiem")
     public final String  meridiem;
 
-    private CachedPost(Post post){
+
+    public CachedPost(Post post){
 
         id= computeID(post);
         title= post.getTitle();
@@ -73,7 +75,11 @@ public final class CachedPost {
         meridiem= timestamp.getM().name();
 
     }
+
     public static CachedPost match(Post post){
+        if(post==null||post.getLocation()==null||post.getDate()==null) {
+            return null;
+        }
         return new CachedPost(post);
     }
 
