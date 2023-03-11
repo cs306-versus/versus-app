@@ -45,12 +45,7 @@ public class AuthFragment extends Fragment {
      * @param view
      */
     private void loginWithGoogleRequest(View view) {
-        Toast.makeText(getContext(), "loginWithGoogleRequest",
-                Toast.LENGTH_SHORT).show();
-        FragmentManager manager = getParentFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.fragmentContainerView, GoogleAuthFragment.class, null);
-        transaction.commit();
+        switchTo(GoogleAuthFragment.class);
     }
 
     /**
@@ -59,10 +54,7 @@ public class AuthFragment extends Fragment {
      * @param view
      */
     private void loginWithMailRequest(View view) {
-        FragmentManager manager = getParentFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.fragmentContainerView, MailPasswordFragment.class, null);
-        transaction.commit();
+        switchTo(MailPasswordFragment.class);
     }
 
     /**
@@ -71,9 +63,13 @@ public class AuthFragment extends Fragment {
      * @param view
      */
     private void signInRequest(View view) {
+        switchTo(SignInFragment.class);
+    }
+
+    private void switchTo(Class<? extends Fragment> clz){
         FragmentManager manager = getParentFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.fragmentContainerView, SignInFragment.class, null);
+        transaction.replace(R.id.fragmentContainerView, clz, null);
         transaction.commit();
     }
 
