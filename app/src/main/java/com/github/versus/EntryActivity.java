@@ -3,6 +3,7 @@ package com.github.versus;
 import static java.util.Objects.isNull;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -23,6 +24,11 @@ import com.google.firebase.auth.FirebaseAuth;
  * the user to log in by starting the {@link AuthActivity}.
  */
 public class EntryActivity extends AppCompatActivity {
+
+    /**
+     * Key to add an authenticator server to an Intent
+     */
+    public static final String AUTH_INTENT = "auth-server";
 
     private Authenticator auth;
 
@@ -56,30 +62,11 @@ public class EntryActivity extends AppCompatActivity {
      * Initialize the authentication
      */
     private void initAuthentication() {
-        auth = VersusAuthenticator.getInstance();
-        auth.signOut();
-        //mAuth.addAuthStateListener(this::handleStateChange);
-        //mAuth.addIdTokenListener(this::handleIdTokenChanged);
-    }
-
-    /**
-     * ???
-     *
-     * @param auth
-     */
-    private void handleStateChange(FirebaseAuth auth) {
-        // TODO HR : To protect the App from LogIn issues, add listeners
-        //  so we can handle such errors
-    }
-
-    /**
-     * ???
-     *
-     * @param auth
-     */
-    private void handleIdTokenChanged(FirebaseAuth auth) {
-        // TODO HR : To protect the App from LogIn issues, add listeners
-        //  so we can handle such errors
+        // HR : For testing purposes, we check if the intent contains an authenticator
+        Intent intent = getIntent();
+        auth = intent.hasExtra(AUTH_INTENT)
+                ? (Authenticator) intent.getSerializableExtra(AUTH_INTENT)
+                : VersusAuthenticator.getInstance();
     }
 
 }
