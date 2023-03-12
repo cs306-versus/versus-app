@@ -21,6 +21,7 @@ public class Timestamp {
 
     public Timestamp(int year, Month month, int day, int hour, int minutes, Meridiem m) {
         // TODO : enable assertions for these checks to happen
+        //TODO: Tell derouich about the check of minutes and hours
         // acceptable time and date checks
         assert( CURR_YEAR <= year && year <= MAX_YEAR );
         assert( 1 <= day && day <= 31 );

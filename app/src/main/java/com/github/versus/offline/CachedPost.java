@@ -133,7 +133,7 @@ public final class CachedPost {
     }
 
     public static boolean postIsInvalid(Post post){
-        return post==null||post.getLocation()==null||post.getDate()==null;
+        return post==null||post.getTitle()==null||post.getLocation()==null||post.getDate()==null;
     }
 
 }
