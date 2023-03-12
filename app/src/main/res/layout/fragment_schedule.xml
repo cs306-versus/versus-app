@@ -275,6 +275,7 @@
                     android:layout_height="94.5dp"
                     android:text="W"
                     />
+
                 <TextView android:id="@+id/_8"
                     android:fontFamily="Comic Neue"
                     android:textStyle="bold"
@@ -351,51 +352,13 @@
                     android:layout_width="389dp"
                     android:layout_height="355dp" />
 
-                <TextView android:id="@+id/unil_sport"
-                    android:fontFamily="Comic Neue"
-                    android:textSize="12sp"
-                    android:textColor="@color/unil_sport_color"
-                    android:layout_marginLeft="136dp"
-                    android:layout_marginTop="614dp"
-                    android:layout_width="71dp"
-                    android:layout_height="22dp"
-                    android:text="@string/unil_sport_string"
-                    />
 
-                <TextView android:id="@+id/unil_sport_ek1"
-                    android:fontFamily="Comic Neue"
-                    android:textSize="12sp"
-                    android:textColor="@color/unil_sport_color"
-                    android:layout_marginLeft="136dp"
-                    android:layout_marginTop="706dp"
-                    android:layout_width="71dp"
-                    android:layout_height="22dp"
-                    android:text="@string/unil_sport_ek1_string"
-                    />
 
-                <TextView android:id="@+id/_02_30_pm"
-                    android:fontFamily="Comic Neue"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:textColor="@color/unil_sport_color"
-                    android:layout_marginLeft="29dp"
-                    android:layout_marginTop="670dp"
-                    android:layout_width="86dp"
-                    android:layout_height="47dp"
-                    android:text="@string/_02_30_pm_string"
-                    />
 
-                <TextView android:id="@+id/_10_00_am"
-                    android:fontFamily="Comic Neue"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:textColor="@color/_10_00_am_color"
-                    android:layout_marginLeft="29dp"
-                    android:layout_marginTop="592dp"
-                    android:layout_width="86dp"
-                    android:layout_height="29dp"
-                    android:text="@string/_10_00_am_string"
-                    />
+
+
+
+
 
                 <TextView android:id="@+id/your_timeline"
                     android:fontFamily="Comic Neue"
@@ -409,61 +372,24 @@
                     android:text="@string/your_timeline_string"
                     />
 
-                <View   android:id="@+id/rectangle_5"
-                    android:background="@drawable/rectangle_5_shape"
-                    android:layout_marginStart="118dp"
-                    android:layout_marginTop="588dp"
-                    android:layout_width="3dp"
-                    android:layout_height="72dp" />
+                <ListView
+                    android:id="@+id/list_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="5000dp"
+                    android:layout_marginTop="600dp"
 
-                <View   android:id="@+id/rectangle_6"
-                    android:background="@drawable/rectangle_6_shape"
-                    android:alpha="0.11"
-                    android:layout_marginStart="127dp"
-                    android:layout_marginTop="588dp"
-                    android:layout_width="268dp"
-                    android:layout_height="77dp" />
 
-                <View   android:id="@+id/rectangle_8"
-                    android:background="@drawable/rectangle_8_shape"
-                    android:alpha="0.11"
-                    android:layout_marginStart="127dp"
-                    android:layout_marginTop="678dp"
-                    android:layout_width="268dp"
-                    android:layout_height="77dp" />
+                 />
 
-                <View   android:id="@+id/rectangle_7"
-                    android:background="@drawable/rectangle_7_shape"
-                    android:layout_marginStart="118dp"
-                    android:layout_marginTop="678dp"
-                    android:layout_width="3dp"
-                    android:layout_height="72dp" />
 
-                <TextView android:id="@+id/football_game"
-                    android:fontFamily="Comic Neue"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:textColor="@color/unil_sport_color"
-                    android:layout_marginLeft="136dp"
-                    android:layout_marginTop="594dp"
-                    android:layout_width="122dp"
-                    android:layout_height="29dp"
-                    android:text="@string/football_game_string"
-                    />
 
-                <TextView android:id="@+id/basketball_game"
-                    android:fontFamily="Comic Neue"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:textColor="@color/unil_sport_color"
-                    android:layout_marginLeft="136dp"
-                    android:layout_marginTop="686dp"
-                    android:layout_width="138dp"
-                    android:layout_height="47dp"
-                    android:text="@string/basketball_game_string"
-                    />
+
+
+
+
 
             </RelativeLayout>
+
         </RelativeLayout>
 
     </ScrollView>
