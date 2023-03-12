@@ -1,13 +1,470 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <TextView
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content" android:layout_height="wrap_content" >
+    <!--
+    /*
+     *	This content is generated from the API File Info.
+     *	(Alt+Shift+Ctrl+I).
+     *
+     *	@desc
+     *	@file 		frame_1
+     *	@date 		Tuesday 07th of March 2023 05:51:49 PM
+     *	@title 		Page 1
+     *	@author
+     *	@keywords
+     *	@generator 	Export Kit v1.3.figma
+     *
+     */
+    -->
+    <ScrollView android:id="@+id/frame_1"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Schedule Fragment"
-        android:textSize="30sp"
-        android:layout_centerInParent="true"/>
+        android:layout_height="wrap_content" >
+
+        <RelativeLayout android:id="@+id/content_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
 
 
-</RelativeLayout>
+
+            <RelativeLayout android:id="@+id/page_frame_1_ek1"
+                android:layout_marginTop="0dp"
+                android:layout_marginStart="0dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                >
+
+
+                <View
+                    android:id="@+id/_bg__frame_1_ek2"
+                    android:layout_width="414dp"
+                    android:layout_height="896dp"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="0dp"
+                    android:background="@drawable/_bg__frame_1_ek2_shape" />
+
+                <RelativeLayout android:id="@+id/menu_1"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginStart="353dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <ImageView android:id="@+id/vector"
+                        android:src="@drawable/vector"
+                        android:contentDescription="vector"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="0dp"
+                        android:layout_width="34dp"
+                        android:layout_height="5dp" />
+
+                    <ImageView android:id="@+id/vector_ek1"
+                        android:src="@drawable/vector_ek1"
+                        android:contentDescription="vector_ek1"
+                        android:layout_marginStart="0dp"
+                        android:layout_marginTop="11dp"
+                        android:layout_width="44dp"
+                        android:layout_height="5dp" />
+
+                    <ImageView android:id="@+id/vector_ek2"
+                        android:src="@drawable/vector_ek2"
+                        android:contentDescription="vector_ek2"
+                        android:layout_marginStart="18dp"
+                        android:layout_marginTop="22dp"
+                        android:layout_width="26dp"
+                        android:layout_height="5dp" />
+
+                </RelativeLayout>
+
+                <TextView android:id="@+id/planning_for_the_day"
+                    android:fontFamily="Inter"
+                    android:textStyle="bold"
+                    android:textSize="33sp"
+                    android:textColor="@color/planning_for_the_day_color"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="99dp"
+                    android:layout_width="241.5dp"
+                    android:layout_height="143.5dp"
+                    android:text="@string/planning_for_the_day_string"
+                    />
+
+                <View   android:id="@+id/rectangle_1"
+                    android:background="@drawable/rectangle_1_shape"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="220dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="676dp" />
+
+                <View
+                    android:id="@+id/rectangle_2"
+                    android:layout_width="1000dp"
+                    android:layout_height="1000dp"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="251dp"
+                    android:background="@drawable/rectangle_2_shape" />
+
+                <TextView android:id="@+id/_7_march___2023"
+                    android:fontFamily="Comic Neue"
+                    android:textStyle="bold"
+                    android:textSize="23sp"
+                    android:textColor="@color/_bg__frame_1_ek2_color"
+                    android:layout_marginLeft="46dp"
+                    android:layout_marginTop="314dp"
+                    android:layout_width="177.5dp"
+                    android:layout_height="42.5dp"
+                    android:text="@string/_7_march___2023_string"
+                    />
+
+
+
+
+
+                <View   android:id="@+id/rectangle_11"
+                    android:background="@drawable/rectangle_11_shape"
+                    android:layout_marginStart="190dp"
+                    android:layout_marginTop="394dp"
+                    android:layout_width="38dp"
+                    android:layout_height="74dp" />
+
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                <Button  android:id="@+id/rectangle_14"
+                    android:background="@drawable/rectangle_14_shape"
+                    android:layout_marginStart="244dp"
+                    android:layout_marginTop="394dp"
+                    android:layout_width="38dp"
+                    android:layout_height="74dp"
+
+                    />
+
+                    <Button   android:id="@+id/rectangle_15"
+                        android:background="@drawable/rectangle_15_shape"
+                        android:layout_marginStart="301dp"
+                        android:layout_marginTop="394dp"
+                        android:layout_width="38dp"
+                        android:layout_height="74dp" />
+                    <Button   android:id="@+id/rectangle_17"
+                        android:background="@drawable/rectangle_17_shape"
+                        android:layout_marginStart="77dp"
+                        android:layout_marginTop="394dp"
+                        android:layout_width="38dp"
+                        android:layout_height="74dp" />
+                    <Button   android:id="@+id/rectangle_11"
+                        android:background="@drawable/rectangle_11_shape"
+                        android:layout_marginStart="190dp"
+                        android:layout_marginTop="394dp"
+                        android:layout_width="38dp"
+                        android:layout_height="74dp" />
+
+                    <Button   android:id="@+id/rectangle_18"
+                        android:background="@drawable/rectangle_18_shape"
+                        android:layout_marginStart="23dp"
+                        android:layout_marginTop="394dp"
+                        android:layout_width="38dp"
+                        android:layout_height="74dp" />
+
+                    <Button   android:id="@+id/rectangle_3"
+                        android:background="@drawable/rectangle_3_shape"
+                        android:layout_marginStart="133dp"
+                        android:layout_marginTop="394dp"
+                        android:layout_width="38dp"
+                        android:layout_height="74dp" />
+                    <Button   android:id="@+id/rectangle_16"
+                        android:background="@drawable/rectangle_16_shape"
+                        android:layout_marginStart="359dp"
+                        android:layout_marginTop="394dp"
+                        android:layout_width="38dp"
+                        android:layout_height="74dp" />
+
+            </FrameLayout>
+                <TextView android:id="@+id/th_fr_sat"
+                    android:fontFamily="Comic Neue"
+                    android:textStyle="bold"
+                    android:textSize="23sp"
+                    android:textColor="@color/planning_for_the_day_color"
+                    android:layout_marginLeft="253dp"
+                    android:layout_marginTop="402dp"
+                    android:layout_width="432.5dp"
+                    android:layout_height="94.5dp"
+                    android:text="Th"
+                    />
+
+
+
+
+
+
+
+
+                <TextView android:id="@+id/s_m_t_w_th_fr_sat"
+                    android:fontFamily="Comic Neue"
+                    android:textStyle="bold"
+                    android:textSize="23sp"
+                    android:textColor="@color/planning_for_the_day_color"
+                    android:layout_marginLeft="33dp"
+                    android:layout_marginTop="402dp"
+                    android:layout_width="432.5dp"
+                    android:layout_height="94.5dp"
+                    android:text="@string/s_m_t_w_th_fr_sat_string"
+                    />
+
+                <TextView android:id="@+id/_5_7_6"
+                    android:fontFamily="Comic Neue"
+                    android:textStyle="bold"
+                    android:textSize="23sp"
+                    android:textColor="@color/planning_for_the_day_color"
+                    android:layout_marginLeft="33dp"
+                    android:layout_marginTop="439dp"
+                    android:layout_width="51.5dp"
+                    android:layout_height="45.5dp"
+                    android:text="@string/_5_7_6_string"
+                    />
+                <TextView android:id="@+id/m_t_w_th_fr_sat"
+                    android:fontFamily="Comic Neue"
+                    android:textStyle="bold"
+                    android:textSize="23sp"
+                    android:textColor="@color/planning_for_the_day_color"
+                    android:layout_marginLeft="88dp"
+                    android:layout_marginTop="402dp"
+                    android:layout_width="432.5dp"
+                    android:layout_height="94.5dp"
+                    android:text="M"
+                    />
+                <TextView android:id="@+id/_6"
+                    android:fontFamily="Comic Neue"
+                    android:textStyle="bold"
+                    android:textSize="23sp"
+                    android:textColor="@color/planning_for_the_day_color"
+                    android:layout_marginLeft="88dp"
+                    android:layout_marginTop="439dp"
+                    android:layout_width="51.5dp"
+                    android:layout_height="45.5dp"
+                    android:text="@string/_6_string"
+                    />
+                <TextView android:id="@+id/t_w_th_fr_sat"
+                    android:fontFamily="Comic Neue"
+                    android:textStyle="bold"
+                    android:textSize="23sp"
+                    android:textColor="@color/planning_for_the_day_color"
+                    android:layout_marginLeft="143dp"
+                    android:layout_marginTop="402dp"
+                    android:layout_width="432.5dp"
+                    android:layout_height="94.5dp"
+                    android:text="T"
+                    />
+
+                <TextView android:id="@+id/_7"
+                    android:fontFamily="Comic Neue"
+                    android:textStyle="bold"
+                    android:textSize="23sp"
+                    android:textColor="@color/planning_for_the_day_color"
+                    android:layout_marginLeft="143dp"
+                    android:layout_marginTop="439dp"
+                    android:layout_width="51.5dp"
+                    android:layout_height="45.5dp"
+                    android:text="@string/_7_string"
+                    />
+                <TextView android:id="@+id/w_th_fr_sat"
+                    android:fontFamily="Comic Neue"
+                    android:textStyle="bold"
+                    android:textSize="23sp"
+                    android:textColor="@color/planning_for_the_day_color"
+                    android:layout_marginLeft="198dp"
+                    android:layout_marginTop="402dp"
+                    android:layout_width="432.5dp"
+                    android:layout_height="94.5dp"
+                    android:text="W"
+                    />
+                <TextView android:id="@+id/_8"
+                    android:fontFamily="Comic Neue"
+                    android:textStyle="bold"
+                    android:textSize="23sp"
+                    android:textColor="@color/planning_for_the_day_color"
+                    android:layout_marginLeft="198dp"
+                    android:layout_marginTop="439dp"
+                    android:layout_width="51.5dp"
+                    android:layout_height="45.5dp"
+                    android:text="@string/_8_string"
+                    />
+
+                <TextView android:id="@+id/_9"
+                    android:fontFamily="Comic Neue"
+                    android:textStyle="bold"
+                    android:textSize="23sp"
+                    android:textColor="@color/planning_for_the_day_color"
+                    android:layout_marginLeft="253dp"
+                    android:layout_marginTop="439dp"
+                    android:layout_width="51.5dp"
+                    android:layout_height="45.5dp"
+                    android:text="@string/_9_string"
+                    />
+                <TextView android:id="@+id/fr_sat"
+                    android:fontFamily="Comic Neue"
+                    android:textStyle="bold"
+                    android:textSize="23sp"
+                    android:textColor="@color/planning_for_the_day_color"
+                    android:layout_marginLeft="308dp"
+                    android:layout_marginTop="402dp"
+                    android:layout_width="432.5dp"
+                    android:layout_height="94.5dp"
+                    android:text="Fr"
+                    />
+
+                <TextView android:id="@+id/_10"
+                    android:fontFamily="Comic Neue"
+                    android:textStyle="bold"
+                    android:textSize="23sp"
+                    android:textColor="@color/planning_for_the_day_color"
+                    android:layout_marginLeft="308dp"
+                    android:layout_marginTop="439dp"
+                    android:layout_width="51.5dp"
+                    android:layout_height="45.5dp"
+                    android:text="@string/_10_string"
+                    />
+                <TextView android:id="@+id/sat"
+                    android:fontFamily="Comic Neue"
+                    android:textStyle="bold"
+                    android:textSize="23sp"
+                    android:textColor="@color/planning_for_the_day_color"
+                    android:layout_marginLeft="365dp"
+                    android:layout_marginTop="402dp"
+                    android:layout_width="432.5dp"
+                    android:layout_height="94.5dp"
+                    android:text="Sat"
+                    />
+                <TextView android:id="@+id/_11"
+                    android:fontFamily="Comic Neue"
+                    android:textStyle="bold"
+                    android:textSize="23sp"
+                    android:textColor="@color/planning_for_the_day_color"
+                    android:layout_marginLeft="365dp"
+                    android:layout_marginTop="439dp"
+                    android:layout_width="51.5dp"
+                    android:layout_height="45.5dp"
+                    android:text="@string/_11_string"
+                    />
+
+                <View   android:id="@+id/rectangle_4"
+                    android:background="@drawable/rectangle_4_shape"
+                    android:layout_marginStart="13dp"
+                    android:layout_marginTop="507dp"
+                    android:layout_width="389dp"
+                    android:layout_height="355dp" />
+
+                <TextView android:id="@+id/unil_sport"
+                    android:fontFamily="Comic Neue"
+                    android:textSize="12sp"
+                    android:textColor="@color/unil_sport_color"
+                    android:layout_marginLeft="136dp"
+                    android:layout_marginTop="614dp"
+                    android:layout_width="71dp"
+                    android:layout_height="22dp"
+                    android:text="@string/unil_sport_string"
+                    />
+
+                <TextView android:id="@+id/unil_sport_ek1"
+                    android:fontFamily="Comic Neue"
+                    android:textSize="12sp"
+                    android:textColor="@color/unil_sport_color"
+                    android:layout_marginLeft="136dp"
+                    android:layout_marginTop="706dp"
+                    android:layout_width="71dp"
+                    android:layout_height="22dp"
+                    android:text="@string/unil_sport_ek1_string"
+                    />
+
+                <TextView android:id="@+id/_02_30_pm"
+                    android:fontFamily="Comic Neue"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="@color/unil_sport_color"
+                    android:layout_marginLeft="29dp"
+                    android:layout_marginTop="670dp"
+                    android:layout_width="86dp"
+                    android:layout_height="47dp"
+                    android:text="@string/_02_30_pm_string"
+                    />
+
+                <TextView android:id="@+id/_10_00_am"
+                    android:fontFamily="Comic Neue"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="@color/_10_00_am_color"
+                    android:layout_marginLeft="29dp"
+                    android:layout_marginTop="592dp"
+                    android:layout_width="86dp"
+                    android:layout_height="29dp"
+                    android:text="@string/_10_00_am_string"
+                    />
+
+                <TextView android:id="@+id/your_timeline"
+                    android:fontFamily="Comic Neue"
+                    android:textStyle="bold"
+                    android:textSize="32sp"
+                    android:textColor="@color/_bg__frame_1_ek2_color"
+                    android:layout_marginLeft="29dp"
+                    android:layout_marginTop="519dp"
+                    android:layout_width="226dp"
+                    android:layout_height="96dp"
+                    android:text="@string/your_timeline_string"
+                    />
+
+                <View   android:id="@+id/rectangle_5"
+                    android:background="@drawable/rectangle_5_shape"
+                    android:layout_marginStart="118dp"
+                    android:layout_marginTop="588dp"
+                    android:layout_width="3dp"
+                    android:layout_height="72dp" />
+
+                <View   android:id="@+id/rectangle_6"
+                    android:background="@drawable/rectangle_6_shape"
+                    android:alpha="0.11"
+                    android:layout_marginStart="127dp"
+                    android:layout_marginTop="588dp"
+                    android:layout_width="268dp"
+                    android:layout_height="77dp" />
+
+                <View   android:id="@+id/rectangle_8"
+                    android:background="@drawable/rectangle_8_shape"
+                    android:alpha="0.11"
+                    android:layout_marginStart="127dp"
+                    android:layout_marginTop="678dp"
+                    android:layout_width="268dp"
+                    android:layout_height="77dp" />
+
+                <View   android:id="@+id/rectangle_7"
+                    android:background="@drawable/rectangle_7_shape"
+                    android:layout_marginStart="118dp"
+                    android:layout_marginTop="678dp"
+                    android:layout_width="3dp"
+                    android:layout_height="72dp" />
+
+                <TextView android:id="@+id/football_game"
+                    android:fontFamily="Comic Neue"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="@color/unil_sport_color"
+                    android:layout_marginLeft="136dp"
+                    android:layout_marginTop="594dp"
+                    android:layout_width="122dp"
+                    android:layout_height="29dp"
+                    android:text="@string/football_game_string"
+                    />
+
+                <TextView android:id="@+id/basketball_game"
+                    android:fontFamily="Comic Neue"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="@color/unil_sport_color"
+                    android:layout_marginLeft="136dp"
+                    android:layout_marginTop="686dp"
+                    android:layout_width="138dp"
+                    android:layout_height="47dp"
+                    android:text="@string/basketball_game_string"
+                    />
+
+            </RelativeLayout>
+        </RelativeLayout>
+
+    </ScrollView>
+</ScrollView>
