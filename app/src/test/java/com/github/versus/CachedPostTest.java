@@ -13,6 +13,8 @@ import java.time.Month;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
+
+import static com.github.versus.offline.CachedPost.match;
 import static com.github.versus.offline.CachedPost.postIsInvalid;
 import static com.github.versus.offline.CachedPost.computeID;
 
@@ -176,6 +178,41 @@ public class CachedPostTest {
         assertTrue(new CachedPost().id.equals(CachedPost.emptyID));
     }
 
+    @Test
+    public void validCachedPostIsNotEmpty(){
+        Post post = new Post() {
+            @Override
+            public String getTitle() {
+                return "Valid Post";
+            }
+
+            @Override
+            public Timestamp getDate() {
+                return new Timestamp(Calendar.getInstance().get(Calendar.YEAR), Month.JANUARY, 1, 8, 1, Timestamp.Meridiem.PM);
+            }
+
+            @Override
+            public Location getLocation() {
+                return new Location("Lausanne", 10, 10);
+            }
+
+            @Override
+            public List<Object> getPlayers() {
+                return null;
+            }
+
+            @Override
+            public int getPlayerLimit() {
+                return 10;
+            }
+
+            @Override
+            public Map<String, Object> getAllAttributes() {
+                return null;
+            }
+        };
+        assertFalse(match(post).isEmpty);
+    }
     @Test
     public void postMatchWithInvalidPost(){
         assertTrue(CachedPost.match(null).isEmpty);
