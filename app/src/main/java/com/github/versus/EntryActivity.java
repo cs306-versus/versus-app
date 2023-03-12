@@ -66,7 +66,7 @@ public class EntryActivity extends AppCompatActivity {
         Intent intent = getIntent();
         auth = intent.hasExtra(AUTH_INTENT)
                 ? (Authenticator) intent.getSerializableExtra(AUTH_INTENT)
-                : VersusAuthenticator.getInstance();
+                : VersusAuthenticator.getInstance(FirebaseAuth.getInstance());
     }
 
 }

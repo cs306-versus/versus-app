@@ -31,6 +31,10 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+
     buildFeatures {
         viewBinding true
     }
@@ -56,6 +60,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:20.4.1'
 
     testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.mockito:mockito-inline:5.2.0'
     androidTestImplementation 'org.mockito:mockito-android:5.2.0'
     androidTestImplementation 'org.mockito:mockito-core:5.2.0'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'

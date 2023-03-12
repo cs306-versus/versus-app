@@ -25,8 +25,8 @@ public final class VersusAuthenticator implements Authenticator {
      *
      * @return
      */
-    public static VersusAuthenticator getInstance() {
-        return new VersusAuthenticator(FirebaseAuth.getInstance());
+    public static VersusAuthenticator getInstance(FirebaseAuth auth) {
+        return new VersusAuthenticator(auth);
     }
 
     @Override
