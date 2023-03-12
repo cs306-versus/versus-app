@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         naviguationview.setNavigationItemSelectedListener(this);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new ScheduleFragment()).commit();
    naviguationview.setCheckedItem(R.id.nav_schedule);
+
     }
 
 

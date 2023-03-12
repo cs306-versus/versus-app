@@ -1,0 +1,55 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    android:orientation="vertical">
+
+
+    <TextView android:id="@+id/basketball_game"
+        android:fontFamily="Comic Neue"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:textColor="@color/unil_sport_color"
+        android:layout_marginLeft="136dp"
+        android:layout_marginTop="4dp"
+        android:layout_width="138dp"
+        android:layout_height="47dp"
+        android:text="@string/basketball_game_string"
+        />
+    <View   android:id="@+id/rectangle_5"
+        android:background="@drawable/rectangle_5_shape"
+        android:layout_marginStart="118dp"
+        android:layout_width="3dp"
+        android:layout_height="72dp" />
+
+    <View   android:id="@+id/rectangle_6"
+        android:background="@drawable/rectangle_6_shape"
+        android:layout_marginLeft="127dp"
+        android:layout_marginTop="2dp"
+        android:alpha="0.11"
+
+        android:layout_width="268dp"
+        android:layout_height="77dp" />
+    <TextView android:id="@+id/_10_00_am"
+        android:fontFamily="Comic Neue"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:textColor="@color/_10_00_am_color"
+        android:layout_marginLeft="29dp"
+        android:layout_marginTop="4dp"
+        android:layout_width="86dp"
+        android:layout_height="29dp"
+        android:text="@string/_10_00_am_string"
+        />
+    <TextView android:id="@+id/unil_sport_ek1"
+        android:fontFamily="Comic Neue"
+        android:textSize="12sp"
+        android:textColor="@color/unil_sport_color"
+        android:layout_marginLeft="136dp"
+        android:layout_marginTop="24dp"
+        android:layout_width="71dp"
+        android:layout_height="22dp"
+        android:text="@string/unil_sport_ek1_string"
+        />
+
+</RelativeLayout>
