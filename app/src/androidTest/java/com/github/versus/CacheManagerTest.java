@@ -35,9 +35,6 @@ public class CacheManagerTest {
         manager.getDb().clearAllTables();
     }
 
-
-
-
     @Test
     public void insertOfValidPostIsSuccessful() throws Exception {
        SimpleTestPost post= new SimpleTestPost();
@@ -81,6 +78,11 @@ public class CacheManagerTest {
     @Test
     public void deleteWorksWithNullPost() throws ExecutionException, InterruptedException, IOException {
         assertFalse( manager.delete(null).get());
+    }
+
+    @Test
+    public void fetchUnavailablePost() throws ExecutionException, InterruptedException {
+        assertTrue(manager.fetch(CachedPost.emptyID).get()==null);
     }
 
 
