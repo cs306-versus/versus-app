@@ -17,7 +17,7 @@ public final class SimpleTestPost implements Post {
 
     @Override
     public Timestamp getDate() {
-        return new Timestamp(Calendar.getInstance().get(Calendar.YEAR), Month.JANUARY, 1, 8, 1, Timestamp.Meridiem.PM);
+        return new Timestamp(Calendar.getInstance().get(Calendar.YEAR), Month.values()[0], 1, 8, 1, Timestamp.Meridiem.PM);
     }
 
     @Override
