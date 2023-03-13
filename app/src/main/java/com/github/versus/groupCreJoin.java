@@ -9,7 +9,9 @@ import android.text.Editable;
 import android.view.View;
 import android.widget.EditText;
 
+import com.github.versus.database.Location;
 import com.github.versus.database.Post;
+import com.github.versus.database.Timestamp;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -17,12 +19,14 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.;
+import com.google.firebase.database.*;
 
 
 import com.github.versus.R;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.auth.User;
 
+import java.time.Month;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -37,15 +41,14 @@ public class groupCreJoin extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_cre_join);
-        Intent intent = getIntent();
+
     }
     public void createPost(View view) {
-        Post post = new
-        db.collection("Posts")
-                .add()
-    }
+        Post p = new Post( "test", new Timestamp(2022, Month.AUGUST, 18, 12, 00) , Location location, List< User > players, int playerLimit, Sport sport) {
+
+        }
     public void JoinGroup(View view) {
-        DatabaseReference db = FirebaseDatabase.getInstance().getReference();
-        db.child(num.toString()).setValue(email.toString());
+
+
     }
 }
