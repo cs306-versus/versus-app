@@ -23,7 +23,7 @@ public class FsPostManager implements DataBaseManager<Post> {
 
         DocumentReference docRef = db.collection("posts").document();
         Task<Void> task = docRef.set(post.getAllAttributes());
-        //TODO : change this future to something meaningfull once implem is sure to work
+        //TODO : change this future to something meaningful once implem is sure to work
         FutureTask<Boolean> future = new FutureTask<>(() -> {
             return true;
          }
@@ -34,7 +34,7 @@ public class FsPostManager implements DataBaseManager<Post> {
 
     @Override
     public Future<Post> fetch(String id) {
-        return null;
+
     }
 
     @Override

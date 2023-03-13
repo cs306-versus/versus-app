@@ -9,9 +9,11 @@ import android.text.Editable;
 import android.view.View;
 import android.widget.EditText;
 
+import com.github.versus.database.FsPostManager;
 import com.github.versus.database.Location;
 import com.github.versus.database.Post;
 import com.github.versus.database.Timestamp;
+import com.github.versus.sports.Sport;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,7 +28,10 @@ import com.github.versus.R;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.auth.User;
 
+import java.nio.file.FileStore;
 import java.time.Month;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -44,11 +49,12 @@ public class groupCreJoin extends AppCompatActivity {
 
     }
     public void createPost(View view) {
-        Post p = new Post( "test", new Timestamp(2022, Month.AUGUST, 18, 12, 00) , Location location, List< User > players, int playerLimit, Sport sport) {
-
+        Post p = new Post( "test", new Timestamp(2023, Month.AUGUST, 18, 12, 15, Timestamp.Meridiem.AM) ,
+                new Location(15, 16), new ArrayList<>(), 15, Sport.FOOTBALL);
+        FsPostManager postm = new FsPostManager(db);
+        postm.insert(p);
         }
     public void JoinGroup(View view) {
-
 
     }
 }

@@ -1,27 +1,29 @@
 package com.github.versus.database;
 
-public class Location {
-        private String name;
-        private double longitude;
-        private double latitude;
+import java.io.Serializable;
 
-        /**
-         * Create a location
-         * @param name the name of the location
-         * @param latitude latitude of the location
-         * @param longitude longitude of the location
-         */
-        public Location(String name, double latitude, double longitude) {
-            this.name = name;
-            this.latitude  = latitude;
-            this.longitude = longitude;
-        }
+public class Location implements Serializable {
+    private double latitude;
+    private double longitude;
 
-        /**
-         *
-         * @return String representation of the location
-         */
-        public String toString() {
-            return name + " (" + latitude + ", " + longitude + ")";
-        }
+    public Location(double latitude, double longitude) {
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
 }
