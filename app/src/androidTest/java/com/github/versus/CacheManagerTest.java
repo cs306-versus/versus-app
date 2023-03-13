@@ -7,7 +7,7 @@ import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.github.versus.offline.CacheManager;
-import com.github.versus.offline.CachedPost;
+import com.github.versus.offline.SimpleTestPost;
 
 import org.junit.After;
 import org.junit.Before;

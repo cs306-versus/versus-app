@@ -1,4 +1,4 @@
-package com.github.versus;
+package com.github.versus.offline;
 
 import com.github.versus.posts.Location;
 import com.github.versus.posts.Post;
@@ -40,11 +40,44 @@ public final class SimpleTestPost implements Post {
         return null;
     }
 
-    public boolean equals(SimpleTestPost that){
-
+    public boolean equals(Post that){
         return this.getTitle().equals(that.getTitle()) &&
                 this.getDate().equals(that.getDate())  &&
                 this.getLocation().equals(that.getLocation()) &&
                 this.getPlayerLimit()== that.getPlayerLimit();
+    }
+
+    public static Post postWith(String title,Timestamp timestamp,Location location, int limit){
+       return  new Post() {
+            @Override
+            public String getTitle() {
+                return title ;
+            }
+
+            @Override
+            public Timestamp getDate() {
+                return timestamp;
+            }
+
+            @Override
+            public Location getLocation() {
+                return location;
+            }
+
+            @Override
+            public List<Object> getPlayers() {
+                return null;
+            }
+
+            @Override
+            public int getPlayerLimit() {
+                return limit;
+            }
+
+            @Override
+            public Map<String, Object> getAllAttributes() {
+                return null;
+            }
+        };
     }
 }
