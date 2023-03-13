@@ -47,5 +47,11 @@ public class CacheManagerTest {
         assertFalse(manager.insert(null).get());
     }
 
+    @Test
+    public void CacheManagerIsUnique(){
+        CacheManager secondManager= CacheManager.getCacheManager(ApplicationProvider.getApplicationContext());
+        assertTrue(secondManager==manager);
+    }
+
 
 }
