@@ -11,13 +11,16 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 
 public final class CacheManager implements DataBaseManager<Post> {
+
+    private final PostDatabase db;
     private final PostDAO dao;
     private static CacheManager instance = null;
 
 
     private CacheManager(Context context){
-        dao= Room.databaseBuilder(context.getApplicationContext(),
-                PostDatabase.class, "cache").build().activityDao();
+        db= Room.databaseBuilder(context.getApplicationContext(),
+                PostDatabase.class, "cache").build();
+        dao= db.activityDao();
     }
 
     public static CacheManager getCacheManager(Context context){
@@ -33,7 +36,7 @@ public final class CacheManager implements DataBaseManager<Post> {
             return CompletableFuture.completedFuture(Boolean.FALSE);
         }
         return CompletableFuture.runAsync((()->dao.insertAll(cached))).
-                handle((r,e)-> e!=null);
+                handle((r,e)-> e==null);
     }
 
     @Override
@@ -43,6 +46,16 @@ public final class CacheManager implements DataBaseManager<Post> {
 
     @Override
     public Future<Boolean> delete(String id) {
-        return CompletableFuture.runAsync((()->dao.deleteById(id))).handle((r,e)-> e!=null);
+        return CompletableFuture.runAsync((()->dao.deleteById(id)))
+                .handle((r,e)-> e==null);
     }
+
+    public PostDAO getDao(){
+        return dao;
+    }
+
+    public PostDatabase getDb(){
+        return db;
+    }
+
 }

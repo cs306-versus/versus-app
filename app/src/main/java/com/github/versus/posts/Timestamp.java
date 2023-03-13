@@ -90,6 +90,16 @@ public class Timestamp {
         return m;
     }
 
+    public boolean equals(Timestamp that){
+        return year== that.getYear() &&
+                month.equals(that.month) &&
+                day== that.getDay() &&
+                hour==that.getHour() &&
+                minutes== that.getMinutes() &&
+                seconds == that.seconds &&
+                m==that.getM();
+    }
+
     /**
      * AM-PM enum
      */

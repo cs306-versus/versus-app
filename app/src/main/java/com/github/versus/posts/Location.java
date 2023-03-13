@@ -1,6 +1,8 @@
 package com.github.versus.posts;
 
 
+import androidx.annotation.Nullable;
+
 public class Location {
     private String name;
     private double longitude;
@@ -34,5 +36,11 @@ public class Location {
     }
     public double getLongitude() {
         return longitude;
+    }
+
+    public boolean equals(Location that) {
+        return name.equals(that.getName()) &&
+                latitude== that.getLatitude() &&
+                longitude == that.getLongitude();
     }
 }
