@@ -3,15 +3,21 @@ package com.github.versus.auth;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.replaceText;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.RootMatchers.withDecorView;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static org.mockito.Mockito.mock;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
-import android.content.Context;
-import android.widget.Button;
+import static org.hamcrest.Matchers.not;
 
-import androidx.test.core.app.ApplicationProvider;
+import static java.util.Objects.requireNonNull;
+
+import android.view.View;
+
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.viewpager.widget.ViewPager;
 
 import com.github.versus.R;
 import com.google.android.gms.tasks.Task;
@@ -30,16 +36,19 @@ public class SignInFragmentTest {
     @Rule
     public ActivityScenarioRule<AuthActivity> scenario = new ActivityScenarioRule<>(AuthActivity.class);
 
+    private View decorView;
+
     private static final String test_account_mail = "demo-test@versus.ch";
 
     private static final String test_account_pwd = "123456789";
 
     @Before
     public void setUp(){
-        FirebaseAuth.getInstance()
+        scenario.getScenario().onActivity(activity -> decorView = activity.getWindow().getDecorView());
+        Task<?> task = FirebaseAuth.getInstance()
                 .signInWithEmailAndPassword(test_account_mail, test_account_pwd)
-                .addOnSuccessListener(res -> Objects.requireNonNull(res.getUser()).delete());
-        while(FirebaseAuth.getInstance().getCurrentUser() != null); // Wait for user to be deleted
+                .addOnSuccessListener(res -> requireNonNull(res.getUser()).delete());
+        while(!task.isComplete()); // Wait for user to be deleted
     }
 
     @Test
@@ -54,7 +63,7 @@ public class SignInFragmentTest {
     }
 
     @Test
-    public void testOnFailSignIn(){
+    public void testOnFailSignIn() {
         onView(withId(R.id.auth_signin)).perform(click());
         Task<?> task = FirebaseAuth.getInstance().createUserWithEmailAndPassword(test_account_mail, test_account_pwd);
         while(!task.isComplete()); // Wait for task to complete

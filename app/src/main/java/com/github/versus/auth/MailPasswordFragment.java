@@ -44,8 +44,8 @@ public class MailPasswordFragment extends BaseAuthFragment {
      */
     protected void handleSuccessfulConnection(AuthResult result) {
         // TODO : Implement the successful result here
-        Toast.makeText(getContext(), "handleSuccessfulConnection",
-                Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(), "handleSuccessfulConnection",
+        //        Toast.LENGTH_SHORT).show();
     }
 
     /**
