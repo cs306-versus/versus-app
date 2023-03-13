@@ -10,9 +10,10 @@ import java.util.List;
 import java.util.Map;
 
 public final class SimpleTestPost implements Post {
+    private String title = "Valid Post";
     @Override
     public String getTitle() {
-        return "Valid Post";
+        return title;
     }
 
     @Override
@@ -47,6 +48,12 @@ public final class SimpleTestPost implements Post {
                 this.getPlayerLimit()== that.getPlayerLimit();
     }
 
+    public SimpleTestPost(){
+        title= "Valid Post";
+    }
+    public SimpleTestPost(String title){
+        this.title= title;
+    }
     public static Post postWith(String title,Timestamp timestamp,Location location, int limit){
        return  new Post() {
             @Override
@@ -80,4 +87,5 @@ public final class SimpleTestPost implements Post {
             }
         };
     }
+
 }

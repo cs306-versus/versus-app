@@ -7,7 +7,9 @@ import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.github.versus.offline.CacheManager;
+import com.github.versus.offline.CachedPost;
 import com.github.versus.offline.SimpleTestPost;
+import com.github.versus.posts.Post;
 
 import org.junit.After;
 import org.junit.Before;
@@ -27,11 +29,13 @@ public class CacheManagerTest {
         manager = CacheManager.getCacheManager(ApplicationProvider.getApplicationContext());
     }
 
+
     @After
-    public void closeDb() throws IOException {
+    public void clearDb() throws IOException {
         manager.getDb().clearAllTables();
-        manager.getDb().close();
     }
+
+
 
 
     @Test
@@ -40,18 +44,47 @@ public class CacheManagerTest {
        Future<Boolean> inserted= manager.insert(post);
        assertTrue(inserted.get());
 
+
+
     }
 
     @Test
-    public void insertOfInvalidPostIsUnsuccessful() throws ExecutionException, InterruptedException {
+    public void insertOfInvalidPostIsUnsuccessful() throws ExecutionException, InterruptedException, IOException {
         assertFalse(manager.insert(null).get());
+
     }
 
     @Test
-    public void CacheManagerIsUnique(){
+    public void CacheManagerIsUnique() throws IOException {
         CacheManager secondManager= CacheManager.getCacheManager(ApplicationProvider.getApplicationContext());
         assertTrue(secondManager==manager);
+
     }
+
+    @Test
+    public void fetchRetrievesTheRightPost() throws ExecutionException, InterruptedException, IOException {
+        SimpleTestPost post =  new SimpleTestPost("to fetch");
+        manager.insert(post).get();
+        Post retrieved = manager.fetch(CachedPost.computeID(post)).get();
+        assertTrue(post.equals(retrieved));
+
+    }
+
+    @Test
+    public void deleteWorksWithValidPost() throws ExecutionException, InterruptedException, IOException {
+        SimpleTestPost post =  new SimpleTestPost("To Be Deleted");
+        manager.insert(post).get();
+        boolean result= manager.delete(CachedPost.computeID(post)).get();
+        assertTrue(result);
+
+    }
+    @Test
+    public void deleteWorksWithNullPost() throws ExecutionException, InterruptedException, IOException {
+        assertFalse( manager.delete(null).get());
+    }
+
+
+
 
 
 }

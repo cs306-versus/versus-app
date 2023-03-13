@@ -129,7 +129,7 @@ public final class CachedPost {
         if(postIsInvalid(post)){
             return emptyID;
         }
-        return String.valueOf(post.hashCode());
+        return String.valueOf(post.getTitle().hashCode());
     }
 
     public static boolean postIsInvalid(Post post){

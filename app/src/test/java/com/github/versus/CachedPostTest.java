@@ -79,7 +79,7 @@ public class CachedPostTest {
     @Test
     public void computeIDWithValidPost(){
         Post post = new SimpleTestPost();
-        assertTrue(computeID(post).equals(String.valueOf(post.hashCode())));
+        assertTrue(computeID(post).equals(String.valueOf(post.getTitle().hashCode())));
 
         }
 
@@ -89,6 +89,8 @@ public class CachedPostTest {
         CachedPost cached = CachedPost.match(post);
         assertTrue(post.equals(cached.revert()));
     }
+
+
 
 
 

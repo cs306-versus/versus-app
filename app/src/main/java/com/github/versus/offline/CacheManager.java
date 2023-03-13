@@ -41,11 +41,15 @@ public final class CacheManager implements DataBaseManager<Post> {
 
     @Override
     public Future<Post> fetch(String id) {
-        return CompletableFuture.supplyAsync(()->dao.loadById(id).revert());
+        return CompletableFuture.supplyAsync(()->dao.loadById(id).revert())
+                .handle((r,e)-> e==null? r:null);
     };
 
     @Override
     public Future<Boolean> delete(String id) {
+        if(id==null){
+            return CompletableFuture.completedFuture(Boolean.FALSE);
+        }
         return CompletableFuture.runAsync((()->dao.deleteById(id)))
                 .handle((r,e)-> e==null);
     }
