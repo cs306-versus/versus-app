@@ -5,5 +5,19 @@
     <string name="default_info_title">Default Location</string>
     <string name="default_info_snippet">No places found, because location permission is disabled.</string>
     <string name="pick_place">Choose a place</string>
+    <string name="auth_with_mail">Login with Mail</string>
+    <string name="auth_signin_text">Don\'t have an account ?</string>
+    <string name="auth_signin">Sign In</string>
+    <string name="auth_login_google">Login with Google</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="login">Login</string>
+    <string name="mail">Mail</string>
+    <string name="password">Password</string>
+    <string name="account_missing">Don\'t have an account ?</string>
+    <string name="sign_in_intro">Sign In to Versus</string>
+    <string name="name">Name</string>
+    <string name="phone">Phone</string>
+    <string name="zip_code">Zip Code</string>
 
 </resources>
