@@ -1,5 +1,6 @@
 package com.github.versus;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import androidx.test.core.app.ApplicationProvider;
@@ -14,6 +15,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 @RunWith(AndroidJUnit4.class)
@@ -27,7 +29,7 @@ public class CacheManagerTest {
 
     @After
     public void closeDb() throws IOException {
-        //manager.getDb().clearAllTables();
+        manager.getDb().clearAllTables();
         manager.getDb().close();
     }
 
@@ -38,6 +40,11 @@ public class CacheManagerTest {
        Future<Boolean> inserted= manager.insert(post);
        assertTrue(inserted.get());
 
+    }
+
+    @Test
+    public void insertOfInvalidPostIsUnsuccessful() throws ExecutionException, InterruptedException {
+        assertFalse(manager.insert(null).get());
     }
 
 
