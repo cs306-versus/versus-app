@@ -34,7 +34,10 @@ public class FsPostManager implements DataBaseManager<Post> {
 
         DocumentReference docRef = db.collection("posts").document();
         Task<Void> task = docRef.set(post.getAllAttributes());
+
+        // Wrap the Task in a CompletableFuture that returns the status of the insertion
         CompletableFuture<Boolean> completableFuture = new CompletableFuture<>();
+
         task.addOnSuccessListener(res -> {
             completableFuture.complete(true);
         }).addOnFailureListener(e -> {
@@ -56,33 +59,27 @@ public class FsPostManager implements DataBaseManager<Post> {
         CollectionReference postsRef = db.collection("posts");
         //finding the announcement with the right id
         Query query = postsRef.whereEqualTo("title", id);
-        Task<QuerySnapshot> querySnapshotFuture = query.get();
+        Task<QuerySnapshot> task = query.get();
 
         // Wrap the Task in a CompletableFuture that returns the post
         CompletableFuture<Post> future = new CompletableFuture<>();
 
         // Add a listener to the Task to handle the result
-        querySnapshotFuture.addOnCompleteListener((res) -> {
-                try {
-                    QuerySnapshot querySnapshot = querySnapshotFuture.getResult();
-
-                    // handle case where query result is empty
-                    if (querySnapshot.isEmpty()) {
-                        future.complete(null);
-                        return;
-                    }
-
-                    // Create a Post instance from the document snapshot
-                    DocumentSnapshot documentSnapshot = querySnapshot.getDocuments().get(0);
-                    Post post = (new ObjectMapper()).convertValue(documentSnapshot, Post.class) ;
-
-                    // Complete the future with the MyObject instance
+        task.addOnSuccessListener(res -> {
+                //we get the query result
+                List<DocumentSnapshot> docs = res.getDocuments();
+                if(docs.isEmpty()){
+                    //in case the query result is empty complete the future with null
+                    future.complete(null);
+                }else{
+                    DocumentSnapshot doc = docs.get(0);
+                    //converting the data we get into an actual post object
+                    Post post = (new ObjectMapper()).convertValue(doc.getData(), Post.class);
                     future.complete(post);
-
-                } catch (Exception e) {
-                    future.completeExceptionally(e);
                 }
-            });
+             }).addOnFailureListener(res ->{
+                future.complete(null);
+        });
 
         return future;
     }
@@ -100,18 +97,21 @@ public class FsPostManager implements DataBaseManager<Post> {
         Query query = postsRef.whereEqualTo("title", postId);
         Task<QuerySnapshot> task = query.get();
 
-        // Wrap the Task in a CompletableFuture that returns the status of the insertion
+        // Wrap the Task in a CompletableFuture that returns the status of the post join
         CompletableFuture<Boolean> future = new CompletableFuture<>();
 
         //we complete the future with false if the query failed
         //otherwise we try to update the value of the players field
         task.addOnSuccessListener(res -> {
+
             //getting the document corresponding to the post
             DocumentSnapshot doc = res.getDocuments().get(0);
             List<User> players = (List<User>)doc.get("players");
+
             //creating a new list corresponding to the old one + the new user
             List<User> newPlayers = new ArrayList<>(players);
             newPlayers.add(user);
+
             //updating the field value
             //if the update task is a success we complete the future with true
             //otherwise we complete the future with false
