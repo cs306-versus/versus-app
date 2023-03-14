@@ -14,6 +14,8 @@ public interface Post {
      */
     public String getTitle();
 
+
+
     /**
      *
      * @return date of the post

@@ -12,6 +12,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.versus.announcements.AnnouncementAdapter;
+import com.github.versus.posts.FakePost;
+import com.github.versus.posts.Location;
+import com.github.versus.posts.Post;
+import com.github.versus.posts.Timestamp;
+
+import java.time.Month;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SearchFragment extends Fragment {
     protected RecyclerView recyclerView;
@@ -21,17 +29,22 @@ public class SearchFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_research,container,false);
         recyclerView = rootView.findViewById(R.id.recyclerView);
-        AnnouncementAdapter aa = new AnnouncementAdapter(new String[]{"Soccer", "Rowing", "Tennis"});
+        Post[] posts = new Post[]{
+                new FakePost("soccer", new Timestamp(2023, Month.values()[4], 2, 12, 3, null), new Location("UNIL", 42, 42), new ArrayList<>(), 5),
+                new FakePost("boccer", new Timestamp(2023, Month.values()[4], 2, 12, 3, null), new Location("UNIL", 42, 42), new ArrayList<>(), 5),
+                new FakePost("doccer", new Timestamp(2023, Month.values()[4], 2, 12, 3, null), new Location("UNIL", 42, 42), new ArrayList<>(), 5),
+        };
+        AnnouncementAdapter aa = new AnnouncementAdapter(posts);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(llm);
         recyclerView.setAdapter(aa);
-        return null;
+        return rootView;
     }
 
     @Override
     public void onDestroyView(){
         super.onDestroyView();
-//        binding = null;
+        recyclerView = null;
     }
 }
