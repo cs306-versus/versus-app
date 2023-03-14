@@ -31,6 +31,10 @@ public class SearchFragment extends Fragment {
         recyclerView = rootView.findViewById(R.id.recyclerView);
         Post[] posts = new Post[]{
                 new FakePost("soccer", new Timestamp(2023, Month.values()[4], 2, 12, 3, null), new Location("UNIL", 42, 42), new ArrayList<>(), 5),
+                new FakePost("soccer", new Timestamp(2023, Month.values()[4], 2, 12, 3, null), new Location("UNIL", 42, 42), new ArrayList<>(), 5),
+                new FakePost("soccer", new Timestamp(2023, Month.values()[4], 2, 12, 3, null), new Location("UNIL", 42, 42), new ArrayList<>(), 5),
+                new FakePost("soccer", new Timestamp(2023, Month.values()[4], 2, 12, 3, null), new Location("UNIL", 42, 42), new ArrayList<>(), 5),
+                new FakePost("soccer", new Timestamp(2023, Month.values()[4], 2, 12, 3, null), new Location("UNIL", 42, 42), new ArrayList<>(), 5),
                 new FakePost("boccer", new Timestamp(2023, Month.values()[4], 2, 12, 3, null), new Location("UNIL", 42, 42), new ArrayList<>(), 5),
                 new FakePost("doccer", new Timestamp(2023, Month.values()[4], 2, 12, 3, null), new Location("UNIL", 42, 42), new ArrayList<>(), 5),
         };
