@@ -45,17 +45,14 @@ dependencies {
     implementation 'com.google.android.libraries.places:places:3.0.0'
     // Import the Firebase BoM
     implementation platform('com.google.firebase:firebase-bom:31.2.2')
-
     // TODO: Add the dependencies for any other Firebase products you want to use
     // See https://firebase.google.com/docs/android/setup#available-libraries
     // For example, add the dependencies for Firebase Authentication and Cloud Firestore
     implementation 'com.google.firebase:firebase-auth'
     implementation 'com.google.firebase:firebase-firestore'
     implementation 'com.google.firebase:firebase-database:20.1.0'
-
     //add jackson dependency to convert json strings gotten fron database into java objects
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.0'
-
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'

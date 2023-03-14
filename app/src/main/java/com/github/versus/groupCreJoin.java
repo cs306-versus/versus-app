@@ -9,10 +9,10 @@ import android.text.Editable;
 import android.view.View;
 import android.widget.EditText;
 
-import com.github.versus.database.FsPostManager;
-import com.github.versus.database.Location;
-import com.github.versus.database.Post;
-import com.github.versus.database.Timestamp;
+import com.github.versus.db.FsPostManager;
+import com.github.versus.posts.Location;
+import com.github.versus.posts.Post;
+import com.github.versus.posts.Timestamp;
 import com.github.versus.sports.Sport;
 import com.github.versus.user.DummyUser;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -52,7 +52,7 @@ public class groupCreJoin extends AppCompatActivity {
     }
     public void createPost(View view) {
         Post p = new Post( "haha", new Timestamp(2023, Month.AUGUST, 18, 12, 15, Timestamp.Meridiem.AM) ,
-                new Location(15, 16), new ArrayList<>(), 15, Sport.FOOTBALL);
+                new Location("tirane",15, 16), new ArrayList<>(), 15, Sport.FOOTBALL);
         FsPostManager postm = new FsPostManager(db);
         postm.insert(p);
         }
