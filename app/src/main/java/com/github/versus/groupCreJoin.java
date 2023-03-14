@@ -14,6 +14,7 @@ import com.github.versus.database.Location;
 import com.github.versus.database.Post;
 import com.github.versus.database.Timestamp;
 import com.github.versus.sports.Sport;
+import com.github.versus.user.DummyUser;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,6 +34,7 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 /**
  * basic class used to model the behavior of creating a group
@@ -49,12 +51,13 @@ public class groupCreJoin extends AppCompatActivity {
 
     }
     public void createPost(View view) {
-        Post p = new Post( "test", new Timestamp(2023, Month.AUGUST, 18, 12, 15, Timestamp.Meridiem.AM) ,
+        Post p = new Post( "haha", new Timestamp(2023, Month.AUGUST, 18, 12, 15, Timestamp.Meridiem.AM) ,
                 new Location(15, 16), new ArrayList<>(), 15, Sport.FOOTBALL);
         FsPostManager postm = new FsPostManager(db);
         postm.insert(p);
         }
-    public void JoinGroup(View view) {
-
+    public void JoinGroup(View view) throws ExecutionException, InterruptedException {
+        FsPostManager postm = new FsPostManager(db);
+        System.out.println(postm.fetch("haha").get().getLocation());
     }
 }

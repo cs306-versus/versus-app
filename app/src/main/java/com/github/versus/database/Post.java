@@ -82,7 +82,8 @@ public class Post {
          res.put("title", title );
          res.put("date", date);
          res.put("location",location) ;
-         res.put("players", playerLimit);
+         res.put("playerLimit", playerLimit);
+         res.put("players", players);
          res.put("sport", sport);
          return res;
 
