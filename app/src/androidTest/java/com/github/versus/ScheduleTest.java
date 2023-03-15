@@ -29,9 +29,7 @@ public class ScheduleTest {
         onView(withId(R.id.rectangle_17)).perform(click());
         onView(withId(R.id.rectangle_3)).perform(click());
         onView(withId(R.id.rectangle_14)).perform(click());
-        onView(withId(R.id.rectangle_11)).perform(click());
 
-        onView(withId(R.id.rectangle_15)).perform(click());
 
 
 
