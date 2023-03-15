@@ -6,17 +6,17 @@
     android:background="#1D4EB5"
     android:gravity="bottom"
     android:padding="16dp"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark"
-    >
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/ic_launcher_round"
-       />
+        android:src="@mipmap/ic_launcher_round" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="8dp"
         android:text="Main activities"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
-    </LinearLayout>
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+</LinearLayout>

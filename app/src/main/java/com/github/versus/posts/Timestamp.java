@@ -1,9 +1,6 @@
 package com.github.versus.posts;
 
-import java.net.MulticastSocket;
 import java.time.Month;
-import java.time.Year;
-import java.time.YearMonth;
 import java.util.Calendar;
 
 public class Timestamp {
@@ -22,10 +19,10 @@ public class Timestamp {
     public Timestamp(int year, Month month, int day, int hour, int minutes, Meridiem m) {
         // TODO : enable assertions for these checks to happen
         // acceptable time and date checks
-        assert( CURR_YEAR <= year && year <= MAX_YEAR );
-        assert( 1 <= day && day <= 31 );
-        assert( 1 <=  hour && hour <= 12 );
-        assert( 1 <=  minutes && minutes <= 60 );
+        assert (CURR_YEAR <= year && year <= MAX_YEAR);
+        assert (1 <= day && day <= 31);
+        assert (1 <= hour && hour <= 12);
+        assert (1 <= minutes && minutes <= 60);
 
         this.year = year;
         this.month = month;
@@ -38,7 +35,6 @@ public class Timestamp {
 
 
     /**
-     *
      * @return the day of the timestamp
      */
     public int getDay() {
@@ -46,7 +42,6 @@ public class Timestamp {
     }
 
     /**
-     *
      * @return the month of the timestamp
      */
     public Month getMonth() {
@@ -54,35 +49,34 @@ public class Timestamp {
     }
 
     /**
-     *
      * @return the year of the timestamp
      */
     public int getYear() {
         return year;
     }
+
     /**
-     *
      * @return the hour of the timestamp
      */
     public int getHour() {
         return hour;
     }
+
     /**
-     *
      * @return the minutes of the timestamp
      */
     public int getMinutes() {
         return minutes;
     }
+
     /**
-     *
      * @return the seconds of the timestamp
      */
     public int getSeconds() {
         return seconds;
     }
+
     /**
-     *
      * @return the meridiem of the timestamp
      */
     public Meridiem getM() {
@@ -92,6 +86,7 @@ public class Timestamp {
     /**
      * AM-PM enum
      */
-    enum Meridiem{
+    enum Meridiem {
         AM, PM;
-    }}
+    }
+}
