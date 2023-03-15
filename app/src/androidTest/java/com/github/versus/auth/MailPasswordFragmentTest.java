@@ -35,7 +35,11 @@ public class MailPasswordFragmentTest {
         onView(withId(R.id.auth_login_mail_mail)).perform(replaceText(test_account_mail));
         onView(withId(R.id.auth_login_mail_password)).perform(replaceText(test_account_pwd));
         onView(withId(R.id.auth_login_mail_button)).perform(click());
-        scenario.getScenario().onActivity(a -> requireNonNull(a.getPackageName()));
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Test
@@ -44,6 +48,11 @@ public class MailPasswordFragmentTest {
         onView(withId(R.id.auth_login_mail_mail)).perform(replaceText(test_account_mail));
         onView(withId(R.id.auth_login_mail_password)).perform(replaceText(test_account_pwd + "0"));
         onView(withId(R.id.auth_login_mail_button)).perform(click());
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     // TODO HR : Add tests here

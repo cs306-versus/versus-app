@@ -19,6 +19,7 @@
     <string name="name">Name</string>
     <string name="phone">Phone</string>
     <string name="zip_code">Zip Code</string>
+    <string name="failure">Failed</string>
     <string name="ek_img_content">ExportKit Image</string>
     <string name="planning_for_the_day_string">Planning for the day</string>
     <string name="_7_march___2023_string">7 March , 2023</string>

@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.github.versus.R;
 import com.github.versus.databinding.FragmentSignInBinding;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -43,21 +44,21 @@ public class SignInFragment extends BaseAuthFragment {
     @Override
     protected void handleSuccessfulConnection(AuthResult result) {
         // TODO : Implement the successful result here
-        Toast.makeText(getContext(), "handleSuccessfulConnection",
+        Toast.makeText(getActivity(), "handleSuccessfulConnection",
                 Toast.LENGTH_SHORT).show();
     }
 
     @Override
     protected void handleFailedConnection(Exception exception) {
         // TODO : Implement the successful result here
-        Toast.makeText(getContext(), "handleFailedConnection",
+        Toast.makeText(getActivity(), R.string.failure,
                 Toast.LENGTH_SHORT).show();
     }
 
     @Override
     protected void handleCancelledConnection() {
         // TODO : Implement the successful result here
-        Toast.makeText(getContext(), "handleCancelledConnection",
+        Toast.makeText(getActivity(), "handleCancelledConnection",
                 Toast.LENGTH_SHORT).show();
     }
 }

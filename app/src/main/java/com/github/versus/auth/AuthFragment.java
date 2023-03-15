@@ -26,7 +26,7 @@ public class AuthFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentAuthBinding.inflate(inflater);
+        binding = FragmentAuthBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
