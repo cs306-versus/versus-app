@@ -18,6 +18,7 @@ public class Timestamp {
 
     public Timestamp(int year, Month month, int day, int hour, int minutes, Meridiem m) {
         // TODO : enable assertions for these checks to happen
+        //TODO: Tell derouich about the check of minutes and hours
         // acceptable time and date checks
         assert (CURR_YEAR <= year && year <= MAX_YEAR);
         assert (1 <= day && day <= 31);
@@ -83,10 +84,20 @@ public class Timestamp {
         return m;
     }
 
+    public boolean equals(Timestamp that){
+        return year== that.getYear() &&
+                month.equals(that.month) &&
+                day== that.getDay() &&
+                hour==that.getHour() &&
+                minutes== that.getMinutes() &&
+                seconds == that.seconds &&
+                m==that.getM();
+    }
+
     /**
      * AM-PM enum
      */
-    enum Meridiem {
+    public enum Meridiem{
         AM, PM;
     }
 }
