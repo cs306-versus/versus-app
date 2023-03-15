@@ -9,8 +9,26 @@
               <option name="preferredColumnWidths">
                 <map>
                   <entry key="10.23.0.202:33769" value="120" />
+                  <entry key="10.23.0.202:41923" value="120" />
+                  <entry key="Duration" value="388" />
+                  <entry key="Pixel_2_API_33" value="120" />
+                  <entry key="Tests" value="658" />
+                  <entry key="adb-R5CR70LR3JK-OvJveW._adb-tls-connect._tcp" value="120" />
+                  <entry key="samsung&#10; SM-G991B" value="418" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
+        <entry key="-815308964">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
                   <entry key="Duration" value="90" />
                   <entry key="Tests" value="360" />
+                  <entry key="adb-R5CR70LR3JK-OvJveW._adb-tls-connect._tcp" value="120" />
+                  <entry key="samsung" value="120" />
                   <entry key="samsung&#10; SM-G991B" value="120" />
                 </map>
               </option>

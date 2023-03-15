@@ -41,8 +41,6 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
             case R.id.nav_location:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new LocationFragment()).commit();
 
-                /*Intent intent = new Intent(this, MapsActivityCurrentPlace.class);
-                startActivity(intent);*/
                 break;
 
             case R.id.nav_schedule:
