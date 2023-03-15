@@ -117,12 +117,7 @@
 
 
 
-                <View   android:id="@+id/rectangle_11"
-                    android:background="@drawable/rectangle_11_shape"
-                    android:layout_marginStart="190dp"
-                    android:layout_marginTop="394dp"
-                    android:layout_width="38dp"
-                    android:layout_height="74dp" />
+
 
 
                 <FrameLayout
@@ -213,11 +208,11 @@
                     android:textStyle="bold"
                     android:textSize="23sp"
                     android:textColor="@color/planning_for_the_day_color"
-                    android:layout_marginLeft="33dp"
+                    android:layout_marginLeft="30dp"
                     android:layout_marginTop="439dp"
                     android:layout_width="51.5dp"
                     android:layout_height="45.5dp"
-                    android:text="@string/_5_7_6_string"
+                    android:text="12"
                     />
                 <TextView android:id="@+id/m_t_w_th_fr_sat"
                     android:fontFamily="Comic Neue"
@@ -235,11 +230,11 @@
                     android:textStyle="bold"
                     android:textSize="23sp"
                     android:textColor="@color/planning_for_the_day_color"
-                    android:layout_marginLeft="88dp"
+                    android:layout_marginLeft="85dp"
                     android:layout_marginTop="439dp"
                     android:layout_width="51.5dp"
                     android:layout_height="45.5dp"
-                    android:text="@string/_6_string"
+                    android:text="13"
                     />
                 <TextView android:id="@+id/t_w_th_fr_sat"
                     android:fontFamily="Comic Neue"
@@ -258,11 +253,11 @@
                     android:textStyle="bold"
                     android:textSize="23sp"
                     android:textColor="@color/planning_for_the_day_color"
-                    android:layout_marginLeft="143dp"
+                    android:layout_marginLeft="140dp"
                     android:layout_marginTop="439dp"
                     android:layout_width="51.5dp"
                     android:layout_height="45.5dp"
-                    android:text="@string/_7_string"
+                    android:text="14"
                     />
                 <TextView android:id="@+id/w_th_fr_sat"
                     android:fontFamily="Comic Neue"
@@ -281,11 +276,11 @@
                     android:textStyle="bold"
                     android:textSize="23sp"
                     android:textColor="@color/planning_for_the_day_color"
-                    android:layout_marginLeft="198dp"
+                    android:layout_marginLeft="195dp"
                     android:layout_marginTop="439dp"
                     android:layout_width="51.5dp"
                     android:layout_height="45.5dp"
-                    android:text="@string/_8_string"
+                    android:text="15"
                     />
 
                 <TextView android:id="@+id/_9"
@@ -293,11 +288,11 @@
                     android:textStyle="bold"
                     android:textSize="23sp"
                     android:textColor="@color/planning_for_the_day_color"
-                    android:layout_marginLeft="253dp"
+                    android:layout_marginLeft="250dp"
                     android:layout_marginTop="439dp"
                     android:layout_width="51.5dp"
                     android:layout_height="45.5dp"
-                    android:text="@string/_9_string"
+                    android:text="16"
                     />
                 <TextView android:id="@+id/fr_sat"
                     android:fontFamily="Comic Neue"
@@ -320,7 +315,7 @@
                     android:layout_marginTop="439dp"
                     android:layout_width="51.5dp"
                     android:layout_height="45.5dp"
-                    android:text="@string/_10_string"
+                    android:text="17"
                     />
                 <TextView android:id="@+id/sat"
                     android:fontFamily="Comic Neue"
@@ -342,7 +337,7 @@
                     android:layout_marginTop="439dp"
                     android:layout_width="51.5dp"
                     android:layout_height="45.5dp"
-                    android:text="@string/_11_string"
+                    android:text="18"
                     />
 
                 <View   android:id="@+id/rectangle_4"
