@@ -2,9 +2,6 @@ package com.github.versus;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.action.ViewActions.replaceText;
-import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
@@ -13,15 +10,12 @@ import static java.util.Objects.requireNonNull;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
-import com.github.versus.R;
-
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(AndroidJUnit4.class)
-public class MailPasswordFragmentTest {
+public class ScheduleTest {
     @Rule
     public ActivityScenarioRule<MainActivity> scenario = new ActivityScenarioRule<>(MainActivity.class);
 
@@ -35,10 +29,8 @@ public class MailPasswordFragmentTest {
         onView(withId(R.id.rectangle_17)).perform(click());
         onView(withId(R.id.rectangle_3)).perform(click());
         onView(withId(R.id.rectangle_14)).perform(click());
-        onView(withId(R.id.rectangle_18)).perform(click());
-        onView(withId(R.id.rectangle_18)).perform(click());
-        onView(withId(R.id.rectangle_18)).perform(click());
-        onView(withId(R.id.rectangle_18)).perform(click());
+        onView(withId(R.id.rectangle_16)).perform(click());
+
 
         scenario.getScenario().onActivity(a -> requireNonNull(a.getPackageName()));
     }
