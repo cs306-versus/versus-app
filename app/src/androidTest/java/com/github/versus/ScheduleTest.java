@@ -29,7 +29,7 @@ public class ScheduleTest {
         onView(withId(R.id.rectangle_17)).perform(click());
         onView(withId(R.id.rectangle_3)).perform(click());
         onView(withId(R.id.rectangle_14)).perform(click());
-        onView(withId(R.id.rectangle_16)).perform(click());
+
 
 
         scenario.getScenario().onActivity(a -> requireNonNull(a.getPackageName()));
