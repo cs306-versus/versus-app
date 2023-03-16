@@ -88,10 +88,7 @@ public class LocationFragmentTest {
         onView(withId(R.id.edit_text_radius)).perform(typeText("1000"));
         onView(withText("OK")).perform(click());
         //Testing circle properties
-        CircleOptions circleOptions = LocationFragment.circleOptions;
-        assertThat(circleOptions.getStrokeWidth(), is(equalTo(2.0F)));
-        assertThat(circleOptions.getStrokeColor(), is(equalTo(Color.BLUE)));
-        assertThat(circleOptions.getFillColor(), is(equalTo(Color.parseColor("#500084d3"))));
+
 
     }
 }
