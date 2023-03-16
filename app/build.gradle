@@ -38,7 +38,6 @@ android {
     buildFeatures {
         viewBinding true
     }
-
 }
 
 dependencies {
@@ -68,6 +67,8 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.5.2'
     androidTestImplementation 'androidx.test:rules:1.5.0'
     androidTestImplementation 'androidx.test.espresso:espresso-intents:3.5.1'
+    androidTestImplementation 'androidx.fragment:fragment-testing:1.4.0'
+    androidTestImplementation  'androidx.test.espresso:espresso-contrib:3.5.0-alpha06'
 
     // Caching with Room Database dependencies
     def room_version = "2.5.0"
