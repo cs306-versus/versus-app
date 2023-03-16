@@ -5,7 +5,7 @@
     android:orientation="vertical">
 
 
-    <TextView android:id="@+id/basketball_game"
+    <TextView android:id="@+id/Game_text"
         android:fontFamily="Comic Neue"
         android:textStyle="bold"
         android:textSize="16sp"
@@ -16,13 +16,13 @@
         android:layout_height="47dp"
         android:text="@string/basketball_game_string"
         />
-    <View   android:id="@+id/rectangle_5"
+    <View   android:id="@+id/rectangle5"
         android:background="@drawable/rectangle_5_shape"
         android:layout_marginStart="118dp"
         android:layout_width="3dp"
         android:layout_height="72dp" />
 
-    <View   android:id="@+id/rectangle_6"
+    <View   android:id="@+id/rectangle6"
         android:background="@drawable/rectangle_6_shape"
         android:layout_marginLeft="127dp"
         android:layout_marginTop="2dp"
@@ -30,7 +30,7 @@
 
         android:layout_width="268dp"
         android:layout_height="77dp" />
-    <TextView android:id="@+id/_10_00_am"
+    <TextView android:id="@+id/Meeting_time"
         android:fontFamily="Comic Neue"
         android:textStyle="bold"
         android:textSize="16sp"
@@ -41,7 +41,7 @@
         android:layout_height="29dp"
         android:text="@string/_10_00_am_string"
         />
-    <TextView android:id="@+id/unil_sport_ek1"
+    <TextView android:id="@+id/Location_text"
         android:fontFamily="Comic Neue"
         android:textSize="12sp"
         android:textColor="@color/unil_sport_color"

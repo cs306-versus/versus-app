@@ -4,9 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -29,8 +27,8 @@ public class ScheduleFragment extends Fragment {
         String[] items = {"Item 1", "Item 2", "Item 3"};
 
         // Create an ArrayAdapter to populate the ListView
-        TextView dateText=view.findViewById(R.id._7_march___2023);
-        dateText.setText("12 March , 2023");
+        TextView dateText=view.findViewById(R.id.date);
+        dateText.setText("17 March , 2023");
         List a =new ArrayList<String>();
         a.add("Football Game");
         a.add("Unil-Sport");
@@ -42,7 +40,7 @@ public class ScheduleFragment extends Fragment {
         List c=new ArrayList<List<String>>();
                 c.add(a);
         c.add(b);
-       MyAdapter  adapter = new MyAdapter(getContext(), c);
+       ListViewAdapter adapter = new ListViewAdapter(getContext(), c);
 
         // Set the adapter to the ListView
         listView.setAdapter(adapter);
@@ -59,7 +57,7 @@ public class ScheduleFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Button rectangle14Button = view.findViewById(R.id.rectangle_14);
+        Button rectangle14Button = view.findViewById(R.id.Monday_button);
 
         rectangle14Button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,18 +66,18 @@ public class ScheduleFragment extends Fragment {
                 a.add("Tennis Match");
                 a.add("Unil-Sport");
                 a.add("11:00 AM");
-                TextView dateText=view.findViewById(R.id._7_march___2023);
+                TextView dateText=view.findViewById(R.id.date);
                 dateText.setText("16 March , 2023");
 
                 List c=new ArrayList<List<String>>();
                 c.add(a);
-                MyAdapter  adapter = new MyAdapter(getContext(), c);
+                ListViewAdapter adapter = new ListViewAdapter(getContext(), c);
                 ListView listView = (ListView) view.findViewById(R.id.list_view);
                 // Set the adapter to the ListView
                 listView.setAdapter(adapter);
             }
         });
-        Button rectangle15Button = view.findViewById(R.id.rectangle_15);
+        Button rectangle15Button = view.findViewById(R.id.Tuesday_button);
 
         rectangle15Button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,19 +86,19 @@ public class ScheduleFragment extends Fragment {
                 a.add("HandBall Game");
                 a.add("Chavannes-Epenex");
                 a.add("02:00 PM");
-                TextView dateText=view.findViewById(R.id._7_march___2023);
+                TextView dateText=view.findViewById(R.id.date);
                 dateText.setText("17 March , 2023");
 
                 List c=new ArrayList<List<String>>();
                 c.add(a);
-                MyAdapter  adapter = new MyAdapter(getContext(), c);
+                ListViewAdapter adapter = new ListViewAdapter(getContext(), c);
 
                 ListView listView = (ListView) view.findViewById(R.id.list_view);
                 // Set the adapter to the ListView
                 listView.setAdapter(adapter);
             }
         });
-        Button rectangle16Button = view.findViewById(R.id.rectangle_16);
+        Button rectangle16Button = view.findViewById(R.id.Wednesday_button);
 
         rectangle16Button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,32 +107,32 @@ public class ScheduleFragment extends Fragment {
                 a.add("Football Game");
                 a.add("Unil-Sport");
                 a.add("05:00 PM");
-                TextView dateText=view.findViewById(R.id._7_march___2023);
+                TextView dateText=view.findViewById(R.id.date);
                 dateText.setText("18 March , 2023");
                 List c=new ArrayList<List<String>>();
                 c.add(a);
-                MyAdapter  adapter = new MyAdapter(getContext(), c);
+                ListViewAdapter adapter = new ListViewAdapter(getContext(), c);
                 ListView listView = (ListView) view.findViewById(R.id.list_view);
                 // Set the adapter to the ListView
                 listView.setAdapter(adapter);
             }
         });
-        Button rectangle11Button = view.findViewById(R.id.rectangle_11);
+        Button rectangle11Button = view.findViewById(R.id.Thursday_button);
 
         rectangle11Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TextView dateText=view.findViewById(R.id._7_march___2023);
+                TextView dateText=view.findViewById(R.id.date);
                 dateText.setText("15 March , 2023");
 
                 List c=new ArrayList<List<String>>();
-                MyAdapter  adapter = new MyAdapter(getContext(), c);
+                ListViewAdapter adapter = new ListViewAdapter(getContext(), c);
                 ListView listView = (ListView) view.findViewById(R.id.list_view);
                 // Set the adapter to the ListView
                 listView.setAdapter(adapter);
             }
         });
-        Button rectangle18Button = view.findViewById(R.id.rectangle_18);
+        Button rectangle18Button = view.findViewById(R.id.Friday_button);
 
         rectangle18Button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,14 +150,14 @@ public class ScheduleFragment extends Fragment {
                 List c=new ArrayList<List<String>>();
                 c.add(a);
                 c.add(b);
-                MyAdapter  adapter = new MyAdapter(getContext(), c);
-                TextView dateText=view.findViewById(R.id._7_march___2023);
+                ListViewAdapter adapter = new ListViewAdapter(getContext(), c);
+                TextView dateText=view.findViewById(R.id.date);
                 dateText.setText("12 March , 2023");
                 // Set the adapter to the ListView
                 listView.setAdapter(adapter);
             }
         });
-        Button rectangle3Button = view.findViewById(R.id.rectangle_3);
+        Button rectangle3Button = view.findViewById(R.id.Saturday_button);
 
         rectangle3Button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -170,28 +168,28 @@ public class ScheduleFragment extends Fragment {
                 a.add("Football Game");
                 a.add("Unil-Sport");
                 a.add("07:00 PM");
-                TextView dateText=view.findViewById(R.id._7_march___2023);
+                TextView dateText=view.findViewById(R.id.date);
                 dateText.setText("14 March , 2023");
                 List c=new ArrayList<List<String>>();
                 c.add(a);
-                MyAdapter  adapter = new MyAdapter(getContext(), c);
+                ListViewAdapter adapter = new ListViewAdapter(getContext(), c);
 
                 // Set the adapter to the ListView
                 listView.setAdapter(adapter);
             }
         });
-        Button rectangle17Button = view.findViewById(R.id.rectangle_17);
+        Button rectangle17Button = view.findViewById(R.id.Sunday_button);
 
         rectangle17Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ListView listView = (ListView) view.findViewById(R.id.list_view);
-                TextView dateText=view.findViewById(R.id._7_march___2023);
+                TextView dateText=view.findViewById(R.id.date);
                 dateText.setText("13 March , 2023");
 
 
                 List c=new ArrayList<List<String>>();
-                MyAdapter  adapter = new MyAdapter(getContext(), c);
+                ListViewAdapter adapter = new ListViewAdapter(getContext(), c);
 
                 // Set the adapter to the ListView
                 listView.setAdapter(adapter);

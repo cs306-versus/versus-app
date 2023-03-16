@@ -19,16 +19,22 @@ public class ScheduleTest {
     @Rule
     public ActivityScenarioRule<MainActivity> scenario = new ActivityScenarioRule<>(MainActivity.class);
 
-    private static final String test_account_mail = "demo@versus.ch";
 
-    private static final String test_account_pwd = "123456789";
 
     @Test
     public void testScheduleButtons(){
-        onView(withId(R.id.rectangle_18)).perform(click());
-        onView(withId(R.id.rectangle_17)).perform(click());
-        onView(withId(R.id.rectangle_3)).perform(click());
-        onView(withId(R.id.rectangle_14)).perform(click());
+        onView(withId(R.id.Monday_button)).perform(click());
+        onView(withId(R.id.Tuesday_button)).perform(click());
+        onView(withId(R.id.Thursday_button)).perform(click());
+        onView(withId(R.id.Wednesday_button)).perform(click());
+        onView(withId(R.id.Thursday_button)).perform(click());
+
+        onView(withId(R.id.Friday_button)).perform(click());
+
+        onView(withId(R.id.Saturday_button)).perform(click());
+
+        onView(withId(R.id.Sunday_button)).perform(click());
+
 
 
 

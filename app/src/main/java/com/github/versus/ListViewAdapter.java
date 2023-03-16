@@ -5,16 +5,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.util.List;
 
-public class MyAdapter extends ArrayAdapter<List<String>> {
+public class ListViewAdapter extends ArrayAdapter<List<String>> {
     private Context context;
     private List<List<String>> books;
 
-    public MyAdapter(Context context,List< List<String>> books) {
+    public ListViewAdapter(Context context, List< List<String>> books) {
         super(context, R.layout.list_item, books);
         this.context = context;
         this.books = books;
@@ -25,9 +24,9 @@ public class MyAdapter extends ArrayAdapter<List<String>> {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.list_item, parent, false);
         List<String> book = books.get(position);
-        ((TextView)view.findViewById(R.id.basketball_game)).setText(book.get(0));
-        ((TextView)view.findViewById(R.id.unil_sport_ek1)).setText(book.get(1));
-        ((TextView)view.findViewById(R.id._10_00_am)).setText(book.get(2));
+        ((TextView)view.findViewById(R.id.Game_text)).setText(book.get(0));
+        ((TextView)view.findViewById(R.id.Location_text)).setText(book.get(1));
+        ((TextView)view.findViewById(R.id.Meeting_time)).setText(book.get(2));
 
         //TextView titleTextView = (TextView) view.findViewById(R.id.text_view_1);
         //TextView authorTextView = (TextView) view.findViewById(R.id.text_view_2);
