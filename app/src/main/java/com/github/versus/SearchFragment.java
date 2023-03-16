@@ -16,6 +16,7 @@ import com.github.versus.posts.FakePost;
 import com.github.versus.posts.Location;
 import com.github.versus.posts.Post;
 import com.github.versus.posts.Timestamp;
+import com.github.versus.sports.Sport;
 
 import java.time.Month;
 import java.util.ArrayList;
@@ -30,13 +31,13 @@ public class SearchFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_research,container,false);
         recyclerView = rootView.findViewById(R.id.recyclerView);
         Post[] posts = new Post[]{
-                new FakePost("soccer", new Timestamp(2023, Month.values()[4], 2, 12, 3, null), new Location("UNIL", 42, 42), new ArrayList<>(), 5),
-                new FakePost("soccer", new Timestamp(2023, Month.values()[4], 2, 12, 3, null), new Location("UNIL", 42, 42), new ArrayList<>(), 5),
-                new FakePost("soccer", new Timestamp(2023, Month.values()[4], 2, 12, 3, null), new Location("UNIL", 42, 42), new ArrayList<>(), 5),
-                new FakePost("soccer", new Timestamp(2023, Month.values()[4], 2, 12, 3, null), new Location("UNIL", 42, 42), new ArrayList<>(), 5),
-                new FakePost("soccer", new Timestamp(2023, Month.values()[4], 2, 12, 3, null), new Location("UNIL", 42, 42), new ArrayList<>(), 5),
-                new FakePost("boccer", new Timestamp(2023, Month.values()[4], 2, 12, 3, null), new Location("UNIL", 42, 42), new ArrayList<>(), 5),
-                new FakePost("doccer", new Timestamp(2023, Month.values()[4], 2, 12, 3, null), new Location("UNIL", 42, 42), new ArrayList<>(), 5),
+                new FakePost("Casual Soccer Game", Sport.SOCCER,new Timestamp(2023, Month.values()[4], 2, 12, 3, null), new Location("UNIL", 42, 42), new ArrayList<>(), 5),
+                new FakePost("Quadruple Sculls", Sport.ROWING, new Timestamp(2023, Month.values()[4], 2, 12, 3, null), new Location("UNIL", 42, 42), new ArrayList<>(), 5),
+                new FakePost("Looking for belay partner", Sport.ClIMBING, new Timestamp(2023, Month.values()[4], 2, 12, 3, null), new Location("UNIL", 42, 42), new ArrayList<>(), 5),
+                new FakePost("soccer", Sport.ROWING, new Timestamp(2023, Month.values()[4], 2, 12, 3, null), new Location("UNIL", 42, 42), new ArrayList<>(), 5),
+                new FakePost("soccer", Sport.ROWING, new Timestamp(2023, Month.values()[4], 2, 12, 3, null), new Location("UNIL", 42, 42), new ArrayList<>(), 5),
+                new FakePost("boccer", Sport.ROWING, new Timestamp(2023, Month.values()[4], 2, 12, 3, null), new Location("UNIL", 42, 42), new ArrayList<>(), 5),
+                new FakePost("doccer", Sport.ROWING, new Timestamp(2023, Month.values()[4], 2, 12, 3, null), new Location("UNIL", 42, 42), new ArrayList<>(), 5),
         };
         AnnouncementAdapter aa = new AnnouncementAdapter(posts);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());

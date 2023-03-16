@@ -1,5 +1,7 @@
 package com.github.versus.posts;
 
+import com.github.versus.sports.Sport;
+
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +16,8 @@ public interface Post {
      */
     public String getTitle();
 
+
+    public Sport getSport();
 
 
     /**

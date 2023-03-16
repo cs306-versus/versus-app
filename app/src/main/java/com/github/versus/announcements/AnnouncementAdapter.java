@@ -31,7 +31,7 @@ public class AnnouncementAdapter extends RecyclerView.Adapter<AnnouncementAdapte
     @Override
     public void onBindViewHolder(@NonNull AnnouncementAdapter.ViewHolder viewHolder, int position) {
         viewHolder.getTitleTextView().setText(posts[position].getTitle());
-        viewHolder.getSportTextView().setText("Placeholder Sport");
+        viewHolder.getSportTextView().setText(posts[position].getSport().name);
         viewHolder.getDateTextView().setText(posts[position].getDate().toString());
         viewHolder.getLocationTextView().setText(posts[position].getLocation().toString());
     }

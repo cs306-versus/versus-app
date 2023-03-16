@@ -5,4 +5,12 @@ package com.github.versus.sports;
  */
 public enum Sport {
     // TODO : Add all the
+    SOCCER("Soccer"),
+    ClIMBING("Climbing"),
+    ROWING("Rowing");
+
+    public final String name;
+    private Sport(String name){
+        this.name = name;
+    }
 }
