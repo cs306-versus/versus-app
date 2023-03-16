@@ -47,7 +47,7 @@ import com.google.android.libraries.places.api.net.PlacesClient;
 
 public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
-    private static final String TAG = MapsActivityCurrentPlace.class.getSimpleName();
+    private static final String TAG = LocationFragment.class.getSimpleName();
     private static final int DEFAULT_ZOOM = 15;
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     // Keys for storing activity state.
