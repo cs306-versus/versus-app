@@ -13,7 +13,7 @@ import java.util.Objects;
  * Post in the Versus app
  */
 public class Post {
-    
+
     private  String title;
     private  Timestamp date;
     private  Location location;
@@ -108,15 +108,13 @@ public class Post {
         }
 
         Post other = (Post) obj;
-        return this.getTitle().equals(other.getTitle())
-                && this.getDate().equals(other.getDate())
-                && this.getLocation().equals(other.getLocation())
-                && this.getPlayers().equals(other.getPlayers())
-                && this.getPlayerLimit() == other.getPlayerLimit()
-                && this.getSport().equals(other.getSport());
+        return this.title.equals(other.title)
+                && this.date.equals(other.date)
+                && this.location.equals(other.location)
+                && this.players.equals(other.players)
+                && this.playerLimit == other.playerLimit
+                && this.sport.equals(other.sport);
     }
-
-
 
 
 }

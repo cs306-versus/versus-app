@@ -17,16 +17,16 @@ public class Timestamp {
     private final int hour;
     private final int minutes;
     private final int seconds;
-    private final Meridiem m;
+    private Meridiem meridiem;
 
-    public Timestamp(int year, Month month, int day, int hour, int minutes, Meridiem m) {
+    public Timestamp(int year, Month month, int day, int hour, int minutes, Meridiem meridiem) {
         // TODO : enable assertions for these checks to happen
         //TODO: Tell derouich about the check of minutes and hours
         // acceptable time and date checks
         assert( CURR_YEAR <= year && year <= MAX_YEAR );
         assert( 1 <= day && day <= 31 );
-        assert( 1 <=  hour && hour <= 12 );
-        assert( 1 <=  minutes && minutes <= 60 );
+        assert( 0 <=  hour && hour <= 11 );
+        assert( 0 <=  minutes && minutes <= 59 );
 
         this.year = year;
         this.month = month;
@@ -34,7 +34,7 @@ public class Timestamp {
         this.hour = hour;
         this.minutes = minutes;
         this.seconds = 0;
-        this.m = m;
+        this.meridiem = meridiem;
     }
     private Timestamp(){
         this.year = 0;
@@ -43,7 +43,7 @@ public class Timestamp {
         this.hour = 0;
         this.minutes = 0;
         this.seconds = 0;
-        this.m = null;
+        this.meridiem = null;
     }
 
 
@@ -93,7 +93,7 @@ public class Timestamp {
      * @return the meridiem of the timestamp
      */
     public Meridiem getMeridiem() {
-        return m;
+        return meridiem;
     }
 
     @Override

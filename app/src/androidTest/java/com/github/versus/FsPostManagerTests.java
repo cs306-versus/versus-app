@@ -16,6 +16,8 @@ import com.github.versus.posts.Post;
 import com.github.versus.posts.Timestamp;
 import com.github.versus.sports.Sport;
 import com.github.versus.user.DummyUser;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.time.Month;
@@ -45,7 +47,7 @@ public class FsPostManagerTests {
             FsPostManager postm = new FsPostManager(db);
 
             // Creating a test post
-            Post post = new Post( "_test_", new Timestamp(2023, Month.AUGUST, 18, 12, 15, Timestamp.Meridiem.AM) ,
+            Post post = new Post( "_test_", new Timestamp(2023, Month.AUGUST, 18, 11, 15, Timestamp.Meridiem.AM) ,
                     new Location("tirane", 0, 0), new ArrayList<>(), 15, Sport.FOOTBALL);
 
             //inserting the post
@@ -93,11 +95,11 @@ public class FsPostManagerTests {
             List<Post> l = postm.fetchAll("test_posts").get();
             //creating test posts
 
-            Post postTest = new Post( "_test_", new Timestamp(2023, Month.AUGUST, 18, 12, 15, Timestamp.Meridiem.AM) ,
+            Post postTest = new Post( "_test_", new Timestamp(2023, Month.AUGUST, 18, 10, 15, Timestamp.Meridiem.AM) ,
                     new Location("tirane", 0, 0), new ArrayList<>(), 15, Sport.FOOTBALL);
-            Post postTest1 = new Post( "_test_1", new Timestamp(2023, Month.AUGUST, 18, 12, 15, Timestamp.Meridiem.AM) ,
+            Post postTest1 = new Post( "_test_1", new Timestamp(2023, Month.AUGUST, 18, 10, 15, Timestamp.Meridiem.AM) ,
                     new Location("tirane", 0, 0), new ArrayList<>(), 15, Sport.FOOTBALL);
-            Post postTest2 = new Post( "_test_2", new Timestamp(2023, Month.AUGUST, 18, 12, 15, Timestamp.Meridiem.AM) ,
+            Post postTest2 = new Post( "_test_2", new Timestamp(2023, Month.AUGUST, 18, 10, 15, Timestamp.Meridiem.AM) ,
                     new Location("tirane", 0, 0), new ArrayList<>(), 15, Sport.FOOTBALL);
             Set<Post> refSet = new HashSet<>();
             refSet.add(postTest);
@@ -115,7 +117,7 @@ public class FsPostManagerTests {
 
         // Creating a test post
         String postName = "_test_1";
-        Post post = new Post( postName, new Timestamp(2023, Month.AUGUST, 18, 12, 15, Timestamp.Meridiem.AM) ,
+        Post post = new Post( postName, new Timestamp(2023, Month.AUGUST, 18, 11, 15, Timestamp.Meridiem.AM) ,
                 new Location("tirane", 0, 0), new ArrayList<>(), 15, Sport.FOOTBALL);
 
         //inserting the post
@@ -142,7 +144,6 @@ public class FsPostManagerTests {
         assertTrue(deletionSuccess);
 
     }
-
 
 
 

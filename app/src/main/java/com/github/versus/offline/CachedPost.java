@@ -8,6 +8,7 @@ import androidx.room.PrimaryKey;
 import com.github.versus.posts.Location;
 import com.github.versus.posts.Post;
 import com.github.versus.posts.Timestamp;
+import com.github.versus.user.DummyUser;
 
 import java.time.Month;
 import java.util.List;
@@ -75,7 +76,7 @@ public final class CachedPost {
         hour= timestamp.getHour();
         minutes= timestamp.getMinutes();
         seconds= timestamp.getSeconds();
-        meridiem= timestamp.getM().name();
+        meridiem= timestamp.getMeridiem().name();
         isEmpty= false;
 
     }
@@ -109,7 +110,7 @@ public final class CachedPost {
             }
 
             @Override
-            public List<Object> getPlayers() {
+            public List<DummyUser> getPlayers() {
                  throw new RuntimeException("Not implemented");
             }
 
