@@ -231,9 +231,12 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                 float radius = Float.parseFloat(editText.getText().toString());
 
                 // Update the CircleOptions object with the new radius and redraw the circle
-                circleOptions.radius(radius);
-                map.clear();
-                map.addCircle(circleOptions);
+                if(circleOptions!=null){
+                    circleOptions.radius(radius);
+                    map.clear();
+                    map.addCircle(circleOptions);
+                }
+
             }
         }).setNegativeButton("Cancel", null).create();
 
@@ -265,8 +268,9 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                         if (task.isSuccessful()) {
                             // Set the map's camera position to the current location of the device.
                             lastKnownLocation = task.getResult();
-                            localPos = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
+
                             if (lastKnownLocation != null) {
+                                localPos = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
                                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(localPos, DEFAULT_ZOOM));
                                 //Draw a circle around location
                                 circleOptions = new CircleOptions().center(localPos).strokeWidth(2).strokeColor(Color.BLUE).fillColor(Color.parseColor("#500084d3"));
