@@ -35,7 +35,7 @@ import java.util.stream.Collectors;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 @RunWith(AndroidJUnit4.class)
-public class ExampleInstrumentedTest {
+public class FsPostManagerTests {
 
         @Test
         public void CorrectFsPostInsert_Get() throws ExecutionException, InterruptedException, TimeoutException
