@@ -61,8 +61,7 @@ public class LocationFragmentTest {
     public ActivityScenarioRule<MainActivity> activityRule = new ActivityScenarioRule<>(MainActivity.class);
 
 
-            // Verify that the activity properly restored the location and camera position from the instance state
-
+    // Verify that the activity properly restored the location and camera position from the instance state
 
 
     @Before
@@ -88,77 +87,18 @@ public class LocationFragmentTest {
         onView(withText("Choose a radius")).perform(click());
         onView(withId(R.id.edit_text_radius)).perform(typeText("1000"));
         onView(withText("OK")).perform(click());
-//Testing circle properties
+        //Testing circle properties
         CircleOptions circleOptions = LocationFragment.circleOptions;
-        assertThat(circleOptions.getCenter(),is(equalTo(LocationFragment.getLocalPos())));
-        assertThat(circleOptions.getStrokeWidth(),is(equalTo(2.0F)));
-        assertThat(circleOptions.getStrokeColor(),is(equalTo(Color.BLUE)));
-        assertThat(circleOptions.getFillColor(),is(equalTo(Color.parseColor("#500084d3"))));
+        assertThat(circleOptions.getCenter(), is(equalTo(LocationFragment.getLocalPos())));
+        assertThat(circleOptions.getStrokeWidth(), is(equalTo(2.0F)));
+        assertThat(circleOptions.getStrokeColor(), is(equalTo(Color.BLUE)));
+        assertThat(circleOptions.getFillColor(), is(equalTo(Color.parseColor("#500084d3"))));
 
-    }
-
-
-
-
-
-    private static class HasCircle implements ViewAction {
-        private final LatLng center;
-        CircleOptions circle ;
-        public HasCircle(LatLng center) {
-            this.center = center;
-        }
-
-        @Override
-        public Matcher<View> getConstraints() {
-            return allOf(withId(R.id.map), isDisplayed());
-        }
-
-        @Override
-        public String getDescription() {
-            return "waiting for circle to be shown on map";
-        }
-
-        @Override
-        public void perform(UiController uiController, View view) {
-            //GoogleMap map = ((MapFragment) activityTestRule.getActivity().getFragmentManager().findFragmentById(R.id.map)).getMap();
-            //GoogleMap map = ((SupportMapFragment) activityRule.getActivity().getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
-
-            circle = new CircleOptions().center(LocationFragment.getLocalPos()).strokeWidth(2).strokeColor(Color.BLUE).fillColor(Color.parseColor("#500084d3"));
-            if (circle == null || !circle.getCenter().equals(center)) {
-                uiController.loopMainThreadForAtLeast(50);
-            }
-        }
     }
 }
 
 
-        // Start the screen of your activity.
-        /*Espresso.onView(withId(R.id.nav_view))
-                .perform(NavigationViewActions.navigateTo(R.id.your_navigation_menu_item));
-
-        // Check that you Activity was opened.
-        String expectedNoStatisticsText = InstrumentationRegistry.getTargetContext()
-                .getString(R.string.no_item_available);
-        onView(withId(R.id.no_statistics)).check(matches(withText(expectedNoStatisticsText)));
-
-        // Check that a new activity is launched
-        //intended(hasComponent(MainActivity.class.getName()))
-        /*Espresso.onView(withId(R.id.nav_location))
-                .check(matches(isDisplayed()));*/
-        //Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
-       /* Espresso.onView(withId(R.id.nav_location))
-                .perform(click())
-                .check(matches(isDisplayed()));*/
 
 
-        /*LocationFragment fragment = new LocationFragment();
-        FragmentScenario<LocationFragment> scenario = FragmentScenario.launchInContainer(LocationFragment.class);
-        // Access views inside the fragment
-        Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
 
-        // Click on the "Get Place" menu item
-        Espresso.onView(withId(R.id.option_radius))
-                .perform(click());
-*/
-        // Check that the intent has the correct extras and data
-       // intended(allOf(hasExtra("", "adam"), toPackage("com.github.adam.bootcamp")));
+
