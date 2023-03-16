@@ -49,12 +49,11 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
     private static final String TAG = LocationFragment.class.getSimpleName();
     private static final int DEFAULT_ZOOM = 15;
-    private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
-    // Keys for storing activity state.
-    // [START maps_current_place_state_keys]
+    //private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
+
+
     private static final String KEY_CAMERA_POSITION = "camera_position";
     private static final String KEY_LOCATION = "location";
-
     private static LatLng localPos;
 
     // A default location (Sydney, Australia) and default zoom to use when location permission is
@@ -71,10 +70,6 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     private EditText editTextRadius;
     private Location lastKnownLocation;
     private static LatLng epfl ;
-    private static LatLng sat;
-    public static MarkerOptions epflMarker ;
-    public static MarkerOptions satelliteMarker;
-
 
 
     /*These attributes will be used later
@@ -145,26 +140,10 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         });
         // Add markers for EPFL and Satellite
         epfl = new LatLng(46.520536, 6.568318);
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(epfl, 15));
-        sat = new LatLng(46.520544, 6.567825);
-        epflMarker=new MarkerOptions().position(epfl).title("EPFL");
-        satelliteMarker=new MarkerOptions().position(sat).title("Sat");
-        map.addMarker(epflMarker);
-        map.addMarker(satelliteMarker);
-
         map.moveCamera(CameraUpdateFactory.newLatLng(epfl));
-        map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
-            @Override
-            public void onInfoWindowClick(Marker marker) {
-                LatLng position = marker.getPosition();
-                String message = "Marker clicked at: " + position.latitude + ", " + position.longitude;
-                Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
-            }
-        });
-
 
         // Prompt the user for permission.
-        getLocationPermission();
+        //getLocationPermission();
 
 
         // Turn on the My Location layer and the related control on the map.
@@ -250,12 +229,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
         dialog.show();
     }
-    /**
-     * Gets the current location of the device for test purposes
-     */
-    public static LatLng getLocalPos(){
-        return localPos;
-    }
+
 
 
     /**
@@ -302,39 +276,6 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
 
 
-    /**
-     * Prompts the user for permission to use the device location.
-     */
-
-    private void getLocationPermission() {
-        /*
-         * Request location permission, so that we can get the location of the
-         * device. The result of the permission request is handled by a callback,
-         * onRequestPermissionsResult.
-         */
-        if (ContextCompat.checkSelfPermission(getActivity().getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            locationPermissionGranted = true;
-        } else {
-            ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
-        }
-    }
-
-
-    /**
-     * Handles the result of the request for location permissions.
-     */
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        locationPermissionGranted = false;
-        if (requestCode == PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION) {// If request is cancelled, the result arrays are empty.
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                locationPermissionGranted = true;
-            }
-        } else {
-            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
-        updateLocationUI();
-    }
 
 
     /**
@@ -352,7 +293,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                 map.setMyLocationEnabled(false);
                 map.getUiSettings().setMyLocationButtonEnabled(false);
                 lastKnownLocation = null;
-                getLocationPermission();
+                //getLocationPermission();
             }
         } catch (SecurityException e) {
             Log.e("Exception: %s", e.getMessage());
