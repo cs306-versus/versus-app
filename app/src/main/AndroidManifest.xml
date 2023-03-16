@@ -30,7 +30,6 @@
         <activity
             android:name=".MainActivity"
             android:exported="false" />
-        <activity android:name=".MapsActivityCurrentPlace"/>
         <activity
             android:name=".EntryActivity"
             android:exported="true">
