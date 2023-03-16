@@ -48,7 +48,7 @@ public class FsPostManagerTests {
 
             // Creating a test post
             Post post = new Post( "_test_", new Timestamp(2023, Month.AUGUST, 18, 11, 15, Timestamp.Meridiem.AM) ,
-                    new Location("tirane", 0, 0), new ArrayList<>(), 15, Sport.FOOTBALL);
+                    new Location("tirane", 0, 0), new ArrayList<>(), 15, Sport.SOCCER);
 
             //inserting the post
             Future<Boolean> insertResult = postm.insert(post);
@@ -96,11 +96,11 @@ public class FsPostManagerTests {
             //creating test posts
 
             Post postTest = new Post( "_test_", new Timestamp(2023, Month.AUGUST, 18, 10, 15, Timestamp.Meridiem.AM) ,
-                    new Location("tirane", 0, 0), new ArrayList<>(), 15, Sport.FOOTBALL);
+                    new Location("tirane", 0, 0), new ArrayList<>(), 15, Sport.SOCCER);
             Post postTest1 = new Post( "_test_1", new Timestamp(2023, Month.AUGUST, 18, 10, 15, Timestamp.Meridiem.AM) ,
-                    new Location("tirane", 0, 0), new ArrayList<>(), 15, Sport.FOOTBALL);
+                    new Location("tirane", 0, 0), new ArrayList<>(), 15, Sport.SOCCER);
             Post postTest2 = new Post( "_test_2", new Timestamp(2023, Month.AUGUST, 18, 10, 15, Timestamp.Meridiem.AM) ,
-                    new Location("tirane", 0, 0), new ArrayList<>(), 15, Sport.FOOTBALL);
+                    new Location("tirane", 0, 0), new ArrayList<>(), 15, Sport.SOCCER);
             Set<Post> refSet = new HashSet<>();
             refSet.add(postTest);
             refSet.add(postTest1);
@@ -118,7 +118,7 @@ public class FsPostManagerTests {
         // Creating a test post
         String postName = "_test_1";
         Post post = new Post( postName, new Timestamp(2023, Month.AUGUST, 18, 11, 15, Timestamp.Meridiem.AM) ,
-                new Location("tirane", 0, 0), new ArrayList<>(), 15, Sport.FOOTBALL);
+                new Location("tirane", 0, 0), new ArrayList<>(), 15, Sport.SOCCER);
 
         //inserting the post
         Future<Boolean> insertResult = postm.insert(post);

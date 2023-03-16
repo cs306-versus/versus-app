@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.versus.announcements.AnnouncementAdapter;
-import com.github.versus.posts.FakePost;
 import com.github.versus.posts.Location;
 import com.github.versus.posts.Post;
 import com.github.versus.posts.Timestamp;
@@ -21,7 +20,6 @@ import com.github.versus.sports.Sport;
 
 import java.time.Month;
 import java.util.ArrayList;
-import java.util.List;
 
 public class SearchFragment extends Fragment {
     protected RecyclerView recyclerView;
@@ -32,15 +30,16 @@ public class SearchFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_research,container,false);
         recyclerView = rootView.findViewById(R.id.recyclerView);
         recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
-
+        Timestamp ts =  new Timestamp(2023, Month.APRIL, 4, 5, 1, Timestamp.Meridiem.AM);
+        Timestamp ts2 =  new Timestamp(2024, Month.MAY, 5, 5, 1, Timestamp.Meridiem.PM);
+        Location unil = new Location("UNIL", 42, 42);
+        Location epfl = new Location("EPFL", 105, 15);
         Post[] posts = new Post[]{
-                new FakePost("Casual Soccer Game", Sport.SOCCER,new Timestamp(2023, Month.values()[4], 2, 1, 3, null), new Location("EPFL", 42, 42), new ArrayList<>(), 5),
-                new FakePost("Quadruple Sculls", Sport.ROWING, new Timestamp(2023, Month.values()[4], 2, 10, 3, null), new Location("Grimper.ch", 42, 42), new ArrayList<>(), 5),
-                new FakePost("Looking for belay partner", Sport.ClIMBING, new Timestamp(2023, Month.values()[4], 2, 10, 3, null), new Location("UNIL", 42, 42), new ArrayList<>(), 5),
-                new FakePost("soccer", Sport.ClIMBING, new Timestamp(2023, Month.values()[3], 10, 10, 3, null), new Location("Ithaca", 42, 42), new ArrayList<>(), 5),
-                new FakePost("soccer", Sport.SOCCER, new Timestamp(2023, Month.values()[5], 15, 10, 3, null), new Location("Hello", 42, 42), new ArrayList<>(), 5),
-                new FakePost("boccer", Sport.ClIMBING, new Timestamp(2023, Month.values()[5], 28, 10, 3, null), new Location("UNIL", 42, 42), new ArrayList<>(), 5),
-                new FakePost("doccer", Sport.ROWING, new Timestamp(2023, Month.values()[7], 31, 10, 3, null), new Location("UNIL", 42, 42), new ArrayList<>(), 5),
+                new Post("Casual Soccer", ts, unil, new ArrayList<>(), 24, Sport.SOCCER),
+                new Post("Belay me?", ts2, epfl, new ArrayList<>(), 2, Sport.ClIMBING),
+                new Post("Quadruple Sculls", ts2, unil, new ArrayList<>(), 4, Sport.ROWING),
+                new Post("Competitive Soccer", ts, epfl, new ArrayList<>(), 12, Sport.SOCCER),
+                new Post("Test post", ts, unil, new ArrayList<>(), 55, Sport.ClIMBING),
         };
         AnnouncementAdapter aa = new AnnouncementAdapter(posts);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
