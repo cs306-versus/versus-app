@@ -21,6 +21,7 @@ public class Timestamp {
 
     public Timestamp(int year, Month month, int day, int hour, int minutes, Meridiem m) {
         // TODO : enable assertions for these checks to happen
+        //TODO: Tell derouich about the check of minutes and hours
         // acceptable time and date checks
         assert( CURR_YEAR <= year && year <= MAX_YEAR );
         assert( 1 <= day && day <= 31 );
@@ -47,7 +48,6 @@ public class Timestamp {
 
 
     /**
-     *
      * @return the day of the timestamp
      */
     public int getDay() {
@@ -55,7 +55,6 @@ public class Timestamp {
     }
 
     /**
-     *
      * @return the month of the timestamp
      */
     public Month getMonth() {
@@ -63,28 +62,27 @@ public class Timestamp {
     }
 
     /**
-     *
      * @return the year of the timestamp
      */
     public int getYear() {
         return year;
     }
+
     /**
-     *
      * @return the hour of the timestamp
      */
     public int getHour() {
         return hour;
     }
+
     /**
-     *
      * @return the minutes of the timestamp
      */
     public int getMinutes() {
         return minutes;
     }
+
     /**
-     *
      * @return the seconds of the timestamp
      */
     public int getSeconds() {
@@ -124,4 +122,5 @@ public class Timestamp {
      */
     public enum Meridiem{
         AM, PM;
-    }}
+    }
+}

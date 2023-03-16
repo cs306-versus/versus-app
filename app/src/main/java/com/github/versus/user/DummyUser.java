@@ -80,11 +80,11 @@ public class DummyUser implements User{
             return true;
         }
 
-        if (!(obj instanceof User)) {
+        if (!(obj instanceof DummyUser)) {
             return false;
         }
 
-        User other = (User) obj;
+        DummyUser other = (DummyUser) obj;
         return this.getUID().equals(other.getUID());
     }
 }

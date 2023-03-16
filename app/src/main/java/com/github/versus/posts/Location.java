@@ -2,10 +2,18 @@ package com.github.versus.posts;
 import java.io.Serializable;
 
 public class Location implements Serializable {
-    private final String name;
-    private final double latitude;
-    private final double longitude;
 
+    private String name;
+    private double longitude;
+    private double latitude;
+
+    /**
+     * Create a location
+     *
+     * @param name      the name of the location
+     * @param latitude  latitude of the location
+     * @param longitude longitude of the location
+     */
     public Location(String name, double latitude, double longitude) {
         this.name = name;
         this.latitude = latitude;

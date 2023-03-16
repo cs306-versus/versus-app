@@ -1,0 +1,92 @@
+package com.github.versus.offline;
+
+import com.github.versus.posts.Location;
+import com.github.versus.posts.Post;
+import com.github.versus.posts.Timestamp;
+import com.github.versus.user.DummyUser;
+
+import java.time.Month;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Map;
+
+public final class SimpleTestPost extends Post {
+    private String title = "Valid Post";
+    @Override
+    public String getTitle() {
+        return title;
+    }
+
+    @Override
+    public Timestamp getDate() {
+        return new Timestamp(Calendar.getInstance().get(Calendar.YEAR), Month.values()[0], 1, 8, 1, Timestamp.Meridiem.PM);
+    }
+
+    @Override
+    public Location getLocation() {
+        return new Location("Lausanne", 10, 10);
+    }
+
+    @Override
+    public List<DummyUser> getPlayers() {
+        return null;
+    }
+
+    @Override
+    public int getPlayerLimit() {
+        return 10;
+    }
+
+    @Override
+    public Map<String, Object> getAllAttributes() {
+        return null;
+    }
+
+    public boolean equals(Post that){
+        return this.getTitle().equals(that.getTitle()) &&
+                this.getDate().equals(that.getDate())  &&
+                this.getLocation().equals(that.getLocation()) &&
+                this.getPlayerLimit()== that.getPlayerLimit();
+    }
+
+    public SimpleTestPost(){
+        title= "Valid Post";
+    }
+    public SimpleTestPost(String title){
+        this.title= title;
+    }
+    public static Post postWith(String title,Timestamp timestamp,Location location, int limit){
+       return  new Post() {
+            @Override
+            public String getTitle() {
+                return title ;
+            }
+
+            @Override
+            public Timestamp getDate() {
+                return timestamp;
+            }
+
+            @Override
+            public Location getLocation() {
+                return location;
+            }
+
+            @Override
+            public List<DummyUser> getPlayers() {
+                return null;
+            }
+
+            @Override
+            public int getPlayerLimit() {
+                return limit;
+            }
+
+            @Override
+            public Map<String, Object> getAllAttributes() {
+                return null;
+            }
+        };
+    }
+
+}
