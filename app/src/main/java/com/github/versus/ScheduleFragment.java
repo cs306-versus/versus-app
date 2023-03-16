@@ -67,7 +67,8 @@ public class ScheduleFragment extends Fragment {
                 a.add("Unil-Sport");
                 a.add("11:00 AM");
                 TextView dateText=view.findViewById(R.id.date);
-                dateText.setText("16 March , 2023");
+                String date ="16 March , 2023";
+                dateText.setText(date);
 
                 List c=new ArrayList<List<String>>();
                 c.add(a);
@@ -87,7 +88,8 @@ public class ScheduleFragment extends Fragment {
                 a.add("Chavannes-Epenex");
                 a.add("02:00 PM");
                 TextView dateText=view.findViewById(R.id.date);
-                dateText.setText("17 March , 2023");
+                String date ="17 March , 2023";
+                dateText.setText(date);
 
                 List c=new ArrayList<List<String>>();
                 c.add(a);
@@ -108,7 +110,8 @@ public class ScheduleFragment extends Fragment {
                 a.add("Unil-Sport");
                 a.add("05:00 PM");
                 TextView dateText=view.findViewById(R.id.date);
-                dateText.setText("18 March , 2023");
+                String date ="18 March , 2023";
+                dateText.setText(date);
                 List c=new ArrayList<List<String>>();
                 c.add(a);
                 ListViewAdapter adapter = new ListViewAdapter(getContext(), c);
@@ -123,7 +126,8 @@ public class ScheduleFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 TextView dateText=view.findViewById(R.id.date);
-                dateText.setText("15 March , 2023");
+                String date ="15 March , 2023";
+                dateText.setText(date);
 
                 List c=new ArrayList<List<String>>();
                 ListViewAdapter adapter = new ListViewAdapter(getContext(), c);
@@ -152,7 +156,8 @@ public class ScheduleFragment extends Fragment {
                 c.add(b);
                 ListViewAdapter adapter = new ListViewAdapter(getContext(), c);
                 TextView dateText=view.findViewById(R.id.date);
-                dateText.setText("12 March , 2023");
+                String date ="12 March , 2023";
+                dateText.setText(date);
                 // Set the adapter to the ListView
                 listView.setAdapter(adapter);
             }
@@ -169,7 +174,8 @@ public class ScheduleFragment extends Fragment {
                 a.add("Unil-Sport");
                 a.add("07:00 PM");
                 TextView dateText=view.findViewById(R.id.date);
-                dateText.setText("14 March , 2023");
+                String date ="14 March , 2023";
+                dateText.setText(date);
                 List c=new ArrayList<List<String>>();
                 c.add(a);
                 ListViewAdapter adapter = new ListViewAdapter(getContext(), c);
@@ -185,7 +191,8 @@ public class ScheduleFragment extends Fragment {
             public void onClick(View v) {
                 ListView listView = (ListView) view.findViewById(R.id.list_view);
                 TextView dateText=view.findViewById(R.id.date);
-                dateText.setText("13 March , 2023");
+                String date ="13 March , 2023";
+                dateText.setText(date);
 
 
                 List c=new ArrayList<List<String>>();
