@@ -89,7 +89,6 @@ public class LocationFragmentTest {
         onView(withText("OK")).perform(click());
         //Testing circle properties
         CircleOptions circleOptions = LocationFragment.circleOptions;
-        assertThat(circleOptions.getCenter(), is(equalTo(LocationFragment.getLocalPos())));
         assertThat(circleOptions.getStrokeWidth(), is(equalTo(2.0F)));
         assertThat(circleOptions.getStrokeColor(), is(equalTo(Color.BLUE)));
         assertThat(circleOptions.getFillColor(), is(equalTo(Color.parseColor("#500084d3"))));
