@@ -90,6 +90,13 @@ public class Timestamp {
     public int getSeconds() {
         return seconds;
     }
+    /**
+     *
+     * @return the meridiem of the timestamp
+     */
+    public Meridiem getMeridiem() {
+        return m;
+    }
 
     @Override
     public boolean equals(Object obj) {
@@ -100,24 +107,17 @@ public class Timestamp {
             return false;
         }
         Timestamp other = (Timestamp) obj;
-        return this.year == other.year
-                && this.month.equals(other.month)
-                && this.day == other.day
-                && this.hour == other.hour
-                && this.minutes == other.minutes
-                && this.seconds == other.seconds
-                && this.m.equals(other.m);
+        return this.getYear() == other.getYear()
+                && this.getMonth().equals(other.getMonth())
+                && this.getDay() == other.getDay()
+                && this.getHour() == other.getHour()
+                && this.getMinutes() == other.getMinutes()
+                && this.getSeconds() == other.getSeconds()
+                && this.getMeridiem().equals(other.getMeridiem());
     }
 
 
 
-    /**
-     *
-     * @return the meridiem of the timestamp
-     */
-    public Meridiem getM() {
-        return m;
-    }
 
     /**
      * AM-PM enum
