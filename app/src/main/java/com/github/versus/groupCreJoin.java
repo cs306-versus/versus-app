@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.github.versus.db.FsPostManager;
 import com.github.versus.posts.Location;
@@ -52,12 +53,12 @@ public class groupCreJoin extends AppCompatActivity {
     }
     public void createPost(View view) {
         Post p = new Post( "haha", new Timestamp(2023, Month.AUGUST, 18, 12, 15, Timestamp.Meridiem.AM) ,
-                new Location("tirane",15, 16), new ArrayList<>(), 15, Sport.FOOTBALL);
+                new Location("tirane", 15, 16), new ArrayList<>(), 15, Sport.FOOTBALL);
         FsPostManager postm = new FsPostManager(db);
         postm.insert(p);
         }
     public void JoinGroup(View view) throws ExecutionException, InterruptedException {
         FsPostManager postm = new FsPostManager(db);
-        System.out.println(postm.fetch("haha").get().getLocation());
+        postm.joinPost("haha", new DummyUser("hamza"));
     }
 }

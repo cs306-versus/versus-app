@@ -10,6 +10,25 @@ import org.junit.runner.RunWith;
 
 import static org.junit.Assert.*;
 
+import com.github.versus.db.FsPostManager;
+import com.github.versus.posts.Location;
+import com.github.versus.posts.Post;
+import com.github.versus.posts.Timestamp;
+import com.github.versus.sports.Sport;
+import com.github.versus.user.DummyUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.time.Month;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+import java.util.stream.Collectors;
+
 /**
  * Instrumented test, which will execute on an Android device.
  *
@@ -17,10 +36,114 @@ import static org.junit.Assert.*;
  */
 @RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
+
+        @Test
+        public void CorrectFsPostInsert_Get() throws ExecutionException, InterruptedException, TimeoutException
+        {
+            // Creating FsPostm instance
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            FsPostManager postm = new FsPostManager(db);
+
+            // Creating a test post
+            Post post = new Post( "_test_", new Timestamp(2023, Month.AUGUST, 18, 12, 15, Timestamp.Meridiem.AM) ,
+                    new Location("tirane", 0, 0), new ArrayList<>(), 15, Sport.FOOTBALL);
+
+            //inserting the post
+            Future<Boolean> insertResult = postm.insert(post);
+
+            // Wait for the insert operation to complete
+            boolean insertSuccess = insertResult.get();
+
+            // Verify that the insert operation succeeded
+            assertTrue(insertSuccess);
+
+            // Verify that the post was inserted into Firestore
+            //by fetching it and then comparing
+            Post p = postm.fetch("_test_").get();
+            assertTrue(post.equals(p));
+
+            // Clean up the test data
+            boolean deletionSuccess = postm.delete("_test_").get();
+            assertTrue(deletionSuccess);
+        }
+
+        @Test
+        public void NullGetResultOnAbsentPost() throws ExecutionException, InterruptedException, TimeoutException
+        {
+            // Creating FsPostm instance
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            FsPostManager postm = new FsPostManager(db);
+
+            // delete the test post if it's there
+            boolean deletionSuccess = postm.delete("_test_").get();
+            assertTrue(deletionSuccess);
+
+            // Verify that the post was inserted into Firestore
+            //by fetching it and then comparing
+            Post p = postm.fetch("_test_").get();
+            assertNull(p);
+        }
+
+
+        @Test
+        public void CorrectFetchAllPostsFromTestCollection() throws ExecutionException, InterruptedException {
+            // Creating FsPostm instance
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            FsPostManager postm = new FsPostManager(db);
+            List<Post> l = postm.fetchAll("test_posts").get();
+            //creating test posts
+
+            Post postTest = new Post( "_test_", new Timestamp(2023, Month.AUGUST, 18, 12, 15, Timestamp.Meridiem.AM) ,
+                    new Location("tirane", 0, 0), new ArrayList<>(), 15, Sport.FOOTBALL);
+            Post postTest1 = new Post( "_test_1", new Timestamp(2023, Month.AUGUST, 18, 12, 15, Timestamp.Meridiem.AM) ,
+                    new Location("tirane", 0, 0), new ArrayList<>(), 15, Sport.FOOTBALL);
+            Post postTest2 = new Post( "_test_2", new Timestamp(2023, Month.AUGUST, 18, 12, 15, Timestamp.Meridiem.AM) ,
+                    new Location("tirane", 0, 0), new ArrayList<>(), 15, Sport.FOOTBALL);
+            Set<Post> refSet = new HashSet<>();
+            refSet.add(postTest);
+            refSet.add(postTest1);
+            refSet.add(postTest2);
+
+            Set<Post> resultPosts = new HashSet<>(l);
+            assertEquals(resultPosts, refSet);
+        }
     @Test
-    public void useAppContext() {
-        // Context of the app under test.
-        Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("com.github.versus", appContext.getPackageName());
+    public void CorrectJoinOnPresentPost() throws ExecutionException, InterruptedException {
+        // Creating FsPostm instance
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FsPostManager postm = new FsPostManager(db);
+
+        // Creating a test post
+        String postName = "_test_1";
+        Post post = new Post( postName, new Timestamp(2023, Month.AUGUST, 18, 12, 15, Timestamp.Meridiem.AM) ,
+                new Location("tirane", 0, 0), new ArrayList<>(), 15, Sport.FOOTBALL);
+
+        //inserting the post
+        Future<Boolean> insertResult = postm.insert(post);
+
+        // Wait for the insert operation to complete
+        boolean insertSuccess = insertResult.get();
+
+        // Verify that the insert operation succeeded
+        assertTrue(insertSuccess);
+
+        //joining the post
+        String name = "hassan";
+        Future<Boolean> joinResult = postm.joinPost(postName, new DummyUser(name));
+        boolean joinSuccess = joinResult.get();
+        assertTrue(joinSuccess);
+
+        //getting the new post from db
+        Post updatedPost = postm.fetch(postName).get();
+        String playerId = updatedPost.getPlayers().get(0).getUID();
+        assertTrue(playerId.equals(name));
+
+        boolean deletionSuccess = postm.delete(postName).get();
+        assertTrue(deletionSuccess);
+
     }
-}
+
+
+
+
+    }

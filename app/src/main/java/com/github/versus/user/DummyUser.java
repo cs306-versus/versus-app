@@ -9,13 +9,25 @@ import java.util.List;
  * TODO : remove later when actual user implementations are available
  */
 public class DummyUser implements User{
-    private String id;
+    String uid;
+    String firstName;
+    String lastName;
+    String userName;
+    String mail;
+    String phone;
+    int rating;
+    String city;
+    int zipCode;
+    List<Sport> preferredSports;
+    public DummyUser(){
+        this.uid = "__";
+    }
     public DummyUser(String id){
-        this.id = id;
+        this.uid = id;
     }
     @Override
     public String getUID() {
-        return id;
+        return uid;
     }
 
     @Override
@@ -61,5 +73,18 @@ public class DummyUser implements User{
     @Override
     public List<Sport> getPreferredSports() {
         return null;
+    }
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof User)) {
+            return false;
+        }
+
+        User other = (User) obj;
+        return this.getUID().equals(other.getUID());
     }
 }

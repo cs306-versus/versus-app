@@ -1,24 +1,26 @@
 package com.github.versus.posts;
 
 import com.github.versus.sports.Sport;
-import com.google.firebase.firestore.auth.User;
+import com.github.versus.user.DummyUser;
+import com.github.versus.user.User;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Post in the Versus app
  */
 public class Post {
     
-    private final String title;
-    private final Timestamp date;
-    private final Location location;
-    private List<User> players;
+    private  String title;
+    private  Timestamp date;
+    private  Location location;
+    private List<DummyUser> players;
     private int playerLimit;
-    private final Sport sport ;
-    public Post(String title, Timestamp date, Location location, List<User> players, int playerLimit, Sport sport) {
+    private Sport sport ;
+    public Post(String title, Timestamp date, Location location, List<DummyUser> players, int playerLimit, Sport sport) {
         this.title = title;
         this.date = date;
         this.location = location;
@@ -27,6 +29,9 @@ public class Post {
         this.sport = sport;
     }
 
+    public Post(){
+
+    }
     /**
      *
      * @return title of the post
@@ -54,7 +59,7 @@ public class Post {
     /**
      * @return the users who joined the post
      */
-    public List<User> getPlayers() {
+    public List<DummyUser> getPlayers() {
         return players;
     }
 
@@ -86,6 +91,32 @@ public class Post {
         return res;
 
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof Post)) {
+            return false;
+        }
+
+        Post other = (Post) obj;
+        return this.title.equals(other.title)
+                && this.date.equals(other.date)
+                && this.location.equals(other.location)
+                && this.players.equals(other.players)
+                && this.playerLimit == other.playerLimit
+                && this.sport.equals(other.sport);
+    }
+
+
 
 
 }

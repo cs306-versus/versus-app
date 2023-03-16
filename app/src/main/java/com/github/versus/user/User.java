@@ -1,5 +1,6 @@
 package com.github.versus.user;
 
+import com.github.versus.posts.Post;
 import com.github.versus.sports.Sport;
 
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
  * @since 1.0
  */
 public interface User {
+
 
     /**
      * Fetch the User Unique ID
@@ -72,5 +74,6 @@ public interface User {
      * @return (List<Sport>) - List of preferred sports
      */
     List<Sport> getPreferredSports();
+
 
 }

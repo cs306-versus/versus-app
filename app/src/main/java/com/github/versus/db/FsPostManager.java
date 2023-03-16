@@ -52,13 +52,12 @@ public class FsPostManager implements DataBaseManager<Post> {
 
     @Override
     public Future<Post> fetch(String id) {
-        //TODO : fetch implem is buggy, not required for this sprint, leave it for the next one
-        // may have to change the value of the id into a combination of the title and
+        //TODO :may have to change the value of the id into a combination of the title and
         // announcer or a hash of the post
 
         //accessing the collection
         CollectionReference postsRef = db.collection("posts");
-        //finding the announcement with the right id
+        //finding the post with the right id
         Query query = postsRef.whereEqualTo("title", id);
         Task<QuerySnapshot> task = query.get();
 
@@ -87,14 +86,16 @@ public class FsPostManager implements DataBaseManager<Post> {
 
     /**
      *
-     * @return
+     * @param collectionName : name of the collection from which we want to fetch elements
+     * @return a future containing all Posts from teh given collection
+
      */
-    public Future<List<Post>> fetchAll() {
+    public Future<List<Post>> fetchAll(String collectionName) {
         //TODO : may have to change the value of the id into a combination of the title and
         // announcer or a hash of the post
 
         //accessing the collection
-        CollectionReference postsRef = db.collection("posts");
+        CollectionReference postsRef = db.collection(collectionName);
         //task that gets all documents
         Task<QuerySnapshot> task = postsRef.get();
 
@@ -127,8 +128,41 @@ public class FsPostManager implements DataBaseManager<Post> {
 
     @Override
     public Future<Boolean> delete(String id) {
-        //TODO: not needed for this sprint, implement in the next one
-        return null;
+
+        //accessing the collection
+        CollectionReference postsRef = db.collection("posts");
+        //finding the post with the right id
+        Query query = postsRef.whereEqualTo("title", id);
+        Task<QuerySnapshot> task = query.get();
+
+        // Wrap the Task in a CompletableFuture that returns status of deletion
+        CompletableFuture<Boolean> future = new CompletableFuture<>();
+
+        // Add a listener to the Task to handle the result
+        task.addOnSuccessListener(res -> {
+            //we get the query result
+            List<DocumentSnapshot> docs = res.getDocuments();
+            if(docs.isEmpty()){
+                //in case the query result is empty complete the future with true
+                //because there was nothing to delete
+                future.complete(true);
+            }else{
+                //getting all the matching posts reference
+                for (DocumentSnapshot doc: docs
+                     ) {
+                    DocumentReference docRef = doc.getReference();
+                    //deleting the document
+                    docRef.delete().addOnFailureListener(av ->{
+                        future.complete(false);
+                    });
+                }
+                future.complete(true);
+            }
+        }).addOnFailureListener(res ->{
+            future.complete(false);
+        });
+
+        return future;
     }
 
     public Future<Boolean> joinPost(String postId, User user){
@@ -145,28 +179,40 @@ public class FsPostManager implements DataBaseManager<Post> {
         //otherwise we try to update the value of the players field
         task.addOnSuccessListener(res -> {
 
-            //getting the document corresponding to the post
-            DocumentSnapshot doc = res.getDocuments().get(0);
-            List<User> players = (List<User>)doc.get("players");
-
-            //creating a new list corresponding to the old one + the new user
-            List<User> newPlayers = new ArrayList<>(players);
-            newPlayers.add(user);
-
-            //updating the field value
-            //if the update task is a success we complete the future with true
-            //otherwise we complete the future with false
-            doc.getReference().update("players", newPlayers).addOnSuccessListener(aVoid ->{
-                future.complete(true);
-            }).addOnFailureListener(e ->{
+            //getting the documents corresponding to the post
+            List<DocumentSnapshot> docs = res.getDocuments();
+            if(docs.isEmpty()){
                 future.complete(false);
-                    }
-            );
+            }else{
+                DocumentSnapshot doc = docs.get(0);
+                List<User> players = (List<User>)doc.get("players");
 
+                //getting the player limit
+                long playerLimit = (long)doc.get("playerLimit");
+
+                //check that the limit isn't reached yet
+                if(players.size() >= playerLimit){
+                    future.complete(false);
+                }else{
+                    //creating a new list corresponding to the old one + the new user
+                    List<User> newPlayers = new ArrayList<>(players);
+
+                    newPlayers.add(user);
+
+                    //updating the field value
+                    //if the update task is a success we complete the future with true
+                    //otherwise we complete the future with false
+                    doc.getReference().update("players", newPlayers).addOnSuccessListener(aVoid ->{
+                        future.complete(true);
+                    }).addOnFailureListener(e ->{
+                        future.complete(false);
+                    }
+                    );
+                }
+        }
         }).addOnFailureListener(e -> {
             future.complete(false);
         });
-
 
         return future;
     }

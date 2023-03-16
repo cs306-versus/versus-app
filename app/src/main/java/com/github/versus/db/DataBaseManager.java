@@ -23,12 +23,6 @@ public interface DataBaseManager<D> {
     Future<D> fetch(String id);
 
     /**
-     * Retrieves all entries
-     * @return all entries in the database
-     */
-    Future<List<D>> fetchAll();
-
-    /**
      * Deletes the entry with the given id from the database.
      * @param id
      * @return

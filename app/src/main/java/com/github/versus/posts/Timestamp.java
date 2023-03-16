@@ -35,6 +35,15 @@ public class Timestamp {
         this.seconds = 0;
         this.m = m;
     }
+    private Timestamp(){
+        this.year = 0;
+        this.month = null;
+        this.day = 0;
+        this.hour = 0;
+        this.minutes = 0;
+        this.seconds = 0;
+        this.m = null;
+    }
 
 
     /**
@@ -81,6 +90,27 @@ public class Timestamp {
     public int getSeconds() {
         return seconds;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof Timestamp)) {
+            return false;
+        }
+        Timestamp other = (Timestamp) obj;
+        return this.year == other.year
+                && this.month.equals(other.month)
+                && this.day == other.day
+                && this.hour == other.hour
+                && this.minutes == other.minutes
+                && this.seconds == other.seconds
+                && this.m.equals(other.m);
+    }
+
+
+
     /**
      *
      * @return the meridiem of the timestamp
