@@ -1,14 +1,391 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <TextView
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content" android:layout_height="wrap_content" >
+    <!--
+    /*
+     *	This content is generated from the API File Info.
+     *	(Alt+Shift+Ctrl+I).
+     *
+     *	@desc
+     *	@file 		frame_1
+     *	@date 		Tuesday 07th of March 2023 05:51:49 PM
+     *	@title 		Page 1
+     *	@author
+     *	@keywords
+     *	@generator 	Export Kit v1.3.figma
+     *
+     */
+    -->
+    <ScrollView android:id="@+id/frame_1"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Schedule Fragment"
-        android:textSize="30sp"
-        android:layout_centerInParent="true" />
+        android:layout_height="wrap_content" >
+
+        <RelativeLayout android:id="@+id/content_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
 
 
-</RelativeLayout>
+
+            <RelativeLayout android:id="@+id/pageframe"
+                android:layout_marginTop="0dp"
+                android:layout_marginStart="0dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                >
+
+
+                <View
+                    android:id="@+id/_bg__frame_1_ek2"
+                    android:layout_width="414dp"
+                    android:layout_height="896dp"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="0dp"
+                    android:background="@drawable/_bg__frame_1_ek2_shape" />
+
+                <RelativeLayout android:id="@+id/menu_1"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginStart="353dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <ImageView android:id="@+id/vector"
+                        android:src="@drawable/vector"
+                        android:contentDescription="vector"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="0dp"
+                        android:layout_width="34dp"
+                        android:layout_height="5dp" />
+
+                    <ImageView android:id="@+id/vector_ek1"
+                        android:src="@drawable/vector_ek1"
+                        android:contentDescription="vector_ek1"
+                        android:layout_marginStart="0dp"
+                        android:layout_marginTop="11dp"
+                        android:layout_width="44dp"
+                        android:layout_height="5dp" />
+
+                    <ImageView android:id="@+id/vector_ek2"
+                        android:src="@drawable/vector_ek2"
+                        android:contentDescription="vector_ek2"
+                        android:layout_marginStart="18dp"
+                        android:layout_marginTop="22dp"
+                        android:layout_width="26dp"
+                        android:layout_height="5dp" />
+
+                </RelativeLayout>
+
+                <TextView android:id="@+id/planningForTheDay"
+                    android:fontFamily="Inter"
+                    android:textStyle="bold"
+                    android:textSize="33sp"
+                    android:textColor="@color/planning_for_the_day_color"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="99dp"
+                    android:layout_width="241.5dp"
+                    android:layout_height="143.5dp"
+                    android:text="@string/planning_for_the_day_string"
+                    />
+
+                <View   android:id="@+id/rectangle1"
+                    android:background="@drawable/rectangle_1_shape"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="220dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="676dp" />
+
+                <View
+                    android:id="@+id/rectangle2"
+                    android:layout_width="1000dp"
+                    android:layout_height="1000dp"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="251dp"
+                    android:background="@drawable/rectangle_2_shape" />
+
+                <TextView android:id="@+id/date"
+                    android:fontFamily="Comic Neue"
+                    android:textStyle="bold"
+                    android:textSize="23sp"
+                    android:textColor="@color/_bg__frame_1_ek2_color"
+                    android:layout_marginLeft="46dp"
+                    android:layout_marginTop="314dp"
+                    android:layout_width="177.5dp"
+                    android:layout_height="42.5dp"
+                    android:text="@string/_7_march___2023_string"
+                    />
+
+
+
+
+
+
+
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                <Button  android:id="@+id/Thursday_button"
+                    android:background="@drawable/rectangle_14_shape"
+                    android:layout_marginStart="244dp"
+                    android:layout_marginTop="394dp"
+                    android:layout_width="38dp"
+                    android:layout_height="74dp"
+
+                    />
+
+                    <Button   android:id="@+id/Friday_button"
+                        android:background="@drawable/rectangle_15_shape"
+                        android:layout_marginStart="301dp"
+                        android:layout_marginTop="394dp"
+                        android:layout_width="38dp"
+                        android:layout_height="74dp" />
+                    <Button   android:id="@+id/Monday_button"
+                        android:background="@drawable/rectangle_17_shape"
+                        android:layout_marginStart="77dp"
+                        android:layout_marginTop="394dp"
+                        android:layout_width="38dp"
+                        android:layout_height="74dp" />
+                    <Button   android:id="@+id/Wednesday_button"
+                        android:background="@drawable/rectangle_11_shape"
+                        android:layout_marginStart="190dp"
+                        android:layout_marginTop="394dp"
+                        android:layout_width="38dp"
+                        android:layout_height="74dp" />
+
+                    <Button   android:id="@+id/Sunday_button"
+                        android:background="@drawable/rectangle_18_shape"
+                        android:layout_marginStart="23dp"
+                        android:layout_marginTop="394dp"
+                        android:layout_width="38dp"
+                        android:layout_height="74dp" />
+
+                    <Button   android:id="@+id/Tuesday_button"
+                        android:background="@drawable/rectangle_3_shape"
+                        android:layout_marginStart="133dp"
+                        android:layout_marginTop="394dp"
+                        android:layout_width="38dp"
+                        android:layout_height="74dp" />
+                    <Button   android:id="@+id/Saturday_button"
+                        android:background="@drawable/rectangle_16_shape"
+                        android:layout_marginStart="359dp"
+                        android:layout_marginTop="394dp"
+                        android:layout_width="38dp"
+                        android:layout_height="74dp" />
+
+            </FrameLayout>
+                <TextView android:id="@+id/Thursday_text"
+                    android:fontFamily="Comic Neue"
+                    android:textStyle="bold"
+                    android:textSize="23sp"
+                    android:textColor="@color/planning_for_the_day_color"
+                    android:layout_marginLeft="253dp"
+                    android:layout_marginTop="402dp"
+                    android:layout_width="432.5dp"
+                    android:layout_height="94.5dp"
+                    android:text="Th"
+                    />
+
+
+
+
+
+
+
+
+                <TextView android:id="@+id/Sunday_text"
+                    android:fontFamily="Comic Neue"
+                    android:textStyle="bold"
+                    android:textSize="23sp"
+                    android:textColor="@color/planning_for_the_day_color"
+                    android:layout_marginLeft="33dp"
+                    android:layout_marginTop="402dp"
+                    android:layout_width="432.5dp"
+                    android:layout_height="94.5dp"
+                    android:text="@string/s_m_t_w_th_fr_sat_string"
+                    />
+
+                <TextView android:id="@+id/Sunday_date"
+                    android:fontFamily="Comic Neue"
+                    android:textStyle="bold"
+                    android:textSize="23sp"
+                    android:textColor="@color/planning_for_the_day_color"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="439dp"
+                    android:layout_width="51.5dp"
+                    android:layout_height="45.5dp"
+                    android:text="12"
+                    />
+                <TextView android:id="@+id/Monday_text"
+                    android:fontFamily="Comic Neue"
+                    android:textStyle="bold"
+                    android:textSize="23sp"
+                    android:textColor="@color/planning_for_the_day_color"
+                    android:layout_marginLeft="88dp"
+                    android:layout_marginTop="402dp"
+                    android:layout_width="432.5dp"
+                    android:layout_height="94.5dp"
+                    android:text="M"
+                    />
+                <TextView android:id="@+id/Monday_date"
+                    android:fontFamily="Comic Neue"
+                    android:textStyle="bold"
+                    android:textSize="23sp"
+                    android:textColor="@color/planning_for_the_day_color"
+                    android:layout_marginLeft="85dp"
+                    android:layout_marginTop="439dp"
+                    android:layout_width="51.5dp"
+                    android:layout_height="45.5dp"
+                    android:text="13"
+                    />
+                <TextView android:id="@+id/Tuesday_text"
+                    android:fontFamily="Comic Neue"
+                    android:textStyle="bold"
+                    android:textSize="23sp"
+                    android:textColor="@color/planning_for_the_day_color"
+                    android:layout_marginLeft="143dp"
+                    android:layout_marginTop="402dp"
+                    android:layout_width="432.5dp"
+                    android:layout_height="94.5dp"
+                    android:text="T"
+                    />
+
+                <TextView android:id="@+id/Tuesday_date"
+                    android:fontFamily="Comic Neue"
+                    android:textStyle="bold"
+                    android:textSize="23sp"
+                    android:textColor="@color/planning_for_the_day_color"
+                    android:layout_marginLeft="140dp"
+                    android:layout_marginTop="439dp"
+                    android:layout_width="51.5dp"
+                    android:layout_height="45.5dp"
+                    android:text="14"
+                    />
+                <TextView android:id="@+id/Wednesday_text"
+                    android:fontFamily="Comic Neue"
+                    android:textStyle="bold"
+                    android:textSize="23sp"
+                    android:textColor="@color/planning_for_the_day_color"
+                    android:layout_marginLeft="198dp"
+                    android:layout_marginTop="402dp"
+                    android:layout_width="432.5dp"
+                    android:layout_height="94.5dp"
+                    android:text="W"
+                    />
+
+                <TextView android:id="@+id/Wednesday_date"
+                    android:fontFamily="Comic Neue"
+                    android:textStyle="bold"
+                    android:textSize="23sp"
+                    android:textColor="@color/planning_for_the_day_color"
+                    android:layout_marginLeft="195dp"
+                    android:layout_marginTop="439dp"
+                    android:layout_width="51.5dp"
+                    android:layout_height="45.5dp"
+                    android:text="15"
+                    />
+
+                <TextView android:id="@+id/Thursday_date"
+                    android:fontFamily="Comic Neue"
+                    android:textStyle="bold"
+                    android:textSize="23sp"
+                    android:textColor="@color/planning_for_the_day_color"
+                    android:layout_marginLeft="250dp"
+                    android:layout_marginTop="439dp"
+                    android:layout_width="51.5dp"
+                    android:layout_height="45.5dp"
+                    android:text="16"
+                    />
+                <TextView android:id="@+id/Friday_text"
+                    android:fontFamily="Comic Neue"
+                    android:textStyle="bold"
+                    android:textSize="23sp"
+                    android:textColor="@color/planning_for_the_day_color"
+                    android:layout_marginLeft="308dp"
+                    android:layout_marginTop="402dp"
+                    android:layout_width="432.5dp"
+                    android:layout_height="94.5dp"
+                    android:text="Fr"
+                    />
+
+                <TextView android:id="@+id/Friday_date"
+                    android:fontFamily="Comic Neue"
+                    android:textStyle="bold"
+                    android:textSize="23sp"
+                    android:textColor="@color/planning_for_the_day_color"
+                    android:layout_marginLeft="308dp"
+                    android:layout_marginTop="439dp"
+                    android:layout_width="51.5dp"
+                    android:layout_height="45.5dp"
+                    android:text="17"
+                    />
+                <TextView android:id="@+id/Saturday_text"
+                    android:fontFamily="Comic Neue"
+                    android:textStyle="bold"
+                    android:textSize="23sp"
+                    android:textColor="@color/planning_for_the_day_color"
+                    android:layout_marginLeft="365dp"
+                    android:layout_marginTop="402dp"
+                    android:layout_width="432.5dp"
+                    android:layout_height="94.5dp"
+                    android:text="Sat"
+                    />
+                <TextView android:id="@+id/Saturday_date"
+                    android:fontFamily="Comic Neue"
+                    android:textStyle="bold"
+                    android:textSize="23sp"
+                    android:textColor="@color/planning_for_the_day_color"
+                    android:layout_marginLeft="365dp"
+                    android:layout_marginTop="439dp"
+                    android:layout_width="51.5dp"
+                    android:layout_height="45.5dp"
+                    android:text="18"
+                    />
+
+                <View   android:id="@+id/rectangle4"
+                    android:background="@drawable/rectangle_4_shape"
+                    android:layout_marginStart="13dp"
+                    android:layout_marginTop="507dp"
+                    android:layout_width="389dp"
+                    android:layout_height="355dp" />
+
+
+
+
+
+
+
+
+
+                <TextView android:id="@+id/your_timeline"
+                    android:fontFamily="Comic Neue"
+                    android:textStyle="bold"
+                    android:textSize="32sp"
+                    android:textColor="@color/_bg__frame_1_ek2_color"
+                    android:layout_marginLeft="29dp"
+                    android:layout_marginTop="519dp"
+                    android:layout_width="226dp"
+                    android:layout_height="96dp"
+                    android:text="@string/your_timeline_string"
+                    />
+
+                <ListView
+                    android:id="@+id/list_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="600dp"
+
+
+                 />
+
+
+
+
+
+
+
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+</ScrollView>
