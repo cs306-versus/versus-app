@@ -16,12 +16,14 @@ import org.w3c.dom.Text;
 public class AnnouncementAdapter extends RecyclerView.Adapter<AnnouncementAdapter.ViewHolder> {
     private Post[] posts;
     public AnnouncementAdapter(Post[] posts){
+        if(posts == null) {
+            throw new IllegalArgumentException("Posts must be non-null!");
+        }
         this.posts = posts;
     }
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-
         View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.announcement_row_element, viewGroup, false);
 
