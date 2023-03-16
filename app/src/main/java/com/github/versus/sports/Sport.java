@@ -7,7 +7,9 @@ public enum Sport {
     // TODO : Add all the
     SOCCER("Soccer"),
     ClIMBING("Climbing"),
+    FOOTBALL("Football"),
     ROWING("Rowing");
+
 
     public final String name;
     private Sport(String name){
