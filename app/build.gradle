@@ -5,6 +5,7 @@ plugins {
 }
 
 android {
+
     namespace 'com.github.versus'
     compileSdk 33
 
@@ -42,6 +43,8 @@ android {
 }
 
 dependencies {
+
+    androidTestImplementation  'androidx.test.espresso:espresso-contrib:3.5.0-alpha06'
 
     implementation 'androidx.appcompat:appcompat:1.6.1'
 
