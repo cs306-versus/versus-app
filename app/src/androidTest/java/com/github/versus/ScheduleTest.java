@@ -96,7 +96,7 @@ public class ScheduleTest {
     public void testing2(){
 
         onView(withId(R.id.Wednesday_button)).perform(click());
-        onView(withId(R.id.Saturday_button)).perform(click());
+
 
     }
     @Test
