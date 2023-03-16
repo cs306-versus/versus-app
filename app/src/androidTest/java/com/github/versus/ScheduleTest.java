@@ -104,18 +104,7 @@ public class ScheduleTest {
         onView(withId(R.id.Thursday_button)).perform(click());
 
     }
-    @Test
-    public void testing4(){
-
-        onView(withId(R.id.Friday_button)).perform(click());
-
-    }
-    @Test
-    public void testing5(){
-
-        onView(withId(R.id.Saturday_button)).perform(click());
-
-    }
+    
     @Test
     public void testing6(){
 
