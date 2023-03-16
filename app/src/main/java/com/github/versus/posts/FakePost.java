@@ -1,20 +1,22 @@
 package com.github.versus.posts;
 
 import com.github.versus.sports.Sport;
+import com.github.versus.user.DummyUser;
+import com.github.versus.user.User;
 
 import java.util.List;
 import java.util.Map;
 
-public class FakePost implements Post{
+public class FakePost extends Post{
 
     private final String title;
     private final Timestamp date;
     private final Location location;
-    private final List<Object> players;
+    private final List<DummyUser> players;
     private final int playerLimit;
     private final Sport sport;
 
-    public FakePost(String title, Sport sport, Timestamp date, Location location, List<Object> players, int playerLimit) {
+    public FakePost(String title, Sport sport, Timestamp date, Location location, List<DummyUser> players, int playerLimit) {
         this.title = title;
         this.date = date;
         this.location = location;
@@ -41,7 +43,7 @@ public class FakePost implements Post{
     }
 
     @Override
-    public List<Object> getPlayers() {
+    public List<DummyUser> getPlayers() {
         return players;
     }
 

@@ -5,5 +5,39 @@
     <string name="default_info_title">Default Location</string>
     <string name="default_info_snippet">No places found, because location permission is disabled.</string>
     <string name="pick_place">Choose a place</string>
-    <string name="placeholder">Lorem Ipsum</string>
+
+    <string name="auth_with_mail">Login with Mail</string>
+    <string name="auth_signin_text">Don\'t have an account ?</string>
+    <string name="auth_signin">Sign In</string>
+    <string name="auth_login_google">Login with Google</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="login">Login</string>
+    <string name="mail">Mail</string>
+    <string name="password">Password</string>
+    <string name="account_missing">Don\'t have an account ?</string>
+    <string name="sign_in_intro">Sign In to Versus</string>
+    <string name="name">Name</string>
+    <string name="phone">Phone</string>
+    <string name="zip_code">Zip Code</string>
+    <string name="failure">Failed</string>
+    <string name="ek_img_content">ExportKit Image</string>
+    <string name="planning_for_the_day_string">Planning for the day</string>
+    <string name="_7_march___2023_string">7 March , 2023</string>
+    <string name="s_m_t_w_th_fr_sat_string">S</string>
+    <string name="_5_7_6_string">5</string>
+    <string name="_6_string">6</string>
+    <string name="_7_string">7</string>
+    <string name="_8_string">8</string>
+    <string name="_9_string">9</string>
+    <string name="_10_string">10</string>
+    <string name="_11_string">11</string>
+    <string name="unil_sport_string">Unil-Sport</string>
+    <string name="unil_sport_ek1_string">Unil-Sport</string>
+    <string name="_02_30_pm_string">02:30 PM</string>
+    <string name="_10_00_am_string">10:00 AM</string>
+    <string name="your_timeline_string">Your Timeline</string>
+    <string name="football_game_string">Football Game</string>
+    <string name="basketball_game_string">BasketBall Game</string>
+
 </resources>

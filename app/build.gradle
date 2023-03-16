@@ -5,12 +5,13 @@ plugins {
 }
 
 android {
+
     namespace 'com.github.versus'
     compileSdk 33
 
     defaultConfig {
         applicationId "com.github.versus"
-        minSdk 24
+        minSdk 26
         targetSdk 33
         versionCode 1
         versionName "1.0"
@@ -31,9 +32,21 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+
+    buildFeatures {
+        viewBinding true
+    }
+
 }
 
 dependencies {
+
+    androidTestImplementation  ('androidx.test.espresso:espresso-contrib:3.5.0-alpha06'){
+        exclude module: "protobuf-lite"
+    }
 
     implementation 'androidx.appcompat:appcompat:1.6.1'
 
@@ -49,14 +62,28 @@ dependencies {
     // See https://firebase.google.com/docs/android/setup#available-libraries
     // For example, add the dependencies for Firebase Authentication and Cloud Firestore
     implementation 'com.google.firebase:firebase-auth'
+    implementation 'com.google.android.gms:play-services-auth:20.4.1'
+    implementation 'com.google.firebase:firebase-firestore'
+    implementation 'com.google.firebase:firebase-database:20.1.0'
+    //add jackson dependency to convert json strings gotten from database into java objects
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.0'
 
     testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.mockito:mockito-inline:5.2.0'
+    androidTestImplementation 'org.mockito:mockito-android:5.2.0'
+    androidTestImplementation 'org.mockito:mockito-core:5.2.0'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     androidTestImplementation 'androidx.test:runner:1.5.2'
     androidTestImplementation 'androidx.test:rules:1.5.0'
     androidTestImplementation 'androidx.test.espresso:espresso-intents:3.5.1'
 
+
+    // Caching with Room Database dependencies
+    def room_version = "2.5.0"
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+    testImplementation "androidx.room:room-testing:$room_version"
 }
 
 tasks.withType(Test) {
