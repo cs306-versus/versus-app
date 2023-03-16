@@ -24,6 +24,8 @@ public class ScheduleTest {
     @Test
     public void testScheduleButtons1(){
         onView(withId(R.id.Monday_button)).perform(click());
+        onView(withId(R.id.Monday_button)).perform(click());
+        onView(withId(R.id.Tuesday_button)).perform(click());
         onView(withId(R.id.Tuesday_button)).perform(click());
 
 
@@ -32,7 +34,10 @@ public class ScheduleTest {
     public void testScheduleButtons2(){
 
         onView(withId(R.id.Wednesday_button)).perform(click());
+        onView(withId(R.id.Wednesday_button)).perform(click());
         onView(withId(R.id.Thursday_button)).perform(click());
+        onView(withId(R.id.Thursday_button)).perform(click());
+
 
 
 
@@ -45,9 +50,28 @@ public class ScheduleTest {
     public void testScheduleButtons3(){
 
         onView(withId(R.id.Friday_button)).perform(click());
+        onView(withId(R.id.Friday_button)).perform(click());
+
+        onView(withId(R.id.Saturday_button)).perform(click());
         onView(withId(R.id.Saturday_button)).perform(click());
 
+
+
+
+
+
+
+
+        scenario.getScenario().onActivity(a -> requireNonNull(a.getPackageName()));
+    }
+    public void testScheduleButtons4(){
+
         onView(withId(R.id.Sunday_button)).perform(click());
+        onView(withId(R.id.Sunday_button)).perform(click());
+
+
+
+
 
 
 
