@@ -30,9 +30,6 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new ScheduleFragment()).commit();
         naviguationview.setCheckedItem(R.id.nav_schedule);
 
-        //TODO: remove the transfer to that activity after that it is transformed into a fragment
-        Intent intent = new Intent(MainActivity.this, groupCreJoin.class);
-        startActivity(intent);
     }
 
 
