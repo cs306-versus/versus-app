@@ -70,6 +70,13 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     public static CircleOptions circleOptions;//TODO See if its a good idea
     private EditText editTextRadius;
     private Location lastKnownLocation;
+    private static LatLng epfl ;
+    private static LatLng sat;
+    public static MarkerOptions epflMarker ;
+    public static MarkerOptions satelliteMarker;
+
+
+
     /*These attributes will be used later
     private static final int M_MAX_ENTRIES = 5;
     private String[] likelyPlaceNames;
@@ -137,12 +144,13 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
             }
         });
         // Add markers for EPFL and Satellite
-        LatLng epfl = new LatLng(46.520536, 6.568318);
+        epfl = new LatLng(46.520536, 6.568318);
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(epfl, 15));
-        LatLng sat = new LatLng(46.520544, 6.567825);
-
-        map.addMarker(new MarkerOptions().position(epfl).title("EPFL "));
-        map.addMarker(new MarkerOptions().position(sat).title("Satellite "));
+        sat = new LatLng(46.520544, 6.567825);
+        epflMarker=new MarkerOptions().position(epfl).title("EPFL");
+        satelliteMarker=new MarkerOptions().position(sat).title("Sat");
+        map.addMarker(epflMarker);
+        map.addMarker(satelliteMarker);
 
         map.moveCamera(CameraUpdateFactory.newLatLng(epfl));
         map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
