@@ -146,6 +146,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         // Add markers for EPFL and Satellite
         epfl = new LatLng(46.520536, 6.568318);
         epflMarker=new MarkerOptions().position(epfl).title("EPFL");
+        map.addMarker(epflMarker);
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(epfl, 15));
 
 
