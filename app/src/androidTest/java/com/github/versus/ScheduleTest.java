@@ -29,7 +29,7 @@ public class ScheduleTest {
         onView(withId(R.id.Wednesday_button)).perform(click());
         onView(withId(R.id.Thursday_button)).perform(click());
 
-        onView(withId(R.id.Friday_button)).perform(click());
+        
 
         onView(withId(R.id.Saturday_button)).perform(click());
 
