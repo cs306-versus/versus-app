@@ -3,13 +3,14 @@ package com.github.versus.offline;
 import com.github.versus.posts.Location;
 import com.github.versus.posts.Post;
 import com.github.versus.posts.Timestamp;
+import com.github.versus.user.DummyUser;
 
 import java.time.Month;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
-public final class SimpleTestPost implements Post {
+public final class SimpleTestPost extends Post {
     private String title = "Valid Post";
     @Override
     public String getTitle() {
@@ -27,7 +28,7 @@ public final class SimpleTestPost implements Post {
     }
 
     @Override
-    public List<Object> getPlayers() {
+    public List<DummyUser> getPlayers() {
         return null;
     }
 
@@ -72,7 +73,7 @@ public final class SimpleTestPost implements Post {
             }
 
             @Override
-            public List<Object> getPlayers() {
+            public List<DummyUser> getPlayers() {
                 return null;
             }
 

@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId "com.github.versus"
-        minSdk 24
+        minSdk 26
         targetSdk 33
         versionCode 1
         versionName "1.0"
@@ -44,7 +44,9 @@ android {
 
 dependencies {
 
-    androidTestImplementation  'androidx.test.espresso:espresso-contrib:3.5.0-alpha06'
+    androidTestImplementation  ('androidx.test.espresso:espresso-contrib:3.5.0-alpha06'){
+        exclude module: "protobuf-lite"
+    }
 
     implementation 'androidx.appcompat:appcompat:1.6.1'
 
@@ -61,6 +63,10 @@ dependencies {
     // For example, add the dependencies for Firebase Authentication and Cloud Firestore
     implementation 'com.google.firebase:firebase-auth'
     implementation 'com.google.android.gms:play-services-auth:20.4.1'
+    implementation 'com.google.firebase:firebase-firestore'
+    implementation 'com.google.firebase:firebase-database:20.1.0'
+    //add jackson dependency to convert json strings gotten from database into java objects
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.0'
 
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.mockito:mockito-inline:5.2.0'
