@@ -26,7 +26,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import androidx.core.view.GravityCompat;
-import androidx.fragment.app.testing.FragmentScenario;
 import androidx.lifecycle.Lifecycle;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.espresso.Espresso;

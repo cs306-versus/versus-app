@@ -34,7 +34,8 @@ public class AnnouncementAdapter extends RecyclerView.Adapter<AnnouncementAdapte
     public void onBindViewHolder(@NonNull AnnouncementAdapter.ViewHolder viewHolder, int position) {
         viewHolder.getTitleTextView().setText(posts[position].getTitle());
         viewHolder.getSportTextView().setText(posts[position].getSport().name);
-        viewHolder.getDateTextView().setText(posts[position].getDate().toString());
+        viewHolder.getMaxPlayerCountTextView().setText(posts[position].getPlayers().size() + "/" + posts[position].getPlayerLimit());
+        viewHolder.getDateTextView().setText(posts[position].getDate().getDay() + "/" +posts[position].getDate().getMonth().getValue());
         viewHolder.getLocationTextView().setText(posts[position].getLocation().toString());
     }
 
@@ -56,7 +57,7 @@ public class AnnouncementAdapter extends RecyclerView.Adapter<AnnouncementAdapte
             title = (TextView) view.findViewById(R.id.announcement_title);
             sport = (TextView) view.findViewById(R.id.announcement_sport);
             maxPlayerCount = (TextView) view.findViewById(R.id.announcement_players);
-            location = (TextView) view.findViewById(R.id.announcement_date);
+            location = (TextView) view.findViewById(R.id.announcement_location);
             date = (TextView) view.findViewById(R.id.announcement_date);
 
         }

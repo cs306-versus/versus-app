@@ -2,6 +2,8 @@ package com.github.versus;
 
 import static org.junit.Assert.assertEquals;
 
+import android.view.ViewGroup;
+
 import com.github.versus.announcements.AnnouncementAdapter;
 import com.github.versus.posts.Location;
 import com.github.versus.posts.Post;
@@ -68,4 +70,5 @@ public class AnnouncementAdapterTest {
     public void onCreateViewHolderNull(){
       new AnnouncementAdapter(new Post[]{}).onCreateViewHolder(null, 0);
     }
+
 }
