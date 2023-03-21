@@ -13,9 +13,11 @@ import com.github.versus.posts.Post;
 
 import org.w3c.dom.Text;
 
+import java.util.List;
+
 public class AnnouncementAdapter extends RecyclerView.Adapter<AnnouncementAdapter.ViewHolder> {
-    private Post[] posts;
-    public AnnouncementAdapter(Post[] posts){
+    private List<Post> posts;
+    public AnnouncementAdapter(List<Post> posts){
         if(posts == null) {
             throw new IllegalArgumentException("Posts must be non-null!");
         }
@@ -32,16 +34,16 @@ public class AnnouncementAdapter extends RecyclerView.Adapter<AnnouncementAdapte
 
     @Override
     public void onBindViewHolder(@NonNull AnnouncementAdapter.ViewHolder viewHolder, int position) {
-        viewHolder.getTitleTextView().setText(posts[position].getTitle());
-        viewHolder.getSportTextView().setText(posts[position].getSport().name);
-        viewHolder.getMaxPlayerCountTextView().setText(posts[position].getPlayers().size() + "/" + posts[position].getPlayerLimit());
-        viewHolder.getDateTextView().setText(posts[position].getDate().getDay() + "/" +posts[position].getDate().getMonth().getValue());
-        viewHolder.getLocationTextView().setText(posts[position].getLocation().toString());
+        viewHolder.getTitleTextView().setText(posts.get(position).getTitle());
+        viewHolder.getSportTextView().setText(posts.get(position).getSport().name);
+        viewHolder.getMaxPlayerCountTextView().setText(posts.get(position).getPlayers().size() + "/" + posts.get(position).getPlayerLimit());
+        viewHolder.getDateTextView().setText(posts.get(position).getDate().getDay() + "/" +posts.get(position).getDate().getMonth().getValue());
+        viewHolder.getLocationTextView().setText(posts.get(position).getLocation().toString());
     }
 
     @Override
     public int getItemCount() {
-        return posts.length;
+        return posts.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
