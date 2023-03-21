@@ -1,9 +1,13 @@
 package com.github.versus.user;
 
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.github.versus.sports.Sport;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Implementation of a User for Versus
@@ -83,6 +87,22 @@ public final class VersusUser implements User {
     @Override
     public List<Sport> getPreferredSports() {
         return null;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(uid);
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        return (obj instanceof VersusUser) && uid.equals(((VersusUser) obj).uid);
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return String.format("[User %s - %s]", uid, userName);
     }
 
     /**
