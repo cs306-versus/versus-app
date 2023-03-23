@@ -94,7 +94,6 @@ public class Post {
         return res;
 
     }
-
     @Override
     public int hashCode() {
         return Objects.hash(title);
