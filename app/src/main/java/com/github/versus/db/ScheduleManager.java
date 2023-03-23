@@ -11,18 +11,18 @@ public interface ScheduleManager {
 
     /**
      * gets the schedule (posts the a player joined)
-     * @param user The user for which we want to get the schedule
+     * @param UID The user id for which we want to get the schedule
      * @return a future wrapping a list of posts corresponding to the player schedule
      */
-    public Future<List<Post>> getSchedule(User user);
+    public Future<List<Post>> getSchedule(String UID);
 
     /**
      * gets the schedule of a user starting from a certain date
-     * @param user The user for which we want to get the schedule
+     * @param UID The user id for which we want to get the schedule
      * @param startingDate The date from which we start the schedule
      * @return a future wrapping a list of posts corresponding to the player schedule
      */
-    public Future<List<Post>> getScheduleStartingFromDate(User user, Timestamp startingDate);
+    public Future<List<Post>> getScheduleStartingFromDate(String UID, Timestamp startingDate);
 
 
 

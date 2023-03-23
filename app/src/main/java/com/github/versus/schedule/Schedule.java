@@ -5,6 +5,7 @@ import com.github.versus.posts.Post;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Schedule{
     private final String UID;
@@ -31,7 +32,9 @@ public class Schedule{
      * @return all the scheduled Posts in chronological order
      * */
     public List<Post> getScheduledPosts() {
-        return scheduledPosts;
+        return scheduledPosts.stream().sorted((p1, p2) ->
+             p1.getDate().isBefore(p2.getDate())
+        ).collect(Collectors.toList());
     }
 
     /**
@@ -39,13 +42,13 @@ public class Schedule{
      * @param p the post to add
      */
     public void addPost(Post p){
-
+        this.scheduledPosts.add(p);
     }
     /**
      * adds a post to the schedule Object
      * @param p the post to remove
      */
     public void removePost(Post p){
-
+        this.scheduledPosts.remove(p);
     }
 }
