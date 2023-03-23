@@ -44,16 +44,17 @@ public class SearchFragment extends Fragment {
         addPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                createPost(view);
+                createPost();
             }
         });
         List<Post> posts = new ArrayList<>();
 
-        CompletableFuture<List<Post>> postsFuture = (CompletableFuture<List<Post>>) pm.fetchAll("   posts");
+        CompletableFuture<List<Post>> postsFuture = (CompletableFuture<List<Post>>) pm.fetchAll("posts");
 
         AnnouncementAdapter aa = new AnnouncementAdapter(posts);
         postsFuture.thenApply(newPosts -> {
             posts.addAll(newPosts);
+            System.out.println(posts.size());
             aa.notifyDataSetChanged();
             return posts;
         });
@@ -64,7 +65,7 @@ public class SearchFragment extends Fragment {
         return rootView;
     }
 
-    public void createPost(View view){
+    public void createPost(){
 //        FragmentManager fm = new FragmentManage   r();
         cpdf.show(getParentFragmentManager(), "1");
     }
