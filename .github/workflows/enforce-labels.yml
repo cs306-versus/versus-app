@@ -12,3 +12,7 @@ jobs:
         REQUIRED_LABELS_ANY: ""
         REQUIRED_LABELS_ANY_DESCRIPTION: ""
         BANNED_LABELS: "no-merge"
+    - name: Create local.properties with Google Maps API Key
+      run: echo "MAPS_API_KEY=${{ secrets.GOOGLE_MAPS_API_KEY }}" > local.properties
+
+        
