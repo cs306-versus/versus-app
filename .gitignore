@@ -205,3 +205,5 @@ lint/tmp/
 # Android Profiling
 *.hprof
 /.idea/deploymentTargetDropDown.xml
+/app/src/main/java/com/github/versus/.metals/
+/app/src/main/java/com/github/versus/.vscode/
