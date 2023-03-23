@@ -46,7 +46,7 @@ public class FsScheduleManager implements ScheduleManager {
                 DocumentSnapshot doc = docs.get(0);
                 //converting the data we get into an actual post object
 
-                //TODO : this part should be completed ince we decide whether we store the schedule
+                //TODO : this part should be completed once we decide whether we store the schedule
                 // directly in the user collection or in another collection
                 User user = (new ObjectMapper()).convertValue(doc.getData(), User.class);
                 //future.complete(user.getSchedule());
@@ -60,7 +60,7 @@ public class FsScheduleManager implements ScheduleManager {
     }
 
     @Override
-    public Future<List<Post>> getScheduleStartingFromDate(User user, Timestamp startingDate) {
+    public Future<List<Post>> getScheduleStartingFromDate(String UID, Timestamp startingDate) {
         return null;
     }
 
