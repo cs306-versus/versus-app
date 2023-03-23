@@ -38,7 +38,14 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.model.PlaceLikelihood;
+import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest;
+import com.google.android.libraries.places.api.net.FindCurrentPlaceResponse;
 import com.google.android.libraries.places.api.net.PlacesClient;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * An activity that displays a map showing the place at the device's current location.
@@ -74,16 +81,11 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     private static LatLng sat;
     public static MarkerOptions epflMarker ;
     public static MarkerOptions satelliteMarker;
-
-
-
-    /*These attributes will be used later
     private static final int M_MAX_ENTRIES = 5;
     private String[] likelyPlaceNames;
     private String[] likelyPlaceAddresses;
     private List[] likelyPlaceAttributions;
     private LatLng[] likelyPlaceLatLngs;
-    */
 
 
     @Override
@@ -101,7 +103,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         // Get the EditText view for the radius
 
         // Construct a PlacesClient
-        Places.initialize(getActivity().getApplicationContext(), "AIzaSyCfQX6VNkHcFZDl7nIcI_72vbb7mSo_D6o");
+        Places.initialize(getActivity().getApplicationContext(), BuildConfig.MAPS_API_KEY);
         placesClient = Places.createClient(getActivity());
 
         // Construct a FusedLocationProviderClient.
@@ -217,6 +219,10 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == R.id.option_get_place) {
+            showCurrentPlace();
+        }
         if (item.getItemId() == R.id.option_radius) {
             chooseRadius();
         }
@@ -358,14 +364,6 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
             Log.e("Exception: %s", e.getMessage());
         }
     }
-}
-
-/**************** Methods that are not needed yet************************************************/
-
-
-
-   /*
-
     private void openPlacesDialog() {
         // Ask the user to choose the place where they are now.
         DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
@@ -397,11 +395,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                 .setItems(likelyPlaceNames, listener)
                 .show();
     }
-
-
-}
-
- private void showCurrentPlace() {
+    private void showCurrentPlace() {
         if (map == null) {
             return;
         }
@@ -456,7 +450,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
                         // Show a dialog offering the user the list of likely places, and add a
                         // marker at the selected place.
-                        MapsActivityCurrentPlace.this.openPlacesDialog();
+                        LocationFragment.this.openPlacesDialog();
                     }
                     else {
                         Log.e(TAG, "Exception: %s", task.getException());
@@ -477,4 +471,4 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
             getLocationPermission();
         }
     }
-*/
+}
