@@ -89,6 +89,7 @@ public class ScheduleTest {
     @Test
     public void testingNextWeeks1(){
 for(int i=0;i<60;i++){
+    
         onView(withId(R.id.arrow_11)).perform(click());
 
 }
