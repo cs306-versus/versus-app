@@ -76,7 +76,6 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     public static MarkerOptions satelliteMarker;
 
 
-
     /*These attributes will be used later
     private static final int M_MAX_ENTRIES = 5;
     private String[] likelyPlaceNames;
@@ -101,7 +100,16 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         // Get the EditText view for the radius
 
         // Construct a PlacesClient
-        Places.initialize(getActivity().getApplicationContext(), "AIzaSyCfQX6VNkHcFZDl7nIcI_72vbb7mSo_D6o");
+        try {
+            String API_KEY = getContext()
+                    .getPackageManager()
+                    .getApplicationInfo(getContext().getPackageName(), PackageManager.GET_META_DATA)
+                    .metaData.getString("com.google.android.geo.API_KEY");
+            Places.initialize(getActivity().getApplicationContext(), API_KEY);
+
+        } catch (PackageManager.NameNotFoundException e) {
+            throw new RuntimeException(e);
+        }
         placesClient = Places.createClient(getActivity());
 
         // Construct a FusedLocationProviderClient.
