@@ -1,7 +1,9 @@
 name: Publish Documentation to GitHub Pages
 
 on: 
-  push
+  push:
+    branches:
+      - master
   
 jobs:
   build:
