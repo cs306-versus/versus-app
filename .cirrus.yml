@@ -25,7 +25,7 @@ check_android_task:
       -no-snapshot
       -no-window
       -camera-back none
-  build_local_properties:
+  build_local_properties_script:
     echo MAPS_API_KEY=$MAPS_API_KEY > local.properties
   assemble_instrumented_tests_script: |
     chmod +x gradlew
