@@ -6,7 +6,8 @@ container:
   
 env:
   CC_TEST_REPORTER_ID: ENCRYPTED[bffc00da37a3060b84c0d4412b3efa1e0abaca2c4165b6df7313bc3ab05a6df79fb1bf3c0fef5533473d2f4a79df26a6]
-  
+  MAPS_API_KEY: ENCRYPTED[6b93d401f3e41df288114b0ca04453e7b15e853724cb9a8bcf037b715a2633022efb52fdaccbcc85e144d1f33bcd052b]
+
 check_android_task:
   name: Run Android tests
   install_emulator_script:

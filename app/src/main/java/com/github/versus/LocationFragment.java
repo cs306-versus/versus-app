@@ -101,7 +101,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         // Get the EditText view for the radius
 
         // Construct a PlacesClient
-        Places.initialize(getActivity().getApplicationContext(), "AIzaSyCfQX6VNkHcFZDl7nIcI_72vbb7mSo_D6o");
+        Places.initialize(getActivity().getApplicationContext(), System.getenv("MAPS_API_KEY"));
         placesClient = Places.createClient(getActivity());
 
         // Construct a FusedLocationProviderClient.
