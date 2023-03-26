@@ -39,5 +39,36 @@
     <string name="your_timeline_string">Your Timeline</string>
     <string name="football_game_string">Football Game</string>
     <string name="basketball_game_string">BasketBall Game</string>
+    <!-- frame_2 strings -->
+
+
+
+
+    <string name="search_string">Rate your Friends !</string>
+
+    <string name="soccer_string">Soccer</string>
+
+
+    <string name="_25_3_2023_string">25/3/2023</string>
+
+    <string name="_4_10_string">4/10</string>
+
+    <string name="casual_game_string">Casual Game </string>
+
+    <string name="aymane_lam_string">Aymane_Lam</string>
+
+    <string name="rate_string">Rate</string>
+
+    <string name="_7_10_string">7/10</string>
+
+    <string name="tss_3atif_string">Tss_3atif</string>
+    <string-array name="rating_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+
+    </string-array>
 
 </resources>
