@@ -59,6 +59,8 @@ public class GameFragmentTest {
 
         onView(withId(R.id.drawer_layout)).check(matches(DrawerMatchers.isOpen(GravityCompat.START)));
         onView(withId(R.id.nav_schedule)).perform(click());
+        ViewInteraction rectangleView1 = onView(withId(R.id.rectangle1));
+        rectangleView1.perform(ViewActions.scrollTo());
         onData(anything()).inAdapterView(withId(R.id.list_view)).atPosition(0).perform(click());
         ViewInteraction imageView = onView(ViewMatchers.withId(R.id.frame_2));
 
