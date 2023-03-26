@@ -15,7 +15,7 @@ jobs:
           distribution: 'temurin'
           cache: 'gradle'
       - name: Set up permissions
-        run: sudo chmod u=x gradlew
+        run: sudo chmod +x ./gradlew
       - name: Generate Documentation for Versus
         run: ./gradlew dokkaHtmlMultiModule
       - uses: actions/upload-pages-artifact@v1
