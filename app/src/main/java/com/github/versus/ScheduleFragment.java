@@ -245,6 +245,7 @@ public class ScheduleFragment extends Fragment {
             public void onClick(View v) {
                 TextView date_monday =(TextView)view.findViewById(R.id.Monday_date);
                 decrease_date(date_monday,0);
+
                 TextView date_tuesday =(TextView)view.findViewById(R.id.Tuesday_date);
                 decrease_date(date_tuesday,1);
                 TextView date_wednesday =(TextView)view.findViewById(R.id.Wednesday_date);
