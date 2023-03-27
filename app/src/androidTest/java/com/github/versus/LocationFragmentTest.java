@@ -87,7 +87,9 @@ public class LocationFragmentTest {
     public void testLocationElements() throws InterruptedException {
         // Find the overflow menu button and find the "Choose a radius" menu item and perform a type text action
        clickOnLocation("Bassenges Football","1500");
+        Thread.sleep(2000);
        clickOnLocation("UNIL Football","1500");
+        Thread.sleep(2000);
        clickOnLocation("Chavannes Football","1500");
     }
 
@@ -116,7 +118,7 @@ public class LocationFragmentTest {
         onView(withId(R.id.edit_text_radius)).perform(typeText(radius));
         onView(withText("Show Places")).perform(click());
         String placeName = location;
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         onView(withText(placeName)).perform(click());
 
     }

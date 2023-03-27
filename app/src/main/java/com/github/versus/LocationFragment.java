@@ -246,32 +246,6 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         return true;
     }
 
-/*
-    private void chooseRadius() {
-        // Inflate the custom layout file
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.radius_layout, null);
-
-        // Get a reference to the EditText view in the layout
-        EditText editText = view.findViewById(R.id.edit_text_radius);
-
-        // Create a dialog to display the EditText view
-        AlertDialog dialog = new AlertDialog.Builder(getActivity()).setTitle("Enter radius").setView(view).setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // Get the radius entered by the user
-              radius = Float.parseFloat(editText.getText().toString());
-
-                // Update the CircleOptions object with the new radius and redraw the circle
-                if (circleOptions != null) {
-                    map.clear();
-                    drawCircle(radius);
-                }
-            }
-        }).setNegativeButton("Cancel", null).create();
-
-        dialog.show();
-    }
-*/
     /**
      * Gets the current location of the device, and positions the map's camera.
      */
