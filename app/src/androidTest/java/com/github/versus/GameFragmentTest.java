@@ -55,14 +55,17 @@ public class GameFragmentTest {
 
     @Test
     public void testScheduleButtons2(){
-       /* onView(withId(R.id.drawer_layout)).check(matches(DrawerMatchers.isClosed(GravityCompat.START))).perform(DrawerActions.open());
+        onView(withId(R.id.drawer_layout)).check(matches(DrawerMatchers.isClosed(GravityCompat.START))).perform(DrawerActions.open());
 
         onView(withId(R.id.drawer_layout)).check(matches(DrawerMatchers.isOpen(GravityCompat.START)));
         onView(withId(R.id.nav_schedule)).perform(click());
         ViewInteraction rectangleView1 = onView(withId(R.id.rectangle1));
         rectangleView1.perform(ViewActions.scrollTo());
+        rectangleView1.perform(ViewActions.scrollTo());
+        rectangleView1.perform(ViewActions.scrollTo());
+        rectangleView1.perform(ViewActions.scrollTo());
         onData(anything()).inAdapterView(withId(R.id.list_view)).atPosition(0).perform(click());
-        ViewInteraction imageView = onView(ViewMatchers.withId(R.id.frame_2));
+       /* ViewInteraction imageView = onView(ViewMatchers.withId(R.id.frame_2));
 
 // Scroll to the view
         imageView.perform(ViewActions.scrollTo());
@@ -72,8 +75,8 @@ public class GameFragmentTest {
                 .inAdapterView(withId(R.id.list_players_view))
                 .atPosition(0)
                 .onChildView(withId(R.id.rate_button))
-                .perform(click());
+                .perform(click());*/
 // Scroll to the view
-*/
+
     }
     }
