@@ -4,6 +4,7 @@ plugins {
     id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
     id 'jacoco'
     id 'org.jetbrains.kotlin.android'
+
 }
 
 android {
