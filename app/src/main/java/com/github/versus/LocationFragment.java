@@ -98,7 +98,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     public static MarkerOptions epflMarker;
 
     private static final int M_MAX_ENTRIES = 5;
-    private String[] likelyPlaceNames;
+    private static String[] likelyPlaceNames;
     private String[] likelyPlaceAddresses;
     private List[] likelyPlaceAttributions;
     private LatLng[] likelyPlaceLatLngs;
@@ -223,7 +223,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         inflater.inflate(R.menu.current_place_menu, menu);
 
         // Get the menu item that contains the EditText view
-        MenuItem radiusItem = menu.findItem(R.id.option_radius);
+        MenuItem radiusItem = menu.findItem(R.id.option_get_place);
 
         // Get the EditText view from the menu item
         editTextRadius = (EditText) radiusItem.getActionView();
@@ -243,14 +243,10 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         if (item.getItemId() == R.id.option_get_place) {
             showCurrentPlace(radius);
         }
-
-        if (item.getItemId() == R.id.option_radius) {
-            chooseRadius();
-        }
         return true;
     }
 
-
+/*
     private void chooseRadius() {
         // Inflate the custom layout file
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.radius_layout, null);
@@ -275,7 +271,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
         dialog.show();
     }
-
+*/
     /**
      * Gets the current location of the device, and positions the map's camera.
      */
@@ -382,12 +378,14 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
        layout.setOrientation(LinearLayout.VERTICAL);
 
        final EditText radiusInput = new EditText(requireActivity());
+       radiusInput.setId(R.id.edit_text_radius);
        radiusInput.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
        radiusInput.setHint("Enter radius (in meters)");
        layout.addView(radiusInput);
 
        final ListView listView = new ListView(requireActivity());
        listView.setAdapter(new ArrayAdapter<>(requireActivity(), android.R.layout.simple_list_item_1, likelyPlaceNames));
+       listView.setId(R.id.test_list_view);
        layout.addView(listView);
        builder.setView(layout);
 
@@ -517,6 +515,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
             getLocationPermission();
         }
     }
+
      //Utilitary methods
      private void showToast(String message) {
          LayoutInflater inflater = getLayoutInflater();

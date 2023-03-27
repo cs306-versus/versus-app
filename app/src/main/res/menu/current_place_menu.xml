@@ -21,12 +21,7 @@
 
         />
 
-    <item
-        android:id="@+id/option_radius"
-        android:title="Choose a radius"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true" />
+
 
 
 </menu>

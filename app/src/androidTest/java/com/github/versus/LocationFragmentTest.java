@@ -2,13 +2,16 @@ package com.github.versus;
 
 
 
+import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 import static androidx.test.espresso.intent.Intents.intended;
 import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static androidx.test.espresso.intent.matcher.IntentMatchers.hasExtra;
+import static androidx.test.espresso.matcher.RootMatchers.isDialog;
 import static androidx.test.espresso.matcher.ViewMatchers.assertThat;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
@@ -17,6 +20,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 
 
@@ -80,15 +84,40 @@ public class LocationFragmentTest {
     }
 
     @Test
-    public void testUiElements() throws InterruptedException {
+    public void testLocationElements() throws InterruptedException {
+        // Find the overflow menu button and find the "Choose a radius" menu item and perform a type text action
+       clickOnLocation("Bassenges Football","1500");
+       clickOnLocation("UNIL Football","1500");
+       clickOnLocation("Chavannes Football","1500");
+    }
+
+    @Test
+    public void testIfNoLocationWithinRadius() throws InterruptedException {
         // Find the overflow menu button and find the "Choose a radius" menu item and perform a type text action
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
         // Find the menu item by its ID and perform a click
-        onView(withText("Choose a radius")).perform(click());
-        onView(withId(R.id.edit_text_radius)).perform(typeText("1000"));
-        onView(withText("OK")).perform(click());
-        //Testing circle properties
+        onView(withText("Get Place")).perform(click());
+        onView(withId(R.id.edit_text_radius)).perform(typeText("100"));
+        onView(withText("Show Places")).perform(click());
+    }
+    @Test
+    public void testNoRadiusInput() throws InterruptedException {
+        // Find the overflow menu button and find the "Choose a radius" menu item and perform a type text action
 
+        Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
+        // Find the menu item by its ID and perform a click
+        onView(withText("Get Place")).perform(click());
+        onView(withText("Show Places")).perform(click());
+    }
+    private void clickOnLocation(String  location,String radius) throws InterruptedException {
+        Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
+        // Find the menu item by its ID and perform a click
+        onView(withText("Get Place")).perform(click());
+        onView(withId(R.id.edit_text_radius)).perform(typeText(radius));
+        onView(withText("Show Places")).perform(click());
+        String placeName = location;
+        Thread.sleep(1000);
+        onView(withText(placeName)).perform(click());
 
     }
 }
