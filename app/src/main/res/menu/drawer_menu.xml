@@ -13,10 +13,7 @@
             android:id="@+id/nav_schedule"
             android:icon="@drawable/ic_schedule"
             android:title="Schedule" />
-        <item
-            android:id="@+id/nav_game"
-            android:icon="@drawable/ic_schedule"
-            android:title="Game" />
+
 
     </group>
 </menu>
