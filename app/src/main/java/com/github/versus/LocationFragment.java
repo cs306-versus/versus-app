@@ -526,14 +526,15 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                                 filteredPlaces.add(customPlace);
                                 hasLocations=true;
                             }
-                            else{
-                                if(!hasLocations && radius != 0){
-                                    showToast("No locations found within the selected radius");
-                                    firstTime=false;
-                                }
+
+                        }
+
+                            if(!hasLocations && radius != 0){
+                                showToast("No locations found within the selected radius");
 
                             }
-                        }
+
+
 
                         hasLocations=false;
 
