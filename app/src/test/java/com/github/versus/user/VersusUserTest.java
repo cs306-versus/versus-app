@@ -7,6 +7,8 @@ import static org.junit.Assert.assertNotEquals;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Objects;
+
 /**
  * Test class for {@link VersusUser}
  */
@@ -95,6 +97,16 @@ public final class VersusUserTest {
     public void testWithSameUID(){
         VersusUser.Builder builder = new VersusUser.Builder(UID);
         assertEquals(user, builder.build());
+    }
+
+    @Test
+    public void testHashCode(){
+        assertEquals(Objects.hashCode(UID), user.hashCode());
+    }
+
+    @Test
+    public void testToString(){
+        assertEquals(String.format("[User %s - %s]", UID, USERNAME), user.toString());
     }
 
 }
