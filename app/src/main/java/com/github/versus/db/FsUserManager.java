@@ -1,8 +1,12 @@
 package com.github.versus.db;
 
 import com.github.versus.user.User;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 
 /**
@@ -12,6 +16,8 @@ import java.util.concurrent.Future;
  * @since SPRINT 2
  */
 public class FsUserManager implements DataBaseManager<User> {
+
+    private static final String USERS_COLLECTION_ID = "users";
 
     private final FirebaseFirestore db;
 
@@ -30,7 +36,20 @@ public class FsUserManager implements DataBaseManager<User> {
 
     @Override
     public Future<User> fetch(String uid) {
-        throw new RuntimeException("NOT IMPLEMENTED");
+        CollectionReference collection = db.collection(USERS_COLLECTION_ID);
+        CompletableFuture<User> future = new CompletableFuture<>();
+        Task<DocumentSnapshot> doc = collection.document(uid).get();
+        doc.addOnSuccessListener(content -> {
+            System.out.println(content.getData());
+            // ???
+        });
+        doc.addOnFailureListener(failure -> {
+            // ???
+        });
+        doc.addOnCanceledListener(() -> {
+            // ???
+        });
+        return future;
     }
 
     @Override
