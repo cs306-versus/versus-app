@@ -2,8 +2,6 @@ package com.github.versus.auth;
 
 import static java.util.Objects.isNull;
 
-import android.util.Log;
-
 import com.github.versus.db.FsUserManager;
 import com.github.versus.user.User;
 import com.google.android.gms.tasks.Task;

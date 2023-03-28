@@ -1,6 +1,9 @@
 package com.github.versus.db;
 
+import android.util.Log;
+
 import com.github.versus.user.User;
+import com.github.versus.user.VersusUser;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -40,14 +43,15 @@ public class FsUserManager implements DataBaseManager<User> {
         CompletableFuture<User> future = new CompletableFuture<>();
         Task<DocumentSnapshot> doc = collection.document(uid).get();
         doc.addOnSuccessListener(content -> {
-            System.out.println(content.getData());
+            Log.println(Log.ERROR, "", content.getData().toString());
+            future.complete(new VersusUser.Builder(uid).build());
             // ???
-        });
-        doc.addOnFailureListener(failure -> {
-            // ???
-        });
-        doc.addOnCanceledListener(() -> {
-            // ???
+        })
+        .addOnFailureListener(failure -> {
+            future.cancel(true);
+        })
+        .addOnCanceledListener(() -> {
+            future.cancel(true);
         });
         return future;
     }
