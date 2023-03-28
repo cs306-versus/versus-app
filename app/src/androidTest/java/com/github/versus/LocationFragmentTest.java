@@ -100,7 +100,19 @@ public class LocationFragmentTest {
        clickOnLocation("UNIL Football","1500");
 
        clickOnLocation("Chavannes Football","1500");*/
-        Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
+
+            Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
+            onView(withText("Get Place")).perform(click());
+            onView(withId(R.id.edit_text_radius)).perform(typeText("1500"));
+            onView(withText("Show Places")).perform(click());
+            String placeName = "Bassenges Football";
+
+            onData(allOf(is(instanceOf(String.class)), is(placeName)))
+                    .inAdapterView(withId(R.id.test_list_view)) // Replace this with the ID of your ListView
+                    .perform(click());
+
+
+       /* Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
         // Find the menu item by its ID and perform a click
         onView(withText("Get Place")).perform(click());
         Thread.sleep(5000);
