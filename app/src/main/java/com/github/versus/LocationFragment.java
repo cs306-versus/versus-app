@@ -94,7 +94,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     private EditText editTextRadius;
     private Location lastKnownLocation;
     private static LatLng epfl;
-    private float radius ;
+    private float radius;
     public static MarkerOptions epflMarker;
 
     private static final int M_MAX_ENTRIES = 5;
@@ -102,10 +102,9 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     private String[] likelyPlaceAddresses;
     private List[] likelyPlaceAttributions;
     private LatLng[] likelyPlaceLatLngs;
-    private AlertDialog placesDialog ;
-    private boolean hasLocations =false;
+    private AlertDialog placesDialog;
+    private boolean hasLocations = false;
     private Circle mapCircle;
-
 
 
     @Override
@@ -213,6 +212,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
     /**
      * Sets up the options menu.
+     *
      * @param menu The options menu.
      * @return Boolean.
      */
@@ -345,6 +345,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
             Log.e("Exception: %s", e.getMessage());
         }
     }
+
     private void chooseRadius() {
         // Inflate the custom layout file
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.radius_layout, null);
@@ -360,7 +361,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                 float radius = Float.parseFloat(editText.getText().toString());
 
                 // Update the CircleOptions object with the new radius and redraw the circle
-                if(circleOptions!=null){
+                if (circleOptions != null) {
                     circleOptions.radius(radius);
                     map.clear();
                     map.addCircle(circleOptions);
@@ -373,7 +374,9 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     }
 
 
-   private void openPlacesDialog2() {
+    private void openPlacesDialog2() {
+
+
       /* AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
 
        builder.setTitle("Select a place");
@@ -452,41 +455,110 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
        placesDialog = builder.create();
        placesDialog.show()*/
-   }
-
+    }
     private void openPlacesDialog() {
-        // Create a dialog for the radius input
-        AlertDialog.Builder radiusBuilder = new AlertDialog.Builder(requireActivity());
-        radiusBuilder.setTitle("Enter radius (in meters)");
+    AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+
+       builder.setTitle("Select a place");
+
+    // Add an EditText to get the radius value
+    LinearLayout layout = new LinearLayout(requireActivity());
+       layout.setOrientation(LinearLayout.VERTICAL);
+    View view = LayoutInflater.from(getActivity()).inflate(R.layout.radius_layout, null);
+    EditText radiusInput = view.findViewById(R.id.edit_text_radius2);
+
+       radiusInput.setInputType(InputType.TYPE_CLASS_NUMBER |InputType.TYPE_NUMBER_FLAG_DECIMAL);
+       radiusInput.setHint("Enter radius (in meters)");
+       layout.addView(radiusInput);
+
+    final ListView listView = new ListView(requireActivity());
+       listView.setAdapter(new ArrayAdapter<>(
+
+    requireActivity(),android.R.layout.simple_list_item_1,likelyPlaceNames));
+       listView.setId(R.id.test_list_view);
+       layout.addView(listView);
+       builder.setView(layout);
+
+
+    // Set the listener for the list view
+       listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+
+    {
+        @Override public void onItemClick (AdapterView < ? > parent, View view,int position, long id)
+        {
+            // The user has selected a place. Add a marker and move the camera to the selected place.
+            LatLng selectedPlace = likelyPlaceLatLngs[position];
+            Marker marker = map.addMarker(new MarkerOptions().title(likelyPlaceNames[position]).position(selectedPlace).snippet(likelyPlaceAddresses[position]));
+            addBlinkingMarker(selectedPlace, likelyPlaceNames[position], likelyPlaceAddresses[position]);
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedPlace, DEFAULT_ZOOM));
+            placesDialog.dismiss();
+        }
+    });
+
+    // Set the positive button to filter locations by radius
+       builder.setPositiveButton("OK",new DialogInterface.OnClickListener()
+
+    {
+        @Override public void onClick (DialogInterface dialog,int which){
+        String radiusStr = radiusInput.getText().toString();
+        if (!TextUtils.isEmpty(radiusStr)) {
+             radius = Float.parseFloat(radiusStr);
+            showCurrentPlace(radius);
+
+        } else {
+            showToast("Please enter a radius");
+        }
+    }
+    });
+    // Set the negative button
+       builder.setNegativeButton("Cancel",new DialogInterface.OnClickListener()
+
+    {
+        @Override public void onClick (DialogInterface dialog,int which){
+        dialog.dismiss();
+    }
+    });
+    // Initialize the placesDialog variable
+
+    placesDialog =builder.create();
+       placesDialog.show();
+}
+
+    /*private void openPlacesDialog() {
 
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.radius_layout, null);
-        EditText radiusInput = view.findViewById(R.id.edit_text_radius2);
-        radiusBuilder.setView(view);
 
-        radiusBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        // Get a reference to the EditText view in the layout
+        EditText editText = view.findViewById(R.id.edit_text_radius2);
+
+        // Create a dialog to display the EditText view
+        AlertDialog dialog = new AlertDialog.Builder(getActivity()).setTitle("Enter radius").setView(view).setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                String radiusStr = radiusInput.getText().toString();
-                if (!TextUtils.isEmpty(radiusStr)) {
-                    double radius = Double.parseDouble(radiusStr);
-                    showPlacesDialog(radius);
-                } else {
-                    showToast("Please enter a radius");
+                // Get the radius entered by the user
+                radius = Float.parseFloat(editText.getText().toString());
+
+                // Update the CircleOptions object with the new radius and redraw the circle
+                if(circleOptions!=null){
+                  drawCircle(radius);
                 }
+
             }
-        });
-        radiusBuilder.setNegativeButton("Cancel", null);
+        }).setNegativeButton("Cancel", null).create();
 
-        AlertDialog radiusDialog = radiusBuilder.create();
-        radiusDialog.show();
-    }
-
-    private void showPlacesDialog(double radius) {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+
         builder.setTitle("Select a place");
 
+        // Add an EditText to get the radius value
         LinearLayout layout = new LinearLayout(requireActivity());
         layout.setOrientation(LinearLayout.VERTICAL);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.radius_layout, null);
+        EditText radiusInput = view.findViewById(R.id.edit_text_radius2);
+
+        radiusInput.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        radiusInput.setHint("Enter radius (in meters)");
+        layout.addView(radiusInput);
 
         final ListView listView = new ListView(requireActivity());
         listView.setAdapter(new ArrayAdapter<>(requireActivity(), android.R.layout.simple_list_item_1, likelyPlaceNames));
@@ -494,13 +566,17 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         layout.addView(listView);
         builder.setView(layout);
 
+
+
+
+
         // Set the listener for the list view
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // The user has selected a place. Add a marker and move the camera to the selected place.
                 LatLng selectedPlace = likelyPlaceLatLngs[position];
-                Marker marker = map.addMarker(new MarkerOptions()
+                Marker marker=map.addMarker(new MarkerOptions()
                         .title(likelyPlaceNames[position])
                         .position(selectedPlace)
                         .snippet(likelyPlaceAddresses[position]));
@@ -514,10 +590,16 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         builder.setPositiveButton("Show Places", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                showCurrentPlace(radius);
+                String radiusStr = radiusInput.getText().toString();
+                if (!TextUtils.isEmpty(radiusStr)) {
+                    double radius = Double.parseDouble(radiusStr);
+                    showCurrentPlace(radius);
+
+                } else {
+                    showToast("Please enter a radius");
+                }
             }
         });
-
         // Set the negative button
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
@@ -525,15 +607,20 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                 dialog.dismiss();
             }
         });
-
-
-
-
-
+        // Initialize the placesDialog variable
 
         placesDialog = builder.create();
         placesDialog.show();
+
     }
+*/
+
+
+
+
+
+
+
 
     private void showCurrentPlace(double radius) {
         if (map == null) {
