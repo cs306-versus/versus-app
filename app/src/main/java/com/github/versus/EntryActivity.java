@@ -41,6 +41,7 @@ public class EntryActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        auth.signOut();
         User user = auth.currentUser();
         yieldActivity(user);
     }
