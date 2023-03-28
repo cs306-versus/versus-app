@@ -106,9 +106,11 @@ public class LocationFragmentTest {
         onView(withId(R.id.edit_text_radius)).perform(typeText("1500"));
         onView(withText("Show Places")).perform(click());
         String placeName = "Bassenges Football";
+        Thread.sleep(5000);
+        //onView(withText(placeName)).perform(waitFor(isDisplayed(), 5000));
         onView(withText(placeName)).perform(click());
 ///////////////////////////////////////
-        Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
+        /*Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
         // Find the menu item by its ID and perform a click
         onView(withText("Get Place")).perform(click());
         onView(withId(R.id.edit_text_radius)).perform(typeText("1500"));
@@ -121,7 +123,7 @@ public class LocationFragmentTest {
         onView(withId(R.id.edit_text_radius)).perform(typeText("1500"));
         onView(withText("Show Places")).perform(click());
         String placeName3 = "Chavannes Football";
-        onView(withText(placeName3)).perform(click());
+        onView(withText(placeName3)).perform(click());*/
 
     }
 
@@ -143,6 +145,43 @@ public class LocationFragmentTest {
         onView(withText("Get Place")).perform(click());
         onView(withText("Show Places")).perform(click());
     }
+   /* public static ViewAction waitFor(final Matcher<View> viewMatcher, final long millis) {
+        return new ViewAction() {
+            @Override
+            public Matcher<View> getConstraints() {
+                return isRoot();
+            }
+
+            @Override
+            public String getDescription() {
+                return "wait for a specific view with matcher <" + viewMatcher.toString() + "> during " + millis + " millis.";
+            }
+
+            @Override
+            public void perform(final UiController uiController, final View view) {
+                uiController.loopMainThreadUntilIdle();
+                final long startTime = System.currentTimeMillis();
+                final long endTime = startTime + millis;
+                final Matcher<View> isDisplayed = isDisplayed();
+
+                do {
+                    for (View child : TreeIterables.breadthFirstViewTraversal(view)) {
+                        if (viewMatcher.matches(child) && isDisplayed.matches(child)) {
+                            return;
+                        }
+                    }
+                    uiController.loopMainThreadForAtLeast(50);
+                } while (System.currentTimeMillis() < endTime);
+
+                throw new PerformException.Builder()
+                        .withActionDescription(getDescription())
+                        .withViewDescription(HumanReadables.describe(view))
+                        .withCause(new TimeoutException())
+                        .build();
+            }
+        };
+    }
+
     /*private void clickOnLocation(String  location,String radius) throws InterruptedException {
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
         // Find the menu item by its ID and perform a click
