@@ -519,8 +519,8 @@ private void openPlacesDialog(){
 
 
     // Add an EditText to get the radius value
-    LinearLayout layout = new LinearLayout(requireActivity());
-    layout.setOrientation(LinearLayout.VERTICAL);
+    //LinearLayout layout = new LinearLayout(requireActivity());
+    //layout.setOrientation(LinearLayout.VERTICAL);
     View view = LayoutInflater.from(getActivity()).inflate(R.layout.radius_layout, null);
     EditText radiusInput = view.findViewById(R.id.edit_text_radius2);
 
@@ -539,24 +539,22 @@ private void openPlacesDialog(){
         }
 
 
-    }).setNegativeButton("Cancel", null).create();
-    // Set the negative button
-    /*setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+    }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
             dialog.dismiss();
         }
-    });;*/
-    builder.setTitle("Select a place");
+    }).create();
+
     //radiusInput.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-    radiusInput.setHint("Enter radius (in meters)");
-    layout.addView(radiusInput);
+    //radiusInput.setHint("Enter radius (in meters)");
+    //layout.addView(radiusInput);
 
     final ListView listView = new ListView(requireActivity());
     listView.setAdapter(new ArrayAdapter<>(requireActivity(), android.R.layout.simple_list_item_1, likelyPlaceNames));
     listView.setId(R.id.test_list_view);
-    layout.addView(listView);
-    builder.setView(layout);
+    //layout.addView(listView);
+    //builder.setView(layout);
 
     // Set the listener for the list view
     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
