@@ -373,7 +373,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                        .title(likelyPlaceNames[position])
                        .position(selectedPlace)
                        .snippet(likelyPlaceAddresses[position]));
-               addBlinkingMarker(selectedPlace, likelyPlaceNames[position], likelyPlaceAddresses[position]);
+               //addBlinkingMarker(selectedPlace, likelyPlaceNames[position], likelyPlaceAddresses[position]);
                map.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedPlace, DEFAULT_ZOOM));
                placesDialog.dismiss();
            }
@@ -518,7 +518,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         CircleOptions circleOptions = new CircleOptions().center(localPos).radius(radius).
                 strokeWidth(2);
         mapCircle = map.addCircle(circleOptions);
-        applyFlashingAnimation(mapCircle);
+        //applyFlashingAnimation(mapCircle);
     }
 
 
@@ -532,6 +532,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
         return earthRadius * c * 1000; // Distance in meters
     }
+    /*
     private void applyBlinkingAnimation(Marker marker) {
         final Handler handler = new Handler();
         final Runnable blinkingRunnable = new Runnable() {
@@ -580,7 +581,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         Marker blinkingMarker = map.addMarker(blinkingMarkerOptions);
 
         applyBlinkingAnimation(blinkingMarker);
-    }
+    }*/
 
 
 

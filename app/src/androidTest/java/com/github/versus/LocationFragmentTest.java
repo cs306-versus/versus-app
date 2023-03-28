@@ -14,6 +14,7 @@ import static androidx.test.espresso.intent.matcher.IntentMatchers.hasExtra;
 import static androidx.test.espresso.matcher.RootMatchers.isDialog;
 import static androidx.test.espresso.matcher.ViewMatchers.assertThat;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
@@ -34,10 +35,15 @@ import androidx.fragment.app.testing.FragmentScenario;
 import androidx.lifecycle.Lifecycle;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.espresso.Espresso;
+import androidx.test.espresso.PerformException;
 import androidx.test.espresso.UiController;
 import androidx.test.espresso.ViewAction;
 import androidx.test.espresso.intent.Intents;
+import androidx.test.espresso.util.HumanReadables;
+import androidx.test.espresso.util.TreeIterables;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
+import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.rule.GrantPermissionRule;
 import androidx.test.runner.AndroidJUnit4;
 import androidx.test.espresso.contrib.DrawerActions;
 import androidx.test.espresso.contrib.DrawerMatchers;
@@ -57,6 +63,8 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.util.concurrent.TimeoutException;
 
 @RunWith(AndroidJUnit4.class)
 public class LocationFragmentTest {
@@ -78,6 +86,7 @@ public class LocationFragmentTest {
 
     }
 
+
     @After
     public void tearDown() {
         Intents.release();
@@ -86,11 +95,34 @@ public class LocationFragmentTest {
     @Test
     public void testLocationElements() throws InterruptedException {
         // Find the overflow menu button and find the "Choose a radius" menu item and perform a type text action
-       clickOnLocation("Bassenges Football","1500");
-        Thread.sleep(2000);
+       /*clickOnLocation("Bassenges Football","1500");
+
        clickOnLocation("UNIL Football","1500");
-        Thread.sleep(2000);
-       clickOnLocation("Chavannes Football","1500");
+
+       clickOnLocation("Chavannes Football","1500");*/
+        Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
+        // Find the menu item by its ID and perform a click
+        onView(withText("Get Place")).perform(click());
+        onView(withId(R.id.edit_text_radius)).perform(typeText("1500"));
+        onView(withText("Show Places")).perform(click());
+        String placeName = "Bassenges Football";
+        onView(withText(placeName)).perform(click());
+///////////////////////////////////////
+        Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
+        // Find the menu item by its ID and perform a click
+        onView(withText("Get Place")).perform(click());
+        onView(withId(R.id.edit_text_radius)).perform(typeText("1500"));
+        onView(withText("Show Places")).perform(click());
+        String placeName2 = "UNIL Football";
+        onView(withText(placeName2)).perform(click());
+        Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
+        // Find the menu item by its ID and perform a click
+        onView(withText("Get Place")).perform(click());
+        onView(withId(R.id.edit_text_radius)).perform(typeText("1500"));
+        onView(withText("Show Places")).perform(click());
+        String placeName3 = "Chavannes Football";
+        onView(withText(placeName3)).perform(click());
+
     }
 
     @Test
@@ -111,17 +143,23 @@ public class LocationFragmentTest {
         onView(withText("Get Place")).perform(click());
         onView(withText("Show Places")).perform(click());
     }
-    private void clickOnLocation(String  location,String radius) throws InterruptedException {
+    /*private void clickOnLocation(String  location,String radius) throws InterruptedException {
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
         // Find the menu item by its ID and perform a click
         onView(withText("Get Place")).perform(click());
         onView(withId(R.id.edit_text_radius)).perform(typeText(radius));
         onView(withText("Show Places")).perform(click());
         String placeName = location;
-        Thread.sleep(2000);
+        // Wait for the ListView to be displayed
+
+        onView(withText(placeName)).perform(waitFor(isDisplayed(), 5000));
+
+
         onView(withText(placeName)).perform(click());
 
-    }
+    }*/
+
+
 }
 
 
