@@ -32,6 +32,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.EditText;
 
 import androidx.core.view.GravityCompat;
 import androidx.fragment.app.testing.FragmentScenario;
@@ -165,9 +166,14 @@ public class LocationFragmentTest {
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
         // Find the menu item by its ID and perform a click
         onView(withText("Get Place")).perform(click());
+        Thread.sleep(5000);
+
+        onView(allOf(instanceOf(EditText.class), withHint("Enter radius (in meters)"))).perform(typeText("100"));
+
+
 
         //onView(withId(R.id.edit_text_radius2)).perform(typeText("100"));
-        onView(withHint("Enter radius (in meters)")).perform(typeText("100"));
+        //onView(withHint("Enter radius (in meters)")).perform(typeText("100"));
 
 
 
