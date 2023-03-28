@@ -7,6 +7,7 @@ import static org.junit.Assert.assertNotEquals;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -39,7 +40,8 @@ public final class VersusUserTest {
                 .setPhone(PHONE)
                 .setRating(RATING)
                 .setCity(CITY)
-                .setZipCode(ZIP_CODE);
+                .setZipCode(ZIP_CODE)
+                .setPreferredSports(List.of());
         user = builder.build();
     }
 
@@ -86,6 +88,11 @@ public final class VersusUserTest {
     @Test
     public void testZip(){
         assertEquals(ZIP_CODE, user.getZipCode());
+    }
+
+    @Test
+    public void testPreferredSports(){
+        assertEquals(0, user.getPreferredSports().size());
     }
 
     @Test

@@ -26,6 +26,7 @@ public final class VersusUser implements User {
     private final int rating;
     private final String city;
     private final int zipCode;
+    private final List<Sport> preferredSports;
 
     private VersusUser(Builder builder){
         this.uid = builder.uid;
@@ -37,6 +38,7 @@ public final class VersusUser implements User {
         this.rating = builder.rating;
         this.city = builder.city;
         this.zipCode = builder.zipCode;
+        this.preferredSports = List.copyOf(builder.preferredSports);
     }
 
     @Override
@@ -86,7 +88,7 @@ public final class VersusUser implements User {
 
     @Override
     public List<Sport> getPreferredSports() {
-        return null;
+        return preferredSports;
     }
 
     @Override
@@ -122,6 +124,7 @@ public final class VersusUser implements User {
         private int rating;
         private String city;
         private int zipCode;
+        private List<Sport> preferredSports;
 
         /**
          * ???
@@ -208,6 +211,16 @@ public final class VersusUser implements User {
          */
         public Builder setZipCode(int zip){
             this.zipCode = zip;
+            return this;
+        }
+
+        /**
+         * ???
+         * @param sports
+         * @return
+         */
+        public Builder setPreferredSports(List<Sport> sports){
+            this.preferredSports = sports;
             return this;
         }
 
