@@ -373,8 +373,8 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     }
 
 
-   private void openPlacesDialog() {
-       AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+   private void openPlacesDialog2() {
+      /* AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
 
        builder.setTitle("Select a place");
 
@@ -384,15 +384,32 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
        View view = LayoutInflater.from(getActivity()).inflate(R.layout.radius_layout, null);
         EditText radiusInput = view.findViewById(R.id.edit_text_radius2);
 
-       radiusInput.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+       /*radiusInput.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
        radiusInput.setHint("Enter radius (in meters)");
-       layout.addView(radiusInput);
+       layout.addView(radiusInput);*/
+       /*AlertDialog dialog = new AlertDialog.Builder(getActivity()).setTitle("Enter radius").setView(view).setPositiveButton("Show Places", new DialogInterface.OnClickListener() {
+           @Override
+           public void onClick(DialogInterface dialog, int which) {
+               // Get the radius entered by the user
+               float radius = Float.parseFloat(radiusInput.getText().toString());
+
+               // Update the CircleOptions object with the new radius and redraw the circle
+               if(circleOptions!=null){
+                 drawCircle(radius);
+               }
+
+           }
+       }).setNegativeButton("Cancel", null).create();
 
        final ListView listView = new ListView(requireActivity());
        listView.setAdapter(new ArrayAdapter<>(requireActivity(), android.R.layout.simple_list_item_1, likelyPlaceNames));
        listView.setId(R.id.test_list_view);
        layout.addView(listView);
        builder.setView(layout);
+
+
+
+
 
        // Set the listener for the list view
        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -411,7 +428,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
        });
 
        // Set the positive button to filter locations by radius
-       builder.setPositiveButton("Show Places", new DialogInterface.OnClickListener() {
+       /*builder.setPositiveButton("Show Places", new DialogInterface.OnClickListener() {
            @Override
            public void onClick(DialogInterface dialog, int which) {
                String radiusStr = radiusInput.getText().toString();
@@ -431,12 +448,94 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                dialog.dismiss();
            }
        });
-       // Initialize the placesDialog variable
+
 
        placesDialog = builder.create();
-       placesDialog.show();
+       placesDialog.show()*/
    }
-   private void showCurrentPlace(double radius) {
+
+    private void openPlacesDialog() {
+        // Create a dialog for the radius input
+        AlertDialog.Builder radiusBuilder = new AlertDialog.Builder(requireActivity());
+        radiusBuilder.setTitle("Enter radius (in meters)");
+
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.radius_layout, null);
+        EditText radiusInput = view.findViewById(R.id.edit_text_radius2);
+        radiusBuilder.setView(view);
+
+        radiusBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String radiusStr = radiusInput.getText().toString();
+                if (!TextUtils.isEmpty(radiusStr)) {
+                    double radius = Double.parseDouble(radiusStr);
+                    showPlacesDialog(radius);
+                } else {
+                    showToast("Please enter a radius");
+                }
+            }
+        });
+        radiusBuilder.setNegativeButton("Cancel", null);
+
+        AlertDialog radiusDialog = radiusBuilder.create();
+        radiusDialog.show();
+    }
+
+    private void showPlacesDialog(double radius) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+        builder.setTitle("Select a place");
+
+        LinearLayout layout = new LinearLayout(requireActivity());
+        layout.setOrientation(LinearLayout.VERTICAL);
+
+        final ListView listView = new ListView(requireActivity());
+        listView.setAdapter(new ArrayAdapter<>(requireActivity(), android.R.layout.simple_list_item_1, likelyPlaceNames));
+        listView.setId(R.id.test_list_view);
+        layout.addView(listView);
+        builder.setView(layout);
+
+        // Set the listener for the list view
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // The user has selected a place. Add a marker and move the camera to the selected place.
+                LatLng selectedPlace = likelyPlaceLatLngs[position];
+                Marker marker = map.addMarker(new MarkerOptions()
+                        .title(likelyPlaceNames[position])
+                        .position(selectedPlace)
+                        .snippet(likelyPlaceAddresses[position]));
+                addBlinkingMarker(selectedPlace, likelyPlaceNames[position], likelyPlaceAddresses[position]);
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedPlace, DEFAULT_ZOOM));
+                placesDialog.dismiss();
+            }
+        });
+
+        // Set the positive button to filter locations by radius
+        builder.setPositiveButton("Show Places", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                showCurrentPlace(radius);
+            }
+        });
+
+        // Set the negative button
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+
+
+
+
+
+        placesDialog = builder.create();
+        placesDialog.show();
+    }
+
+    private void showCurrentPlace(double radius) {
         if (map == null) {
             return;
         }
