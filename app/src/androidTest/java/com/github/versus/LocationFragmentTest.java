@@ -95,6 +95,15 @@ public class LocationFragmentTest {
    @Test
     public void testLocationElements() throws InterruptedException {
 
+
+       /*Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
+       // Find the menu item by its ID and perform a click
+       onView(withText("Get Place")).perform(click());
+       onView(withId(R.id.edit_text_radius)).perform(typeText("1000"));
+
+       onView(withText("Show Places")).perform(click());
+       String placeName="Bassenges Football";
+       onView(withText(placeName)).perform(click());
         // Find the overflow menu button and find the "Choose a radius" menu item and perform a type text action
        /*clickOnLocation("Bassenges Football","1500");
 
@@ -150,7 +159,9 @@ public class LocationFragmentTest {
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
         // Find the menu item by its ID and perform a click
         onView(withText("Get Place")).perform(click());
+        Thread.sleep(10000);
         onView(withId(R.id.edit_text_radius)).perform(typeText("100"));
+        Thread.sleep(10000);
         onView(withText("Show Places")).perform(click());
     }
     @Test
@@ -160,6 +171,7 @@ public class LocationFragmentTest {
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
         // Find the menu item by its ID and perform a click
         onView(withText("Get Place")).perform(click());
+        Thread.sleep(10000);
         onView(withText("Show Places")).perform(click());
     }
    public static ViewAction waitFor(final Matcher<View> viewMatcher, final long millis) {
