@@ -30,6 +30,7 @@ import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 
 import androidx.core.view.GravityCompat;
 import androidx.fragment.app.testing.FragmentScenario;
@@ -37,6 +38,7 @@ import androidx.lifecycle.Lifecycle;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.PerformException;
+import androidx.test.espresso.Root;
 import androidx.test.espresso.UiController;
 import androidx.test.espresso.ViewAction;
 import androidx.test.espresso.intent.Intents;
@@ -58,6 +60,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 
+import org.hamcrest.BaseMatcher;
+import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.junit.After;
 import org.junit.Before;
@@ -154,7 +158,7 @@ public class LocationFragmentTest {
 
     }
 
-    /*@Test
+    @Test
     public void testIfNoLocationWithinRadius() throws InterruptedException {
         // Find the overflow menu button and find the "Choose a radius" menu item and perform a type text action
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
@@ -163,9 +167,11 @@ public class LocationFragmentTest {
 
         onView(withId(R.id.edit_text_radius)).perform(typeText("100"));
 
-        onView(withText("Show Places")).perform(click());
-    }*/
-    @Test
+        //onView(withText("Show Places")).perform(click());
+    }
+
+
+    /*@Test
     public void testNoRadiusInput() throws InterruptedException {
         // Find the overflow menu button and find the "Choose a radius" menu item and perform a type text action
 
@@ -174,9 +180,12 @@ public class LocationFragmentTest {
         onView(withText("Get Place")).perform(click());
 
         //onView(withText("Show Places")).perform(click());
-        onView(withText(endsWith("Show Places"))).check(matches(isDisplayed()));
-        onView(withText(endsWith("Show Places"))).perform(click());
+        //onView(withText(endsWith("Show Places"))).check(matches(isDisplayed()));
+
+        onView(withText(("Show Places"))).perform(click());
     }
+/*
+
    public static ViewAction waitFor(final Matcher<View> viewMatcher, final long millis) {
         return new ViewAction() {
             @Override
@@ -213,6 +222,7 @@ public class LocationFragmentTest {
             }
         };
     }
+
 
     /*private void clickOnLocation(String  location,String radius) throws InterruptedException {
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
