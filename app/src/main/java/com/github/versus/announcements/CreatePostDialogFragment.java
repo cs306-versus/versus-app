@@ -41,7 +41,6 @@ public class CreatePostDialogFragment extends DialogFragment {
                         System.out.println(et);
                         String title = et.getText().toString();
                         Post post = new Post(
-
                                 title,
                                 new Timestamp(2023, Month.APRIL, 3,1, 30, Timestamp.Meridiem.AM),
                                 new Location("EPFL", 42, 40),
