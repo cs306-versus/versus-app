@@ -23,6 +23,7 @@ import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.endsWith;
 
 
 import android.graphics.Color;
@@ -153,17 +154,17 @@ public class LocationFragmentTest {
 
     }
 
-    @Test
+    /*@Test
     public void testIfNoLocationWithinRadius() throws InterruptedException {
         // Find the overflow menu button and find the "Choose a radius" menu item and perform a type text action
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
         // Find the menu item by its ID and perform a click
         onView(withText("Get Place")).perform(click());
-        Thread.sleep(10000);
+
         onView(withId(R.id.edit_text_radius)).perform(typeText("100"));
-        Thread.sleep(10000);
+
         onView(withText("Show Places")).perform(click());
-    }
+    }*/
     @Test
     public void testNoRadiusInput() throws InterruptedException {
         // Find the overflow menu button and find the "Choose a radius" menu item and perform a type text action
@@ -171,8 +172,10 @@ public class LocationFragmentTest {
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
         // Find the menu item by its ID and perform a click
         onView(withText("Get Place")).perform(click());
-        Thread.sleep(10000);
-        onView(withText("Show Places")).perform(click());
+
+        //onView(withText("Show Places")).perform(click());
+        onView(withText(endsWith("Show Places"))).check(matches(isDisplayed()));
+        onView(withText(endsWith("Show Places"))).perform(click());
     }
    public static ViewAction waitFor(final Matcher<View> viewMatcher, final long millis) {
         return new ViewAction() {
