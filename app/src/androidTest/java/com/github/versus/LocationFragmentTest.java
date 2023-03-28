@@ -16,6 +16,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.assertThat;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
+import static androidx.test.espresso.matcher.ViewMatchers.withHint;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
@@ -165,7 +166,10 @@ public class LocationFragmentTest {
         // Find the menu item by its ID and perform a click
         onView(withText("Get Place")).perform(click());
 
-        onView(withId(R.id.edit_text_radius2)).perform(typeText("100"));
+        //onView(withId(R.id.edit_text_radius2)).perform(typeText("100"));
+        onView(withHint("Enter radius (in meters)")).perform(typeText("100"));
+
+
 
         //onView(withText("Show Places")).perform(click());
     }
