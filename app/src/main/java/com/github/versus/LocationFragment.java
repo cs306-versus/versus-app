@@ -457,24 +457,44 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
        placesDialog.show()*/
     }
     private void openPlacesDialog() {
-    AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.radius_layout, null);
+
+        // Get a reference to the EditText view in the layout
+        EditText editText = view.findViewById(R.id.edit_text_radius2);
+
+        // Create a dialog to display the EditText view
+        AlertDialog dialog = new AlertDialog.Builder(getActivity()).setTitle("Enter radius").setView(view).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Get the radius entered by the user
+                radius = Float.parseFloat(editText.getText().toString());
+                listView(radius);
+
+                // Update the CircleOptions object with the new radius and redraw the circle
+                if (circleOptions != null) {
+                    drawCircle(radius);
+
+
+                }
+
+            }
+        }).setNegativeButton("Cancel", null).create();
+        dialog.show();
+    }
+    private void listView(float radius){
+
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+
 
        builder.setTitle("Select a place");
+
 
     // Add an EditText to get the radius value
     LinearLayout layout = new LinearLayout(requireActivity());
        layout.setOrientation(LinearLayout.VERTICAL);
-    View view = LayoutInflater.from(getActivity()).inflate(R.layout.radius_layout, null);
-    EditText radiusInput = view.findViewById(R.id.edit_text_radius2);
-
-       radiusInput.setInputType(InputType.TYPE_CLASS_NUMBER |InputType.TYPE_NUMBER_FLAG_DECIMAL);
-       radiusInput.setHint("Enter radius (in meters)");
-       layout.addView(radiusInput);
-
-    final ListView listView = new ListView(requireActivity());
-       listView.setAdapter(new ArrayAdapter<>(
-
-    requireActivity(),android.R.layout.simple_list_item_1,likelyPlaceNames));
+       final ListView listView = new ListView(requireActivity());
+       listView.setAdapter(new ArrayAdapter<>(requireActivity(),android.R.layout.simple_list_item_1,likelyPlaceNames));
        listView.setId(R.id.test_list_view);
        layout.addView(listView);
        builder.setView(layout);
@@ -496,20 +516,19 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     });
 
     // Set the positive button to filter locations by radius
-       builder.setPositiveButton("OK",new DialogInterface.OnClickListener()
+        builder.setPositiveButton("Show Places", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //String radiusStr = radiusInput.getText().toString();
+                if (radius!=0) {
+                    // radius = Double.parseDouble(radiusStr);
+                    showCurrentPlace(radius);
 
-    {
-        @Override public void onClick (DialogInterface dialog,int which){
-        String radiusStr = radiusInput.getText().toString();
-        if (!TextUtils.isEmpty(radiusStr)) {
-             radius = Float.parseFloat(radiusStr);
-            showCurrentPlace(radius);
-
-        } else {
-            showToast("Please enter a radius");
-        }
-    }
-    });
+                } else {
+                    showToast("Please enter a radius");
+                }
+            }
+        });
     // Set the negative button
        builder.setNegativeButton("Cancel",new DialogInterface.OnClickListener()
 
