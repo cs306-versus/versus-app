@@ -243,6 +243,10 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         if (item.getItemId() == R.id.option_get_place) {
             showCurrentPlace(radius);
         }
+        if (item.getItemId() == R.id.option_radius) {
+            chooseRadius();
+        }
+
         return true;
     }
 
@@ -341,6 +345,32 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
             Log.e("Exception: %s", e.getMessage());
         }
     }
+    private void chooseRadius() {
+        // Inflate the custom layout file
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.radius_layout, null);
+
+        // Get a reference to the EditText view in the layout
+        EditText editText = view.findViewById(R.id.edit_text_radius2);
+
+        // Create a dialog to display the EditText view
+        AlertDialog dialog = new AlertDialog.Builder(getActivity()).setTitle("Enter radius").setView(view).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Get the radius entered by the user
+                float radius = Float.parseFloat(editText.getText().toString());
+
+                // Update the CircleOptions object with the new radius and redraw the circle
+                if(circleOptions!=null){
+                    circleOptions.radius(radius);
+                    map.clear();
+                    map.addCircle(circleOptions);
+                }
+
+            }
+        }).setNegativeButton("Cancel", null).create();
+
+        dialog.show();
+    }
 
 
    private void openPlacesDialog() {
@@ -352,7 +382,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
        LinearLayout layout = new LinearLayout(requireActivity());
        layout.setOrientation(LinearLayout.VERTICAL);
        View view = LayoutInflater.from(getActivity()).inflate(R.layout.radius_layout, null);
-        EditText radiusInput = view.findViewById(R.id.edit_text_radius);
+        EditText radiusInput = view.findViewById(R.id.edit_text_radius2);
 
        radiusInput.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
        radiusInput.setHint("Enter radius (in meters)");
