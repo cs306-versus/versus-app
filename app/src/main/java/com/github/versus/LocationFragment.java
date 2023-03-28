@@ -351,9 +351,9 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
        // Add an EditText to get the radius value
        LinearLayout layout = new LinearLayout(requireActivity());
        layout.setOrientation(LinearLayout.VERTICAL);
+       View view = LayoutInflater.from(getActivity()).inflate(R.layout.radius_layout, null);
+        EditText radiusInput = view.findViewById(R.id.edit_text_radius);
 
-       final EditText radiusInput = new EditText(requireActivity());
-       radiusInput.setId(R.id.edit_text_radius);
        radiusInput.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
        radiusInput.setHint("Enter radius (in meters)");
        layout.addView(radiusInput);
