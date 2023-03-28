@@ -6,6 +6,7 @@ import androidx.annotation.Nullable;
 
 import com.github.versus.sports.Sport;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -124,7 +125,7 @@ public final class VersusUser implements User {
         private int rating;
         private String city;
         private int zipCode;
-        private List<Sport> preferredSports;
+        private List<Sport> preferredSports = new ArrayList<>();
 
         /**
          * ???
