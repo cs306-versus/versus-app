@@ -43,7 +43,6 @@ public class FsUserManager implements DataBaseManager<User> {
         CompletableFuture<User> future = new CompletableFuture<>();
         Task<DocumentSnapshot> doc = collection.document(uid).get();
         doc.addOnSuccessListener(content -> {
-            Log.println(Log.ERROR, "", content.getData().toString());
             future.complete(new VersusUser.Builder(uid).build());
             // ???
         })
