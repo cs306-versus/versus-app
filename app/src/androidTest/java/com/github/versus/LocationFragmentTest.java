@@ -26,6 +26,7 @@ import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.anything;
 import static org.hamcrest.Matchers.endsWith;
 
 
@@ -104,16 +105,21 @@ public class LocationFragmentTest {
     @Test
     public void testLocationElements() throws InterruptedException {
 
-      /* Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
-       // Find the menu item by its ID and perform a click
-       onView(withText("Get Place")).perform(click());
-       onView(withId(R.id.edit_text_radius2)).perform(typeText("1500"));
-       onView(withText("OK")).perform(click());
-       /*String placeName = "Bassenges Football";
-       // Wait for the ListView to be displayed
-       onView(withText(placeName)).perform(click());*/
+
         String placeName = "Bassenges Football";
-        clickOnLocation(placeName,"800");
+        Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
+        // Find the menu item by its ID and perform a click
+        onView(withText("Get Place")).perform(click());
+        onView(withId(R.id.edit_text_radius2)).perform(typeText("900"));
+
+        onView(withText("Show Places")).perform(click());
+
+        // Wait for the ListView to be displayed
+        onData(anything())
+                .inAdapterView(withId(R.id.test_list_view))
+                .atPosition(0)
+                .perform(click());
+
 
 
     }
