@@ -619,7 +619,6 @@ private void openPlacesDialog(){
 
                 radius = Float.parseFloat(radiusInput.getText().toString());
 
-                //drawCircle(radius);
                 showCurrentPlace(radius);
 
 
@@ -697,7 +696,7 @@ private void openPlacesDialog(){
                         }
                         hasLocations=false;
 
-                                //drawCircle(radius);
+                        drawCircle(radius);
                     }
                 }
             });
