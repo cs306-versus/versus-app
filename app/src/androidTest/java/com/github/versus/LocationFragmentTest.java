@@ -112,7 +112,7 @@ public class LocationFragmentTest {
        // Wait for the ListView to be displayed
        onView(withText(placeName)).perform(click());*/
         String placeName = "Bassenges Football";
-        clickOnLocation(placeName,"1500");
+        clickOnLocation(placeName,"800");
 
 
     }
