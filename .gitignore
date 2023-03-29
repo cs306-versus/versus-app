@@ -206,3 +206,5 @@ lint/tmp/
 *.hprof
 /.idea/deploymentTargetDropDown.xml
 !/.idea/deploymentTargetDropDown.xml
+
+/build-cache/

@@ -10,7 +10,7 @@ env:
 check_android_task:
   name: Run Android tests
   gradle_cache:
-    folder: ~/.gradle/caches
+    folder: ./build-cache/
   install_emulator_script:
     sdkmanager --install "system-images;android-30;google_apis;x86"
   create_avd_script:
@@ -52,10 +52,11 @@ check_android_task:
   lint_script:
     ./gradlew lintDebug
   cleanup_before_cache_script:
-    - rm -rf ~/.gradle/caches/$GRADLE_VERSION/
-    - rm -rf ~/.gradle/caches/transforms-1
-    - rm -rf ~/.gradle/caches/journal-1
-    - rm -rf ~/.gradle/caches/jars-3/*/buildSrc.jar
+    - rm -rf ./build-cache/$GRADLE_VERSION/
+    - rm -rf ./build-cache/transforms-1
+    - rm -rf ./build-cache/journal-1
+    - rm -rf ./build-cache/jars-3/*/buildSrc.jar
+    - find ./build-cache/ -name "*.lock" -type f -delete
   always:
     wait_for_screenrecord_script: |
       pkill -2 -x adb
