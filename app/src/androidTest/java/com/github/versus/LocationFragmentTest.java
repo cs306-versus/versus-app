@@ -179,7 +179,7 @@ public class LocationFragmentTest {
         onView(withText("Show Places")).perform(click());
         String placeName = location;
         // Wait for the ListView to be displayed
-        onData(allOf(is(instanceOf(String.class)), is(placeName))).perform(click());
+        onView(withText(placeName)).perform(click());
 
     }
 
