@@ -244,6 +244,10 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
             openPlacesDialog();
 
         }
+        if (item.getItemId() == R.id.option_radius) {
+            openPlacesDialog();
+
+        }
 
 
 
