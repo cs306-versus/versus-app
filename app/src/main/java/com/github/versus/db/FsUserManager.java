@@ -1,7 +1,5 @@
 package com.github.versus.db;
 
-import android.util.Log;
-
 import com.github.versus.user.User;
 import com.github.versus.user.VersusUser;
 import com.google.android.gms.tasks.Task;
@@ -9,8 +7,8 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.SetOptions;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -80,8 +78,19 @@ public class FsUserManager implements DataBaseManager<User> {
         CompletableFuture<User> future = new CompletableFuture<>();
         Task<DocumentSnapshot> doc = collection.document(uid).get();
         doc.addOnSuccessListener(content -> {
-            future.complete(new VersusUser.Builder(uid).build());
-            // ???
+            VersusUser.Builder builder = new VersusUser.Builder(uid);
+            builder.setFirstName(content.get(FIRST_NAME_FIELD, String.class))
+                    .setLastName(content.get(LAST_NAME_FIELD, String.class))
+                    .setUserName(content.get(USERNAME_FIELD, String.class))
+                    .setMail(content.get(MAIL_FIELD, String.class))
+                    .setPhone(content.get(PHONE_FIELD, String.class))
+                    .setRating(content.get(RATING_FIELD, int.class))
+                    .setCity(content.get(CITY_FIELD, String.class))
+                    .setZipCode(content.get(ZIP_CODE_FIELD, int.class))
+                    // TODO HR : Fix the issue here,
+                    //  cannot deserialize field as was done before
+                    .setPreferredSports(new ArrayList<>());
+            future.complete(builder.build());
         })
         .addOnFailureListener(failure -> {
             future.cancel(true);
