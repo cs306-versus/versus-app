@@ -9,6 +9,8 @@ env:
   MAPS_API_KEY: ENCRYPTED[b99de05d958769b1b7c9eab7f2ae0ece2e3e2f6ee39f80062c1b7ec940a60eaa320baa4fc320622229248a4d0470055d]
 check_android_task:
   name: Run Android tests
+  gradle_cache:
+    folder: ~/.gradle/caches
   install_emulator_script:
     sdkmanager --install "system-images;android-30;google_apis;x86"
   create_avd_script:
@@ -49,6 +51,12 @@ check_android_task:
     ./cc-test-reporter upload-coverage
   lint_script:
     ./gradlew lintDebug
+  cleanup_before_cache_script:
+    - rm -rf ~/.gradle/caches/$GRADLE_VERSION/
+    - rm -rf ~/.gradle/caches/transforms-1
+    - rm -rf ~/.gradle/caches/journal-1
+    - rm -rf ~/.gradle/caches/jars-3/*/buildSrc.jar
+    - find ~/.gradle/caches/ -name "*.lock" -type f -delete
   always:
     wait_for_screenrecord_script: |
       pkill -2 -x adb
