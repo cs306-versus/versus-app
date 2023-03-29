@@ -111,9 +111,9 @@ public class LocationFragmentTest {
         // Find the menu item by its ID and perform a click
         onView(withText("Get Place")).perform(click());
         onView(withId(R.id.edit_text_radius2)).perform(typeText("900"));
-
+        Thread.sleep(3000);
         onView(withText("Show Places")).perform(click());
-        Thread.sleep(2000);
+
         // Wait for the ListView to be displayed
         onData(anything())
                 .inAdapterView(withId(R.id.test_list_view))
