@@ -9,6 +9,7 @@ env:
   MAPS_API_KEY: ENCRYPTED[b99de05d958769b1b7c9eab7f2ae0ece2e3e2f6ee39f80062c1b7ec940a60eaa320baa4fc320622229248a4d0470055d]
 check_android_task:
   name: Run Android tests
+  auto_cancellation: false
   install_emulator_script:
     sdkmanager --install "system-images;android-30;google_apis;x86"
   create_avd_script:
