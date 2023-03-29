@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new SearchFragment()).commit();
                 break;
 
+
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;
