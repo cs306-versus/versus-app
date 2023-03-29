@@ -103,82 +103,38 @@ public class LocationFragmentTest {
     public void testLocationElements() throws InterruptedException {
 
 
-       /*Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
+       Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
        // Find the menu item by its ID and perform a click
        onView(withText("Get Place")).perform(click());
-       onView(withId(R.id.edit_text_radius)).perform(typeText("1000"));
+       onView(withId(R.id.edit_text_radius2)).perform(typeText("1000"));
 
        onView(withText("Show Places")).perform(click());
        String placeName="Bassenges Football";
        onView(withText(placeName)).perform(click());
         // Find the overflow menu button and find the "Choose a radius" menu item and perform a type text action
-       /*clickOnLocation("Bassenges Football","1500");
+       clickOnLocation("Bassenges Football","1500");
 
        clickOnLocation("UNIL Football","1500");
 
-       clickOnLocation("Chavannes Football","1500");*/
+       clickOnLocation("Chavannes Football","1500");
 
 
-          /*  Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
-            onView(withText("Get Place")).perform(click());
-            Thread.sleep(5000);
-           //onView(withId(R.id.edit_text_radius)).perform(waitFor(isDisplayed(), 5000));
-            onView(withId(R.id.edit_text_radius)).perform(typeText("1500"));
-            onView(withText("Show Places")).perform(click());
-            String placeName = "Bassenges Football";
-
-            onData(allOf(is(instanceOf(String.class)), is(placeName)))
-                    .inAdapterView(withId(R.id.test_list_view)) // Replace this with the ID of your ListView
-                    .perform(click());
-
-
-       /* Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
-        // Find the menu item by its ID and perform a click
-        onView(withText("Get Place")).perform(click());
-        Thread.sleep(5000);
-        onView(withId(R.id.edit_text_radius)).perform(typeText("1500"));
-        onView(withText("Show Places")).perform(click());
-        String placeName = "Bassenges Football";
-        Thread.sleep(5000);
-        //onView(withText(placeName)).perform(waitFor(isDisplayed(), 5000));
-        onView(withText(placeName)).perform(click());
-///////////////////////////////////////
-        /*Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
-        // Find the menu item by its ID and perform a click
-        onView(withText("Get Place")).perform(click());
-        onView(withId(R.id.edit_text_radius)).perform(typeText("1500"));
-        onView(withText("Show Places")).perform(click());
-        String placeName2 = "UNIL Football";
-        onView(withText(placeName2)).perform(click());
-        Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
-        // Find the menu item by its ID and perform a click
-        onView(withText("Get Place")).perform(click());
-        onView(withId(R.id.edit_text_radius)).perform(typeText("1500"));
-        onView(withText("Show Places")).perform(click());
-        String placeName3 = "Chavannes Football";
-        onView(withText(placeName3)).perform(click());*/
 
     }
 
-    /*@Test
+    @Test
     public void testIfNoLocationWithinRadius() throws InterruptedException {
         // Find the overflow menu button and find the "Choose a radius" menu item and perform a type text action
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
         // Find the menu item by its ID and perform a click
         onView(withText("Get Place")).perform(click());
-        Thread.sleep(5000);
 
-        onView(allOf(instanceOf(EditText.class), withHint("Enter radius (in meters)"))).perform(typeText("100"));
-        onView(withText("OK")).perform(click());
-
-
-        //onView(withId(R.id.edit_text_radius2)).perform(typeText("100"));
-        //onView(withHint("Enter radius (in meters)")).perform(typeText("100"));
+        onView(withId(R.id.edit_text_radius2)).perform(typeText("10"));
 
 
 
-        //onView(withText("Show Places")).perform(click());
-    }*/
+
+    }
     @Test
     public void test3s() throws InterruptedException {
         // Find the overflow menu button and find the "Choose a radius" menu item and perform a type text action
@@ -191,12 +147,13 @@ public class LocationFragmentTest {
 
 
 
-  /*  @Test
+
+    @Test
     public void testRadius() throws InterruptedException {
         // Find the overflow menu button and find the "Choose a radius" menu item and perform a type text action
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
         // Find the menu item by its ID and perform a click
-        onView(withText("Choose a radius")).perform(click());
+        onView(withText("")).perform(click());
         onView(withId(R.id.edit_text_radius2)).perform(typeText("1000"));
         onView(withText("OK")).perform(click());
         //Testing circle properties
@@ -204,75 +161,31 @@ public class LocationFragmentTest {
 
     }
 
-*/
-    /*@Test
+    @Test
     public void testNoRadiusInput() throws InterruptedException {
         // Find the overflow menu button and find the "Choose a radius" menu item and perform a type text action
-
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
         // Find the menu item by its ID and perform a click
         onView(withText("Get Place")).perform(click());
-
-        //onView(withText("Show Places")).perform(click());
-        //onView(withText(endsWith("Show Places"))).check(matches(isDisplayed()));
-
         onView(withText(("Show Places"))).perform(click());
     }
-/*
-
-   public static ViewAction waitFor(final Matcher<View> viewMatcher, final long millis) {
-        return new ViewAction() {
-            @Override
-            public Matcher<View> getConstraints() {
-                return isRoot();
-            }
-
-            @Override
-            public String getDescription() {
-                return "wait for a specific view with matcher <" + viewMatcher.toString() + "> during " + millis + " millis.";
-            }
-
-            @Override
-            public void perform(final UiController uiController, final View view) {
-                uiController.loopMainThreadUntilIdle();
-                final long startTime = System.currentTimeMillis();
-                final long endTime = startTime + millis;
-                final Matcher<View> isDisplayed = isDisplayed();
-
-                do {
-                    for (View child : TreeIterables.breadthFirstViewTraversal(view)) {
-                        if (viewMatcher.matches(child) && isDisplayed.matches(child)) {
-                            return;
-                        }
-                    }
-                    uiController.loopMainThreadForAtLeast(50);
-                } while (System.currentTimeMillis() < endTime);
-
-                throw new PerformException.Builder()
-                        .withActionDescription(getDescription())
-                        .withViewDescription(HumanReadables.describe(view))
-                        .withCause(new TimeoutException())
-                        .build();
-            }
-        };
-    }
 
 
-    /*private void clickOnLocation(String  location,String radius) throws InterruptedException {
+
+
+
+
+    private void clickOnLocation(String  location,String radius) throws InterruptedException {
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
         // Find the menu item by its ID and perform a click
         onView(withText("Get Place")).perform(click());
-        onView(withId(R.id.edit_text_radius)).perform(typeText(radius));
+        onView(withId(R.id.edit_text_radius2)).perform(typeText(radius));
         onView(withText("Show Places")).perform(click());
         String placeName = location;
         // Wait for the ListView to be displayed
-
-        onView(withText(placeName)).perform(waitFor(isDisplayed(), 5000));
-
-
         onView(withText(placeName)).perform(click());
 
-    }*/
+    }
 
 
 }

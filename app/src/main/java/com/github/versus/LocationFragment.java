@@ -246,6 +246,8 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         }
 
 
+
+
         return true;
     }
 
@@ -579,17 +581,13 @@ private void openPlacesDialog(){
     EditText editText = view.findViewById(R.id.edit_text_radius2);
 
     // Create a dialog to display the EditText view
-    AlertDialog dialog = new AlertDialog.Builder(getActivity()).setTitle("Enter radius").setView(view).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+    AlertDialog dialog = new AlertDialog.Builder(getActivity()).setTitle("Enter radius").setView(view).setPositiveButton("Show Places", new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
             // Get the radius entered by the user
             radius = Float.parseFloat(editText.getText().toString());
-
-            // Update the CircleOptions object with the new radius and redraw the circle
-            if(circleOptions!=null){
-                drawCircle(radius);
-                showCurrentPlace(radius);
-            }
+            drawCircle(radius);
+            showCurrentPlace(radius);
 
         }
     }).setNegativeButton("Cancel", null).create();
