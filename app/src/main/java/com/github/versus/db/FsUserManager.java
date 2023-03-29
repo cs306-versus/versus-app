@@ -84,12 +84,12 @@ public class FsUserManager implements DataBaseManager<User> {
                     .setUserName(content.get(USERNAME_FIELD, String.class))
                     .setMail(content.get(MAIL_FIELD, String.class))
                     .setPhone(content.get(PHONE_FIELD, String.class))
-                    .setRating(content.get(RATING_FIELD, int.class))
-                    .setCity(content.get(CITY_FIELD, String.class))
-                    .setZipCode(content.get(ZIP_CODE_FIELD, int.class))
                     // TODO HR : Fix the issue here,
                     //  cannot deserialize field as was done before
-                    .setPreferredSports(new ArrayList<>());
+                    //.setRating(content.get(RATING_FIELD, int.class))
+                    .setCity(content.get(CITY_FIELD, String.class));
+                    //.setZipCode(content.get(ZIP_CODE_FIELD, int.class))
+                    //.setPreferredSports(new ArrayList<>());
             future.complete(builder.build());
         })
         .addOnFailureListener(failure -> {
