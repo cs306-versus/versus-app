@@ -64,3 +64,5 @@ check_android_task:
     androidtest_artifacts:
       path: "./app/build/outputs/**/*.xml"
       format: junit
+    jacoco_test_report_artifacts:
+      path: "./app/build/reports/jacoco/*"
