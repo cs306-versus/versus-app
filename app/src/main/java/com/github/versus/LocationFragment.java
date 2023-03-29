@@ -575,19 +575,28 @@ private void openPlacesDialog(){
     // Initialize the placesDialog variable
 
     //placesDialog = builder.create();
-    View view = LayoutInflater.from(getActivity()).inflate(R.layout.radius_layout, null);
+   View view = LayoutInflater.from(getActivity()).inflate(R.layout.radius_layout, null);
 
     // Get a reference to the EditText view in the layout
-    EditText editText = view.findViewById(R.id.edit_text_radius2);
+    EditText radiusInput = view.findViewById(R.id.edit_text_radius2);
+    radiusInput.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+    radiusInput.setHint("Enter radius (in meters)");
 
     // Create a dialog to display the EditText view
     AlertDialog dialog = new AlertDialog.Builder(getActivity()).setTitle("Enter radius").setView(view).setPositiveButton("Show Places", new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
-            // Get the radius entered by the user
-            radius = Float.parseFloat(editText.getText().toString());
-            drawCircle(radius);
-            showCurrentPlace(radius);
+             // Get the radius entered by the user
+            String radiusStr = radiusInput.getText().toString();
+            if (!TextUtils.isEmpty(radiusStr)) {
+                radius = Float.parseFloat(radiusInput.getText().toString());
+
+                drawCircle(radius);
+                showCurrentPlace(radius);
+            }
+            else {
+                showToast("Please enter a valid radius");
+            }
 
         }
     }).setNegativeButton("Cancel", null).create();
@@ -636,11 +645,8 @@ private void openPlacesDialog(){
 
                         }
 
-                            if(!hasLocations && radius != 0){
-                                showToast("No locations found within the selected radius");
 
-                            }
-                            hasLocations=false;
+
                             int count = filteredPlaces.size();
 
                         likelyPlaceNames = new String[count];
@@ -657,8 +663,14 @@ private void openPlacesDialog(){
 
                         // Show a dialog offering the user the list of custom places, and add a
                         // marker at the selected place.
+                        if(!hasLocations && radius != 0){
+                            showToast("No locations found within the selected radius");
 
-                        showPlacesList();
+                        }
+                        else {
+                            showPlacesList();
+                        }
+                        hasLocations=false;
 
                                 //drawCircle(radius);
                     }
