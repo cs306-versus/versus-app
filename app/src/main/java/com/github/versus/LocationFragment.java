@@ -245,10 +245,6 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
             openPlacesDialog();
 
         }
-        if (item.getItemId() == R.id.option_radius) {
-            openPlacesDialog();
-
-        }
 
 
 
@@ -630,13 +626,6 @@ private void openPlacesDialog(){
             // The user has not granted permission.
             Log.i(TAG, "The user did not grant location permission.");
 
-            // Add a default marker, because the user hasn't selected a place.
-            map.addMarker(new MarkerOptions()
-                    .title(getString(R.string.default_info_title))
-                    .position(defaultLocation)
-                    .snippet(getString(R.string.default_info_snippet)));
-
-            // Prompt the user for permission.
             getLocationPermission();
         }
     }
