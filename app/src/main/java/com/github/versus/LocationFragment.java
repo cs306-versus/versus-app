@@ -620,7 +620,7 @@ private void openPlacesDialog(){
                 radius = Float.parseFloat(radiusInput.getText().toString());
 
                 //drawCircle(radius);
-                //showCurrentPlace(radius);
+                showCurrentPlace(radius);
 
 
         }
