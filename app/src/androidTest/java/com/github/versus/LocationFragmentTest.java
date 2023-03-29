@@ -150,7 +150,6 @@ public class LocationFragmentTest {
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
         // Find the menu item by its ID and perform a click
         onView(withText("Get Place")).perform(click());
-        Thread.sleep(2000);
         onView(withText(("Show Places"))).perform(click());
     }
 
@@ -161,7 +160,7 @@ public class LocationFragmentTest {
       // Find the menu item by its ID and perform a click
       onView(withText("Choose a radius")).perform(click());
       onView(withId(R.id.edit_text_radius2)).perform(typeText("1000"));
-      onView(withText("OK")).perform(click());
+      onView(withText("Show Places")).perform(click());
       //Testing circle properties
 
 
