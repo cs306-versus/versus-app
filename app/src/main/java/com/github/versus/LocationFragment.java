@@ -588,7 +588,7 @@ private void openPlacesDialog(){
 
 
 
-    private void showCurrentPlace(double radius) {
+   private void showCurrentPlace(double radius) {
         if (map == null) {
             return;
         }
@@ -666,7 +666,7 @@ private void openPlacesDialog(){
             getLocationPermission();
         }
     }
-    /*private void showPlacesList() {
+    private void showPlacesList() {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
         builder.setTitle("Select a place");
 
@@ -678,7 +678,7 @@ private void openPlacesDialog(){
 
 
 
-        /*listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 LatLng selectedPlace = likelyPlaceLatLngs[position];
@@ -706,8 +706,8 @@ private void openPlacesDialog(){
         placesDialog.show();
     }
 
-*/
-    private void showPlacesList() {
+
+    /*private void showPlacesList() {
 
             // Create a ListView
             ListView listView = new ListView(getActivity());
@@ -746,7 +746,7 @@ private void openPlacesDialog(){
             AlertDialog dialog = builder.create();
             dialog.show();
         }
-
+*/
 
 
 

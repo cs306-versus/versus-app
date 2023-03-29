@@ -113,7 +113,7 @@ public class LocationFragmentTest {
         onView(withId(R.id.edit_text_radius2)).perform(typeText("900"));
 
         onView(withText("Show Places")).perform(click());
-
+        Thread.sleep(2000);
         // Wait for the ListView to be displayed
         onData(anything())
                 .inAdapterView(withId(R.id.test_list_view))
