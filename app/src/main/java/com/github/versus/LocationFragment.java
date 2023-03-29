@@ -103,6 +103,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     private List[] likelyPlaceAttributions;
     private LatLng[] likelyPlaceLatLngs;
     private AlertDialog placesDialog;
+    private  ListView listView ;
     private boolean hasLocations = false;
     private Circle mapCircle;
 
@@ -548,63 +549,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 */
 
 private void openPlacesDialog(){
-
-
-    // Add an EditText to get the radius value
-    //LinearLayout layout = new LinearLayout(requireActivity());
-    //layout.setOrientation(LinearLayout.VERTICAL);
-   /* View view = LayoutInflater.from(getActivity()).inflate(R.layout.radius_layout, null);
-    EditText radiusInput = view.findViewById(R.id.edit_text_radius2);
-
-    AlertDialog builder = new AlertDialog.Builder(getActivity()).setTitle("Enter radius").setView(view).setPositiveButton("OK", new DialogInterface.OnClickListener() {
-        @Override
-        public void onClick(DialogInterface dialog, int which) {
-            // Get the radius entered by the user
-            String radiusStr = radiusInput.getText().toString();
-            if (!TextUtils.isEmpty(radiusStr)) {
-                radius = Float.parseFloat(radiusStr);
-
-                drawCircle(radius);
-                showCurrentPlace(radius);
-
-            } else {
-
-                showToast("Please enter a radius");
-            }
-        }
-
-
-    }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-        @Override
-        public void onClick(DialogInterface dialog, int which) {
-            dialog.dismiss();
-        }
-    }).create();
-     builder.show();
-    */
-
-
-
-
-    //radiusInput.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-    //radiusInput.setHint("Enter radius (in meters)");
-    //layout.addView(radiusInput);
-
-    /*final ListView listView = new ListView(requireActivity());
-    listView.setAdapter(new ArrayAdapter<>(requireActivity(), android.R.layout.simple_list_item_1, likelyPlaceNames));
-    listView.setId(R.id.test_list_view);*/
-    //layout.addView(listView);
-    //builder.setView(layout);
-
-    // Set the listener for the list view
-
-
-    // Set the positive button to filter locations by radius
-
-    // Initialize the placesDialog variable
-
-    //placesDialog = builder.create();
-   View view = LayoutInflater.from(getActivity()).inflate(R.layout.radius_layout, null);
+    View view = LayoutInflater.from(getActivity()).inflate(R.layout.radius_layout, null);
 
     // Get a reference to the EditText view in the layout
     EditText radiusInput = view.findViewById(R.id.edit_text_radius2);
@@ -725,12 +670,13 @@ private void openPlacesDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
         builder.setTitle("Select a place");
 
-        final ListView listView = new ListView(requireActivity());
+
+        listView = new ListView(requireActivity());
         listView.setAdapter(new ArrayAdapter<>(requireActivity(), android.R.layout.simple_list_item_1, likelyPlaceNames));
         listView.setId(R.id.test_list_view);
         builder.setView(listView);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /*listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 /*LatLng selectedPlace = likelyPlaceLatLngs[position];
@@ -740,7 +686,9 @@ private void openPlacesDialog(){
                         .snippet(likelyPlaceAddresses[position]));
                 addBlinkingMarker(selectedPlace, likelyPlaceNames[position], likelyPlaceAddresses[position]);
                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedPlace, DEFAULT_ZOOM));
-                placesDialog.dismiss();*/
+                placesDialog.dismiss();
+
+
             }
         });
 
@@ -751,7 +699,7 @@ private void openPlacesDialog(){
                 dialog.dismiss();
             }
         });
-
+*/
         placesDialog = builder.create();
         placesDialog.show();
     }

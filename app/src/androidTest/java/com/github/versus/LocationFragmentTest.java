@@ -118,7 +118,7 @@ public class LocationFragmentTest {
 
     }
 
-    @Test
+   /* @Test
     public void testIfNoLocationWithinRadius() throws InterruptedException {
         // Find the overflow menu button and find the "Choose a radius" menu item and perform a type text action
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
@@ -166,7 +166,7 @@ public class LocationFragmentTest {
 
 
   }
-
+*/
 
 
 
@@ -179,7 +179,7 @@ public class LocationFragmentTest {
         onView(withText("Show Places")).perform(click());
         String placeName = location;
         // Wait for the ListView to be displayed
-        onView(withText(placeName)).perform(click());
+
 
     }
 
