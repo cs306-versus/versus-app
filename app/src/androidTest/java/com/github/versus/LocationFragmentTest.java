@@ -9,6 +9,7 @@ import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
+import static androidx.test.espresso.contrib.RecyclerViewActions.scrollTo;
 import static androidx.test.espresso.intent.Intents.intended;
 import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static androidx.test.espresso.intent.matcher.IntentMatchers.hasExtra;
@@ -178,7 +179,7 @@ public class LocationFragmentTest {
         onView(withText("Show Places")).perform(click());
         String placeName = location;
         // Wait for the ListView to be displayed
-        onView(withText(placeName)).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is(placeName))).perform(click());
 
     }
 
