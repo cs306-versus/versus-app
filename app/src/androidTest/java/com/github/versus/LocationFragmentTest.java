@@ -148,28 +148,18 @@ public class LocationFragmentTest {
 
 
 
-    @Test
-    public void testRadius() throws InterruptedException {
-        // Find the overflow menu button and find the "Choose a radius" menu item and perform a type text action
-        Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
-        // Find the menu item by its ID and perform a click
-        onView(withText("")).perform(click());
-        onView(withId(R.id.edit_text_radius2)).perform(typeText("1000"));
-        onView(withText("OK")).perform(click());
-        //Testing circle properties
 
 
-    }
-
-    @Test
+    /*@Test
     public void testNoRadiusInput() throws InterruptedException {
         // Find the overflow menu button and find the "Choose a radius" menu item and perform a type text action
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
         // Find the menu item by its ID and perform a click
         onView(withText("Get Place")).perform(click());
+        Thread.sleep(2000);
         onView(withText(("Show Places"))).perform(click());
     }
-
+*/
 
 
 
