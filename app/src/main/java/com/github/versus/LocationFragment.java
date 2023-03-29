@@ -678,10 +678,10 @@ private void openPlacesDialog(){
 
 
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /*listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                /*LatLng selectedPlace = likelyPlaceLatLngs[position];
+                LatLng selectedPlace = likelyPlaceLatLngs[position];
                 Marker marker = map.addMarker(new MarkerOptions()
                         .title(likelyPlaceNames[position])
                         .position(selectedPlace)
@@ -690,18 +690,18 @@ private void openPlacesDialog(){
                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedPlace, DEFAULT_ZOOM));
                 placesDialog.dismiss();
 
-*/
+
             }
         });
 
 
-        /*builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
             }
-        });*/
-
+        });
+*/
         placesDialog = builder.create();
         placesDialog.show();
     }
