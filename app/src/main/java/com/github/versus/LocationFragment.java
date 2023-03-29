@@ -612,6 +612,8 @@ private void openPlacesDialog(){
     radiusInput.setHint("Enter radius (in meters)");
 
     // Create a dialog to display the EditText view
+
+
     AlertDialog dialog = new AlertDialog.Builder(getActivity()).setTitle("Enter radius").setView(view).setPositiveButton("Show Places", new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
