@@ -708,44 +708,72 @@ private void openPlacesDialog(){
 
 */
     private void showPlacesList() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
-        builder.setTitle("Select a place");
+
+            // Create a ListView
+            ListView listView = new ListView(getActivity());
+            listView.setAdapter(new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, likelyPlaceNames));
+            listView.setId(R.id.test_list_view);
+
+            // Set the onItemClick listener for the ListView
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                    LatLng selectedPlace = likelyPlaceLatLngs[position];
+                    Marker marker=map.addMarker(new MarkerOptions()
+                            .title(likelyPlaceNames[position])
+                            .position(selectedPlace)
+                            .snippet(likelyPlaceAddresses[position]));
+                    //addBlinkingMarker(selectedPlace, likelyPlaceNames[position], likelyPlaceAddresses[position]);
+                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedPlace, DEFAULT_ZOOM));
+                    //dialog.dismiss();
+
+                }
+            });
+
+            // Create an AlertDialog with the ListView
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setTitle("Select a place")
+                    .setView(listView)
+                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+
+            // Show the AlertDialog
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
 
 
-        listView = new ListView(requireActivity());
-        listView.setAdapter(new ArrayAdapter<>(requireActivity(), android.R.layout.simple_list_item_1, likelyPlaceNames));
-        listView.setId(R.id.test_list_view);
-        builder.setView(listView);
 
 
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-               /* LatLng selectedPlace = likelyPlaceLatLngs[position];
-                Marker marker = map.addMarker(new MarkerOptions()
-                        .title(likelyPlaceNames[position])
-                        .position(selectedPlace)
-                        .snippet(likelyPlaceAddresses[position]));
-                addBlinkingMarker(selectedPlace, likelyPlaceNames[position], likelyPlaceAddresses[position]);
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedPlace, DEFAULT_ZOOM));
-                placesDialog.dismiss();
-*/
-
-            }
-        });
-
-
-        /*builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+  /*  private void showPlacesList() {
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.radius_layout, null);
+        AlertDialog dialog = new AlertDialog.Builder(getActivity()).setTitle("Enter radius").setView(view).setPositiveButton("Show Places", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });*/
+                // Get the radius entered by the user
+                String radiusStr = radiusInput.getText().toString();
+                if (!TextUtils.isEmpty(radiusStr)) {
+                    radius = Float.parseFloat(radiusInput.getText().toString());
 
-        placesDialog = builder.create();
-        placesDialog.show();
+                    showCurrentPlace(radius);
+                }
+                else  {
+                    showToast("Please enter a radius");
+                }
+
+
+            }
+        }).setNegativeButton("Cancel", null).create();
+
+        dialog.show();
     }
+    */
+
 
 
     //Utilitary methods
