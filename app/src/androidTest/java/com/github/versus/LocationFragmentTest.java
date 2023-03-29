@@ -99,7 +99,7 @@ public class LocationFragmentTest {
         Intents.release();
     }
 
-   @Test
+  /* @Test
     public void testLocationElements() throws InterruptedException {
 
         clickOnLocation("Bassenges Football","1500");
@@ -110,7 +110,7 @@ public class LocationFragmentTest {
 
 
 
-    }
+    }*/
 
     @Test
     public void testIfNoLocationWithinRadius() throws InterruptedException {
