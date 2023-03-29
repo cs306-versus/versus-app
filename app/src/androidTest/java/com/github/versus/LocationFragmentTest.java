@@ -5,6 +5,7 @@ package com.github.versus;
 import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
@@ -99,7 +100,7 @@ public class LocationFragmentTest {
         Intents.release();
     }
 
-  /* @Test
+   @Test
     public void testLocationElements() throws InterruptedException {
 
         clickOnLocation("Bassenges Football","1500");
@@ -110,7 +111,7 @@ public class LocationFragmentTest {
 
 
 
-    }*/
+    }
 
     @Test
     public void testIfNoLocationWithinRadius() throws InterruptedException {
@@ -159,7 +160,8 @@ public class LocationFragmentTest {
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
         // Find the menu item by its ID and perform a click
         onView(withText("Get Place")).perform(click());
-        onView(withId(R.id.edit_text_radius2)).perform(typeText(radius));
+        onView(withId(R.id.edit_text_radius2)).perform(typeText(radius),closeSoftKeyboard());
+
         onView(withText("Show Places")).perform(click());
         String placeName = location;
         // Wait for the ListView to be displayed
