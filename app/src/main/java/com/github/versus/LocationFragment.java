@@ -241,7 +241,8 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.option_get_place) {
-            showCurrentPlace(radius);
+            openPlacesDialog();
+
         }
 
 
@@ -521,7 +522,7 @@ private void openPlacesDialog(){
     // Add an EditText to get the radius value
     //LinearLayout layout = new LinearLayout(requireActivity());
     //layout.setOrientation(LinearLayout.VERTICAL);
-    View view = LayoutInflater.from(getActivity()).inflate(R.layout.radius_layout, null);
+   /* View view = LayoutInflater.from(getActivity()).inflate(R.layout.radius_layout, null);
     EditText radiusInput = view.findViewById(R.id.edit_text_radius2);
 
     AlertDialog builder = new AlertDialog.Builder(getActivity()).setTitle("Enter radius").setView(view).setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -531,9 +532,12 @@ private void openPlacesDialog(){
             String radiusStr = radiusInput.getText().toString();
             if (!TextUtils.isEmpty(radiusStr)) {
                 radius = Float.parseFloat(radiusStr);
+
+                drawCircle(radius);
                 showCurrentPlace(radius);
 
             } else {
+
                 showToast("Please enter a radius");
             }
         }
@@ -545,39 +549,54 @@ private void openPlacesDialog(){
             dialog.dismiss();
         }
     }).create();
+     builder.show();
+    */
+
+
+
 
     //radiusInput.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
     //radiusInput.setHint("Enter radius (in meters)");
     //layout.addView(radiusInput);
 
-    final ListView listView = new ListView(requireActivity());
+    /*final ListView listView = new ListView(requireActivity());
     listView.setAdapter(new ArrayAdapter<>(requireActivity(), android.R.layout.simple_list_item_1, likelyPlaceNames));
-    listView.setId(R.id.test_list_view);
+    listView.setId(R.id.test_list_view);*/
     //layout.addView(listView);
     //builder.setView(layout);
 
     // Set the listener for the list view
-    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            // The user has selected a place. Add a marker and move the camera to the selected place.
-            LatLng selectedPlace = likelyPlaceLatLngs[position];
-            Marker marker=map.addMarker(new MarkerOptions()
-                    .title(likelyPlaceNames[position])
-                    .position(selectedPlace)
-                    .snippet(likelyPlaceAddresses[position]));
-            addBlinkingMarker(selectedPlace, likelyPlaceNames[position], likelyPlaceAddresses[position]);
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedPlace, DEFAULT_ZOOM));
-            placesDialog.dismiss();
-        }
-    });
+
 
     // Set the positive button to filter locations by radius
 
     // Initialize the placesDialog variable
 
     //placesDialog = builder.create();
-    builder.show();
+    View view = LayoutInflater.from(getActivity()).inflate(R.layout.radius_layout, null);
+
+    // Get a reference to the EditText view in the layout
+    EditText editText = view.findViewById(R.id.edit_text_radius2);
+
+    // Create a dialog to display the EditText view
+    AlertDialog dialog = new AlertDialog.Builder(getActivity()).setTitle("Enter radius").setView(view).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            // Get the radius entered by the user
+            radius = Float.parseFloat(editText.getText().toString());
+
+            // Update the CircleOptions object with the new radius and redraw the circle
+            if(circleOptions!=null){
+                drawCircle(radius);
+                showCurrentPlace(radius);
+            }
+
+        }
+    }).setNegativeButton("Cancel", null).create();
+
+    dialog.show();
+
+
 }
 
 
@@ -599,17 +618,7 @@ private void openPlacesDialog(){
         if (locationPermissionGranted) {
 
             FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity());
-            if (ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
-                return;
-            }
-            Task<Location> lastLocation = fusedLocationClient.getLastLocation();
+            @SuppressWarnings("MissingPermission") Task<Location> lastLocation = fusedLocationClient.getLastLocation();
 
 
             lastLocation.addOnSuccessListener(new OnSuccessListener<Location>() {
@@ -651,8 +660,9 @@ private void openPlacesDialog(){
                         // Show a dialog offering the user the list of custom places, and add a
                         // marker at the selected place.
 
-                                LocationFragment.this.openPlacesDialog();
-                                drawCircle(radius);
+                        showPlacesList();
+
+                                //drawCircle(radius);
                     }
                 }
             });
@@ -670,8 +680,43 @@ private void openPlacesDialog(){
             getLocationPermission();
         }
     }
+    private void showPlacesList() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+        builder.setTitle("Select a place");
 
-     //Utilitary methods
+        final ListView listView = new ListView(requireActivity());
+        listView.setAdapter(new ArrayAdapter<>(requireActivity(), android.R.layout.simple_list_item_1, likelyPlaceNames));
+        listView.setId(R.id.test_list_view);
+        builder.setView(listView);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                LatLng selectedPlace = likelyPlaceLatLngs[position];
+                Marker marker = map.addMarker(new MarkerOptions()
+                        .title(likelyPlaceNames[position])
+                        .position(selectedPlace)
+                        .snippet(likelyPlaceAddresses[position]));
+                addBlinkingMarker(selectedPlace, likelyPlaceNames[position], likelyPlaceAddresses[position]);
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedPlace, DEFAULT_ZOOM));
+                placesDialog.dismiss();
+            }
+        });
+
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        placesDialog = builder.create();
+        placesDialog.show();
+    }
+
+
+    //Utilitary methods
      private void showToast(String message) {
          LayoutInflater inflater = getLayoutInflater();
          View layout = inflater.inflate(R.layout.custom_toast, (ViewGroup) requireActivity().findViewById(R.id.custom_toast_root));
