@@ -539,6 +539,7 @@ private void openPlacesDialog(){
             if (!TextUtils.isEmpty(radiusStr)) {
                 radius = Float.parseFloat(radiusInput.getText().toString());
                 showCurrentPlace(radius);
+                dialog.dismiss();
             }
             else  {
                 showToast("Please enter a radius");
