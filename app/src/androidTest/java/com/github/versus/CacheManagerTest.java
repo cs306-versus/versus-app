@@ -171,6 +171,15 @@ public class CacheManagerTest {
     }
 
     @Test
+    public void NoSportNoCache() throws ExecutionException, InterruptedException {
+        Post post= SimpleTestPost.postWith("I don't play soccer, i prefer rowing",
+                new Timestamp(Calendar.getInstance().get(Calendar.YEAR),
+                        Month.values()[0], 1, 8, 1, Timestamp.Meridiem.PM)
+                ,new Location("Lausanne", 10, 10),10, null);
+        assertFalse(manager.insert(post).get());
+    }
+
+    @Test
     public  void userPresentUIDCachedCorrectly() throws ExecutionException, InterruptedException {
         DummyUser user = new DummyUser("i play football");
         Post post = SimpleTestPost.postWith("Looking for football team",
