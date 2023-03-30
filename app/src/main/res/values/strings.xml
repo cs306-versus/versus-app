@@ -62,6 +62,7 @@
     <string name="_7_10_string">7/10</string>
 
     <string name="tss_3atif_string">Tss_3atif</string>
+    <string name="default_web_client_id" />
     <string-array name="rating_values">
         <item>1</item>
         <item>2</item>
