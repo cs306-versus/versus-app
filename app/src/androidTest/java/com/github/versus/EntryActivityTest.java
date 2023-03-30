@@ -58,9 +58,7 @@ public class EntryActivityTest {
 
     @Test
     public void startAppIfUserConnected(){
-        CompletableFuture<User> future = new CompletableFuture<>();
-        future.complete(new VersusUser.Builder("yxcv").build());
-        when(auth.currentUser()).thenReturn(future);
+        when(auth.currentUser()).thenReturn(mock(User.class, withSettings().serializable()));
         Intents.init();
         try(ActivityScenario<EntryActivity> scenario = ActivityScenario.launch(intent)){
             Intent s_intent = Intents.getIntents().get(1);

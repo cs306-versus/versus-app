@@ -13,7 +13,9 @@ import android.view.ViewGroup;
 import com.github.versus.R;
 import com.github.versus.auth.VersusAuthenticator;
 import com.github.versus.databinding.FragmentUserInfoBinding;
+import com.github.versus.db.FsUserManager;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -28,7 +30,8 @@ public class UserInfoFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ((CompletableFuture<User>)VersusAuthenticator.getInstance(FirebaseAuth.getInstance()).currentUser())
+        FsUserManager db = new FsUserManager(FirebaseFirestore.getInstance());
+        ((CompletableFuture<User>)db.fetch(FirebaseAuth.getInstance().getUid()))
                 .thenAccept(this::updateUI);
     }
 
@@ -45,7 +48,15 @@ public class UserInfoFragment extends Fragment {
      * @param user
      */
     private void updateUI(User user){
-        Log.println(Log.ERROR, "", user.toString());
+        binding.infoUid.setText(user.getUID());
+        binding.infoFirstName.setText(user.getFirstName());
+        binding.infoLastName.setText(user.getLastName());
+        binding.infoUsername.setText(user.getUserName());
+        binding.infoMail.setText(user.getMail());
+        binding.infoPhone.setText(user.getPhone());
+        binding.infoRating.setText(user.getRating());
+        binding.infoCity.setText(user.getCity());
+        binding.infoZipCode.setText(user.getZipCode());
     }
 
 }

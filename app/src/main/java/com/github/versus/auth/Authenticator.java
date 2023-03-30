@@ -36,7 +36,7 @@ public interface Authenticator extends Serializable {
      *
      * @return
      */
-    Future<User> currentUser();
+    User currentUser();
 
     /**
      * ???
