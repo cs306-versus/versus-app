@@ -68,7 +68,7 @@ public final class CacheManager implements DataBaseManager<Post> {
                 .handle((r,e)-> e==null);
     }
 
-    public Future<List<Post>> loadAllByIds(String ids[]){
+    public Future<List<Post>> fetchAllByIds(String ...ids){
         return CompletableFuture.supplyAsync(()->dao.loadAllByIds(ids).stream()
                         .map(cachedPost -> cachedPost.revert()).collect(Collectors.toList()))
                         .handle((r,e)-> e==null? r:null);

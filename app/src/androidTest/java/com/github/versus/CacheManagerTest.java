@@ -18,8 +18,10 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
+import java.util.stream.Collectors;
 
 @RunWith(AndroidJUnit4.class)
 public class CacheManagerTest {
@@ -124,5 +126,21 @@ public class CacheManagerTest {
         SimpleTestPost post =  new SimpleTestPost("to fetch");
         manager.insert(post).get();
         assertTrue(post.equals(manager.getAllPosts().get().get(0)));
+    }
+
+    @Test
+    public void fetchAllByIdsRetrievesCorrectPost() throws ExecutionException, InterruptedException {
+        Post post1 =  new SimpleTestPost("to fetch");
+        Post post2= new SimpleTestPost("Valid");
+        manager.insertAll(post1,post2).get();
+        List<String> retrieved= manager.fetchAllByIds(CachedPost.computeID(post1),CachedPost.computeID(post2))
+                                .get().stream().map(p -> p.getTitle())
+                                .collect(Collectors.toList());
+        assertTrue(retrieved.contains(post1.getTitle())&&retrieved.contains(post2.getTitle()));
+    }
+
+    @Test
+    public void fetchAllByIdsUnavailablePosts() throws ExecutionException, InterruptedException {
+        assertTrue(manager.fetchAllByIds(CachedPost.EMPTY_ID).get().isEmpty());
     }
 }
