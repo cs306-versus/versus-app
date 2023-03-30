@@ -78,7 +78,14 @@ public final class CacheManager implements DataBaseManager<Post> {
     public Future<List<Post>> getAllPosts(){
         return CompletableFuture.supplyAsync(()-> dao.getAll().stream()
                         .map(cachedPost -> cachedPost.revert()).collect(Collectors.toList()))
+
+
                         .handle((r,e)-> e==null ? r:null);
+    }
+
+    public Future<Post> randomSelect(){
+        return CompletableFuture.supplyAsync(()->dao.randomSelect().revert())
+                .handle((r,e)-> e==null? r:null);
     }
 
     public void clearDB(){

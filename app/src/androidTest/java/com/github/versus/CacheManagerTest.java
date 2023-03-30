@@ -111,6 +111,20 @@ public class CacheManagerTest {
         assertTrue(manager.fetch(CachedPost.EMPTY_ID).get()==null);
     }
 
+    @Test
+    public void randomSelectEmptyCache() throws ExecutionException, InterruptedException {
+        assertTrue(manager.randomSelect().get()==null);
+    }
+
+    @Test
+    public void randomSelectRetrievesPosts() throws ExecutionException, InterruptedException {
+        SimpleTestPost post =  new SimpleTestPost("only one to select");
+
+        manager.insert(post).get();
+
+        Post retrieved = manager.randomSelect().get();
+        assertTrue(post.equals(retrieved));
+    }
 
     @Test
     public void databaseISOpen() {
