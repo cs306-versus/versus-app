@@ -53,18 +53,28 @@ public class CacheManagerTest {
        assertTrue(inserted.get());
     }
     @Test
-    public void insertAllOfValidPostIsSuccessful() throws Exception {
+    public void insertAllOfValidPostsIsSuccessful() throws Exception {
         Post post1= new SimpleTestPost();
         Post post2= new SimpleTestPost("Another Valid one");
         Future<Boolean> inserted= manager.insertAll(post1,post2);
         assertTrue(inserted.get());
     }
 
+
     @Test
     public void insertOfInvalidPostIsUnsuccessful() throws ExecutionException, InterruptedException {
         assertFalse(manager.insert(null).get());
     }
 
+    @Test
+    public void insertAllOfInvalidPostsIsUnsuccessful() throws ExecutionException, InterruptedException {
+        assertFalse(manager.insertAll(null,null).get());
+    }
+
+    @Test
+    public void insertAllOfInvalidAndValidPostsIsUnsuccessful() throws ExecutionException, InterruptedException {
+        assertFalse(manager.insertAll(null,new SimpleTestPost()).get());
+    }
     @Test
     public void CacheManagerIsUnique() {
         CacheManager secondManager= CacheManager.getCacheManager(ApplicationProvider.getApplicationContext());
