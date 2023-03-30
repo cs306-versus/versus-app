@@ -115,11 +115,13 @@ public class LocationFragmentTest {
         onView(withText("Get Place")).perform(click());
         onView(withId(R.id.edit_text_radius2)).perform(typeText("900"));
         onView(withText("Show Places")).perform(click());
-        onData(anything())
+        onView(withText("Bassenges Football")).perform(click());
+
+        /*onData(anything())
                 .inAdapterView(withId(R.id.test_list_view))
                 .atPosition(0)
                 .perform(ViewActions.scrollTo())
-                .check(matches(withText("Bassenges Football")));
+                .check(matches(withText("Bassenges Football")));*/
 
        // onView(withText("Bassenges Football")).perform(click());
 

@@ -633,14 +633,9 @@ private void openPlacesDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
         builder.setTitle("Select a place");
 
-
-
         listView = new ListView(requireActivity());
         listView.setAdapter(new ArrayAdapter<>(requireActivity(), android.R.layout.simple_list_item_1, likelyPlaceNames));
         listView.setId(R.id.test_list_view);
-        builder.setView(listView);
-
-
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -657,8 +652,6 @@ private void openPlacesDialog(){
 
             }
         });
-
-
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -668,6 +661,7 @@ private void openPlacesDialog(){
 
         placesDialog = builder.create();
         placesDialog.show();
+        builder.setView(listView);
     }
 
 
