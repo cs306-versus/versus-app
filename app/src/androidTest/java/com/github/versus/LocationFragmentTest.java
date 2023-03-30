@@ -30,6 +30,7 @@ import static org.hamcrest.Matchers.anything;
 import static org.hamcrest.Matchers.endsWith;
 
 
+
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
@@ -57,6 +58,7 @@ import androidx.test.runner.AndroidJUnit4;
 import androidx.test.espresso.contrib.DrawerActions;
 import androidx.test.espresso.contrib.DrawerMatchers;
 import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
+
 
 
 import com.google.android.gms.maps.GoogleMap;
@@ -102,7 +104,7 @@ public class LocationFragmentTest {
     public void tearDown() {
         Intents.release();
     }
-   /* @Test
+    @Test
     public void testLocationElements() throws InterruptedException {
 
 
@@ -113,17 +115,21 @@ public class LocationFragmentTest {
         onView(withId(R.id.edit_text_radius2)).perform(typeText("900"));
         Thread.sleep(3000);
         onView(withText("Show Places")).perform(click());
-
-        // Wait for the ListView to be displayed
         onData(anything())
                 .inAdapterView(withId(R.id.test_list_view))
                 .atPosition(0)
                 .perform(click());
 
+        // Wait for the ListView to be displayed
+        /*onData(anything())
+                .inAdapterView(withId(R.id.test_list_view))
+                .atPosition(0)
+                .perform(click());
+*/
 
 
     }
-*/
+
 
    /* @Test
     public void testIfNoLocationWithinRadius() throws InterruptedException {
