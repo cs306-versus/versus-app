@@ -31,4 +31,5 @@ public final class SimpleTestPost extends Post {
         return  new Post(title,timestamp,location,new ArrayList<>(),limit, sport);
     }
 
+
 }
