@@ -634,6 +634,7 @@ private void openPlacesDialog(){
         builder.setTitle("Select a place");
 
 
+
         listView = new ListView(requireActivity());
         listView.setAdapter(new ArrayAdapter<>(requireActivity(), android.R.layout.simple_list_item_1, likelyPlaceNames));
         listView.setId(R.id.test_list_view);
