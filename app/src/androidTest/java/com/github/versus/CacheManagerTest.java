@@ -10,7 +10,10 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import com.github.versus.offline.CacheManager;
 import com.github.versus.offline.CachedPost;
 import com.github.versus.offline.SimpleTestPost;
+import com.github.versus.posts.Location;
 import com.github.versus.posts.Post;
+import com.github.versus.posts.Timestamp;
+import com.github.versus.sports.Sport;
 
 import org.junit.After;
 import org.junit.Before;
@@ -18,6 +21,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.time.Month;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -143,4 +149,18 @@ public class CacheManagerTest {
     public void fetchAllByIdsUnavailablePosts() throws ExecutionException, InterruptedException {
         assertTrue(manager.fetchAllByIds(CachedPost.EMPTY_ID).get().isEmpty());
     }
+
+    @Test
+    public void sportsAreCachedCorrectly() throws ExecutionException, InterruptedException {
+        Post post= SimpleTestPost.postWith("I don't play soccer, i prefer rowing",
+        new Timestamp(Calendar.getInstance().get(Calendar.YEAR),
+                Month.values()[0], 1, 8, 1, Timestamp.Meridiem.PM)
+                ,new Location("Lausanne", 10, 10),10, Sport.ClIMBING);
+
+        String key= CachedPost.computeID(post);
+        manager.insert(post).get();
+        Post fetched =manager.fetch(key).get();
+        assertTrue(fetched.getSport()==post.getSport());
+    }
+
 }
