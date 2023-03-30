@@ -55,21 +55,21 @@ public class Schedule{
 
     /**
      * adds multiple post to the schedule Object
-     * @param posts the posts to add
+     * @param newPosts the posts to add
      */
-    public void addPosts(Set<Post> posts){
-        for (Post p: posts
+    public void addPosts(Iterable<Post> newPosts){
+        for (Post p: newPosts
              ) {
-            posts.add(p);
+            addPost(p);
         }
     }
 
     /**
      * adds a post to the schedule Object
-     * @param p the post to remove
+     * @param id the id of the post to remove
      */
-    public void removePost(Post p){
-        posts.remove(p);
+    public void removePost(String id){
+        posts = posts.stream().filter(p -> p.getTitle() != id).collect(Collectors.toList());
     }
 
 
