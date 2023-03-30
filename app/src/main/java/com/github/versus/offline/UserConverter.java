@@ -3,7 +3,9 @@ package com.github.versus.offline;
 import com.github.versus.sports.Sport;
 import com.github.versus.user.User;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class UserConverter {
     /*
@@ -31,5 +33,10 @@ public class UserConverter {
             }
         }
         return builder.toString();
+    }
+
+    public static List<Sport> convertBackToSports(String conversion,String sep){
+        String split[]= conversion.split(sep);
+        return Arrays.asList(split).stream().map(s -> Sport.valueOf(s)).collect(Collectors.toList());
     }
 }
