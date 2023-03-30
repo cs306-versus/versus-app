@@ -1,5 +1,6 @@
 package com.github.versus;
 
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -26,14 +27,15 @@ import java.util.concurrent.TimeoutException;
 
 public class FsScheduleManagerTests {
     @Test
-    public void CorrectFsPostInsert_Get() throws ExecutionException, InterruptedException, TimeoutException
+    public void CorrectFsSchedInsert_Delete() throws ExecutionException, InterruptedException, TimeoutException
     {
+        String testSchedName = "Abdess-xl";
         // Creating FsScheduleManager instance
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FsScheduleManager schedm = new FsScheduleManager(db);
 
         // Creating a test schedule
-        Schedule testSchedule = new Schedule("Abdess");
+        Schedule testSchedule = new Schedule(testSchedName);
 
         //inserting the schedule
         Future<Boolean> insertResult = schedm.insert(testSchedule);
@@ -46,12 +48,39 @@ public class FsScheduleManagerTests {
 
         // Verify that the schedule was inserted into Firestore
         //by fetching it and then comparing
-        Schedule p = schedm.fetch("_test_").get();
+        Schedule p = schedm.fetch(testSchedName).get();
         assertTrue(testSchedule.equals(p));
 
         // Clean up the test data
-        boolean deletionSuccess = schedm.delete("_test_").get();
+        boolean deletionSuccess = schedm.delete(testSchedName).get();
         assertTrue(deletionSuccess);
     }
+
+    @Test
+    public void NullGetResultOnAbsentSched() throws ExecutionException, InterruptedException, TimeoutException
+    {
+        String hoaxName = "hoaxxxxxxxxxxxxx" ;
+        // Creating FsPostm instance
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FsPostManager postm = new FsPostManager(db);
+
+        // delete the test post if it's there
+        boolean deletionSuccess = postm.delete(hoaxName).get();
+        assertTrue(deletionSuccess);
+
+        // Verify that the getting the non existent schedule in Firestore will return null
+        Post p = postm.fetch(hoaxName).get();
+        assertNull(p);
+    }
+
+    @Test
+    public void addPostsToScheduleTest() throws ExecutionException, InterruptedException, TimeoutException {
+
+
+    }
+
+
+
+
 
 }

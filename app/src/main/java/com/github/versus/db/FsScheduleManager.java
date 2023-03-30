@@ -131,10 +131,10 @@ public class FsScheduleManager implements ScheduleManager {
     @Override
     public Future<Boolean> addPostToSchedule(String UID, Post post) {
         //accessing the schedule collection
-        CollectionReference postsRef = db.collection(SCHEDULECOLLECTION.toString());
+        CollectionReference scheduleRef = db.collection(SCHEDULECOLLECTION.toString());
 
         //finding the schedule with the right UID
-        Query query = postsRef.whereEqualTo("UID", UID);
+        Query query = scheduleRef.whereEqualTo("UID", UID);
         Task<QuerySnapshot> task = query.get();
 
         // Wrap the Task in a CompletableFuture that returns the status of the schedule update

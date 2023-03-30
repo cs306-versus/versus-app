@@ -69,7 +69,6 @@ public class Post {
         return players;
     }
 
-
     /**
      * @return the limit of players that could join the post
      */

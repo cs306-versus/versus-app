@@ -1,8 +1,10 @@
 package com.github.versus.schedule;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.versus.posts.Post;
 import com.github.versus.posts.Timestamp;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -11,8 +13,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Schedule{
-    private final String UID;
-    private Set<Post> scheduledPosts = new HashSet<Post>();
+    @JsonProperty("UID")
+    private String UID;
+    private List<Post> posts = new ArrayList<>();
 
     /**
      * creates a Schedule object
@@ -20,6 +23,8 @@ public class Schedule{
      */
     public Schedule(String UID){
         this.UID = UID;
+    }
+    public Schedule(){
     }
 
     /**
@@ -34,8 +39,8 @@ public class Schedule{
      *
      * @return all the scheduled Posts in chronological order
      * */
-    public List<Post> getScheduledPosts() {
-        return scheduledPosts.stream().sorted((p1, p2) ->
+    public List<Post> getPosts() {
+        return posts.stream().sorted((p1, p2) ->
              p1.getDate().isBefore(p2.getDate())
         ).collect(Collectors.toList());
     }
@@ -45,7 +50,7 @@ public class Schedule{
      * @param p the post to add
      */
     public void addPost(Post p){
-        this.scheduledPosts.add(p);
+        posts.add(p);
     }
 
     /**
@@ -55,7 +60,7 @@ public class Schedule{
     public void addPosts(Set<Post> posts){
         for (Post p: posts
              ) {
-            this.scheduledPosts.add(p);
+            posts.add(p);
         }
     }
 
@@ -64,7 +69,7 @@ public class Schedule{
      * @param p the post to remove
      */
     public void removePost(Post p){
-        this.scheduledPosts.remove(p);
+        posts.remove(p);
     }
 
 
@@ -77,7 +82,7 @@ public class Schedule{
      */
     public Schedule startingFromDate(Timestamp t){
         Schedule result =  new Schedule(this.UID);
-        result.addPosts(this.scheduledPosts.stream().filter(
+        result.addPosts(posts.stream().filter(
                 post -> t.isBefore(post.getDate()) <=  0
         ).collect(Collectors.toSet()));
         return result;
@@ -92,7 +97,7 @@ public class Schedule{
      */
     public Schedule onDate(Timestamp t){
         Schedule result =  new Schedule(this.UID);
-        result.addPosts(this.scheduledPosts.stream().filter(
+        result.addPosts(this.posts.stream().filter(
                 post -> {
                     Timestamp date = post.getDate() ;
                     return date.getYear() == t.getYear() && date.getMonth() == t.getMonth() && date.getDay() == t.getDay();
@@ -108,7 +113,7 @@ public class Schedule{
     public Map<String, Object> getAllAttributes() {
         Map<String, Object> res =  new HashMap<String, Object>();
         res.put("UID", UID );
-        res.put("posts", scheduledPosts);
+        res.put("posts", posts);
         return res;
 
     }
@@ -125,7 +130,7 @@ public class Schedule{
 
         Schedule other = (Schedule) obj;
         return this.UID.equals(other.UID)
-                && this.scheduledPosts.equals(((Schedule) obj).scheduledPosts);
+                && this.posts.equals(((Schedule) obj).posts);
     }
 
 }
