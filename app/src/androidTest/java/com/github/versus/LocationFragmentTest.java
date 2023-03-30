@@ -174,6 +174,7 @@ public class LocationFragmentTest {
         //ElapsedTimeIdlingResource idlingResource = new ElapsedTimeIdlingResource(5000);
        // IdlingRegistry.getInstance().register(idlingResource);
         onView(withText("Cancel")).perform(click());
+        //onView(withId(R.id.test_list_view2)).perform(click());
 
         //IdlingRegistry.getInstance().unregister(idlingResource);
 
