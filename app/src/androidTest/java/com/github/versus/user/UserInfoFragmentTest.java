@@ -2,6 +2,7 @@ package com.github.versus.user;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
@@ -28,9 +29,8 @@ public class UserInfoFragmentTest {
     @Before
     public void setUpFragment(){
         onView(withId(R.id.drawer_layout)).check(matches(DrawerMatchers.isClosed(GravityCompat.START))).perform(DrawerActions.open());
-
         onView(withId(R.id.drawer_layout)).check(matches(DrawerMatchers.isOpen(GravityCompat.START)));
-        onView(withId(R.id.nav_user_profil)).perform(click());
+        onView(withId(R.id.nav_user_profil)).perform(scrollTo()).perform(click());
 
     }
 
