@@ -12,6 +12,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import com.github.versus.auth.AuthActivity;
 import com.github.versus.auth.Authenticator;
 import com.github.versus.user.User;
+import com.github.versus.user.VersusUser;
 
 import org.hamcrest.Matcher;
 import org.junit.Before;
@@ -22,6 +23,9 @@ import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 import static com.github.versus.utils.VersusComponentName.of;
 
 import static org.mockito.Mockito.*;
+
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Future;
 
 @RunWith(AndroidJUnit4.class)
 public class EntryActivityTest {
@@ -54,7 +58,9 @@ public class EntryActivityTest {
 
     @Test
     public void startAppIfUserConnected(){
-        when(auth.currentUser()).thenReturn(mock(User.class, withSettings().serializable()));
+        CompletableFuture<User> future = new CompletableFuture<>();
+        future.complete(new VersusUser.Builder("yxcv").build());
+        when(auth.currentUser()).thenReturn(future);
         Intents.init();
         try(ActivityScenario<EntryActivity> scenario = ActivityScenario.launch(intent)){
             Intent s_intent = Intents.getIntents().get(1);
