@@ -561,7 +561,8 @@ private void openPlacesDialog(){
 
 
    private void showCurrentPlace(double radius) {
-        if (map == null) {
+       showPlacesList();
+       /* if (map == null) {
             return;
         }
         List<CustomPlace> customPlaces = Arrays.asList(new CustomPlace("UNIL Football", "UNIL Football", new LatLng(46.519385, 6.580856)),
@@ -569,7 +570,7 @@ private void openPlacesDialog(){
                 new CustomPlace("Bassenges Football","Bassenges Football",new LatLng(46.52309381914529, 6.5608807098372175))
 
         );
-       showPlacesList();
+
 
         if (locationPermissionGranted) {
 
@@ -626,7 +627,7 @@ private void openPlacesDialog(){
             Log.i(TAG, "The user did not grant location permission.");
 
             getLocationPermission();
-        }
+        }*/
     }
     /*private void showPlacesList() {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
