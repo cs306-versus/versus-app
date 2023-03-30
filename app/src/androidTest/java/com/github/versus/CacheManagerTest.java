@@ -113,16 +113,14 @@ public class CacheManagerTest {
 
     @Test
     public void randomSelectEmptyCache() throws ExecutionException, InterruptedException {
-        assertTrue(manager.randomSelect().get()==null);
+        assertTrue(manager.randomSelect().get().isEmpty());
     }
 
     @Test
     public void randomSelectRetrievesPosts() throws ExecutionException, InterruptedException {
         SimpleTestPost post =  new SimpleTestPost("only one to select");
-
         manager.insert(post).get();
-
-        Post retrieved = manager.randomSelect().get();
+        Post retrieved = manager.randomSelect().get().get(0);
         assertTrue(post.equals(retrieved));
     }
 
