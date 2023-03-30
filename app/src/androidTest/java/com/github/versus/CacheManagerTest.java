@@ -4,6 +4,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import androidx.test.core.app.ApplicationProvider;
+import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.github.versus.offline.CacheManager;
@@ -13,6 +14,7 @@ import com.github.versus.posts.Post;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -21,11 +23,14 @@ import java.util.concurrent.Future;
 
 @RunWith(AndroidJUnit4.class)
 public class CacheManagerTest {
+    @Rule
+    public ActivityScenarioRule<MainActivity> testRule = new ActivityScenarioRule<>(MainActivity.class);
     @Test
     public void onePlusOneIsTwo(){
         assertTrue(1+1==2);
     }
-    /*
+
+
     private CacheManager manager;
 
     @Before
@@ -35,8 +40,10 @@ public class CacheManagerTest {
 
 
     @After
-    public void clearDb() {
-        manager.getDb().clearAllTables();
+    public void ClearAndClose() {
+        manager.clearDB();
+        manager= null;
+
     }
 
     @Test
@@ -60,7 +67,9 @@ public class CacheManagerTest {
     @Test
     public void fetchRetrievesTheRightPost() throws ExecutionException, InterruptedException {
         SimpleTestPost post =  new SimpleTestPost("to fetch");
+
         manager.insert(post).get();
+
         Post retrieved = manager.fetch(CachedPost.computeID(post)).get();
         assertTrue(post.equals(retrieved));
     }
@@ -79,8 +88,12 @@ public class CacheManagerTest {
 
     @Test
     public void fetchUnavailablePost() throws ExecutionException, InterruptedException {
-        assertTrue(manager.fetch(CachedPost.emptyID).get()==null);
+        assertTrue(manager.fetch(CachedPost.EMPTY_ID).get()==null);
     }
-    */
 
+
+    @Test
+    public void databaseISOpen() {
+        assertTrue(manager.DBAvailable());
+    }
 }
