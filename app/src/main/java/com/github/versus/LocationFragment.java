@@ -668,6 +668,7 @@ private void openPlacesDialog(){
     }*/
 
     private void showPlacesList() {
+        /*
         //AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
 
         View customView = LayoutInflater.from(getActivity()).inflate(R.layout.custom_alert_dialog, null);
@@ -699,6 +700,35 @@ private void openPlacesDialog(){
         });
 
 */
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.radius_layout, null);
+
+        // Get a reference to the EditText view in the layout
+        EditText radiusInput = view.findViewById(R.id.edit_text_radius2);
+        radiusInput.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        radiusInput.setHint("Enter radius (in meters)");
+
+        // Create a dialog to display the EditText view
+
+
+        AlertDialog dialog = new AlertDialog.Builder(getActivity()).setTitle("Enter radius").setView(view).setPositiveButton("Show Places", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Get the radius entered by the user
+                String radiusStr = radiusInput.getText().toString();
+                if (!TextUtils.isEmpty(radiusStr)) {
+                    radius = Float.parseFloat(radiusInput.getText().toString());
+                    showCurrentPlace(radius);
+                    dialog.dismiss();
+                }
+                else  {
+                    showToast("Please enter a radius");
+                }
+
+
+            }
+        }).setNegativeButton("Cancel", null).create();
+
+        dialog.show();
 
     }
 

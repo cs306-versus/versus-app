@@ -124,56 +124,11 @@ public class LocationFragmentTest {
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
         // Find the menu item by its ID and perform a click
         onView(withText("Get Place")).perform(click());
-        //onView(withId(R.id.edit_text_radius2)).perform(typeText("900"));
-       // onView(withText("Show Places")).perform(closeSoftKeyboard(),click());
 
-       //onView(withText("Bassenges Football")).inRoot(isDialog()).check(matches(isDisplayed())).perform(click());
-       /* DataInteraction dataInteraction = onData(anything())
-                .inAdapterView(allOf(withId(R.id.test_list_view), isDisplayed()))
-                .atPosition(0);
-
-        dataInteraction
-                .inRoot(isDialog())
-                .onChildView(isAssignableFrom(TextView.class))
-                .check(matches(withText("Bassenges Football")))
-                .perform(click());*/
-        //onView(withText("Bassenges Football")).perform(click());
-        /*onData(anything())
-                .inAdapterView(allOf(withId(R.id.test_list_view), isDisplayed()))
-                .atPosition(0)
-                .inRoot(isAlertDialog()) // Use the custom Matcher to find the AlertDialog
-                .check(matches(withText("Bassenges Football")))
-                .perform(click());
-*/
-        /*onData(anything())
-                .inAdapterView(allOf(withId(R.id.test_list_view2), isDisplayed()))
-                .atPosition(0)
-                .inRoot(isPlatformPopup()) // Use the isPlatformPopup() matcher to find the AlertDialog
-                .check(matches(withText("Bassenges Football")))
-                .perform(click());*/
-
-       /* onData(anything())
-                .inAdapterView(withId(R.id.test_list_view))
-                .atPosition(0)
-                .perform(ViewActions.scrollTo())
-                .check(matches(withText("Bassenges Football")));*/
+        onView(withId(R.id.edit_text_radius2)).perform(typeText("10"));
+        onView(withText("Show Places")).perform(click());
 
 
-        // Wait for the AlertDialog to appear
-
-
-        // onView(withText("Bassenges Football")).perform(click());
-
-
-       // onView(withText("Select a place")).check(matches(isDisplayed()));
-
-
-        // Wait for the ListView to be displayed
-        // Implement your own IdlingResource or use a pre-built one from Espresso, such as CountingIdlingResource
-
-        //ElapsedTimeIdlingResource idlingResource = new ElapsedTimeIdlingResource(5000);
-       // IdlingRegistry.getInstance().register(idlingResource);
-        onView(withText("Cancel")).perform(click());
         //onView(withId(R.id.test_list_view2)).perform(click());
 
         //IdlingRegistry.getInstance().unregister(idlingResource);
