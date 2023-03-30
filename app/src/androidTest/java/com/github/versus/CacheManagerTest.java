@@ -52,6 +52,13 @@ public class CacheManagerTest {
        Future<Boolean> inserted= manager.insert(post);
        assertTrue(inserted.get());
     }
+    @Test
+    public void insertAllOfValidPostIsSuccessful() throws Exception {
+        Post post1= new SimpleTestPost();
+        Post post2= new SimpleTestPost("Another Valid one");
+        Future<Boolean> inserted= manager.insertAll(post1,post2);
+        assertTrue(inserted.get());
+    }
 
     @Test
     public void insertOfInvalidPostIsUnsuccessful() throws ExecutionException, InterruptedException {
