@@ -209,3 +209,5 @@ lint/tmp/
 /.idea/deploymentTargetDropDown.xml
 /app/src/main/java/com/github/versus/.metals/
 /app/src/main/java/com/github/versus/.vscode/
+
+!/.idea/deploymentTargetDropDown.xml

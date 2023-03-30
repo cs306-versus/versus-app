@@ -15,7 +15,17 @@
 
     <color name="_bg__frame_1_ek2_color">#1D4EB5</color>
     <color name="planning_for_the_day_color">#FFFFFF</color>
-    <color name="rectangle_1_color">#1D4294</color>
     <color name="unil_sport_color">#3C63AE</color>
     <color name="_10_00_am_color">#3C63A2</color>
+
+
+    <color name="_bg__frame_2_ek2_color">#1D4EB5</color>
+
+    <color name="search_color">#FFFFFF</color>
+
+    <color name="rectangle_1_color">#1D4294</color>
+
+    <color name="soccer_color">#3C63AE</color>
+
+    <color name="_7_10_color">#000000</color>
 </resources>

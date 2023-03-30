@@ -9,9 +9,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.github.versus.MainActivity;
+import com.github.versus.db.FsUserManager;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 /**
  *
@@ -54,6 +56,7 @@ public abstract class BaseAuthFragment extends Fragment {
     private void onSuccessfulLogin(AuthResult result) {
         handleSuccessfulConnection(result);
         // Switch to the MainActivity
+        new FsUserManager(FirebaseFirestore.getInstance()).fetch(result.getUser().getUid());
         startActivity(new Intent(getContext(), MainActivity.class));
     }
 

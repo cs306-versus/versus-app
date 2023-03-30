@@ -86,6 +86,24 @@ public class ScheduleTest {
         onView(withId(R.id.Tuesday_button)).perform(click());
 
     }
+
+    @Test
+    public void testingNextWeeks1(){
+for(int i=0;i<60;i++){
+
+        onView(withId(R.id.arrow_11)).perform(click());
+
+}
+
+    }
+    @Test
+    public void testingNextWeeks2(){
+        for(int i=0;i<60;i++){
+            onView(withId(R.id.arrow_image_2)).perform(click());
+
+        }
+
+    }
     @Test
     public void testing1(){
 

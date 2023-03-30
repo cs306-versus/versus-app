@@ -1,7 +1,9 @@
 plugins {
     id 'com.android.application'
     id 'com.google.gms.google-services'
+    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
     id 'jacoco'
+    id 'org.jetbrains.kotlin.android'
 }
 
 android {
@@ -43,13 +45,14 @@ android {
 
 dependencies {
 
+    implementation 'androidx.core:core-ktx:1.9.0'
     androidTestImplementation  ('androidx.test.espresso:espresso-contrib:3.5.0-alpha06'){
         exclude module: "protobuf-lite"
     }
 
     implementation 'androidx.appcompat:appcompat:1.6.1'
 
-
+    dokkaPlugin 'org.jetbrains.dokka:android-documentation-plugin:1.8.10'
     implementation 'com.google.android.material:material:1.8.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     //Import for Google Maps
@@ -65,7 +68,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore'
     implementation 'com.google.firebase:firebase-database:20.1.0'
     //add jackson dependency to convert json strings gotten from database into java objects
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.0'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.14.2'
 
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.mockito:mockito-inline:5.2.0'

@@ -1,0 +1,41 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    android:orientation="vertical">
+    <FrameLayout android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <Button android:layout_height="32dp" android:layout_width="74dp" android:id="@+id/rate_button" android:layout_marginStart="8dp"  android:layout_marginTop="3dp"  android:background="@drawable/rectangle_19_shape"/>
+
+</FrameLayout>
+    <View android:layout_height="32dp" android:layout_width="74dp" android:id="@+id/support_button_for_color" android:layout_marginStart="8dp" android:layout_marginTop="3dp" android:background="@drawable/rectangle_19_shape"/>
+
+    <TextView android:layout_height="38.5dp" android:layout_width="77.5dp" android:id="@+id/litteral_rate"  android:text="@string/rate_string" android:layout_marginLeft="21dp" android:layout_marginTop="1dp" android:textColor="#000000" android:textSize="23sp" android:textStyle="bold" android:fontFamily="Comic Neue"/>
+    <TextView android:layout_height="48.5dp" android:layout_width="178.5dp" android:id="@+id/player_pseudoname"  android:text="@string/aymane_lam_string" android:layout_marginLeft="150dp" android:textColor="@color/rectangle_1_color" android:textSize="23sp" android:textStyle="bold" android:fontFamily="Comic Neue" android:shadowDy="4" android:shadowDx="0" android:shadowColor="#000000" android:shadowRadius="4"/>
+    <View android:layout_height="34dp" android:layout_width="64dp" android:id="@+id/rating_contour" android:layout_marginStart="69dp"  android:background="@drawable/rectangle_21_shape"/>
+
+    <TextView android:layout_height="38.5dp" android:layout_width="77.5dp"
+        android:imeOptions="actionDone"
+        android:id="@+id/rating_of_player" android:text="@string/_7_10_string" android:layout_marginLeft="80dp" android:textColor="@color/_7_10_color" android:textSize="23sp" android:textStyle="bold" android:fontFamily="Comic Neue"/>
+    <Spinner
+        android:id="@+id/spinner_rate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:background="@drawable/spinner_border"
+        android:padding="8dp"
+
+
+        android:spinnerMode="dropdown"
+        android:popupBackground="@drawable/spinner_dropdown_item"
+        android:drawableEnd="@drawable/ic_expand_more"
+        android:dropDownSelector="@drawable/spinner_dropdown_item"
+        android:textColor="#FFFFFF"
+
+
+        />
+
+
+
+
+</RelativeLayout>

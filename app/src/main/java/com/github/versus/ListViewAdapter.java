@@ -24,7 +24,7 @@ public class ListViewAdapter extends ArrayAdapter<List<String>> {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.list_item, parent, false);
         List<String> book = books.get(position);
-        ((TextView)view.findViewById(R.id.Game_text)).setText(book.get(0));
+        ((TextView)view.findViewById(R.id.sport_text)).setText(book.get(0));
         ((TextView)view.findViewById(R.id.Location_text)).setText(book.get(1));
         ((TextView)view.findViewById(R.id.Meeting_time)).setText(book.get(2));
 
