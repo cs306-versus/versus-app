@@ -1,9 +1,15 @@
 package com.github.versus.posts;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
 import com.github.versus.sports.Sport;
 import com.github.versus.user.DummyUser;
 import com.github.versus.user.User;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +18,7 @@ import java.util.Objects;
 /**
  * Post in the Versus app
  */
-public class Post {
+public class Post implements Serializable {
 
     private  String title;
     private  Timestamp date;
@@ -39,7 +45,6 @@ public class Post {
     public String getTitle(){
         return title;
     }
-
 
 
 
@@ -117,6 +122,30 @@ public class Post {
                 && this.players.equals(other.players)
                 && this.playerLimit == other.playerLimit
                 && this.sport.equals(other.sport);
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDate(Timestamp date) {
+        this.date = date;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public void setPlayers(List<DummyUser> players) {
+        this.players = players;
+    }
+
+    public void setPlayerLimit(int playerLimit) {
+        this.playerLimit = playerLimit;
+    }
+
+    public void setSport(Sport sport) {
+        this.sport = sport;
     }
 
 

@@ -39,5 +39,6 @@
     <string name="your_timeline_string">Your Timeline</string>
     <string name="football_game_string">Football Game</string>
     <string name="basketball_game_string">BasketBall Game</string>
+    <string name="default_web_client_id" />
 
 </resources>
