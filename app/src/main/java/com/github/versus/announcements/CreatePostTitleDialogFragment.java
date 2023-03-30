@@ -41,7 +41,6 @@ public class CreatePostTitleDialogFragment extends DialogFragment {
                 .setPositiveButton("next", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         EditText et = innerView.findViewById(R.id.editPostTitle);
-                        System.out.println(et);
                         String title = et.getText().toString();
                         tl.onTitlePositiveClick(title);
                     }

@@ -1,0 +1,38 @@
+{
+  "project_info": {
+    "project_number": "1049233185772",
+    "project_id": "versus-45ef5",
+    "storage_bucket": "versus-45ef5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1049233185772:android:78d88053c3ea95998a7ec9",
+        "android_client_info": {
+          "package_name": "com.github.versus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1049233185772-ht5dgb9m0d6sgrcp88na1tlud0ripsga.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.github.versus",
+            "certificate_hash": "52482f3cdd93b84f86b06cff05fa3c2ed545148c"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSbYeS6FkVO4Jj9t-cf9Z3zgP71F1KdOM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

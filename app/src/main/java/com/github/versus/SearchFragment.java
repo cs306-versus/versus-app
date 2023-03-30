@@ -1,5 +1,6 @@
 package com.github.versus;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.github.versus.announcements.AnnouncementAdapter;
 import com.github.versus.announcements.ChoosePostSportDialogFragment;
 import com.github.versus.announcements.CreatePostTitleDialogFragment;
+import com.github.versus.announcements.MaxPlayerDialogFragment;
+import com.github.versus.announcements.PostDatePickerDialog;
 import com.github.versus.db.FsPostManager;
 import com.github.versus.posts.Location;
 import com.github.versus.posts.Post;
@@ -28,13 +31,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-public class SearchFragment extends Fragment implements CreatePostTitleDialogFragment.TitleListener, ChoosePostSportDialogFragment.SportListener {
+public class SearchFragment extends Fragment implements
+        CreatePostTitleDialogFragment.TitleListener,
+        ChoosePostSportDialogFragment.SportListener,
+        MaxPlayerDialogFragment.MaxPlayerListener,
+        PostDatePickerDialog.PickDateListener {
 
 
     protected RecyclerView recyclerView;
     protected Post newPost;
     protected CreatePostTitleDialogFragment cpdf;
     protected ChoosePostSportDialogFragment cpsdf;
+    protected MaxPlayerDialogFragment mpdf;
+    protected PostDatePickerDialog pdpd;
+
     protected List<Post> posts = new ArrayList<>();
 
     protected AnnouncementAdapter aa;
@@ -48,6 +58,8 @@ public class SearchFragment extends Fragment implements CreatePostTitleDialogFra
         recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
         cpdf = new CreatePostTitleDialogFragment();
         cpsdf = new ChoosePostSportDialogFragment();
+        mpdf = new MaxPlayerDialogFragment();
+        pdpd = new PostDatePickerDialog();
         pm = new FsPostManager(FirebaseFirestore.getInstance());
 
 
@@ -96,8 +108,7 @@ public class SearchFragment extends Fragment implements CreatePostTitleDialogFra
     @Override
     public void onSportPositiveClick(Sport sport) {
         newPost.setSport(sport);
-        pm.insert(newPost);
-        loadPosts();
+        mpdf.show(getChildFragmentManager(), "1");
     }
 
     protected void loadPosts(){
@@ -109,5 +120,18 @@ public class SearchFragment extends Fragment implements CreatePostTitleDialogFra
             aa.notifyDataSetChanged();
             return posts;
         });
+    }
+
+    @Override
+    public void onMaxPlayerPositiveClick(int playerCount) {
+        newPost.setPlayerLimit(playerCount);
+        pdpd.show(getChildFragmentManager(), "1");
+    }
+
+    @Override
+    public void onPickPostDate(Timestamp ts) {
+
+        pm.insert(newPost);
+        loadPosts();
     }
 }

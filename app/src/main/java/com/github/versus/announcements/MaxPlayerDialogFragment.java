@@ -24,34 +24,33 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class ChoosePostSportDialogFragment extends DialogFragment {
+public class MaxPlayerDialogFragment extends DialogFragment  {
 
-    public interface SportListener extends CancelCreate {
-        public void onSportPositiveClick(Sport sport);
+    public interface MaxPlayerListener extends CancelCreate {
+        public void onMaxPlayerPositiveClick(int playerCount);
     }
 
-    SportListener tl;
-    Sport sport = Sport.SOCCER;
+    int maxPlayerCount = 2;
+
+    MaxPlayerListener tl;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the Builder class for convenient dialog construction
         Activity a = getActivity();
         Fragment f = getParentFragment();
-        tl = (SportListener) f;
+        tl = (MaxPlayerListener) f;
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         Builder builder = new Builder(a);
         FsPostManager fpm = new FsPostManager(FirebaseFirestore.getInstance());
-        final String[] items = Stream.of(Sport.values()).map(sport -> sport.name).collect(Collectors.toList()).toArray(new String[0]);
-        builder.setTitle("choose a sport").setSingleChoiceItems(items, 0, new DialogInterface.OnClickListener(){
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        sport = Sport.values()[i];
-                    }
-                })
-                .setPositiveButton("next", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        tl.onSportPositiveClick(sport);
+        View innerView = inflater.inflate(R.layout.create_post_max_players, null);
+        builder.setTitle("max number of players").setView(innerView)
+                .setPositiveButton("next", new OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id){
+                       EditText et =  ((EditText) innerView.findViewById(R.id.editMaxPlayers));
+                       System.out.println(et.getText());
+                        maxPlayerCount = Integer.parseInt(et.getText().toString());
+                        tl.onMaxPlayerPositiveClick(maxPlayerCount);
                     }
                 })
                 .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
