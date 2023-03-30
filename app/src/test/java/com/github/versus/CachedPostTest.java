@@ -27,11 +27,7 @@ public class CachedPostTest {
     @Test
     public void postIsInvalidWithNullTitle() {
 
-        Post post= SimpleTestPost.postWith(null,
-                new Timestamp(Calendar.getInstance().get(Calendar.YEAR)
-                        , Month.JANUARY, 1, 8, 1, Timestamp.Meridiem.PM),
-                new Location("Lausanne", 10, 10),10);
-
+        Post post= new SimpleTestPost(null);
         assertTrue(postIsInvalid(post));
     }
 
@@ -55,6 +51,13 @@ public class CachedPostTest {
     public void postIsInvalidWithValidPost() {
         Post post = new SimpleTestPost();
         assertFalse(postIsInvalid(post));
+    }
+    @Test
+    public void postWithNoSportIsInvalid(){
+        Post post = SimpleTestPost.postWith("Invalid post",
+                new Timestamp(Calendar.getInstance().get(Calendar.YEAR), Month.JANUARY, 1, 8, 1, Timestamp.Meridiem.PM),
+                new Location("Lausanne",10,10),10,null);
+        assertTrue(postIsInvalid(post));
     }
 
     @Test
@@ -89,6 +92,7 @@ public class CachedPostTest {
         CachedPost cached = CachedPost.match(post);
         assertTrue(post.equals(cached.revert()));
     }
+
 
 
 

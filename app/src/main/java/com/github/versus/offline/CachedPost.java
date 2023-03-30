@@ -59,9 +59,13 @@ public final class CachedPost {
     @ColumnInfo(name = "meridiem")
     public  String  meridiem;
 
-
     @ColumnInfo(name = "empty")
     public  boolean  isEmpty;
+
+    @ColumnInfo(name = "sport")
+    public String sport;
+
+    @ColumnInfo()
     public static final String EMPTY_ID = "Empty";
     private CachedPost(Post post){
 
@@ -80,6 +84,7 @@ public final class CachedPost {
         minutes= timestamp.getMinutes();
         seconds= timestamp.getSeconds();
         meridiem= timestamp.getMeridiem().name();
+        sport= post.getSport().name();
         isEmpty= false;
 
     }
@@ -98,7 +103,7 @@ public final class CachedPost {
     public Post revert(){
         Timestamp timestamp= new Timestamp(year,Month.valueOf(month),day,hour,minutes, Timestamp.Meridiem.valueOf(meridiem));
         Location location = new Location(locationName,latitude,longitude);
-        return new  Post(title, timestamp, location, new ArrayList<>(),  limit, Sport.SOCCER);
+        return new  Post(title, timestamp, location, new ArrayList<>(),  limit, Sport.valueOf(sport));
     }
 
     public static String computeID(Post post){
@@ -109,7 +114,7 @@ public final class CachedPost {
     }
 
     public static boolean postIsInvalid(Post post){
-        return post==null||post.getTitle()==null||post.getLocation()==null||post.getDate()==null;
+        return post==null||post.getTitle()==null||post.getLocation()==null||post.getDate()==null || post.getSport()==null;
     }
 
 }
