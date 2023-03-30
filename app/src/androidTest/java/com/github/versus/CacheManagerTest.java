@@ -113,4 +113,16 @@ public class CacheManagerTest {
     public void databaseISOpen() {
         assertTrue(manager.DBAvailable());
     }
+
+    @Test
+    public void getAllPostsWorksWhenNoPostIsPresent() throws ExecutionException, InterruptedException {
+        assertTrue(manager.getAllPosts().get().size()==0);
+    }
+
+    @Test
+    public void getAllPostsRetrievesPostsCorrectly() throws ExecutionException, InterruptedException {
+        SimpleTestPost post =  new SimpleTestPost("to fetch");
+        manager.insert(post).get();
+        assertTrue(post.equals(manager.getAllPosts().get().get(0)));
+    }
 }
