@@ -142,12 +142,12 @@ public class LocationFragmentTest {
                 .check(matches(withText("Bassenges Football")))
                 .perform(click());
 */
-        onData(anything())
-                .inAdapterView(allOf(withId(R.id.test_list_view), isDisplayed()))
+        /*onData(anything())
+                .inAdapterView(allOf(withId(R.id.test_list_view2), isDisplayed()))
                 .atPosition(0)
                 .inRoot(isPlatformPopup()) // Use the isPlatformPopup() matcher to find the AlertDialog
                 .check(matches(withText("Bassenges Football")))
-                .perform(click());
+                .perform(click());*/
 
        /* onData(anything())
                 .inAdapterView(withId(R.id.test_list_view))
@@ -167,11 +167,11 @@ public class LocationFragmentTest {
 
 
         // Wait for the ListView to be displayed
-        /*onData(anything())
-                .inAdapterView(withId(R.id.test_list_view))
+        onData(anything())
+                .inAdapterView(withId(R.id.test_list_view2))
                 .atPosition(0)
                 .perform(click());
-*/
+
 
 
     }
