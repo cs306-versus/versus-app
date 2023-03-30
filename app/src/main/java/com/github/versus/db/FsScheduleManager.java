@@ -90,8 +90,42 @@ public class FsScheduleManager implements ScheduleManager {
     }
 
     @Override
-    public Future<Boolean> delete(String UID) {
-        return null;
+    public Future<Boolean> delete(String id) {
+
+        //accessing the collection
+        CollectionReference postsRef = db.collection(SCHEDULECOLLECTION.toString());
+        //finding the post with the right id
+        Query query = postsRef.whereEqualTo("title", id);
+        Task<QuerySnapshot> task = query.get();
+
+        // Wrap the Task in a CompletableFuture that returns status of deletion
+        CompletableFuture<Boolean> future = new CompletableFuture<>();
+
+        // Add a listener to the Task to handle the result
+        task.addOnSuccessListener(res -> {
+            //we get the query result
+            List<DocumentSnapshot> docs = res.getDocuments();
+            if(docs.isEmpty()){
+                //in case the query result is empty complete the future with true
+                //because there was nothing to delete
+                future.complete(true);
+            }else{
+                //getting all the matching posts reference
+                for (DocumentSnapshot doc: docs
+                ) {
+                    DocumentReference docRef = doc.getReference();
+                    //deleting the document
+                    docRef.delete().addOnFailureListener(av ->{
+                        future.complete(false);
+                    });
+                }
+                future.complete(true);
+            }
+        }).addOnFailureListener(res ->{
+            future.complete(false);
+        });
+
+        return future;
     }
 
     @Override

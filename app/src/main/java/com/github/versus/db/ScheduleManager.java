@@ -27,5 +27,5 @@ public interface ScheduleManager extends DataBaseManager<Schedule> {
      * @return a future wrapping the state of the addition completion
      */
     public Future<Boolean> addPostToSchedule(String UID, Post post) ;
-    
+
 }
