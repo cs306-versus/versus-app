@@ -21,6 +21,11 @@ import java.util.concurrent.Future;
 
 @RunWith(AndroidJUnit4.class)
 public class CacheManagerTest {
+    @Test
+    void onePlusOneIsTwo(){
+        assertTrue(1+1==2);
+
+    }
     /*
     private CacheManager manager;
 
