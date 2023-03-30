@@ -5,6 +5,7 @@ import static java.util.Objects.isNull;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +15,8 @@ import com.github.versus.auth.Authenticator;
 import com.github.versus.auth.VersusAuthenticator;
 import com.github.versus.user.User;
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.concurrent.CompletableFuture;
 
 
 /**
@@ -36,14 +39,17 @@ public class EntryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initAuthentication();
+        //setContentView(R.layout.activity_entry);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         auth.signOut();
-        User user = auth.currentUser();
-        yieldActivity(user);
+        //Log.println(Log.ERROR, "", "asdfghjkl");
+        // TODO HR : This makes the app crash
+        //((CompletableFuture<User>)auth.currentUser()).thenAccept(this::yieldActivity);
+        yieldActivity(null);
     }
 
     /**
