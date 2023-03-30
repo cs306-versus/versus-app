@@ -1,6 +1,6 @@
 local.properties
 app/google-services.json
-*.json
+
 .gradle/### Java template
 # Compiled class file
 *.class
@@ -48,6 +48,7 @@ hs_err_pid*
 .idea/**/dynamic.xml
 .idea/**/uiDesigner.xml
 .idea/**/dbnavigator.xml
+./idea/androidTestResultsUserPreferences.xml
 
 # Gradle
 .idea/**/gradle.xml
