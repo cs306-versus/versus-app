@@ -569,6 +569,7 @@ private void openPlacesDialog(){
                 new CustomPlace("Bassenges Football","Bassenges Football",new LatLng(46.52309381914529, 6.5608807098372175))
 
         );
+       showPlacesList();
 
         if (locationPermissionGranted) {
 
@@ -611,13 +612,9 @@ private void openPlacesDialog(){
 
                         // Show a dialog offering the user the list of custom places, and add a
                         // marker at the selected place.
-                        if(!hasLocations && radius != 0){
-                            showToast("No locations found within the selected radius");
 
-                        }
-                        else {
-                            showPlacesList();
-                        }
+
+
                         hasLocations=false;
 
                        // drawCircle(radius);
