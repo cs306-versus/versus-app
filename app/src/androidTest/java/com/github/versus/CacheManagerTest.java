@@ -33,11 +33,6 @@ import java.util.stream.Collectors;
 public class CacheManagerTest {
     @Rule
     public ActivityScenarioRule<MainActivity> testRule = new ActivityScenarioRule<>(MainActivity.class);
-    @Test
-    public void onePlusOneIsTwo(){
-        assertTrue(1+1==2);
-    }
-
 
     private CacheManager manager;
 

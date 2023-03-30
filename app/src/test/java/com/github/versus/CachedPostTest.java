@@ -9,6 +9,8 @@ import com.github.versus.offline.SimpleTestPost;
 import com.github.versus.posts.Location;
 import com.github.versus.posts.Post;
 import com.github.versus.posts.Timestamp;
+import com.github.versus.sports.Sport;
+import com.github.versus.user.DummyUser;
 
 import java.time.Month;
 import java.util.Calendar;
@@ -91,6 +93,27 @@ public class CachedPostTest {
         SimpleTestPost post = new SimpleTestPost();
         CachedPost cached = CachedPost.match(post);
         assertTrue(post.equals(cached.revert()));
+    }
+
+    @Test
+    public void matchPreservesUserId(){
+        DummyUser user = new DummyUser("i play football");
+        Post post = SimpleTestPost.postWith("Invalid post",
+                new Timestamp(Calendar.getInstance().get(Calendar.YEAR), Month.JANUARY, 1, 8, 1, Timestamp.Meridiem.PM),
+                new Location("Lausanne",10,10),10, Sport.SOCCER, user);
+        CachedPost cached = CachedPost.match(post);
+        assertTrue(cached.uid.equals(user.getUID()));
+    }
+
+    @Test
+    public void revertPreservesUserId(){
+        DummyUser user = new DummyUser("i play football");
+        Post post = SimpleTestPost.postWith("Invalid post",
+                new Timestamp(Calendar.getInstance().get(Calendar.YEAR), Month.JANUARY, 1, 8, 1, Timestamp.Meridiem.PM),
+                new Location("Lausanne",10,10),10, Sport.SOCCER, user);
+        CachedPost cached = CachedPost.match(post);
+        Post reverted = cached.revert();
+        assertTrue(reverted.getPlayers().get(0).equals(user));
     }
 
 

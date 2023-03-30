@@ -31,5 +31,10 @@ public final class SimpleTestPost extends Post {
         return  new Post(title,timestamp,location,new ArrayList<>(),limit, sport);
     }
 
+    public static Post postWith(String title,Timestamp timestamp,Location location, int limit,Sport sport,DummyUser creator){
+        List<DummyUser> ls = new ArrayList<>();
+        ls.add(creator);
+        return new Post(title,timestamp,location,ls,limit, sport);
+    }
 
 }
