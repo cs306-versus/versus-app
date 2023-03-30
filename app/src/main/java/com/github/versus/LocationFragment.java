@@ -682,6 +682,7 @@ private void openPlacesDialog(){
 
         dialog.setView(customView);
 
+        dialog.show();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -692,14 +693,12 @@ private void openPlacesDialog(){
                     .snippet(likelyPlaceAddresses[position]));
             addBlinkingMarker(selectedPlace, likelyPlaceNames[position], likelyPlaceAddresses[position]);
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedPlace, DEFAULT_ZOOM));*/
-                dialog.dismiss();
+                //dialog.dismiss();
             }
         });
 
 
-        dialog.show();
-        //placesDialog = builder.create();
-        //placesDialog.show();
+
     }
 
 
