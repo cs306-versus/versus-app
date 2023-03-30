@@ -521,7 +521,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 */
 
 private void openPlacesDialog(){
-    View view = LayoutInflater.from(getActivity()).inflate(R.layout.radius_layout, null);
+    /*View view = LayoutInflater.from(getActivity()).inflate(R.layout.radius_layout, null);
 
     // Get a reference to the EditText view in the layout
     EditText radiusInput = view.findViewById(R.id.edit_text_radius2);
@@ -549,8 +549,8 @@ private void openPlacesDialog(){
         }
     }).setNegativeButton("Cancel", null).create();
 
-    dialog.show();
-
+    dialog.show();*/
+    showCurrentPlace(900);
 
 }
 

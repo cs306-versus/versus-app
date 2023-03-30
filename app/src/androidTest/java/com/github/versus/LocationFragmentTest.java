@@ -124,8 +124,8 @@ public class LocationFragmentTest {
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
         // Find the menu item by its ID and perform a click
         onView(withText("Get Place")).perform(click());
-        onView(withId(R.id.edit_text_radius2)).perform(typeText("900"));
-        onView(withText("Show Places")).perform(closeSoftKeyboard(),click());
+        //onView(withId(R.id.edit_text_radius2)).perform(typeText("900"));
+       // onView(withText("Show Places")).perform(closeSoftKeyboard(),click());
 
        //onView(withText("Bassenges Football")).inRoot(isDialog()).check(matches(isDisplayed())).perform(click());
        /* DataInteraction dataInteraction = onData(anything())
