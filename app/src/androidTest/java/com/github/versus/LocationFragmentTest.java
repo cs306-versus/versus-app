@@ -174,11 +174,8 @@ public class LocationFragmentTest {
      CountingIdlingResource idlingResource = new CountingIdlingResource("CustomIdlingResource");
 
         IdlingRegistry.getInstance().register(idlingResource);
+        onView(withText("Bassenges Football")).perform(click());
 
-        onData(anything())
-                .inAdapterView(withId(R.id.test_list_view2))
-                .atPosition(0)
-                .perform(click());
         IdlingRegistry.getInstance().unregister(idlingResource);
 
 
