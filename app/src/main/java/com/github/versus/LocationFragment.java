@@ -668,9 +668,8 @@ private void openPlacesDialog(){
 
     private void showPlacesList() {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
-        LayoutInflater inflater = requireActivity().getLayoutInflater();
-        View customView = inflater.inflate(R.layout.custom_alert_dialog, null);
 
+        View customView = LayoutInflater.from(getActivity()).inflate(R.layout.custom_alert_dialog, null);
         listView = customView.findViewById(R.id.test_list_view2);
         listView.setAdapter(new ArrayAdapter<>(requireActivity(), android.R.layout.simple_list_item_1, likelyPlaceNames));
         builder.setView(customView);

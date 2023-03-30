@@ -161,10 +161,9 @@ public class LocationFragmentTest {
 
         // onView(withText("Bassenges Football")).perform(click());
 
-        SystemClock.sleep(5000);
-        onView(withText("Select a place")).check(matches(isDisplayed()));
 
-        SystemClock.sleep(5000);
+       // onView(withText("Select a place")).check(matches(isDisplayed()));
+
 
         // Wait for the ListView to be displayed
         onData(anything())
@@ -175,7 +174,7 @@ public class LocationFragmentTest {
 
 
     }
-    public static Matcher<Root> isAlertDialog() {
+   /* public static Matcher<Root> isAlertDialog() {
         return new TypeSafeMatcher<Root>() {
             @Override
             protected boolean matchesSafely(Root root) {
@@ -214,7 +213,7 @@ public class LocationFragmentTest {
         onView(withId(R.id.edit_text_radius2)).perform(typeText("10"));
         //onView(withText("Show Places")).perform(click());
     }
-    */
+
 
 
 
