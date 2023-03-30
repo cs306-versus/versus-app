@@ -17,10 +17,13 @@ import com.github.versus.announcements.AnnouncementAdapter;
 import com.github.versus.announcements.ChoosePostSportDialogFragment;
 import com.github.versus.announcements.CreatePostTitleDialogFragment;
 import com.github.versus.db.FsPostManager;
+import com.github.versus.posts.Location;
 import com.github.versus.posts.Post;
+import com.github.versus.posts.Timestamp;
 import com.github.versus.sports.Sport;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -29,13 +32,17 @@ public class SearchFragment extends Fragment implements CreatePostTitleDialogFra
 
 
     protected RecyclerView recyclerView;
-    protected Post newPost = new Post();
+    protected Post newPost;
     protected CreatePostTitleDialogFragment cpdf;
     protected ChoosePostSportDialogFragment cpsdf;
+    protected List<Post> posts = new ArrayList<>();
+
+    protected AnnouncementAdapter aa;
     protected FsPostManager pm;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        onCancel();
         View rootView = inflater.inflate(R.layout.fragment_research,container,false);
         recyclerView = rootView.findViewById(R.id.recyclerView);
         recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
@@ -51,21 +58,14 @@ public class SearchFragment extends Fragment implements CreatePostTitleDialogFra
                 createPost();
             }
         });
-        List<Post> posts = new ArrayList<>();
 
-        CompletableFuture<List<Post>> postsFuture = (CompletableFuture<List<Post>>) pm.fetchAll("test_posts");
-
-        AnnouncementAdapter aa = new AnnouncementAdapter(posts);
-        postsFuture.thenApply(newPosts -> {
-            posts.addAll(newPosts);
-            System.out.println(posts.size());
-            aa.notifyDataSetChanged();
-            return posts;
-        });
+        aa = new AnnouncementAdapter(posts);
+        loadPosts();
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(llm);
         recyclerView.setAdapter(aa);
+
         return rootView;
     }
 
@@ -88,13 +88,26 @@ public class SearchFragment extends Fragment implements CreatePostTitleDialogFra
 
     @Override
     public void onCancel() {
-        newPost = new Post();
+        Timestamp ts =  new Timestamp(2023, Month.APRIL, 4, 5, 1, Timestamp.Meridiem.AM);
+        Location unil = new Location("UNIL", 42, 42);
+        newPost = new Post("Casual Soccer", ts, unil, new ArrayList<>(), 24, Sport.SOCCER);
     }
 
     @Override
     public void onSportPositiveClick(Sport sport) {
         newPost.setSport(sport);
-        post.
         pm.insert(newPost);
+        loadPosts();
+    }
+
+    protected void loadPosts(){
+        CompletableFuture<List<Post>> postsFuture = (CompletableFuture<List<Post>>) pm.fetchAll("posts");
+        postsFuture.thenApply(newPosts -> {
+            posts.clear();
+            posts.addAll(newPosts);
+            System.out.println(posts.size());
+            aa.notifyDataSetChanged();
+            return posts;
+        });
     }
 }

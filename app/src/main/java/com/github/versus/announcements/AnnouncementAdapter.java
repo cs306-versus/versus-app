@@ -37,7 +37,7 @@ public class AnnouncementAdapter extends RecyclerView.Adapter<AnnouncementAdapte
         viewHolder.getTitleTextView().setText(posts.get(position).getTitle());
         viewHolder.getSportTextView().setText(posts.get(position).getSport().name);
         viewHolder.getMaxPlayerCountTextView().setText(posts.get(position).getPlayers().size() + "/" + posts.get(position).getPlayerLimit());
-        viewHolder.getDateTextView().setText(posts.get(position).getDate().getHour() + ":"  +posts.get(position).getDate().getHour() + " " +  posts.get(position).getDate().getDay() + "/" +posts.get(position).getDate().getMonth().getValue() + "/" + posts.get(position).getDate().getYear());
+        viewHolder.getDateTextView().setText(posts.get(position).getDate().getDay() + "/" +posts.get(position).getDate().getMonth().getValue() + "/" + posts.get(position).getDate().getYear());
 
         viewHolder.getLocationTextView().setText(posts.get(position).getLocation().toString());
     }
