@@ -6,6 +6,7 @@ import androidx.room.Room;
 
 import com.github.versus.db.DataBaseManager;
 import com.github.versus.posts.Post;
+import com.github.versus.sports.Sport;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -85,6 +86,11 @@ public final class CacheManager implements DataBaseManager<Post> {
 
     public Future<Post> randomSelect(){
         return CompletableFuture.supplyAsync(()->dao.randomSelect().revert())
+                .handle((r,e)-> e==null? r:null);
+    }
+
+    public Future<Post> loadBySport(Sport sport){
+        return CompletableFuture.supplyAsync(()->dao.loadBySport(sport.name()).revert())
                 .handle((r,e)-> e==null? r:null);
     }
 
