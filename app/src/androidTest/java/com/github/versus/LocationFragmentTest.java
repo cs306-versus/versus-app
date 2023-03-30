@@ -171,12 +171,11 @@ public class LocationFragmentTest {
         // Wait for the ListView to be displayed
         // Implement your own IdlingResource or use a pre-built one from Espresso, such as CountingIdlingResource
 
-     CountingIdlingResource idlingResource = new CountingIdlingResource("CustomIdlingResource");
+        //ElapsedTimeIdlingResource idlingResource = new ElapsedTimeIdlingResource(5000);
+       // IdlingRegistry.getInstance().register(idlingResource);
+        onView(withText("Cancel")).perform(click());
 
-        IdlingRegistry.getInstance().register(idlingResource);
-        onView(withText("Bassenges Football")).perform(click());
-
-        IdlingRegistry.getInstance().unregister(idlingResource);
+        //IdlingRegistry.getInstance().unregister(idlingResource);
 
 
 
@@ -263,6 +262,37 @@ public class LocationFragmentTest {
   }*/
 
 
+
+    public class ElapsedTimeIdlingResource implements IdlingResource {
+        private final long startTime;
+        private final long waitingTime;
+        private ResourceCallback resourceCallback;
+
+        public ElapsedTimeIdlingResource(long waitingTime) {
+            this.startTime = System.currentTimeMillis();
+            this.waitingTime = waitingTime;
+        }
+
+        @Override
+        public String getName() {
+            return ElapsedTimeIdlingResource.class.getName() + ":" + waitingTime;
+        }
+
+        @Override
+        public boolean isIdleNow() {
+            long elapsed = System.currentTimeMillis() - startTime;
+            boolean idle = (elapsed >= waitingTime);
+            if (idle && resourceCallback != null) {
+                resourceCallback.onTransitionToIdle();
+            }
+            return idle;
+        }
+
+        @Override
+        public void registerIdleTransitionCallback(ResourceCallback resourceCallback) {
+            this.resourceCallback = resourceCallback;
+        }
+    }
 
 
 
