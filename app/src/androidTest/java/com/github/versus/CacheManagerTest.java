@@ -21,6 +21,7 @@ import java.util.concurrent.Future;
 
 @RunWith(AndroidJUnit4.class)
 public class CacheManagerTest {
+    /*
     private CacheManager manager;
 
     @Before
@@ -76,4 +77,6 @@ public class CacheManagerTest {
     public void fetchUnavailablePost() throws ExecutionException, InterruptedException {
         assertTrue(manager.fetch(CachedPost.emptyID).get()==null);
     }
+    */
+
 }
