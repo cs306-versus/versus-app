@@ -14,6 +14,7 @@ import com.github.versus.posts.Location;
 import com.github.versus.posts.Post;
 import com.github.versus.posts.Timestamp;
 import com.github.versus.sports.Sport;
+import com.github.versus.user.DummyUser;
 
 import org.junit.After;
 import org.junit.Before;
@@ -22,7 +23,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.time.Month;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -156,6 +156,27 @@ public class CacheManagerTest {
         manager.insert(post).get();
         Post fetched =manager.fetch(key).get();
         assertTrue(fetched.getSport()==post.getSport());
+    }
+
+    @Test
+    public  void userPresentUIDCachedCorrectly() throws ExecutionException, InterruptedException {
+        DummyUser user = new DummyUser("i play football");
+        Post post = SimpleTestPost.postWith("Looking for football team",
+                new Timestamp(Calendar.getInstance().get(Calendar.YEAR), Month.JANUARY, 1, 8, 1, Timestamp.Meridiem.PM),
+                new Location("Lausanne",10,10),10, Sport.SOCCER, user);
+        manager.insert(post).get();
+        manager.fetch(CachedPost.computeID(post)).get();
+        assertTrue(manager.fetch(CachedPost.computeID(post)).get().getPlayers().get(0).equals(user));
+    }
+
+    @Test
+    public  void databaseDoesNotIntroduceInconsistencies() throws ExecutionException, InterruptedException {
+        Post post = SimpleTestPost.postWith("looking for football team  but im not playing",
+                new Timestamp(Calendar.getInstance().get(Calendar.YEAR), Month.JANUARY, 1, 8, 1, Timestamp.Meridiem.PM),
+                new Location("Lausanne",10,10),10, Sport.SOCCER);
+        manager.insert(post).get();
+        manager.fetch(CachedPost.computeID(post)).get();
+        assertTrue(manager.fetch(CachedPost.computeID(post)).get().getPlayers().isEmpty());
     }
 
 }

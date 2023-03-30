@@ -1,8 +1,10 @@
 package com.github.versus;
 
-import org.junit.Test;
-
-import static org.junit.Assert.*;
+import static com.github.versus.offline.CachedPost.computeID;
+import static com.github.versus.offline.CachedPost.match;
+import static com.github.versus.offline.CachedPost.postIsInvalid;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import com.github.versus.offline.CachedPost;
 import com.github.versus.offline.SimpleTestPost;
@@ -12,13 +14,10 @@ import com.github.versus.posts.Timestamp;
 import com.github.versus.sports.Sport;
 import com.github.versus.user.DummyUser;
 
+import org.junit.Test;
+
 import java.time.Month;
 import java.util.Calendar;
-
-
-import static com.github.versus.offline.CachedPost.match;
-import static com.github.versus.offline.CachedPost.postIsInvalid;
-import static com.github.versus.offline.CachedPost.computeID;
 
 public class CachedPostTest {
     @Test
@@ -104,6 +103,14 @@ public class CachedPostTest {
         CachedPost cached = CachedPost.match(post);
         assertTrue(cached.uid.equals(user.getUID()));
     }
+    @Test
+    public void matchDoesNotIntroduceInconsistentId(){
+        Post post = SimpleTestPost.postWith("Invalid post",
+                new Timestamp(Calendar.getInstance().get(Calendar.YEAR), Month.JANUARY, 1, 8, 1, Timestamp.Meridiem.PM),
+                new Location("Lausanne",10,10),10, Sport.SOCCER);
+        CachedPost cached = CachedPost.match(post);
+        assertTrue(cached.uid==null);
+    }
 
     @Test
     public void revertPreservesUserId(){
@@ -114,6 +121,16 @@ public class CachedPostTest {
         CachedPost cached = CachedPost.match(post);
         Post reverted = cached.revert();
         assertTrue(reverted.getPlayers().get(0).equals(user));
+    }
+
+    @Test
+    public void revertDoesNotIntroduceInconsistentId(){
+        Post post = SimpleTestPost.postWith("Invalid post",
+                new Timestamp(Calendar.getInstance().get(Calendar.YEAR), Month.JANUARY, 1, 8, 1, Timestamp.Meridiem.PM),
+                new Location("Lausanne",10,10),10, Sport.SOCCER);
+        CachedPost cached = CachedPost.match(post);
+        Post reverted = cached.revert();
+        assertTrue(reverted.getPlayers().isEmpty());
     }
 
 
