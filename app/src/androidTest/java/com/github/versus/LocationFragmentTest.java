@@ -15,11 +15,13 @@ import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static androidx.test.espresso.intent.matcher.IntentMatchers.hasExtra;
 import static androidx.test.espresso.matcher.RootMatchers.isDialog;
 import static androidx.test.espresso.matcher.ViewMatchers.assertThat;
+import static androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withHint;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withParent;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 import static org.hamcrest.CoreMatchers.allOf;
@@ -38,11 +40,14 @@ import android.os.SystemClock;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.core.view.GravityCompat;
 import androidx.fragment.app.testing.FragmentScenario;
 import androidx.lifecycle.Lifecycle;
 import androidx.test.core.app.ApplicationProvider;
+import androidx.test.espresso.DataInteraction;
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.PerformException;
 import androidx.test.espresso.Root;
@@ -72,12 +77,14 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
+import org.hamcrest.TypeSafeMatcher;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 @RunWith(AndroidJUnit4.class)
@@ -115,15 +122,37 @@ public class LocationFragmentTest {
         onView(withText("Get Place")).perform(click());
         onView(withId(R.id.edit_text_radius2)).perform(typeText("900"));
         onView(withText("Show Places")).perform(click());
-        onView(withText("Bassenges Football")).perform(click());
 
-        /*onData(anything())
+       //onView(withText("Bassenges Football")).inRoot(isDialog()).check(matches(isDisplayed())).perform(click());
+       /* DataInteraction dataInteraction = onData(anything())
+                .inAdapterView(allOf(withId(R.id.test_list_view), isDisplayed()))
+                .atPosition(0);
+
+        dataInteraction
+                .inRoot(isDialog())
+                .onChildView(isAssignableFrom(TextView.class))
+                .check(matches(withText("Bassenges Football")))
+                .perform(click());*/
+        //onView(withText("Bassenges Football")).perform(click());
+        onData(anything())
+                .inAdapterView(allOf(withId(R.id.test_list_view), isDisplayed()))
+                .atPosition(0)
+                .inRoot(isAlertDialog()) // Use the custom Matcher to find the AlertDialog
+                .check(matches(withText("Bassenges Football")))
+                .perform(click());
+
+
+       /* onData(anything())
                 .inAdapterView(withId(R.id.test_list_view))
                 .atPosition(0)
                 .perform(ViewActions.scrollTo())
                 .check(matches(withText("Bassenges Football")));*/
 
-       // onView(withText("Bassenges Football")).perform(click());
+
+        // Wait for the AlertDialog to appear
+
+
+        // onView(withText("Bassenges Football")).perform(click());
 
 
 
@@ -139,6 +168,21 @@ public class LocationFragmentTest {
 
 
     }
+    public static Matcher<Root> isAlertDialog() {
+        return new TypeSafeMatcher<Root>() {
+            @Override
+            protected boolean matchesSafely(Root root) {
+                int type = root.getWindowLayoutParams().get().type;
+                return type == WindowManager.LayoutParams.TYPE_APPLICATION_PANEL;
+            }
+
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("is alert dialog");
+            }
+        };
+    }
+
 
 
    /* @Test
