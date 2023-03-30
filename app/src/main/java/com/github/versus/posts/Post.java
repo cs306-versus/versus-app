@@ -20,6 +20,9 @@ public class Post {
     private List<DummyUser> players;
     private int playerLimit;
     private Sport sport ;
+
+    private String CreatorId;
+
     public Post(String title, Timestamp date, Location location, List<DummyUser> players, int playerLimit, Sport sport) {
         this.title = title;
         this.date = date;
