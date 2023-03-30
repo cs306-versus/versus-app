@@ -112,4 +112,20 @@ public class Schedule{
         return res;
 
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof Schedule)) {
+            return false;
+        }
+
+        Schedule other = (Schedule) obj;
+        return this.UID.equals(other.UID)
+                && this.scheduledPosts.equals(((Schedule) obj).scheduledPosts);
+    }
+
 }
