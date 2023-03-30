@@ -84,9 +84,10 @@ public final class CacheManager implements DataBaseManager<Post> {
                         .handle((r,e)-> e==null ? r:null);
     }
 
-    public Future<Post> randomSelect(){
-        return CompletableFuture.supplyAsync(()->dao.randomSelect().revert())
-                .handle((r,e)-> e==null? r:null);
+    public Future<List<Post>> randomSelect(){
+        return CompletableFuture.supplyAsync(()->dao.randomSelect().stream()
+                        .map(cachedPost ->cachedPost.revert()).collect(Collectors.toList()))
+                        .handle((r,e)-> e==null? r:null);
     }
 
     public Future<Post> loadBySport(Sport sport){

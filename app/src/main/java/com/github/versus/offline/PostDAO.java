@@ -21,7 +21,7 @@ public interface  PostDAO  {
 
 
     @Query("SELECT * FROM CachedPost ORDER BY RANDOM() LIMIT 1")
-    CachedPost randomSelect();
+    List<CachedPost> randomSelect();
 
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
