@@ -130,7 +130,7 @@ public class SearchFragment extends Fragment implements
 
     @Override
     public void onPickPostDate(Timestamp ts) {
-
+        newPost.setDate(ts);
         pm.insert(newPost);
         loadPosts();
     }

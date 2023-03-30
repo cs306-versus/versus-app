@@ -13,9 +13,12 @@ import android.widget.TimePicker;
 
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 import com.github.versus.posts.Timestamp;
 
+import java.sql.Time;
+import java.time.Month;
 import java.util.Calendar;
 
 public class PostDatePickerDialog extends DialogFragment implements DatePickerDialog.OnDateSetListener {
@@ -23,8 +26,11 @@ public class PostDatePickerDialog extends DialogFragment implements DatePickerDi
     public interface PickDateListener extends CancelCreate {
         public void onPickPostDate(Timestamp ts);
     }
+    PickDateListener listener;
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState){
+        Fragment f = getParentFragment();
+        listener = (PickDateListener) f;
         final Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
@@ -39,6 +45,7 @@ public class PostDatePickerDialog extends DialogFragment implements DatePickerDi
 
     @Override
     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-
+        Timestamp ts = new Timestamp(year, Month.of(month), day, 4, 4, Timestamp.Meridiem.PM);
+        listener.onPickPostDate(ts);
     }
 }
