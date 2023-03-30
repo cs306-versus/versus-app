@@ -50,11 +50,14 @@ import androidx.lifecycle.Lifecycle;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.espresso.DataInteraction;
 import androidx.test.espresso.Espresso;
+import androidx.test.espresso.IdlingRegistry;
+import androidx.test.espresso.IdlingResource;
 import androidx.test.espresso.PerformException;
 import androidx.test.espresso.Root;
 import androidx.test.espresso.UiController;
 import androidx.test.espresso.ViewAction;
 import androidx.test.espresso.action.ViewActions;
+import androidx.test.espresso.idling.CountingIdlingResource;
 import androidx.test.espresso.intent.Intents;
 import androidx.test.espresso.util.HumanReadables;
 import androidx.test.espresso.util.TreeIterables;
@@ -166,10 +169,19 @@ public class LocationFragmentTest {
 
 
         // Wait for the ListView to be displayed
+        // Implement your own IdlingResource or use a pre-built one from Espresso, such as CountingIdlingResource
+
+     CountingIdlingResource idlingResource = new CountingIdlingResource("CustomIdlingResource");
+
+        IdlingRegistry.getInstance().register(idlingResource);
+
         onData(anything())
                 .inAdapterView(withId(R.id.test_list_view2))
                 .atPosition(0)
                 .perform(click());
+        IdlingRegistry.getInstance().unregister(idlingResource);
+
+
 
 
 
