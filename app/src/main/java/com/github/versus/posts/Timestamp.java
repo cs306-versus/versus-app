@@ -36,14 +36,9 @@ public class Timestamp {
         this.seconds = 0;
         this.meridiem = meridiem;
     }
+
     private Timestamp(){
-        this.year = 0;
-        this.month = null;
-        this.day = 0;
-        this.hour = 0;
-        this.minutes = 0;
-        this.seconds = 0;
-        this.meridiem = null;
+        this(CURR_YEAR, Month.FEBRUARY, 1, 0,0,Meridiem.AM );
     }
 
 
@@ -114,6 +109,37 @@ public class Timestamp {
                 && this.getMeridiem().equals(other.getMeridiem());
     }
 
+    public int isBefore(Timestamp that) {
+        if(year != that.year){
+            return year - that.year;
+        }else{
+            if(month.ordinal() != that.month.ordinal()){
+                return month.ordinal() -that.month.ordinal() ;
+            }else {
+                //same month
+                if (day != that.day) {
+                    return day - that.day;
+                } else {
+                    //same day
+                    int hour1 = hour + ((meridiem == Meridiem.PM) ? 12 : 0);
+                    int hour2 = that.hour + ((meridiem == Meridiem.PM) ? 12 : 0);
+                    if (hour1 != hour2) {
+                        return hour1 - hour2;
+                    } else {
+                        //same hour
+                        if (minutes != that.minutes) {
+                            return minutes - that.minutes;
+                        } else {
+                            return seconds - that.seconds;
+                        }
+                    }
+
+
+                }
+            }
+        }
+    }
+
 
 
 
@@ -123,4 +149,5 @@ public class Timestamp {
     public enum Meridiem{
         AM, PM;
     }
+
 }

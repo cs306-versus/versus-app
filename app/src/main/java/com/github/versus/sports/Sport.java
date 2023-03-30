@@ -4,6 +4,7 @@ package com.github.versus.sports;
  * Java representation of a sport in Versus
  * TODO: implement this for language support: https://stackoverflow.com/questions/57987551/how-to-create-multi-language-enum-in-android
  */
+
 public enum Sport {
     ARCHERY("Archery"),
     BADMINTON("Badminton"),

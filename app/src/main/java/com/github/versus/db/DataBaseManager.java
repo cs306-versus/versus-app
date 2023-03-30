@@ -28,10 +28,11 @@ public interface DataBaseManager<D> {
     /**
      * Deletes the entry with the given id from the database.
      *
-     * @param id
-     * @return
+     * @param id id of the entry w ewant to remove
+     * @return a future wrapping the state of the removal completion
      */
     Future<Boolean> delete(String id);
+
 
 
 }
