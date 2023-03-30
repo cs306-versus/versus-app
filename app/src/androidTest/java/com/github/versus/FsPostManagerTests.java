@@ -40,7 +40,7 @@ import java.util.stream.Collectors;
 public class FsPostManagerTests {
 
         @Test
-        public void CorrectFsPostInsert_Get() throws ExecutionException, InterruptedException, TimeoutException
+        public void CorrectFsPostInsert_fetch() throws ExecutionException, InterruptedException, TimeoutException
         {
             // Creating FsPostm instance
             FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -144,6 +144,41 @@ public class FsPostManagerTests {
         assertTrue(deletionSuccess);
 
     }
+
+
+    @Test
+    public void CorrectFetchSpecific() throws ExecutionException, InterruptedException {
+        // Creating FsPostm instance
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FsPostManager postm = new FsPostManager(db);
+
+        // Creating a test post
+        Location testLocation = new Location("tirane", 0, 0);
+        String testPostName = "_test_";
+        Post post = new Post( testPostName, new Timestamp(2023, Month.AUGUST, 18, 11, 15, Timestamp.Meridiem.AM) ,
+               testLocation, new ArrayList<>(), 15, Sport.SOCCER);
+
+        //inserting the post
+        Future<Boolean> insertResult = postm.insert(post);
+
+        // Wait for the insert operation to complete
+        boolean insertSuccess = insertResult.get();
+
+        // Verify that the insert operation succeeded
+        assertTrue(insertSuccess);
+
+        // Verify that the post was inserted into Firestore
+        //by fetching it and then comparing
+        List<Post> fetchedPosts = postm.fetchSpecific("location", testLocation).get();
+        assertTrue(post.equals(fetchedPosts.get(0)));
+
+        // Clean up the test data
+        boolean deletionSuccess = postm.delete(testPostName).get();
+        assertTrue(deletionSuccess);
+    }
+
+
+
 
 
 
