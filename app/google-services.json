@@ -15,7 +15,7 @@
       "oauth_client": [
         {
           "client_id": "1049233185772-ht5dgb9m0d6sgrcp88na1tlud0ripsga.apps.googleusercontent.com",
-          "client_type": 1,
+          "client_type": 3,
           "android_info": {
             "package_name": "com.github.versus",
             "certificate_hash": "52482f3cdd93b84f86b06cff05fa3c2ed545148c"

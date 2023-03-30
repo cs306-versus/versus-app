@@ -37,8 +37,8 @@ public class AuthFragmentTest {
 
     @Test
     public void testGoogleLoginRequest(){
-//        onView(withId(R.id.auth_login_google)).perform(click());
-//        onView(withId(R.id.frag_login_google_layout)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.INVISIBLE)));
+        onView(withId(R.id.auth_login_google)).perform(click());
+        onView(withId(R.id.frag_login_google_layout)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.INVISIBLE)));
     }
 
 }
