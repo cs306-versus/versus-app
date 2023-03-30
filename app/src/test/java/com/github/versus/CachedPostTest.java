@@ -59,7 +59,7 @@ public class CachedPostTest {
 
     @Test
     public void emptyCachedPostHasCorrectID(){
-        assertTrue(new CachedPost().id.equals(CachedPost.emptyID));
+        assertTrue(new CachedPost().id.equals(CachedPost.EMPTY_ID));
     }
 
     @Test
@@ -74,7 +74,7 @@ public class CachedPostTest {
 
     @Test
     public void computeIDWithEmptyPost(){
-        assertTrue(computeID(null).equals(CachedPost.emptyID));
+        assertTrue(computeID(null).equals(CachedPost.EMPTY_ID));
     }
     @Test
     public void computeIDWithValidPost(){
