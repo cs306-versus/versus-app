@@ -161,10 +161,10 @@ public class LocationFragmentTest {
 
         // onView(withText("Bassenges Football")).perform(click());
 
+        SystemClock.sleep(5000);
+        onView(withText("Select a place")).check(matches(isDisplayed()));
 
-
-
-
+        SystemClock.sleep(5000);
 
         // Wait for the ListView to be displayed
         onData(anything())
