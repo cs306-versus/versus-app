@@ -7,8 +7,10 @@ import androidx.room.Room;
 import com.github.versus.db.DataBaseManager;
 import com.github.versus.posts.Post;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
+import java.util.stream.Collectors;
 
 public final class CacheManager implements DataBaseManager<Post> {
 
@@ -54,12 +56,30 @@ public final class CacheManager implements DataBaseManager<Post> {
                 .handle((r,e)-> e==null);
     }
 
-    public PostDAO getDao(){
-        return dao;
+    public Future<Boolean> insertAll(Post ...posts){
+        CachedPost match[]= new CachedPost[posts.length];
+        for (int i = 0; i < posts.length; i++) {
+            match[i]= CachedPost.match(posts[i]);
+            if(match[i].isEmpty){
+                return CompletableFuture.completedFuture(Boolean.FALSE);
+            }
+        }
+        return CompletableFuture.runAsync(()->dao.insertAll(match))
+                .handle((r,e)-> e==null);
     }
 
-    public PostDatabase getDb(){
-        return db;
+    public Future<List<Post>> loadAllByIds(String ids[]){
+        return CompletableFuture.supplyAsync(()->dao.loadAllByIds(ids).stream()
+                        .map(cachedPost -> cachedPost.revert()).collect(Collectors.toList()))
+                        .handle((r,e)-> e==null? r:null);
+
     }
+
+    public Future<List<Post>> getAllPosts(){
+        return CompletableFuture.supplyAsync(()-> dao.getAll().stream()
+                        .map(cachedPost -> cachedPost.revert()).collect(Collectors.toList()))
+                        .handle((r,e)-> e==null ? r:null);
+    }
+
 
 }

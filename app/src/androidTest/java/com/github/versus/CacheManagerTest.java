@@ -24,7 +24,6 @@ public class CacheManagerTest {
     @Test
     public void onePlusOneIsTwo(){
         assertTrue(1+1==2);
-
     }
     /*
     private CacheManager manager;

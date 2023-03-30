@@ -9,7 +9,7 @@ import androidx.room.Query;
 import java.util.List;
 
 @Dao
-public interface PostDAO  {
+public interface  PostDAO  {
     @Query("SELECT * FROM CachedPost")
     List<CachedPost> getAll();
 
@@ -17,10 +17,12 @@ public interface PostDAO  {
     CachedPost loadById(String id);
 
     @Query("SELECT * FROM CachedPost WHERE id IN (:ids)")
-    List<CachedPost> loadAllByIds(int[] ids);
+    List<CachedPost> loadAllByIds(String ids[]);
 
+    /*
     @Query("SELECT * FROM CachedPost ORDER BY RANDOM() LIMIT 1")
     CachedPost randomSelect();
+    */
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(CachedPost... rows);
@@ -29,8 +31,11 @@ public interface PostDAO  {
     void deleteById(String id);
 
 
+    /*
     @Delete
     void delete(CachedPost row);
+
+     */
 
 
 }

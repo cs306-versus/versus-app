@@ -19,7 +19,8 @@ import java.util.Map;
 @Entity
 public final class CachedPost {
 
-    @PrimaryKey @NonNull
+    @PrimaryKey(autoGenerate = false)
+    @NonNull
     public  String id;
     @ColumnInfo(name = "title")
     public  String title;
@@ -59,7 +60,7 @@ public final class CachedPost {
 
     @ColumnInfo(name = "empty")
     public  boolean  isEmpty;
-    public static final String emptyID= "Empty";
+    public static final String EMPTY_ID = "Empty";
     private CachedPost(Post post){
 
         id= computeID(post);
@@ -82,7 +83,7 @@ public final class CachedPost {
     }
     public CachedPost(){
         isEmpty= true;
-        id= emptyID;
+        id= EMPTY_ID;
     }
 
     public static CachedPost match(Post post){
@@ -128,7 +129,7 @@ public final class CachedPost {
 
     public static String computeID(Post post){
         if(postIsInvalid(post)){
-            return emptyID;
+            return EMPTY_ID;
         }
         return String.valueOf(post.getTitle().hashCode());
     }
