@@ -81,5 +81,14 @@ public final class CacheManager implements DataBaseManager<Post> {
                         .handle((r,e)-> e==null ? r:null);
     }
 
+    public void clearDB(){
+        db.clearAllTables();
+    }
+
+
+    public boolean DBAvailable(){
+        return db.isOpen();
+    }
+
 
 }
