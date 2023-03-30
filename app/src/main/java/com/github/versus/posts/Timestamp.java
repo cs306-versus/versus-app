@@ -36,16 +36,10 @@ public class Timestamp {
         this.seconds = 0;
         this.meridiem = meridiem;
     }
-    private Timestamp(){
-        this.year = 0;
-        this.month = null;
-        this.day = 0;
-        this.hour = 0;
-        this.minutes = 0;
-        this.seconds = 0;
-        this.meridiem = null;
-    }
 
+    private Timestamp(){
+        this(CURR_YEAR, Month.FEBRUARY, 1, 0,0,Meridiem.AM );
+    }
 
 
     /**
