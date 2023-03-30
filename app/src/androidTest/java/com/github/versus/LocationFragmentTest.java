@@ -14,6 +14,7 @@ import static androidx.test.espresso.intent.Intents.intended;
 import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static androidx.test.espresso.intent.matcher.IntentMatchers.hasExtra;
 import static androidx.test.espresso.matcher.RootMatchers.isDialog;
+import static androidx.test.espresso.matcher.RootMatchers.isPlatformPopup;
 import static androidx.test.espresso.matcher.ViewMatchers.assertThat;
 import static androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
@@ -134,13 +135,19 @@ public class LocationFragmentTest {
                 .check(matches(withText("Bassenges Football")))
                 .perform(click());*/
         //onView(withText("Bassenges Football")).perform(click());
-        onData(anything())
+        /*onData(anything())
                 .inAdapterView(allOf(withId(R.id.test_list_view), isDisplayed()))
                 .atPosition(0)
                 .inRoot(isAlertDialog()) // Use the custom Matcher to find the AlertDialog
                 .check(matches(withText("Bassenges Football")))
                 .perform(click());
-
+*/
+        onData(anything())
+                .inAdapterView(allOf(withId(R.id.test_list_view), isDisplayed()))
+                .atPosition(0)
+                .inRoot(isPlatformPopup()) // Use the isPlatformPopup() matcher to find the AlertDialog
+                .check(matches(withText("Bassenges Football")))
+                .perform(click());
 
        /* onData(anything())
                 .inAdapterView(withId(R.id.test_list_view))
