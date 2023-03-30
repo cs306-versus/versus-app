@@ -26,6 +26,9 @@ public class Post implements Serializable {
     private List<DummyUser> players;
     private int playerLimit;
     private Sport sport ;
+
+    private String CreatorId;
+
     public Post(String title, Timestamp date, Location location, List<DummyUser> players, int playerLimit, Sport sport) {
         this.title = title;
         this.date = date;
@@ -71,7 +74,6 @@ public class Post implements Serializable {
         return players;
     }
 
-
     /**
      * @return the limit of players that could join the post
      */
@@ -99,7 +101,6 @@ public class Post implements Serializable {
         return res;
 
     }
-
     @Override
     public int hashCode() {
         return Objects.hash(title);
