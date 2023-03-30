@@ -49,7 +49,7 @@ public class EntryActivity extends AppCompatActivity {
         //Log.println(Log.ERROR, "", "asdfghjkl");
         // TODO HR : This makes the app crash
         //((CompletableFuture<User>)auth.currentUser()).thenAccept(this::yieldActivity);
-        yieldActivity(null);
+        yieldActivity(auth.currentUser());
     }
 
     /**
