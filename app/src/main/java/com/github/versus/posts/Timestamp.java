@@ -110,37 +110,25 @@ public class Timestamp {
     }
 
     public int isBefore(Timestamp that) {
-        if(year < that.year){
-            return -1;
-        } else if (year > that.year) {
-            return 1;
+        if(year != that.year){
+            return year - that.year;
         }else{
-            //same year
-            if(month.ordinal() < that.month.ordinal()){
-                return -1;
-            } else if (month.ordinal() > that.month.ordinal()) {
-                return 1;
+            if(month.ordinal() != that.month.ordinal()){
+                return month.ordinal() -that.month.ordinal() ;
             }else {
                 //same month
-                if (day < that.day) {
-                    return -1;
-                } else if (day > that.day) {
-                    return 1;
+                if (day != that.day) {
+                    return day - that.day;
                 } else {
                     //same day
                     int hour1 = hour + ((meridiem == Meridiem.PM) ? 12 : 0);
                     int hour2 = that.hour + ((meridiem == Meridiem.PM) ? 12 : 0);
-                    if (hour1 < hour2) {
-                        return -1;
-                    } else if (hour1 > hour2) {
-                        return 1;
+                    if (hour1 != hour2) {
+                        return hour1 - hour2;
                     } else {
                         //same hour
-
-                        if (minutes < that.minutes) {
-                            return -1;
-                        } else if (this.minutes > that.minutes) {
-                            return 1;
+                        if (minutes != that.minutes) {
+                            return minutes - that.minutes;
                         } else {
                             return seconds - that.seconds;
                         }
