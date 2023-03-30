@@ -20,6 +20,9 @@ public class Post {
     private List<DummyUser> players;
     private int playerLimit;
     private Sport sport ;
+
+    private String CreatorId;
+
     public Post(String title, Timestamp date, Location location, List<DummyUser> players, int playerLimit, Sport sport) {
         this.title = title;
         this.date = date;
@@ -66,7 +69,6 @@ public class Post {
         return players;
     }
 
-
     /**
      * @return the limit of players that could join the post
      */
@@ -94,7 +96,6 @@ public class Post {
         return res;
 
     }
-
     @Override
     public int hashCode() {
         return Objects.hash(title);

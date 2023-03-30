@@ -21,7 +21,13 @@ import java.util.concurrent.Future;
 import java.util.concurrent.FutureTask;
 
 public class FsPostManager implements DataBaseManager<Post> {
+
+    //Collection representative Constants
+    public static FsCollections POSTCOLLECTION = FsCollections.POSTS ;
+    public static FsCollections SCHEDULECOLLECTION = FsCollections.SCHEDULES ;
+
     private final FirebaseFirestore db;
+
     /**
      * main constructor for Firestore Post Manager class
      *
@@ -32,9 +38,10 @@ public class FsPostManager implements DataBaseManager<Post> {
     }
     @Override
     public Future<Boolean> insert(Post post) {
-
-        DocumentReference docRef = db.collection("posts").document();
+        //inserting the post in the posts database
+        DocumentReference docRef = db.collection(POSTCOLLECTION.toString()).document();
         Task<Void> task = docRef.set(post.getAllAttributes());
+
 
         // Wrap the Task in a CompletableFuture that returns the status of the insertion
         CompletableFuture<Boolean> completableFuture = new CompletableFuture<>();
@@ -56,7 +63,7 @@ public class FsPostManager implements DataBaseManager<Post> {
         // announcer or a hash of the post
 
         //accessing the collection
-        CollectionReference postsRef = db.collection("posts");
+        CollectionReference postsRef = db.collection(POSTCOLLECTION.toString());
         //finding the post with the right id
         Query query = postsRef.whereEqualTo("title", id);
         Task<QuerySnapshot> task = query.get();
@@ -104,24 +111,20 @@ public class FsPostManager implements DataBaseManager<Post> {
 
         // Add a listener to the Task to handle the result
         task.addOnSuccessListener(res -> {
-                //we get the query result
-                List<DocumentSnapshot> docs = res.getDocuments();
-                if(docs.isEmpty()){
-                    //in case the query result is empty complete the future with null
-                    future.complete(new ArrayList<>());
-                }else{
-                    List<Post> posts = new ArrayList<>();
-                    for (DocumentSnapshot doc: res
-                         ) {
-                        //converting the data we get into an actual post object
-                        Post post = (new ObjectMapper()).convertValue(doc.getData(), Post.class);
-                        posts.add(post);
-                    }
+            //we get the query result
+            List<DocumentSnapshot> docs = res.getDocuments();
+            //transforming the query result into a list odf posts
+            List<Post> posts = new ArrayList<>();
+            for (DocumentSnapshot doc: docs
+            ) {
+                //converting the data we get into an actual post object
+                Post post = (new ObjectMapper()).convertValue(doc.getData(), Post.class);
+                posts.add(post);
+            }
+            future.complete(posts);
 
-                    future.complete(posts);
-                }
-             }).addOnFailureListener(res ->{
-                future.complete(null);
+        }).addOnFailureListener(res ->{
+            future.complete(null);
         });
         return future;
     }
@@ -130,7 +133,7 @@ public class FsPostManager implements DataBaseManager<Post> {
     public Future<Boolean> delete(String id) {
 
         //accessing the collection
-        CollectionReference postsRef = db.collection("posts");
+        CollectionReference postsRef = db.collection(POSTCOLLECTION.toString());
         //finding the post with the right id
         Query query = postsRef.whereEqualTo("title", id);
         Task<QuerySnapshot> task = query.get();
@@ -167,7 +170,7 @@ public class FsPostManager implements DataBaseManager<Post> {
 
     public Future<Boolean> joinPost(String postId, User user){
         //accessing the collection
-        CollectionReference postsRef = db.collection("posts");
+        CollectionReference postsRef = db.collection(POSTCOLLECTION.toString());
         //finding the announcement with the right id
         Query query = postsRef.whereEqualTo("title", postId);
         Task<QuerySnapshot> task = query.get();
@@ -216,4 +219,49 @@ public class FsPostManager implements DataBaseManager<Post> {
 
         return future;
     }
+
+
+    /**
+     *method used to filter posts based on the value of a certain attribute
+     *
+     * @param fieldName name of the field we want to base our query on
+     * @param fieldValue value of the field we want to abse our query on
+     * @return a future containing a list of posts that have the field name-value correspondence
+     */
+    public Future<List<Post>> fetchSpecific(String fieldName, Object fieldValue) {
+
+
+        CollectionReference postsRef = db.collection(POSTCOLLECTION.toString());
+
+        //finding the post with the right field name-value correspondence
+        Query query = postsRef.whereEqualTo(fieldName, fieldValue);
+        Task<QuerySnapshot> task = query.get();
+
+        // Wrap the Task in a CompletableFuture that returns the posts having the correct
+        // field-value match
+        CompletableFuture<List<Post>> future = new CompletableFuture<>();
+
+        // Add a listener to the Task link it to the completable future
+        task.addOnSuccessListener(res -> {
+            //we get the query result
+            List<DocumentSnapshot> docs = res.getDocuments();
+            //transforming the query result into a list of posts
+            List<Post> filteredPosts = new ArrayList<>();
+            for (DocumentSnapshot doc: docs
+            ) {
+                //converting the data we get into an actual Post object
+                Post post = (new ObjectMapper()).convertValue(doc.getData(), Post.class);
+                filteredPosts.add(post);
+            }
+            future.complete(filteredPosts);
+
+        }).addOnFailureListener(res ->{
+            future.complete(null);
+        });
+
+        return future;
+    }
+
+
+
 }
