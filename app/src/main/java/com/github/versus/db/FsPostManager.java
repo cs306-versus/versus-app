@@ -21,7 +21,13 @@ import java.util.concurrent.Future;
 import java.util.concurrent.FutureTask;
 
 public class FsPostManager implements DataBaseManager<Post> {
+
+    //Collection representative Constants
+    public static FsCollections POSTCOLLECTION = FsCollections.POSTS ;
+    public static FsCollections SCHEDULECOLLECTION = FsCollections.SCHEDULES ;
+
     private final FirebaseFirestore db;
+
     /**
      * main constructor for Firestore Post Manager class
      *
@@ -32,9 +38,10 @@ public class FsPostManager implements DataBaseManager<Post> {
     }
     @Override
     public Future<Boolean> insert(Post post) {
-
-        DocumentReference docRef = db.collection("posts").document();
+        //inserting the post in the posts database
+        DocumentReference docRef = db.collection(POSTCOLLECTION.toString()).document();
         Task<Void> task = docRef.set(post.getAllAttributes());
+
 
         // Wrap the Task in a CompletableFuture that returns the status of the insertion
         CompletableFuture<Boolean> completableFuture = new CompletableFuture<>();
@@ -56,7 +63,7 @@ public class FsPostManager implements DataBaseManager<Post> {
         // announcer or a hash of the post
 
         //accessing the collection
-        CollectionReference postsRef = db.collection("posts");
+        CollectionReference postsRef = db.collection(POSTCOLLECTION.toString());
         //finding the post with the right id
         Query query = postsRef.whereEqualTo("title", id);
         Task<QuerySnapshot> task = query.get();
@@ -126,7 +133,7 @@ public class FsPostManager implements DataBaseManager<Post> {
     public Future<Boolean> delete(String id) {
 
         //accessing the collection
-        CollectionReference postsRef = db.collection("posts");
+        CollectionReference postsRef = db.collection(POSTCOLLECTION.toString());
         //finding the post with the right id
         Query query = postsRef.whereEqualTo("title", id);
         Task<QuerySnapshot> task = query.get();
@@ -163,7 +170,7 @@ public class FsPostManager implements DataBaseManager<Post> {
 
     public Future<Boolean> joinPost(String postId, User user){
         //accessing the collection
-        CollectionReference postsRef = db.collection("posts");
+        CollectionReference postsRef = db.collection(POSTCOLLECTION.toString());
         //finding the announcement with the right id
         Query query = postsRef.whereEqualTo("title", postId);
         Task<QuerySnapshot> task = query.get();
@@ -224,7 +231,7 @@ public class FsPostManager implements DataBaseManager<Post> {
     public Future<List<Post>> fetchSpecific(String fieldName, Object fieldValue) {
 
 
-        CollectionReference postsRef = db.collection("posts");
+        CollectionReference postsRef = db.collection(POSTCOLLECTION.toString());
 
         //finding the post with the right field name-value correspondence
         Query query = postsRef.whereEqualTo(fieldName, fieldValue);

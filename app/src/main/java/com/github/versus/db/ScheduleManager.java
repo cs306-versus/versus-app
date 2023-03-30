@@ -2,9 +2,10 @@ package com.github.versus.db;
 
 import com.github.versus.posts.Post;
 import com.github.versus.posts.Timestamp;
-import com.github.versus.user.User;
+import com.github.versus.schedule.Schedule;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 
 public interface ScheduleManager {
@@ -14,7 +15,7 @@ public interface ScheduleManager {
      * @param UID The user id for which we want to get the schedule
      * @return a future wrapping a list of posts corresponding to the player schedule
      */
-    public Future<List<Post>> getSchedule(String UID);
+    public CompletableFuture<Schedule> getSchedule(String UID);
 
     /**
      * gets the schedule of a user starting from a certain date
@@ -22,8 +23,22 @@ public interface ScheduleManager {
      * @param startingDate The date from which we start the schedule
      * @return a future wrapping a list of posts corresponding to the player schedule
      */
-    public Future<List<Post>> getScheduleStartingFromDate(String UID, Timestamp startingDate);
+    public CompletableFuture<Schedule> getScheduleStartingFromDate(String UID, Timestamp startingDate);
+
+    /**
+     * adds a new post to a schedule to the database
+     * @param UID the user ID
+     * @param post the post to add
+     * @return a future wrapping the state of the addition completion
+     */
+    public Future<Boolean> addPostToSchedule(String UID, Post post) ;
+
+    /**
+     * adds a new empty schedule to the database
+     * @param UID the user id
+    * @return a future wrapping the state of the addition completion
+     */
+    public Future<Boolean> addScheduleToDatabase(String UID);
 
 
-
-}
+    }
