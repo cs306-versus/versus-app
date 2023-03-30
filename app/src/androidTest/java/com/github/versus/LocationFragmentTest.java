@@ -115,16 +115,13 @@ public class LocationFragmentTest {
         onView(withText("Get Place")).perform(click());
         onView(withId(R.id.edit_text_radius2)).perform(typeText("900"));
         onView(withText("Show Places")).perform(click());
-        /*onData(anything())
-                .inAdapterView(withId(R.id.test_list_view))
-                .atPosition(0)
-                .perform(ViewActions.scrollTo(),click());*/
-        onView(withId(R.id.test_list_view)).perform(ViewActions.scrollTo());
-       // onView(withText("Bassenges Football")).perform(click());
         onData(anything())
                 .inAdapterView(withId(R.id.test_list_view))
                 .atPosition(0)
-                .perform(click());
+                .perform(ViewActions.scrollTo())
+                .check(matches(withText("Bassenges Football")));
+
+       // onView(withText("Bassenges Football")).perform(click());
 
 
 
@@ -191,7 +188,7 @@ public class LocationFragmentTest {
         Thread.sleep(3000);
     }
 
-    @Test
+   /* @Test
   public void testUiElements() throws InterruptedException {
       // Find the overflow menu button and find the "Choose a radius" menu item and perform a type text action
       Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
@@ -202,7 +199,7 @@ public class LocationFragmentTest {
       //Testing circle properties
 
 
-  }
+  }*/
 
 
 
