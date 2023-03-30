@@ -22,7 +22,7 @@ import java.util.concurrent.Future;
 @RunWith(AndroidJUnit4.class)
 public class CacheManagerTest {
     @Test
-    void onePlusOneIsTwo(){
+    public void onePlusOneIsTwo(){
         assertTrue(1+1==2);
 
     }
