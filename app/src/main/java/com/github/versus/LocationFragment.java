@@ -667,12 +667,20 @@ private void openPlacesDialog(){
     }*/
 
     private void showPlacesList() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+        //AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
 
         View customView = LayoutInflater.from(getActivity()).inflate(R.layout.custom_alert_dialog, null);
         listView = customView.findViewById(R.id.test_list_view2);
         listView.setAdapter(new ArrayAdapter<>(requireActivity(), android.R.layout.simple_list_item_1, likelyPlaceNames));
-        builder.setView(customView);
+        AlertDialog dialog = new AlertDialog.Builder(getActivity()).setTitle("Select a place").setView(customView).
+                setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        }).create();
+
+        dialog.setView(customView);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -684,19 +692,14 @@ private void openPlacesDialog(){
                     .snippet(likelyPlaceAddresses[position]));
             addBlinkingMarker(selectedPlace, likelyPlaceNames[position], likelyPlaceAddresses[position]);
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedPlace, DEFAULT_ZOOM));*/
-                placesDialog.dismiss();
-            }
-        });
-
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
             }
         });
 
-        placesDialog = builder.create();
-        placesDialog.show();
+
+        dialog.show();
+        //placesDialog = builder.create();
+        //placesDialog.show();
     }
 
 
