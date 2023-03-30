@@ -26,8 +26,26 @@ public class FsScheduleManager implements ScheduleManager {
         this.db = db;
     }
 
+
     @Override
-    public CompletableFuture<Schedule> getSchedule(String UID){
+    public Future<Boolean> insert(Schedule data) {
+        //inserting the schedule in the Schedule database
+        DocumentReference docRef = db.collection(SCHEDULECOLLECTION.toString()).document();
+        Task<Void> task = docRef.set(data.getAllAttributes());
+
+        // Wrap the Task in a CompletableFuture that returns the status of the insertion
+        CompletableFuture<Boolean> completableFuture = new CompletableFuture<>();
+
+        task.addOnSuccessListener(res -> {
+            completableFuture.complete(true);
+        }).addOnFailureListener(e -> {
+            completableFuture.complete(false);
+        });
+
+        return completableFuture;    }
+
+    @Override
+    public CompletableFuture<Schedule> fetch(String UID){
 
         //accessing the User Schedule collection
         CollectionReference postsRef = db.collection(SCHEDULECOLLECTION.toString());
@@ -63,33 +81,17 @@ public class FsScheduleManager implements ScheduleManager {
 
     @Override
     public CompletableFuture<Schedule> getScheduleStartingFromDate(String UID, Timestamp startingDate) {
-        return getSchedule(UID).thenApply(s -> s == null ? null :  s.startingFromDate(startingDate));
+        return fetch(UID).thenApply(s -> s == null ? null :  s.startingFromDate(startingDate));
     }
 
 
     public CompletableFuture<Schedule> getScheduleOnDate(String UID, Timestamp startingDate) {
-        return getSchedule(UID).thenApply(s -> s == null ? null :  s.onDate(startingDate));
+        return fetch(UID).thenApply(s -> s == null ? null :  s.onDate(startingDate));
     }
 
     @Override
-    public Future<Boolean> addScheduleToDatabase(String UID){
-        //Creating the empty schedule
-        Schedule emptySchedule = new Schedule(UID);
-        //inserting the schedule in the Schedule database
-        DocumentReference docRef = db.collection(SCHEDULECOLLECTION.toString()).document();
-        Task<Void> task = docRef.set(emptySchedule.getAllAttributes());
-
-        // Wrap the Task in a CompletableFuture that returns the status of the insertion
-        CompletableFuture<Boolean> completableFuture = new CompletableFuture<>();
-
-        task.addOnSuccessListener(res -> {
-            completableFuture.complete(true);
-        }).addOnFailureListener(e -> {
-            completableFuture.complete(false);
-        });
-
-        return completableFuture;
-
+    public Future<Boolean> delete(String UID) {
+        return null;
     }
 
     @Override

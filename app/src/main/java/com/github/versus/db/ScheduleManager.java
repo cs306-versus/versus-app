@@ -8,14 +8,9 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 
-public interface ScheduleManager {
+public interface ScheduleManager extends DataBaseManager<Schedule> {
 
-    /**
-     * gets the schedule (posts the a player joined)
-     * @param UID The user id for which we want to get the schedule
-     * @return a future wrapping a list of posts corresponding to the player schedule
-     */
-    public CompletableFuture<Schedule> getSchedule(String UID);
+
 
     /**
      * gets the schedule of a user starting from a certain date
@@ -32,13 +27,5 @@ public interface ScheduleManager {
      * @return a future wrapping the state of the addition completion
      */
     public Future<Boolean> addPostToSchedule(String UID, Post post) ;
-
-    /**
-     * adds a new empty schedule to the database
-     * @param UID the user id
-    * @return a future wrapping the state of the addition completion
-     */
-    public Future<Boolean> addScheduleToDatabase(String UID);
-
-
-    }
+    
+}
