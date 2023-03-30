@@ -8,9 +8,11 @@ import androidx.room.PrimaryKey;
 import com.github.versus.posts.Location;
 import com.github.versus.posts.Post;
 import com.github.versus.posts.Timestamp;
+import com.github.versus.sports.Sport;
 import com.github.versus.user.DummyUser;
 
 import java.time.Month;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -94,37 +96,9 @@ public final class CachedPost {
     }
 
     public Post revert(){
-        return new Post() {
-            @Override
-            public String getTitle() {
-                return title;
-            }
-
-            @Override
-            public Timestamp getDate() {
-                return new Timestamp(year,Month.valueOf(month),day,hour,minutes, Timestamp.Meridiem.valueOf(meridiem));
-            }
-
-            @Override
-            public Location getLocation() {
-                return new Location(locationName,latitude,longitude);
-            }
-
-            @Override
-            public List<DummyUser> getPlayers() {
-                 throw new RuntimeException("Not implemented");
-            }
-
-            @Override
-            public int getPlayerLimit() {
-                return limit;
-            }
-
-            @Override
-            public Map<String, Object> getAllAttributes() {
-                throw  new RuntimeException("Not Implemented");
-            }
-        };
+        Timestamp timestamp= new Timestamp(year,Month.valueOf(month),day,hour,minutes, Timestamp.Meridiem.valueOf(meridiem));
+        Location location = new Location(locationName,latitude,longitude);
+        return new  Post(title, timestamp, location, new ArrayList<>(),  limit, Sport.SOCCER);
     }
 
     public static String computeID(Post post){
