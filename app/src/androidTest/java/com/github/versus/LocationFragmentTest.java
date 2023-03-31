@@ -47,6 +47,7 @@ import android.widget.TextView;
 import androidx.core.view.GravityCompat;
 import androidx.fragment.app.testing.FragmentScenario;
 import androidx.lifecycle.Lifecycle;
+import androidx.test.core.app.ActivityScenario;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.espresso.DataInteraction;
 import androidx.test.espresso.Espresso;
@@ -147,55 +148,37 @@ public class LocationFragmentTest {
 
     }*/
     @Test
-    public void testSuccess() throws InterruptedException {
-
-
-        String placeName = "Bassenges Football";
+    public void testShowPlaces() throws InterruptedException {
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
         // Find the menu item by its ID and perform a click
         onView(withText("Get Place")).perform(click());
-
         onView(withId(R.id.edit_text_radius2)).perform(typeText("800"));
         onView(withText("Show Places")).perform(click());
-
-
-
-
-        onView(withText("Cancel")).perform(click());
-
-        //IdlingRegistry.getInstance().unregister(idlingResource);
-
-
-
-
 
     }
 
 
 
 
-   /* @Test
+    @Test
     public void testIfNoLocationWithinRadius() throws InterruptedException {
         // Find the overflow menu button and find the "Choose a radius" menu item and perform a type text action
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
         // Find the menu item by its ID and perform a click
         onView(withText("Get Place")).perform(click());
-
         onView(withId(R.id.edit_text_radius2)).perform(typeText("10"));
-
-
-
-
-    }*/
-    /*@Test
-    public void test3s() throws InterruptedException {
+    }
+    @Test
+    public void testNoValidRadius() throws InterruptedException {
         // Find the overflow menu button and find the "Choose a radius" menu item and perform a type text action
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
         // Find the menu item by its ID and perform a click
         onView(withText("Get Place")).perform(click());
-        onView(withId(R.id.edit_text_radius2)).perform(typeText("10"));
-        //onView(withText("Show Places")).perform(click());
+        onView(withText("Show Places")).perform(click());
     }
+
+
+
 
 
 
@@ -203,86 +186,39 @@ public class LocationFragmentTest {
 
 
     @Test
-    public void testNoRadiusInput() throws InterruptedException {
-        // Find the overflow menu button and find the "Choose a radius" menu item and perform a type text action
-        Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
-        // Find the menu item by its ID and perform a click
-        onView(withText("Get Place")).perform(click());
-        onView(withText(("Show Places"))).perform(click());
-    }
-
-    @Test
-    public void testNoCloseLocations() throws InterruptedException {
-        // Find the overflow menu button and find the "Choose a radius" menu item and perform a type text action
-        Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
-        // Find the menu item by its ID and perform a click
-        onView(withText("Get Place")).perform(click());
-
-        onView(withId(R.id.edit_text_radius2)).perform(typeText("10"));
-        onView(withText(("Show Places"))).perform(click());
-        Thread.sleep(3000);
-    }
-
-   /* @Test
   public void testUiElements() throws InterruptedException {
       // Find the overflow menu button and find the "Choose a radius" menu item and perform a type text action
-      Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
-      // Find the menu item by its ID and perform a click
-      onView(withText("Choose a radius")).perform(click());
-      onView(withId(R.id.edit_text_radius2)).perform(typeText("1000"));
-      onView(withText("Show Places")).perform(click());
-      //Testing circle properties
+        LocationFragment location=new LocationFragment();
+        LatLng epfl = new LatLng(46.520536, 6.568318);
+        MarkerOptions epflMarker = new MarkerOptions().position(epfl).title("EPFL");
+        location.addBlinkingMarker(epfl,"epfl","epfl");
 
 
-  }*/
+  }
+   /* @Test
+    public void testMapOperation() {
 
 
 
-    public class ElapsedTimeIdlingResource implements IdlingResource {
-        private final long startTime;
-        private final long waitingTime;
-        private ResourceCallback resourceCallback;
+            @Override
+            public void perform(LocationFragment activity) {
+                GoogleMap map = LocationFragment.map;
+                LocationFragment location=new LocationFragment();
+                LatLng epfl = new LatLng(46.520536, 6.568318);
+                MarkerOptions epflMarker = new MarkerOptions().position(epfl).title("EPFL");
+                location.addBlinkingMarker(epfl,"epfl","epfl");
 
-        public ElapsedTimeIdlingResource(long waitingTime) {
-            this.startTime = System.currentTimeMillis();
-            this.waitingTime = waitingTime;
-        }
+                // Perform your map-related operation here
+                // For example, you can call map.getMyLocation() or any other UI-related operation
 
-        @Override
-        public String getName() {
-            return ElapsedTimeIdlingResource.class.getName() + ":" + waitingTime;
-        }
-
-        @Override
-        public boolean isIdleNow() {
-            long elapsed = System.currentTimeMillis() - startTime;
-            boolean idle = (elapsed >= waitingTime);
-            if (idle && resourceCallback != null) {
-                resourceCallback.onTransitionToIdle();
             }
-            return idle;
-        }
-
-        @Override
-        public void registerIdleTransitionCallback(ResourceCallback resourceCallback) {
-            this.resourceCallback = resourceCallback;
-        }
+        });
     }
+}*/
 
 
 
-    private void clickOnLocation(String  location,String radius) throws InterruptedException {
-        Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
-        // Find the menu item by its ID and perform a click
-        onView(withText("Get Place")).perform(click());
-        onView(withId(R.id.edit_text_radius2)).perform(typeText(radius));
-        onView(withText("Show Places")).perform(click());
-        String placeName = location;
-        // Wait for the ListView to be displayed
-        onView(withText(placeName)).perform(click());
 
-
-    }
 
 
 }

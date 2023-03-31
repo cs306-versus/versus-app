@@ -1,6 +1,5 @@
 
 
-
 package com.github.versus;
 
 import android.animation.ValueAnimator;
@@ -94,7 +93,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     // The entry point to the Fused Location Provider.
     private FusedLocationProviderClient fusedLocationProviderClient;
     private boolean locationPermissionGranted;
-    public static CircleOptions circleOptions;//TODO See if its a good idea
+
     private EditText editTextRadius;
     private Location lastKnownLocation;
     private static LatLng epfl;
@@ -104,9 +103,9 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     private static final int M_MAX_ENTRIES = 5;
     private static String[] likelyPlaceNames;
     private String[] likelyPlaceAddresses;
-    private List[] likelyPlaceAttributions;
+
     private LatLng[] likelyPlaceLatLngs;
-    private AlertDialog placesDialog;
+
     private  ListView listView ;
     private boolean hasLocations = false;
     private Circle mapCircle;
@@ -351,11 +350,6 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
             Log.e("Exception: %s", e.getMessage());
         }
     }
-
-
-
-
-
     private void openPlacesDialog(){
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.radius_layout, null);
 
@@ -365,208 +359,6 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         radiusInput.setHint("Enter radius (in meters)");
 
         // Create a dialog to display the EditText view
-
-        Double distance[] = {
-                haversineDistance(localPos,customPlaces.get(0).latLng), haversineDistance(localPos,customPlaces.get(1).latLng), haversineDistance(localPos,customPlaces.get(2).latLng),
-        };
-        AlertDialog dialog = new AlertDialog.Builder(getActivity()).setTitle("Enter radius").setView(view).setPositiveButton("Show Places", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // Get the radius entered by the user
-                String radiusStr = radiusInput.getText().toString();
-                if (!TextUtils.isEmpty(radiusStr)) {
-                    radius = Float.parseFloat(radiusInput.getText().toString());
-                    for (int i=0;i<customPlaces.size();i++){
-
-                        if (distance[i] <= radius) {
-                            filteredPlaces.add(customPlaces.get(i));
-                            hasLocations = true;
-                        }
-                        showCurrentPlace(radius);
-                        dialog.dismiss();
-                    }
-                }
-                else  {
-                    showToast("Please enter a radius");
-                }
-
-
-            }
-        }).setNegativeButton("Cancel", null).create();
-
-        dialog.show();
-
-
-    }
-
-
-
-
-
-    List<CustomPlace> filteredPlaces = new ArrayList<>();
-    List<CustomPlace> customPlaces = Arrays.asList(new CustomPlace("UNIL Football", "UNIL Football", new LatLng(46.519385, 6.580856)),
-            new CustomPlace("Chavannes Football", "Chavannes Football", new LatLng(46.52527373363714, 6.57366257779824)),
-            new CustomPlace("Bassenges Football", "Bassenges Football", new LatLng(46.52309381914529, 6.5608807098372175)));
-
-    private void showCurrentPlace(double radius) {
-
-
-
-
-        /*for (CustomPlace customPlace : customPlaces) {
-            double distance = haversineDistance(localPos, customPlace.latLng);
-            if (distance <= radius) {
-                filteredPlaces.add(customPlace);
-                hasLocations = true;
-            }
-        }*/
-
-
-        int count = customPlaces.size();
-
-        likelyPlaceNames = new String[count];
-        likelyPlaceAddresses = new String[count];
-        likelyPlaceAttributions = new List[count];
-        likelyPlaceLatLngs = new LatLng[count];
-
-        for (int i = 0; i < count; i++) {
-            CustomPlace customPlace = filteredPlaces.get(i);
-            likelyPlaceNames[i] = customPlace.name;
-            likelyPlaceAddresses[i] = customPlace.address;
-            likelyPlaceLatLngs[i] = customPlace.latLng;
-        }
-        showPlacesList();
-        /*if (map == null) {
-            return;
-        }
-
-        List<CustomPlace> customPlaces = Arrays.asList(new CustomPlace("UNIL Football", "UNIL Football", new LatLng(46.519385, 6.580856)),
-                new CustomPlace("Chavannes Football", "Chavannes Football", new LatLng(46.52527373363714, 6.57366257779824)),
-                new CustomPlace("Bassenges Football", "Bassenges Football", new LatLng(46.52309381914529, 6.5608807098372175))
-
-        );
-
-        List<CustomPlace> filteredPlaces = new ArrayList<>();
-        for (CustomPlace customPlace : customPlaces) {
-            double distance = haversineDistance(localPos, customPlace.latLng);
-
-            if (distance <= radius) {
-                filteredPlaces.add(customPlace);
-                hasLocations = true;
-            }
-
-        }
-
-
-        int count = filteredPlaces.size();
-
-        likelyPlaceNames = new String[count];
-        likelyPlaceAddresses = new String[count];
-        likelyPlaceAttributions = new List[count];
-        likelyPlaceLatLngs = new LatLng[count];
-
-        for (int i = 0; i < count; i++) {
-            CustomPlace customPlace = filteredPlaces.get(i);
-            likelyPlaceNames[i] = customPlace.name;
-            likelyPlaceAddresses[i] = customPlace.address;
-            likelyPlaceLatLngs[i] = customPlace.latLng;
-        }
-
-        // Show a dialog offering the user the list of custom places, and add a
-        // marker at the selected place.
-        if (!hasLocations && radius != 0) {
-            showToast("No locations found within the selected radius");
-
-        } else {
-            showPlacesList();
-        }
-        hasLocations = false;
-
-        // drawCircle(radius);
-*/
-    }
-
-
-
-    /*private void showPlacesList() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
-        builder.setTitle("Select a place");
-
-        listView = new ListView(requireActivity());
-        listView.setAdapter(new ArrayAdapter<>(requireActivity(), android.R.layout.simple_list_item_1, likelyPlaceNames));
-        listView.setId(R.id.test_list_view);
-        builder.setView(listView);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                /*LatLng selectedPlace = likelyPlaceLatLngs[position];
-                Marker marker = map.addMarker(new MarkerOptions()
-                        .title(likelyPlaceNames[position])
-                        .position(selectedPlace)
-                        .snippet(likelyPlaceAddresses[position]));
-                addBlinkingMarker(selectedPlace, likelyPlaceNames[position], likelyPlaceAddresses[position]);
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedPlace, DEFAULT_ZOOM));
-                placesDialog.dismiss();
-
-
-            }
-        });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-
-        placesDialog = builder.create();
-
-
-        placesDialog.show();
-    }*/
-
-    private void showPlacesList() {
-        /*
-        //AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
-
-        View customView = LayoutInflater.from(getActivity()).inflate(R.layout.custom_alert_dialog, null);
-       // listView = customView.findViewById(R.id.test_list_view2);
-       // listView.setAdapter(new ArrayAdapter<>(requireActivity(), android.R.layout.simple_list_item_1, likelyPlaceNames));
-        AlertDialog dialog = new AlertDialog.Builder(getActivity()).setTitle("Select a place").setView(customView).
-                setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        }).create();
-
-        //dialog.setView(customView);
-
-        dialog.show();
-        /*listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            /*LatLng selectedPlace = likelyPlaceLatLngs[position];
-            Marker marker = map.addMarker(new MarkerOptions()
-                    .title(likelyPlaceNames[position])
-                    .position(selectedPlace)
-                    .snippet(likelyPlaceAddresses[position]));
-            addBlinkingMarker(selectedPlace, likelyPlaceNames[position], likelyPlaceAddresses[position]);
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedPlace, DEFAULT_ZOOM));
-                //dialog.dismiss();
-            }
-        });
-
-*/
-        /*View view = LayoutInflater.from(getActivity()).inflate(R.layout.radius_layout, null);
-
-        // Get a reference to the EditText view in the layout
-        EditText radiusInput = view.findViewById(R.id.edit_text_radius2);
-        radiusInput.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-        radiusInput.setHint("Enter radius (in meters)");
-
-        // Create a dialog to display the EditText view
-
-
         AlertDialog dialog = new AlertDialog.Builder(getActivity()).setTitle("Enter radius").setView(view).setPositiveButton("Show Places", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -575,7 +367,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                 if (!TextUtils.isEmpty(radiusStr)) {
                     radius = Float.parseFloat(radiusInput.getText().toString());
                     showCurrentPlace(radius);
-                    dialog.dismiss();
+                    drawCircle(radius);
                 }
                 else  {
                     showToast("Please enter a radius");
@@ -585,7 +377,84 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
             }
         }).setNegativeButton("Cancel", null).create();
 
-        dialog.show();*/
+        dialog.show();
+
+
+    }
+    private void showCurrentPlace(double radius) {
+        if (map == null) {
+            return;
+        }
+        List<CustomPlace> customPlaces = Arrays.asList(new CustomPlace("UNIL Football", "UNIL Football", new LatLng(46.519385, 6.580856)),
+                new CustomPlace("Chavannes Football", "Chavannes Football", new LatLng(46.52527373363714, 6.57366257779824)),
+                new CustomPlace("Bassenges Football","Bassenges Football",new LatLng(46.52309381914529, 6.5608807098372175))
+
+        );
+
+        if (locationPermissionGranted) {
+
+            FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity());
+            @SuppressWarnings("MissingPermission") Task<Location> lastLocation = fusedLocationClient.getLastLocation();
+
+
+            lastLocation.addOnSuccessListener(new OnSuccessListener<Location>() {
+                @Override
+                public void onSuccess(Location location) {
+                    if (location != null) {
+                        LatLng userLatLng = new LatLng(location.getLatitude(), location.getLongitude());
+
+                        List<CustomPlace> filteredPlaces = new ArrayList<>();
+                        for (CustomPlace customPlace : customPlaces) {
+                            double distance = haversineDistance(userLatLng, customPlace.latLng);
+
+                            if (distance <= radius) {
+                                filteredPlaces.add(customPlace);
+                                hasLocations=true;
+                            }
+
+                        }
+
+
+
+                        int count = filteredPlaces.size();
+
+                        likelyPlaceNames = new String[count];
+                        likelyPlaceAddresses = new String[count];
+                        likelyPlaceLatLngs = new LatLng[count];
+
+                        for (int i = 0; i < count; i++) {
+                            CustomPlace customPlace = filteredPlaces.get(i);
+                            likelyPlaceNames[i] = customPlace.name;
+                            likelyPlaceAddresses[i] = customPlace.address;
+                            likelyPlaceLatLngs[i] = customPlace.latLng;
+                        }
+
+                        // Show a dialog offering the user the list of custom places, and add a
+                        // marker at the selected place.
+                        if(!hasLocations && radius != 0){
+                            showToast("No locations found within the selected radius");
+
+                        }
+                        else {
+                            showPlacesList();
+                            drawCircle(radius);
+                        }
+                        hasLocations=false;
+
+                        // drawCircle(radius);
+                    }
+                }
+            });
+        } else {
+            // The user has not granted permission.
+            Log.i(TAG, "The user did not grant location permission.");
+
+            getLocationPermission();
+        }
+    }
+
+
+    private void showPlacesList() {
         View customView = LayoutInflater.from(getActivity()).inflate(R.layout.custom_alert_dialog, null);
         listView = customView.findViewById(R.id.test_list_view2);
         listView.setAdapter(new ArrayAdapter<>(requireActivity(), android.R.layout.simple_list_item_1, likelyPlaceNames));
@@ -601,92 +470,19 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            /*LatLng selectedPlace = likelyPlaceLatLngs[position];
-            Marker marker = map.addMarker(new MarkerOptions()
-                    .title(likelyPlaceNames[position])
-                    .position(selectedPlace)
-                    .snippet(likelyPlaceAddresses[position]));
-            addBlinkingMarker(selectedPlace, likelyPlaceNames[position], likelyPlaceAddresses[position]);
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedPlace, DEFAULT_ZOOM));*/
-                //dialog.dismiss();
+                LatLng selectedPlace = likelyPlaceLatLngs[position];
+                Marker marker = map.addMarker(new MarkerOptions()
+                        .title(likelyPlaceNames[position])
+                        .position(selectedPlace)
+                        .snippet(likelyPlaceAddresses[position]));
+                addBlinkingMarker(selectedPlace, likelyPlaceNames[position], likelyPlaceAddresses[position]);
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedPlace, DEFAULT_ZOOM));
+                dialog.dismiss();
             }
         });
         dialog.show();
 
-
     }
-
-
-
-    /*private void showPlacesList() {
-
-            // Create a ListView
-            ListView listView = new ListView(getActivity());
-            listView.setAdapter(new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, likelyPlaceNames));
-            listView.setId(R.id.test_list_view);
-
-            // Set the onItemClick listener for the ListView
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                    LatLng selectedPlace = likelyPlaceLatLngs[position];
-                    Marker marker=map.addMarker(new MarkerOptions()
-                            .title(likelyPlaceNames[position])
-                            .position(selectedPlace)
-                            .snippet(likelyPlaceAddresses[position]));
-                    //addBlinkingMarker(selectedPlace, likelyPlaceNames[position], likelyPlaceAddresses[position]);
-                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedPlace, DEFAULT_ZOOM));
-                    //dialog.dismiss();
-
-                }
-            });
-
-            // Create an AlertDialog with the ListView
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setTitle("Select a place")
-                    .setView(listView)
-                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-
-            // Show the AlertDialog
-            AlertDialog dialog = builder.create();
-            dialog.show();
-        }
-*/
-
-
-
-  /*  private void showPlacesList() {
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.radius_layout, null);
-        AlertDialog dialog = new AlertDialog.Builder(getActivity()).setTitle("Enter radius").setView(view).setPositiveButton("Show Places", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // Get the radius entered by the user
-                String radiusStr = radiusInput.getText().toString();
-                if (!TextUtils.isEmpty(radiusStr)) {
-                    radius = Float.parseFloat(radiusInput.getText().toString());
-
-                    showCurrentPlace(radius);
-                }
-                else  {
-                    showToast("Please enter a radius");
-                }
-
-
-            }
-        }).setNegativeButton("Cancel", null).create();
-
-        dialog.show();
-    }
-    */
-
-
-
     //Utilitary methods
     private void showToast(String message) {
         LayoutInflater inflater = getLayoutInflater();
@@ -761,7 +557,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         });
         animator.start();
     }
-    private void addBlinkingMarker(LatLng position, String title, String snippet) {
+     void addBlinkingMarker(LatLng position, String title, String snippet) {
         Marker mainMarker = map.addMarker(new MarkerOptions()
                 .position(position)
                 .title(title)
