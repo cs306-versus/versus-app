@@ -92,22 +92,22 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     private PlacesClient placesClient;
     // The entry point to the Fused Location Provider.
     private FusedLocationProviderClient fusedLocationProviderClient;
-    private boolean locationPermissionGranted;
+    private static boolean locationPermissionGranted;
 
     private EditText editTextRadius;
-    private Location lastKnownLocation;
+    private static Location lastKnownLocation;
     private static LatLng epfl;
     private float radius;
     public static MarkerOptions epflMarker;
 
     private static final int M_MAX_ENTRIES = 5;
     private static String[] likelyPlaceNames;
-    private String[] likelyPlaceAddresses;
+    private static String[] likelyPlaceAddresses;
 
-    private LatLng[] likelyPlaceLatLngs;
+    private static LatLng[] likelyPlaceLatLngs;
 
-    private  ListView listView ;
-    private boolean hasLocations = false;
+    private static ListView listView ;
+    private static boolean hasLocations = false;
      static Circle mapCircle;
 
 
@@ -332,7 +332,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     /**
      * Updates the map's UI settings based on whether the user has granted location permission.
      */
-     void updateLocationUI() {
+      void updateLocationUI() {
         if (map == null) {
             return;
         }
@@ -504,7 +504,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
      * @param message The message to be displayed in the custom toast.
      */
 
-    void showToast(String message) {
+     void showToast(String message) {
         LayoutInflater inflater = getLayoutInflater();
         View layout = inflater.inflate(R.layout.custom_toast, (ViewGroup) requireActivity().findViewById(R.id.custom_toast_root));
 
@@ -528,7 +528,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
      * The method clears the map of any previous circles and applies a flashing animation to the newly drawn circle.
      * @param radius The radius (in meters) of the circle to be drawn.
      */
-    void drawCircle( double radius) {
+    static void drawCircle( double radius) {
         //Clearing the map from previous circles
         map.clear();
         CircleOptions circleOptions = new CircleOptions().center(localPos).radius(radius).
@@ -542,7 +542,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
      * @param latLng2 The second LatLng point.
      * @return The haversine distance between the two points in meters.
      */
-    double haversineDistance(LatLng latLng1, LatLng latLng2) {
+    static double haversineDistance(LatLng latLng1, LatLng latLng2) {
         double earthRadius = 6371; // Radius of the earth in km
         double dLat = Math.toRadians(latLng2.latitude - latLng1.latitude);
         double dLng = Math.toRadians(latLng2.longitude - latLng1.longitude);
@@ -557,7 +557,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
      * @param marker The marker to apply the blinking animation to.
      */
 
-    private void applyBlinkingAnimation(Marker marker) {
+    static private void applyBlinkingAnimation(Marker marker) {
         final Handler handler = new Handler();
         final Runnable blinkingRunnable = new Runnable() {
             @Override
@@ -578,7 +578,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
      * @param circle The circle to apply the flashing animation to.
      */
 
-    void applyFlashingAnimation(Circle circle) {
+    static  void applyFlashingAnimation(Circle circle) {
         ValueAnimator animator = ValueAnimator.ofInt(100, 255);
         animator.setDuration(1000);
         animator.setRepeatCount(ValueAnimator.INFINITE);
@@ -599,7 +599,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
      * @param title The title of the marker.
      * @param snippet The snippet of the marker.
      */
-     void addBlinkingMarker(LatLng position, String title, String snippet) {
+     static void addBlinkingMarker(LatLng position, String title, String snippet) {
         Marker mainMarker = map.addMarker(new MarkerOptions()
                 .position(position)
                 .title(title)
