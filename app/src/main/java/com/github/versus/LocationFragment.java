@@ -366,7 +366,9 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
         // Create a dialog to display the EditText view
 
-
+        Double distance[] = {
+                haversineDistance(localPos,customPlaces.get(0).latLng), haversineDistance(localPos,customPlaces.get(1).latLng), haversineDistance(localPos,customPlaces.get(2).latLng),
+        };
         AlertDialog dialog = new AlertDialog.Builder(getActivity()).setTitle("Enter radius").setView(view).setPositiveButton("Show Places", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -374,15 +376,16 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                 String radiusStr = radiusInput.getText().toString();
                 if (!TextUtils.isEmpty(radiusStr)) {
                     radius = Float.parseFloat(radiusInput.getText().toString());
-                    for (CustomPlace customPlace : customPlaces) {
+                    for (int i=0;i<customPlaces.size();i++){
 
-                            filteredPlaces.add(customPlace);
+                        if (distance[i] <= radius) {
+                            filteredPlaces.add(customPlaces.get(i));
                             hasLocations = true;
                         }
                         showCurrentPlace(radius);
                         dialog.dismiss();
                     }
-
+                }
                 else  {
                     showToast("Please enter a radius");
                 }
