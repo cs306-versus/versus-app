@@ -52,6 +52,7 @@ public class UserInfoFragmentTest {
         //onView(withId(R.id.info_uid)).check(matches(withText(containsString("EPPOpGluoEQe6OsYZJ96mvZ1Ytu2"))));
     }
 
+    @Test
     public void checkWithUser(){
         frag.updateUI(new VersusUser.Builder("").build());
     }
