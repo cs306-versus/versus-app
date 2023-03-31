@@ -568,7 +568,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         List<CustomPlace> customPlaces = Arrays.asList(new CustomPlace("UNIL Football", "UNIL Football", new LatLng(46.519385, 6.580856)),
                 new CustomPlace("Chavannes Football", "Chavannes Football", new LatLng(46.52527373363714, 6.57366257779824)),
                 new CustomPlace("Bassenges Football", "Bassenges Football", new LatLng(46.52309381914529, 6.5608807098372175)));
-        /*for (CustomPlace customPlace : customPlaces) {
+        for (CustomPlace customPlace : customPlaces) {
             double distance = haversineDistance(localPos, customPlace.latLng);
 
             if (distance <= radius) {
@@ -576,10 +576,10 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                 hasLocations = true;
             }
 
-        }*/
+        }
 
 
-        int count = customPlaces.size();
+        int count = filteredPlaces.size();
 
         likelyPlaceNames = new String[count];
         likelyPlaceAddresses = new String[count];
@@ -587,7 +587,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         likelyPlaceLatLngs = new LatLng[count];
 
         for (int i = 0; i < count; i++) {
-            CustomPlace customPlace = customPlaces.get(i);
+            CustomPlace customPlace = filteredPlaces.get(i);
             likelyPlaceNames[i] = customPlace.name;
             likelyPlaceAddresses[i] = customPlace.address;
             likelyPlaceLatLngs[i] = customPlace.latLng;
