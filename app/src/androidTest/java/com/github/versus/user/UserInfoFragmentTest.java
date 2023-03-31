@@ -35,7 +35,7 @@ public class UserInfoFragmentTest {
         FirebaseAuth.getInstance().signInWithEmailAndPassword("test@versus.ch", "123456789");
         onView(withId(R.id.drawer_layout)).check(matches(DrawerMatchers.isClosed(GravityCompat.START))).perform(DrawerActions.open());
         onView(withId(R.id.drawer_layout)).check(matches(DrawerMatchers.isOpen(GravityCompat.START)));
-        onView(withId(R.id.nav_user_profil)).perform(scrollTo()).perform(click());
+        onView(withId(R.id.nav_user_profil)).perform(click());
     }
 
     @Test
