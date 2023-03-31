@@ -37,7 +37,7 @@ public class UserInfoFragmentTest {
     @Before
     public void setUpFragment(){
         Task<AuthResult> task = FirebaseAuth.getInstance().signInWithEmailAndPassword("test@versus.ch", "123456789");
-        while(!task.isComplete() || !task.isCanceled());
+        while(!task.isComplete() && !task.isCanceled());
         frag = setUp();
         // Wait for async
         for (int i = 0; i < 40_000_000; i++);
