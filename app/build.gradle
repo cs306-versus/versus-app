@@ -4,6 +4,7 @@ plugins {
     id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
     id 'jacoco'
     id 'org.jetbrains.kotlin.android'
+
 }
 
 android {
@@ -80,6 +81,9 @@ dependencies {
     androidTestImplementation 'androidx.test:rules:1.5.0'
     androidTestImplementation 'androidx.test.espresso:espresso-intents:3.5.1'
     androidTestImplementation 'androidx.fragment:fragment-testing:1.4.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-idling-resource:3.4.0'
+
+
 
 
     // Caching with Room Database dependencies
