@@ -149,7 +149,7 @@ public class LocationFragmentTest {
         onView(withText("Get Place")).perform(click());
         //onView(withText("Show Places")).perform(click());
     }
-    /*@Test
+    @Test
         public void testAnimations() {
             try (ActivityScenario<MainActivity> scenario = ActivityScenario.launch(MainActivity.class)) {
 
@@ -189,7 +189,7 @@ public class LocationFragmentTest {
             }
         }
 
-    /*@Test
+    @Test
     public void testDialogAlertBox() {
         try (ActivityScenario<MainActivity> scenario = ActivityScenario.launch(MainActivity.class)) {
 
@@ -223,7 +223,7 @@ public class LocationFragmentTest {
             // Move the activity to a destroyed state
             scenario.moveToState(Lifecycle.State.DESTROYED);
         }
-    }*/
+    }
 }
 
 
