@@ -564,7 +564,36 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
 
     private void showCurrentPlace(double radius) {
-        if (map == null) {
+        List<CustomPlace> filteredPlaces = new ArrayList<>();
+        List<CustomPlace> customPlaces = Arrays.asList(new CustomPlace("UNIL Football", "UNIL Football", new LatLng(46.519385, 6.580856)),
+                new CustomPlace("Chavannes Football", "Chavannes Football", new LatLng(46.52527373363714, 6.57366257779824)),
+                new CustomPlace("Bassenges Football", "Bassenges Football", new LatLng(46.52309381914529, 6.5608807098372175)));
+        /*for (CustomPlace customPlace : customPlaces) {
+            double distance = haversineDistance(localPos, customPlace.latLng);
+
+            if (distance <= radius) {
+                filteredPlaces.add(customPlace);
+                hasLocations = true;
+            }
+
+        }*/
+
+
+        int count = customPlaces.size();
+
+        likelyPlaceNames = new String[count];
+        likelyPlaceAddresses = new String[count];
+        likelyPlaceAttributions = new List[count];
+        likelyPlaceLatLngs = new LatLng[count];
+
+        for (int i = 0; i < count; i++) {
+            CustomPlace customPlace = customPlaces.get(i);
+            likelyPlaceNames[i] = customPlace.name;
+            likelyPlaceAddresses[i] = customPlace.address;
+            likelyPlaceLatLngs[i] = customPlace.latLng;
+        }
+        showPlacesList();
+        /*if (map == null) {
             return;
         }
 
@@ -611,7 +640,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         hasLocations = false;
 
         // drawCircle(radius);
-
+*/
     }
 
 
@@ -685,7 +714,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         });
 
 */
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.radius_layout, null);
+        /*View view = LayoutInflater.from(getActivity()).inflate(R.layout.radius_layout, null);
 
         // Get a reference to the EditText view in the layout
         EditText radiusInput = view.findViewById(R.id.edit_text_radius2);
@@ -713,7 +742,34 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
             }
         }).setNegativeButton("Cancel", null).create();
 
+        dialog.show();*/
+        View customView = LayoutInflater.from(getActivity()).inflate(R.layout.custom_alert_dialog, null);
+        listView = customView.findViewById(R.id.test_list_view2);
+        listView.setAdapter(new ArrayAdapter<>(requireActivity(), android.R.layout.simple_list_item_1, likelyPlaceNames));
+        AlertDialog dialog = new AlertDialog.Builder(getActivity()).setTitle("Select a place").setView(customView).
+                setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        }).create();
+
+        dialog.setView(customView);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            /*LatLng selectedPlace = likelyPlaceLatLngs[position];
+            Marker marker = map.addMarker(new MarkerOptions()
+                    .title(likelyPlaceNames[position])
+                    .position(selectedPlace)
+                    .snippet(likelyPlaceAddresses[position]));
+            addBlinkingMarker(selectedPlace, likelyPlaceNames[position], likelyPlaceAddresses[position]);
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedPlace, DEFAULT_ZOOM));*/
+                //dialog.dismiss();
+            }
+        });
         dialog.show();
+
 
     }
 
