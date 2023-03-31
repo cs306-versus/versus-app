@@ -18,10 +18,10 @@ public class UserConverterTest {
 
     @Test
     public void convertListOfSportsWorks() {
-        Sport sports[]= {Sport.FOOTBALL,Sport.ClIMBING,Sport.ROWING,Sport.SOCCER};
+        Sport sports[]= {Sport.FOOTBALL,Sport.CLIMBING,Sport.ROWING,Sport.SOCCER};
         String sep = "***";
         String conversion = UserConverter.convertListOfSports(Arrays.asList(sports),sep);
-        String shouldBe= Sport.FOOTBALL.name()+sep+Sport.ClIMBING.name()+sep+Sport.ROWING.name()+sep+Sport.SOCCER.name();
+        String shouldBe= Sport.FOOTBALL.name()+sep+Sport.CLIMBING.name()+sep+Sport.ROWING.name()+sep+Sport.SOCCER.name();
         assertTrue(conversion.equals(shouldBe));
     }
 
@@ -38,7 +38,7 @@ public class UserConverterTest {
         String sep = "&";
         String conversion ="FOOTBALL&ClIMBING&ROWING&SOCCER";
         List<Sport>  sportList= UserConverter.convertBackToSports(conversion,sep);
-        Sport shouldBe[]= {Sport.FOOTBALL,Sport.ClIMBING,Sport.ROWING,Sport.SOCCER};
+        Sport shouldBe[]= {Sport.FOOTBALL,Sport.CLIMBING,Sport.ROWING,Sport.SOCCER};
         System.out.println(sportList);
         assertTrue(sportList.equals(Arrays.asList(shouldBe)));
 
@@ -55,7 +55,7 @@ public class UserConverterTest {
 
     @Test
     public void convertBackToSportsIsTheInverseOfConvertListOfSports(){
-        Sport sports[]= {Sport.FOOTBALL,Sport.ClIMBING,Sport.ROWING,Sport.SOCCER};
+        Sport sports[]= {Sport.FOOTBALL,Sport.CLIMBING,Sport.ROWING,Sport.SOCCER};
         String sep = "&";
         String conversion = UserConverter.convertListOfSports(Arrays.asList(sports),sep);
         List<Sport> sportList= UserConverter.convertBackToSports(conversion,sep);
