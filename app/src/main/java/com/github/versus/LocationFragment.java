@@ -108,7 +108,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
     private  ListView listView ;
     private boolean hasLocations = false;
-    private Circle mapCircle;
+     static Circle mapCircle;
 
 
     @Override
@@ -298,7 +298,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
      * Prompts the user for permission to use the device location.
      */
 
-    private void getLocationPermission() {
+     void getLocationPermission() {
         /*
          * Request location permission, so that we can get the location of the
          * device. The result of the permission request is handled by a callback,
@@ -332,7 +332,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     /**
      * Updates the map's UI settings based on whether the user has granted location permission.
      */
-    private void updateLocationUI() {
+     void updateLocationUI() {
         if (map == null) {
             return;
         }
@@ -350,7 +350,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
             Log.e("Exception: %s", e.getMessage());
         }
     }
-    private void openPlacesDialog(){
+    void openPlacesDialog(){
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.radius_layout, null);
 
         // Get a reference to the EditText view in the layout
@@ -381,7 +381,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
 
     }
-    private void showCurrentPlace(double radius) {
+    void showCurrentPlace(double radius) {
         if (map == null) {
             return;
         }
@@ -484,7 +484,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
     }
     //Utilitary methods
-    private void showToast(String message) {
+    void showToast(String message) {
         LayoutInflater inflater = getLayoutInflater();
         View layout = inflater.inflate(R.layout.custom_toast, (ViewGroup) requireActivity().findViewById(R.id.custom_toast_root));
 
@@ -505,7 +505,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
 
 
-    private void drawCircle( double radius) {
+    void drawCircle( double radius) {
         //Clearing the map from previous circles
         map.clear();
         CircleOptions circleOptions = new CircleOptions().center(localPos).radius(radius).
@@ -515,7 +515,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     }
 
 
-    public static double haversineDistance(LatLng latLng1, LatLng latLng2) {
+     double haversineDistance(LatLng latLng1, LatLng latLng2) {
         double earthRadius = 6371; // Radius of the earth in km
         double dLat = Math.toRadians(latLng2.latitude - latLng1.latitude);
         double dLng = Math.toRadians(latLng2.longitude - latLng1.longitude);
@@ -525,7 +525,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
         return earthRadius * c * 1000; // Distance in meters
     }
-    private void applyBlinkingAnimation(Marker marker) {
+  private void applyBlinkingAnimation(Marker marker) {
         final Handler handler = new Handler();
         final Runnable blinkingRunnable = new Runnable() {
             @Override
@@ -542,7 +542,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     }
 
 
-    private void applyFlashingAnimation(Circle circle) {
+    void applyFlashingAnimation(Circle circle) {
         ValueAnimator animator = ValueAnimator.ofInt(100, 255);
         animator.setDuration(1000);
         animator.setRepeatCount(ValueAnimator.INFINITE);

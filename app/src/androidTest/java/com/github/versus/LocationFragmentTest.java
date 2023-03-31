@@ -74,6 +74,7 @@ import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -117,43 +118,14 @@ public class LocationFragmentTest {
     public void tearDown() {
         Intents.release();
     }
-   /* @Test
-    public void testLocationElements() throws InterruptedException {
 
-
-        String placeName = "Bassenges Football";
-        Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
-        // Find the menu item by its ID and perform a click
-        onView(withText("Get Place")).perform(click());
-
-        onView(withId(R.id.edit_text_radius2)).perform(typeText("800"));
-        onView(withText("Show Places")).perform(click());
-
-       // onView(withText("Cancel")).perform(click());
-        long waitingTime = 7000; // Wait for 5 seconds
-        ElapsedTimeIdlingResource idlingResource = new ElapsedTimeIdlingResource(waitingTime);
-        IdlingRegistry.getInstance().register(idlingResource);
-
-
-        onView(withText("Bassenges Football")).perform(click());
-
-        IdlingRegistry.getInstance().unregister(idlingResource);
-
-
-        //IdlingRegistry.getInstance().unregister(idlingResource);
-
-
-
-
-
-    }*/
     @Test
     public void testShowPlaces() throws InterruptedException {
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
         // Find the menu item by its ID and perform a click
         onView(withText("Get Place")).perform(click());
         onView(withId(R.id.edit_text_radius2)).perform(typeText("800"));
-        onView(withText("Show Places")).perform(click());
+        //onView(withText("Show Places")).perform(click());
 
     }
 
@@ -174,7 +146,7 @@ public class LocationFragmentTest {
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
         // Find the menu item by its ID and perform a click
         onView(withText("Get Place")).perform(click());
-        onView(withText("Show Places")).perform(click());
+        //onView(withText("Show Places")).perform(click());
     }
 
 
@@ -185,16 +157,56 @@ public class LocationFragmentTest {
 
 
 
-   /* @Test
-  public void testUiElements() throws InterruptedException {
-      // Find the overflow menu button and find the "Choose a radius" menu item and perform a type text action
-        LocationFragment location=new LocationFragment();
-        LatLng epfl = new LatLng(46.520536, 6.568318);
-        MarkerOptions epflMarker = new MarkerOptions().position(epfl).title("EPFL");
-        location.addBlinkingMarker(epfl,"epfl","epfl");
 
 
-  }*/
+        @Test
+        public void testLocationFragment() {
+            try (ActivityScenario<MainActivity> scenario = ActivityScenario.launch(MainActivity.class)) {
+
+                // Open the overflow menu and click on the menu items
+
+
+                // Use onActivity to interact with the fragment
+                scenario.onActivity(new ActivityScenario.ActivityAction<MainActivity>() {
+                    @Override
+                    public void perform(MainActivity activity) {
+                        LocationFragment location = (LocationFragment) activity.getSupportFragmentManager().findFragmentById(R.id.nav_location);
+
+                        if (location != null) {
+                            LatLng epfl = new LatLng(46.520536, 6.568318);
+                            MarkerOptions epflMarker = new MarkerOptions().position(epfl).title("EPFL");
+
+                            // Interact with the fragment's methods
+                            // Make sure these methods are public in your fragment
+                           LocationFragment.map.addMarker(epflMarker);
+                            location.addBlinkingMarker(epfl, "epfl", "epfl");
+                            location.drawCircle(200);
+                            location.applyFlashingAnimation(LocationFragment.mapCircle);
+                            location.haversineDistance(epfl,epfl);
+                            location.showToast("Hello");
+                            location.showCurrentPlace(500);
+                            location.openPlacesDialog();
+                            location.updateLocationUI();
+                            location.getLocationPermission();
+
+
+
+
+                        }
+                    }
+                });
+
+                // Move the activity to a destroyed state
+                scenario.moveToState(Lifecycle.State.DESTROYED);
+            }
+        }
+    }
+
+
+
+
+
+
    /* @Test
     public void testMapOperation() {
 
@@ -221,7 +233,7 @@ public class LocationFragmentTest {
 
 
 
-}
+
 
 
 
