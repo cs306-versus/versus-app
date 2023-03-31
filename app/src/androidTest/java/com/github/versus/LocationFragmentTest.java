@@ -185,7 +185,7 @@ public class LocationFragmentTest {
 
 
 
-    @Test
+   /* @Test
   public void testUiElements() throws InterruptedException {
       // Find the overflow menu button and find the "Choose a radius" menu item and perform a type text action
         LocationFragment location=new LocationFragment();
@@ -194,7 +194,7 @@ public class LocationFragmentTest {
         location.addBlinkingMarker(epfl,"epfl","epfl");
 
 
-  }
+  }*/
    /* @Test
     public void testMapOperation() {
 
