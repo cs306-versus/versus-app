@@ -49,7 +49,7 @@ public class UserInfoFragment extends Fragment {
      * ???
      * @param user
      */
-    private void updateUI(User user){
+    public void updateUI(User user){
         if(isNull(user))
             return;
         binding.infoUid.setText(user.getUID());

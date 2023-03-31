@@ -31,31 +31,36 @@ public class UserInfoFragmentTest {
 
     @Rule
     public ActivityScenarioRule<MainActivity> scenario = new ActivityScenarioRule<>(MainActivity.class);
+    UserInfoFragment frag;
 
     @Before
     public void setUpFragment(){
-        Task<?> task = FirebaseAuth.getInstance().signInWithEmailAndPassword("test@versus.ch", "123456789");
-        while(!task.isComplete() && !task.isCanceled());
-        setUp();
+        frag = setUp();
         // Wait for async
-        for (int i = 0; i < 10_000_000; i++);
+        for (int i = 0; i < 40_000_000; i++);
         //onView(withId(R.id.drawer_layout)).check(matches(DrawerMatchers.isClosed(GravityCompat.START))).perform(DrawerActions.open());
         //onView(withId(R.id.drawer_layout)).check(matches(DrawerMatchers.isOpen(GravityCompat.START)));
         //onView(withId(R.id.nav_user_profil)).perform(click());
     }
 
     @Test
-    public void checkUID(){
+    public void checkWithNull(){
+        frag.updateUI(null);
         //onView(withId(R.id.info_uid)).check(matches(withText(containsString("EPPOpGluoEQe6OsYZJ96mvZ1Ytu2"))));
     }
 
-    private void setUp() {
+    public void checkWithUser(){
+        frag.updateUI(new VersusUser.Builder("").build());
+    }
+
+    private UserInfoFragment setUp() {
+        UserInfoFragment fragment = new UserInfoFragment();
         scenario.getScenario().onActivity(activity -> {
             FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
-            UserInfoFragment fragment = new UserInfoFragment();
             transaction.add(fragment, "fragment");
             transaction.commitNow();
         });
+        return fragment;
     }
 
 }
