@@ -162,7 +162,7 @@ public class CacheManagerTest {
         Post post= SimpleTestPost.postWith("I don't play soccer, i prefer rowing",
         new Timestamp(Calendar.getInstance().get(Calendar.YEAR),
                 Month.values()[0], 1, 8, 1, Timestamp.Meridiem.PM)
-                ,new Location("Lausanne", 10, 10),10, Sport.ClIMBING);
+                ,new Location("Lausanne", 10, 10),10, Sport.CLIMBING);
 
         String key= CachedPost.computeID(post);
         manager.insert(post).get();
