@@ -1,5 +1,7 @@
 package com.github.versus.user;
 
+import static java.util.Objects.isNull;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -48,6 +50,8 @@ public class UserInfoFragment extends Fragment {
      * @param user
      */
     private void updateUI(User user){
+        if(isNull(user))
+            return;
         binding.infoUid.setText(user.getUID());
         binding.infoFirstName.setText(user.getFirstName());
         binding.infoLastName.setText(user.getLastName());
