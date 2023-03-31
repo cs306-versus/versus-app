@@ -129,9 +129,15 @@ public class LocationFragmentTest {
         onView(withText("Show Places")).perform(click());
 
        // onView(withText("Cancel")).perform(click());
+        long waitingTime = 7000; // Wait for 5 seconds
+        ElapsedTimeIdlingResource idlingResource = new ElapsedTimeIdlingResource(waitingTime);
+        IdlingRegistry.getInstance().register(idlingResource);
 
 
         onView(withText("Bassenges Football")).perform(click());
+
+        IdlingRegistry.getInstance().unregister(idlingResource);
+
 
         //IdlingRegistry.getInstance().unregister(idlingResource);
 
@@ -140,20 +146,31 @@ public class LocationFragmentTest {
 
 
     }
-   /* public static Matcher<Root> isAlertDialog() {
-        return new TypeSafeMatcher<Root>() {
-            @Override
-            protected boolean matchesSafely(Root root) {
-                int type = root.getWindowLayoutParams().get().type;
-                return type == WindowManager.LayoutParams.TYPE_APPLICATION_PANEL;
-            }
+   /* @Test
+    public void testSuccess() throws InterruptedException {
 
-            @Override
-            public void describeTo(Description description) {
-                description.appendText("is alert dialog");
-            }
-        };
-    }
+
+        String placeName = "Bassenges Football";
+        Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
+        // Find the menu item by its ID and perform a click
+        onView(withText("Get Place")).perform(click());
+
+        onView(withId(R.id.edit_text_radius2)).perform(typeText("800"));
+        onView(withText("Show Places")).perform(click());
+
+
+
+
+        onView(withText("Cancel")).perform(click());
+
+        //IdlingRegistry.getInstance().unregister(idlingResource);
+
+
+
+
+
+    }*/
+
 
 
 
