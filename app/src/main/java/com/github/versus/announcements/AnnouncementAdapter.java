@@ -13,9 +13,11 @@ import com.github.versus.posts.Post;
 
 import org.w3c.dom.Text;
 
+import java.util.List;
+
 public class AnnouncementAdapter extends RecyclerView.Adapter<AnnouncementAdapter.ViewHolder> {
-    private Post[] posts;
-    public AnnouncementAdapter(Post[] posts){
+    private List<Post> posts;
+    public AnnouncementAdapter(List<Post> posts){
         if(posts == null) {
             throw new IllegalArgumentException("Posts must be non-null!");
         }
@@ -32,15 +34,17 @@ public class AnnouncementAdapter extends RecyclerView.Adapter<AnnouncementAdapte
 
     @Override
     public void onBindViewHolder(@NonNull AnnouncementAdapter.ViewHolder viewHolder, int position) {
-        viewHolder.getTitleTextView().setText(posts[position].getTitle());
-        viewHolder.getSportTextView().setText(posts[position].getSport().name);
-        viewHolder.getDateTextView().setText(posts[position].getDate().toString());
-        viewHolder.getLocationTextView().setText(posts[position].getLocation().toString());
+        viewHolder.getTitleTextView().setText(posts.get(position).getTitle());
+        viewHolder.getSportTextView().setText(posts.get(position).getSport().name);
+        viewHolder.getMaxPlayerCountTextView().setText(posts.get(position).getPlayers().size() + "/" + posts.get(position).getPlayerLimit());
+        viewHolder.getDateTextView().setText(posts.get(position).getDate().getDay() + "/" +posts.get(position).getDate().getMonth().getValue() + "/" + posts.get(position).getDate().getYear());
+
+        viewHolder.getLocationTextView().setText(posts.get(position).getLocation().toString());
     }
 
     @Override
     public int getItemCount() {
-        return posts.length;
+        return posts.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -56,7 +60,7 @@ public class AnnouncementAdapter extends RecyclerView.Adapter<AnnouncementAdapte
             title = (TextView) view.findViewById(R.id.announcement_title);
             sport = (TextView) view.findViewById(R.id.announcement_sport);
             maxPlayerCount = (TextView) view.findViewById(R.id.announcement_players);
-            location = (TextView) view.findViewById(R.id.announcement_date);
+            location = (TextView) view.findViewById(R.id.announcement_location);
             date = (TextView) view.findViewById(R.id.announcement_date);
 
         }

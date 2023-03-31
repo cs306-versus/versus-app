@@ -26,7 +26,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import androidx.core.view.GravityCompat;
-import androidx.fragment.app.testing.FragmentScenario;
 import androidx.lifecycle.Lifecycle;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.espresso.Espresso;
@@ -83,7 +82,7 @@ public class LocationFragmentTest {
     public void testUiElements() throws InterruptedException {
         // Find the overflow menu button and find the "Choose a radius" menu item and perform a type text action
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
-        // Find the menu item by its ID and perform a click
+//        // Find the menu item by its ID and perform a click
         onView(withText("Choose a radius")).perform(click());
         onView(withId(R.id.edit_text_radius)).perform(typeText("1000"));
         onView(withText("OK")).perform(click());
