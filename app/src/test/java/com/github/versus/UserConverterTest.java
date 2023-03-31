@@ -36,7 +36,7 @@ public class UserConverterTest {
     @Test
     public void convertBackToSportsWorks(){
         String sep = "&";
-        String conversion ="FOOTBALL&ClIMBING&ROWING&SOCCER";
+        String conversion ="FOOTBALL&CLIMBING&ROWING&SOCCER";
         List<Sport>  sportList= UserConverter.convertBackToSports(conversion,sep);
         Sport shouldBe[]= {Sport.FOOTBALL,Sport.CLIMBING,Sport.ROWING,Sport.SOCCER};
         System.out.println(sportList);
