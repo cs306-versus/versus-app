@@ -30,6 +30,7 @@ public enum Sport {
     POWERLIFTING("Powerlifting"),
     RACQUETBALL("Racquetball"),
     ROCKCLIMBING("Rock Climbing"),
+    ROWING("Rowing"),
     RUGBY("Rugby"),
     SKIING("Skiing"),
     SNOWBOARDING("Snowboarding"),
