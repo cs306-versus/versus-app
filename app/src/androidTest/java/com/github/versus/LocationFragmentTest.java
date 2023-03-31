@@ -159,7 +159,8 @@ public class LocationFragmentTest {
                 scenario.onActivity(new ActivityScenario.ActivityAction<MainActivity>() {
                     @Override
                     public void perform(MainActivity activity) {
-                        LocationFragment location = (LocationFragment) activity.getSupportFragmentManager().findFragmentById(R.id.nav_location);
+                        LocationFragment locationFragment = new LocationFragment();
+                        activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, locationFragment).commitNow();
 
                        //if (location != null) {
                             LatLng epfl = new LatLng(46.520536, 6.568318);
@@ -167,11 +168,11 @@ public class LocationFragmentTest {
 
                             // Interact with the fragment's methods
                             // Make sure these methods are public in your fragment
-
-                            //LocationFragment.addBlinkingMarker(epfl, "epfl", "epfl");
-                          //LocationFragment. drawCircle(200);
-                            LocationFragment.applyFlashingAnimation(LocationFragment.mapCircle);
-                           LocationFragment.haversineDistance(epfl,epfl);
+                            locationFragment.onMapReady(LocationFragment.map);
+                            locationFragment.addBlinkingMarker(epfl, "epfl", "epfl");
+                          locationFragment. drawCircle(200);
+                            locationFragment.applyFlashingAnimation(LocationFragment.mapCircle);
+                          locationFragment.haversineDistance(epfl,epfl);
                           //LocationFragment.showToast("Hello");
 
 
@@ -201,6 +202,7 @@ public class LocationFragmentTest {
 
                     LocationFragment locationFragment = new LocationFragment();
                     activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, locationFragment).commitNow();
+                    locationFragment.onMapReady(LocationFragment.map);
                     locationFragment.openPlacesDialog();
                     locationFragment.showCurrentPlace(1500);
 

@@ -149,7 +149,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
      * This callback is triggered when the map is ready to be used.
      */
     @Override
-    public void onMapReady(GoogleMap map) {
+    public  void onMapReady(GoogleMap map) {
         this.map = map;
         map.getUiSettings().setZoomControlsEnabled(true);
         map.getUiSettings().setCompassEnabled(true);
