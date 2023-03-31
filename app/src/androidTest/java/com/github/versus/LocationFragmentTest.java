@@ -167,7 +167,7 @@ public class LocationFragmentTest {
 
                             // Interact with the fragment's methods
                             // Make sure these methods are public in your fragment
-                           LocationFragment.map.addMarker(epflMarker);
+
                             LocationFragment.addBlinkingMarker(epfl, "epfl", "epfl");
                           LocationFragment. drawCircle(200);
                             LocationFragment.applyFlashingAnimation(LocationFragment.mapCircle);
@@ -187,7 +187,7 @@ public class LocationFragmentTest {
             }
         }
 
-    /*@Test
+    @Test
     public void testDialogAlertBox() {
         try (ActivityScenario<MainActivity> scenario = ActivityScenario.launch(MainActivity.class)) {
 
@@ -199,13 +199,16 @@ public class LocationFragmentTest {
                 @Override
                 public void perform(MainActivity activity) {
 
-                    LocationFragment location = (LocationFragment) activity.getSupportFragmentManager().findFragmentById(R.id.nav_location);
+                    LocationFragment locationFragment = new LocationFragment();
+                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, locationFragment).commitNow();
+                    locationFragment.openPlacesDialog();
+                    locationFragment.showCurrentPlace(1500);
 
 
-                        location.showCurrentPlace(500);
-                       //LocationFragment.openPlacesDialog();
-                       location.updateLocationUI();
-                       location.getLocationPermission();
+                    locationFragment.updateLocationUI();
+                    locationFragment.getLocationPermission();
+                    locationFragment.showToast("Hello User !");
+
 
 
 
@@ -217,7 +220,7 @@ public class LocationFragmentTest {
             // Move the activity to a destroyed state
             scenario.moveToState(Lifecycle.State.DESTROYED);
         }
-    }*/
+    }
 }
 
 

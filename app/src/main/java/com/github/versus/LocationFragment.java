@@ -358,7 +358,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
         // Inflate the custom layout 'radius_layout
 
-        void openPlacesDialog(){
+        public void openPlacesDialog(){
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.radius_layout, null);
 
         // Get a reference to the EditText view in the layout
@@ -394,7 +394,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
      * If no custom places are found within the radius, a toast message is displayed to the user.
      * @param radius The radius (in meters) around the user's current location to search for custom places.
      */
-    void showCurrentPlace(double radius) {
+    public void showCurrentPlace(double radius) {
         if (map == null) {
             return;
         }
@@ -468,7 +468,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
      * and the camera moves to focus on the selected place with the default zoom level.
      */
 
-    private void showPlacesList() {
+    private  void showPlacesList() {
         View customView = LayoutInflater.from(getActivity()).inflate(R.layout.custom_alert_dialog, null);
         listView = customView.findViewById(R.id.test_list_view2);
         listView.setAdapter(new ArrayAdapter<>(requireActivity(), android.R.layout.simple_list_item_1, likelyPlaceNames));
@@ -504,7 +504,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
      * @param message The message to be displayed in the custom toast.
      */
 
-     void showToast(String message) {
+    public void showToast(String message) {
         LayoutInflater inflater = getLayoutInflater();
         View layout = inflater.inflate(R.layout.custom_toast, (ViewGroup) requireActivity().findViewById(R.id.custom_toast_root));
 
