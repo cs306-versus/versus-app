@@ -501,7 +501,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
       hasLocations = false;
 
       // drawCircle(radius);
-      showPlacesList();
+
   }
 
 
@@ -560,19 +560,45 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            LatLng selectedPlace = likelyPlaceLatLngs[position];
+            /*LatLng selectedPlace = likelyPlaceLatLngs[position];
             Marker marker = map.addMarker(new MarkerOptions()
                     .title(likelyPlaceNames[position])
                     .position(selectedPlace)
                     .snippet(likelyPlaceAddresses[position]));
             addBlinkingMarker(selectedPlace, likelyPlaceNames[position], likelyPlaceAddresses[position]);
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedPlace, DEFAULT_ZOOM));
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedPlace, DEFAULT_ZOOM));*/
                 //dialog.dismiss();
             }
         });
  dialog.show();
     }
+
     //Utilitary methods
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     private void showToast(String message) {
          LayoutInflater inflater = getLayoutInflater();
          View layout = inflater.inflate(R.layout.custom_toast, (ViewGroup) requireActivity().findViewById(R.id.custom_toast_root));
