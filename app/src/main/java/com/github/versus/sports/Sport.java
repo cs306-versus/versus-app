@@ -13,6 +13,7 @@ public enum Sport {
     BOWLING("Bowling"),
     BOXING("Boxing"),
     CANOEING("Canoeing"),
+    CLIMBING("Climbing"),
     CRICKET("Cricket"),
     CURLING("Curling"),
     CYCLING("Cycling"),
