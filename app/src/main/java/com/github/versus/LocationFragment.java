@@ -350,7 +350,15 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
             Log.e("Exception: %s", e.getMessage());
         }
     }
-    void openPlacesDialog(){
+    /**
+     * Opens a custom dialog for users to input a radius value (in meters).
+     * After the user enters the radius and clicks "Show Places," the app will show the current place
+     * and draw a circle with the given radius.
+     */
+
+        // Inflate the custom layout 'radius_layout
+
+        void openPlacesDialog(){
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.radius_layout, null);
 
         // Get a reference to the EditText view in the layout
@@ -381,6 +389,11 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
 
     }
+    /**
+     * Shows a list of custom places within a specified radius around the user's current location.
+     * If no custom places are found within the radius, a toast message is displayed to the user.
+     * @param radius The radius (in meters) around the user's current location to search for custom places.
+     */
     void showCurrentPlace(double radius) {
         if (map == null) {
             return;
@@ -413,9 +426,6 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                             }
 
                         }
-
-
-
                         int count = filteredPlaces.size();
 
                         likelyPlaceNames = new String[count];
@@ -452,7 +462,11 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
             getLocationPermission();
         }
     }
-
+    /**
+     * Creates and displays a custom dialog containing a list of nearby custom places.
+     * When a user selects a place from the list, a blinking marker is added to the selected place on the map,
+     * and the camera moves to focus on the selected place with the default zoom level.
+     */
 
     private void showPlacesList() {
         View customView = LayoutInflater.from(getActivity()).inflate(R.layout.custom_alert_dialog, null);
@@ -483,7 +497,13 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         dialog.show();
 
     }
-    //Utilitary methods
+    /**
+     * Displays a custom toast with the specified message.
+     * The custom toast has a specific layout, background color, and corner radius.
+     *
+     * @param message The message to be displayed in the custom toast.
+     */
+
     void showToast(String message) {
         LayoutInflater inflater = getLayoutInflater();
         View layout = inflater.inflate(R.layout.custom_toast, (ViewGroup) requireActivity().findViewById(R.id.custom_toast_root));
@@ -503,8 +523,11 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         toast.show();
     }
 
-
-
+    /**
+     * Draws a circle with the specified radius around a predefined center point (localPos) on the map.
+     * The method clears the map of any previous circles and applies a flashing animation to the newly drawn circle.
+     * @param radius The radius (in meters) of the circle to be drawn.
+     */
     void drawCircle( double radius) {
         //Clearing the map from previous circles
         map.clear();
@@ -513,9 +536,13 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         mapCircle = map.addCircle(circleOptions);
         applyFlashingAnimation(mapCircle);
     }
-
-
-     double haversineDistance(LatLng latLng1, LatLng latLng2) {
+    /**
+     * Calculates the haversine distance between two LatLng points in meters.
+     * @param latLng1 The first LatLng point.
+     * @param latLng2 The second LatLng point.
+     * @return The haversine distance between the two points in meters.
+     */
+    double haversineDistance(LatLng latLng1, LatLng latLng2) {
         double earthRadius = 6371; // Radius of the earth in km
         double dLat = Math.toRadians(latLng2.latitude - latLng1.latitude);
         double dLng = Math.toRadians(latLng2.longitude - latLng1.longitude);
@@ -525,7 +552,12 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
         return earthRadius * c * 1000; // Distance in meters
     }
-  private void applyBlinkingAnimation(Marker marker) {
+    /**
+     * Applies a blinking animation to a given marker on the map.
+     * @param marker The marker to apply the blinking animation to.
+     */
+
+    private void applyBlinkingAnimation(Marker marker) {
         final Handler handler = new Handler();
         final Runnable blinkingRunnable = new Runnable() {
             @Override
@@ -541,6 +573,10 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         handler.postDelayed(blinkingRunnable, 500);
     }
 
+    /**
+     * Applies a flashing animation to a given circle on the map by altering its stroke and fill colors' alpha values.
+     * @param circle The circle to apply the flashing animation to.
+     */
 
     void applyFlashingAnimation(Circle circle) {
         ValueAnimator animator = ValueAnimator.ofInt(100, 255);
@@ -557,6 +593,12 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         });
         animator.start();
     }
+    /**
+     * Adds a blinking marker to the map at the specified position with the provided title and snippet.
+     * @param position The LatLng position of the marker to be added.
+     * @param title The title of the marker.
+     * @param snippet The snippet of the marker.
+     */
      void addBlinkingMarker(LatLng position, String title, String snippet) {
         Marker mainMarker = map.addMarker(new MarkerOptions()
                 .position(position)

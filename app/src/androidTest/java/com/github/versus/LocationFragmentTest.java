@@ -125,7 +125,7 @@ public class LocationFragmentTest {
         // Find the menu item by its ID and perform a click
         onView(withText("Get Place")).perform(click());
         onView(withId(R.id.edit_text_radius2)).perform(typeText("800"));
-        //onView(withText("Show Places")).perform(click());
+
 
     }
 
@@ -148,19 +148,8 @@ public class LocationFragmentTest {
         onView(withText("Get Place")).perform(click());
         //onView(withText("Show Places")).perform(click());
     }
-
-
-
-
-
-
-
-
-
-
-
-        @Test
-        public void testLocationFragment() {
+    @Test
+        public void testAnimations() {
             try (ActivityScenario<MainActivity> scenario = ActivityScenario.launch(MainActivity.class)) {
 
                 // Open the overflow menu and click on the menu items
@@ -184,10 +173,7 @@ public class LocationFragmentTest {
                             location.applyFlashingAnimation(LocationFragment.mapCircle);
                             location.haversineDistance(epfl,epfl);
                             location.showToast("Hello");
-                            location.showCurrentPlace(500);
-                            location.openPlacesDialog();
-                            location.updateLocationUI();
-                            location.getLocationPermission();
+
 
 
 
@@ -200,33 +186,39 @@ public class LocationFragmentTest {
                 scenario.moveToState(Lifecycle.State.DESTROYED);
             }
         }
+
+    @Test
+    public void testDialogAlertBox() {
+        try (ActivityScenario<MainActivity> scenario = ActivityScenario.launch(MainActivity.class)) {
+
+            // Open the overflow menu and click on the menu items
+
+
+            // Use onActivity to interact with the fragment
+            scenario.onActivity(new ActivityScenario.ActivityAction<MainActivity>() {
+                @Override
+                public void perform(MainActivity activity) {
+                    LocationFragment location = (LocationFragment) activity.getSupportFragmentManager().findFragmentById(R.id.nav_location);
+
+                    if (location != null) {
+                        location.showCurrentPlace(500);
+                        location.openPlacesDialog();
+                        location.updateLocationUI();
+                        location.getLocationPermission();
+
+
+
+
+                    }
+                }
+            });
+
+            // Move the activity to a destroyed state
+            scenario.moveToState(Lifecycle.State.DESTROYED);
+        }
     }
+}
 
-
-
-
-
-
-   /* @Test
-    public void testMapOperation() {
-
-
-
-            @Override
-            public void perform(LocationFragment activity) {
-                GoogleMap map = LocationFragment.map;
-                LocationFragment location=new LocationFragment();
-                LatLng epfl = new LatLng(46.520536, 6.568318);
-                MarkerOptions epflMarker = new MarkerOptions().position(epfl).title("EPFL");
-                location.addBlinkingMarker(epfl,"epfl","epfl");
-
-                // Perform your map-related operation here
-                // For example, you can call map.getMyLocation() or any other UI-related operation
-
-            }
-        });
-    }
-}*/
 
 
 
