@@ -110,50 +110,45 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     private  ListView listView ;
     private boolean hasLocations = false;
     private Circle mapCircle;
-    private List<CustomPlace> filteredPlaces = new ArrayList<>();
-    private List<CustomPlace> customPlaces = Arrays.asList(new CustomPlace("UNIL Football", "UNIL Football", new LatLng(46.519385, 6.580856)),
-            new CustomPlace("Chavannes Football", "Chavannes Football", new LatLng(46.52527373363714, 6.57366257779824)),
-            new CustomPlace("Bassenges Football", "Bassenges Football", new LatLng(46.52309381914529, 6.5608807098372175)));
-    /*for (CustomPlace customPlace : customPlaces) {
 
 
-@Override
-public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-    View view = inflater.inflate(R.layout.fragment_location, container, false);
-    //call setHasOptionsMenu(true) to notify the fragment
-    // that it has options menu items that need to be created
-    setHasOptionsMenu(true);
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_location, container, false);
+        //call setHasOptionsMenu(true) to notify the fragment
+        // that it has options menu items that need to be created
+        setHasOptionsMenu(true);
 
-    // Retrieve location and camera position from saved instance state.
-    if (savedInstanceState != null) {
-        lastKnownLocation = savedInstanceState.getParcelable(KEY_LOCATION);
-        cameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION);
+        // Retrieve location and camera position from saved instance state.
+        if (savedInstanceState != null) {
+            lastKnownLocation = savedInstanceState.getParcelable(KEY_LOCATION);
+            cameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION);
+        }
+
+        // Construct a PlacesClient and retrieve the API Key from local.properties file
+        try {
+            String API_KEY = getContext().getPackageManager().getApplicationInfo(getContext().getPackageName(), PackageManager.GET_META_DATA).metaData.getString("com.google.android.geo.API_KEY");
+            Places.initialize(getActivity().getApplicationContext(), API_KEY);
+
+        } catch (PackageManager.NameNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        placesClient = Places.createClient(getActivity());
+
+        // Construct a FusedLocationProviderClient.
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
+
+        // Build the map
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+
+        return view;
     }
 
-    // Construct a PlacesClient and retrieve the API Key from local.properties file
-    try {
-        String API_KEY = getContext().getPackageManager().getApplicationInfo(getContext().getPackageName(), PackageManager.GET_META_DATA).metaData.getString("com.google.android.geo.API_KEY");
-        Places.initialize(getActivity().getApplicationContext(), API_KEY);
-
-    } catch (PackageManager.NameNotFoundException e) {
-        throw new RuntimeException(e);
-    }
-    placesClient = Places.createClient(getActivity());
-
-    // Construct a FusedLocationProviderClient.
-    fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
-
-    // Build the map
-    SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
-    mapFragment.getMapAsync(this);
-
-    return view;
-}
-
-/**
- * Manipulates the map when it's available.
- * This callback is triggered when the map is ready to be used.
- */
+    /**
+     * Manipulates the map when it's available.
+     * This callback is triggered when the map is ready to be used.
+     */
     @Override
     public void onMapReady(GoogleMap map) {
         this.map = map;
@@ -362,44 +357,41 @@ public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup c
 
 
     private void openPlacesDialog(){
-    View view = LayoutInflater.from(getActivity()).inflate(R.layout.radius_layout, null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.radius_layout, null);
 
-    // Get a reference to the EditText view in the layout
-    EditText radiusInput = view.findViewById(R.id.edit_text_radius2);
-    radiusInput.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-    radiusInput.setHint("Enter radius (in meters)");
+        // Get a reference to the EditText view in the layout
+        EditText radiusInput = view.findViewById(R.id.edit_text_radius2);
+        radiusInput.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        radiusInput.setHint("Enter radius (in meters)");
 
-    // Create a dialog to display the EditText view
+        // Create a dialog to display the EditText view
 
 
-    AlertDialog dialog = new AlertDialog.Builder(getActivity()).setTitle("Enter radius").setView(view).setPositiveButton("Show Places", new DialogInterface.OnClickListener() {
-        @Override
-        public void onClick(DialogInterface dialog, int which) {
-             // Get the radius entered by the user
-            String radiusStr = radiusInput.getText().toString();
-            if (!TextUtils.isEmpty(radiusStr)) {
-                radius = Float.parseFloat(radiusInput.getText().toString());
-                for (CustomPlace customPlace : customPlaces) {
-                    double distance = haversineDistance(localPos, customPlace.latLng);
+        AlertDialog dialog = new AlertDialog.Builder(getActivity()).setTitle("Enter radius").setView(view).setPositiveButton("Show Places", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Get the radius entered by the user
+                String radiusStr = radiusInput.getText().toString();
+                if (!TextUtils.isEmpty(radiusStr)) {
+                    radius = Float.parseFloat(radiusInput.getText().toString());
+                    for (CustomPlace customPlace : customPlaces) {
 
-                    if (distance <= radius) {
-                        filteredPlaces.add(customPlace);
-                        //hasLocations = true;
+                            filteredPlaces.add(customPlace);
+                            hasLocations = true;
+                        }
+                        showCurrentPlace(radius);
+                        dialog.dismiss();
                     }
 
+                else  {
+                    showToast("Please enter a radius");
                 }
-                showCurrentPlace(radius);
-                dialog.dismiss();
+
+
             }
-            else  {
-                showToast("Please enter a radius");
-            }
+        }).setNegativeButton("Cancel", null).create();
 
-
-        }
-    }).setNegativeButton("Cancel", null).create();
-
-    dialog.show();
+        dialog.show();
 
 
     }
@@ -408,12 +400,23 @@ public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup c
 
 
 
-
+    List<CustomPlace> filteredPlaces = new ArrayList<>();
+    List<CustomPlace> customPlaces = Arrays.asList(new CustomPlace("UNIL Football", "UNIL Football", new LatLng(46.519385, 6.580856)),
+            new CustomPlace("Chavannes Football", "Chavannes Football", new LatLng(46.52527373363714, 6.57366257779824)),
+            new CustomPlace("Bassenges Football", "Bassenges Football", new LatLng(46.52309381914529, 6.5608807098372175)));
 
     private void showCurrentPlace(double radius) {
 
 
 
+
+        /*for (CustomPlace customPlace : customPlaces) {
+            double distance = haversineDistance(localPos, customPlace.latLng);
+            if (distance <= radius) {
+                filteredPlaces.add(customPlace);
+                hasLocations = true;
+            }
+        }*/
 
 
         int count = customPlaces.size();
