@@ -169,7 +169,7 @@ public class LocationFragmentTest {
                             // Make sure these methods are public in your fragment
 
                             //LocationFragment.addBlinkingMarker(epfl, "epfl", "epfl");
-                          LocationFragment. drawCircle(200);
+                          //LocationFragment. drawCircle(200);
                             LocationFragment.applyFlashingAnimation(LocationFragment.mapCircle);
                            LocationFragment.haversineDistance(epfl,epfl);
                           //LocationFragment.showToast("Hello");
