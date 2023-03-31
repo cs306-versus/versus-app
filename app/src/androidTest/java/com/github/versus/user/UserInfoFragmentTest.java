@@ -50,8 +50,8 @@ public class UserInfoFragmentTest {
     private void setUp() {
         scenario.getScenario().onActivity(activity -> {
             FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
-            UserInfoFragment voiceFragment = new UserInfoFragment();
-            transaction.add(voiceFragment, "voiceFragment");
+            UserInfoFragment fragment = new UserInfoFragment();
+            transaction.add(fragment, "fragment");
             transaction.commit();
         });
     }
