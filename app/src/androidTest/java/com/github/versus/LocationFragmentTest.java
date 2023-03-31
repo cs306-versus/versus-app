@@ -116,7 +116,7 @@ public class LocationFragmentTest {
     public void tearDown() {
         Intents.release();
     }
-    @Test
+   /* @Test
     public void testLocationElements() throws InterruptedException {
 
 
@@ -145,8 +145,8 @@ public class LocationFragmentTest {
 
 
 
-    }
-   /* @Test
+    }*/
+    @Test
     public void testSuccess() throws InterruptedException {
 
 
@@ -169,7 +169,7 @@ public class LocationFragmentTest {
 
 
 
-    }*/
+    }
 
 
 
