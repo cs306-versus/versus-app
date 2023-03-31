@@ -110,45 +110,50 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     private  ListView listView ;
     private boolean hasLocations = false;
     private Circle mapCircle;
+    private List<CustomPlace> filteredPlaces = new ArrayList<>();
+    private List<CustomPlace> customPlaces = Arrays.asList(new CustomPlace("UNIL Football", "UNIL Football", new LatLng(46.519385, 6.580856)),
+            new CustomPlace("Chavannes Football", "Chavannes Football", new LatLng(46.52527373363714, 6.57366257779824)),
+            new CustomPlace("Bassenges Football", "Bassenges Football", new LatLng(46.52309381914529, 6.5608807098372175)));
+    /*for (CustomPlace customPlace : customPlaces) {
 
 
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_location, container, false);
-        //call setHasOptionsMenu(true) to notify the fragment
-        // that it has options menu items that need to be created
-        setHasOptionsMenu(true);
+@Override
+public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    View view = inflater.inflate(R.layout.fragment_location, container, false);
+    //call setHasOptionsMenu(true) to notify the fragment
+    // that it has options menu items that need to be created
+    setHasOptionsMenu(true);
 
-        // Retrieve location and camera position from saved instance state.
-        if (savedInstanceState != null) {
-            lastKnownLocation = savedInstanceState.getParcelable(KEY_LOCATION);
-            cameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION);
-        }
-
-        // Construct a PlacesClient and retrieve the API Key from local.properties file
-        try {
-            String API_KEY = getContext().getPackageManager().getApplicationInfo(getContext().getPackageName(), PackageManager.GET_META_DATA).metaData.getString("com.google.android.geo.API_KEY");
-            Places.initialize(getActivity().getApplicationContext(), API_KEY);
-
-        } catch (PackageManager.NameNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        placesClient = Places.createClient(getActivity());
-
-        // Construct a FusedLocationProviderClient.
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
-
-        // Build the map
-        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
-
-        return view;
+    // Retrieve location and camera position from saved instance state.
+    if (savedInstanceState != null) {
+        lastKnownLocation = savedInstanceState.getParcelable(KEY_LOCATION);
+        cameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION);
     }
 
-    /**
-     * Manipulates the map when it's available.
-     * This callback is triggered when the map is ready to be used.
-     */
+    // Construct a PlacesClient and retrieve the API Key from local.properties file
+    try {
+        String API_KEY = getContext().getPackageManager().getApplicationInfo(getContext().getPackageName(), PackageManager.GET_META_DATA).metaData.getString("com.google.android.geo.API_KEY");
+        Places.initialize(getActivity().getApplicationContext(), API_KEY);
+
+    } catch (PackageManager.NameNotFoundException e) {
+        throw new RuntimeException(e);
+    }
+    placesClient = Places.createClient(getActivity());
+
+    // Construct a FusedLocationProviderClient.
+    fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
+
+    // Build the map
+    SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+    mapFragment.getMapAsync(this);
+
+    return view;
+}
+
+/**
+ * Manipulates the map when it's available.
+ * This callback is triggered when the map is ready to be used.
+ */
     @Override
     public void onMapReady(GoogleMap map) {
         this.map = map;
@@ -374,6 +379,15 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
             String radiusStr = radiusInput.getText().toString();
             if (!TextUtils.isEmpty(radiusStr)) {
                 radius = Float.parseFloat(radiusInput.getText().toString());
+                for (CustomPlace customPlace : customPlaces) {
+                    double distance = haversineDistance(localPos, customPlace.latLng);
+
+                    if (distance <= radius) {
+                        filteredPlaces.add(customPlace);
+                        //hasLocations = true;
+                    }
+
+                }
                 showCurrentPlace(radius);
                 dialog.dismiss();
             }
@@ -400,17 +414,6 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
 
 
-        List<CustomPlace> filteredPlaces = new ArrayList<>();
-        List<CustomPlace> customPlaces = Arrays.asList(new CustomPlace("UNIL Football", "UNIL Football", new LatLng(46.519385, 6.580856)),
-                new CustomPlace("Chavannes Football", "Chavannes Football", new LatLng(46.52527373363714, 6.57366257779824)),
-                new CustomPlace("Bassenges Football", "Bassenges Football", new LatLng(46.52309381914529, 6.5608807098372175)));
-        /*for (CustomPlace customPlace : customPlaces) {
-            double distance = haversineDistance(localPos, customPlace.latLng);
-            if (distance <= radius) {
-                filteredPlaces.add(customPlace);
-                hasLocations = true;
-            }
-        }*/
 
 
         int count = customPlaces.size();
@@ -421,7 +424,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         likelyPlaceLatLngs = new LatLng[count];
 
         for (int i = 0; i < count; i++) {
-            CustomPlace customPlace = customPlaces.get(i);
+            CustomPlace customPlace = filteredPlaces.get(i);
             likelyPlaceNames[i] = customPlace.name;
             likelyPlaceAddresses[i] = customPlace.address;
             likelyPlaceLatLngs[i] = customPlace.latLng;
