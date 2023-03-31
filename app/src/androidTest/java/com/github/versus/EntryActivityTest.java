@@ -12,7 +12,6 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import com.github.versus.auth.AuthActivity;
 import com.github.versus.auth.Authenticator;
 import com.github.versus.user.User;
-import com.github.versus.user.VersusUser;
 
 import org.hamcrest.Matcher;
 import org.junit.Before;
@@ -23,9 +22,6 @@ import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 import static com.github.versus.utils.VersusComponentName.of;
 
 import static org.mockito.Mockito.*;
-
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Future;
 
 @RunWith(AndroidJUnit4.class)
 public class EntryActivityTest {

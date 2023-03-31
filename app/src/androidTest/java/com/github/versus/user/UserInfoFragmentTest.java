@@ -37,11 +37,8 @@ public class UserInfoFragmentTest {
         Task<?> task = FirebaseAuth.getInstance().signInWithEmailAndPassword("test@versus.ch", "123456789");
         while(!task.isComplete() && !task.isCanceled());
         setUp();
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        // Wait for async
+        for (int i = 0; i < 10_000_000; i++);
         //onView(withId(R.id.drawer_layout)).check(matches(DrawerMatchers.isClosed(GravityCompat.START))).perform(DrawerActions.open());
         //onView(withId(R.id.drawer_layout)).check(matches(DrawerMatchers.isOpen(GravityCompat.START)));
         //onView(withId(R.id.nav_user_profil)).perform(click());
