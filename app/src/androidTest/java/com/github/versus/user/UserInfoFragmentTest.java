@@ -27,6 +27,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.List;
+
 @RunWith(AndroidJUnit4.class)
 public class UserInfoFragmentTest {
 
@@ -54,7 +56,17 @@ public class UserInfoFragmentTest {
 
     @Test
     public void checkWithUser(){
-        frag.updateUI(new VersusUser.Builder("").build());
+        VersusUser.Builder builder = new VersusUser.Builder("aywxdctfvgb");
+        builder.setFirstName("John")
+                .setLastName("Doe")
+                .setUserName("johndoe")
+                .setPhone("+41782345678")
+                .setMail("john.doe@versus.ch")
+                .setRating(3)
+                .setZipCode(0)
+                .setCity("Lausanne")
+                .setPreferredSports(List.of());
+        frag.updateUI(builder.build());
     }
 
     private UserInfoFragment setUp() {
