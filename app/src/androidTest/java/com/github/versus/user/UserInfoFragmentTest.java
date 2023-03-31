@@ -5,6 +5,9 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
+
+import static org.hamcrest.core.StringContains.containsString;
 
 import androidx.core.view.GravityCompat;
 import androidx.test.espresso.contrib.DrawerActions;
@@ -33,12 +36,11 @@ public class UserInfoFragmentTest {
         onView(withId(R.id.drawer_layout)).check(matches(DrawerMatchers.isClosed(GravityCompat.START))).perform(DrawerActions.open());
         onView(withId(R.id.drawer_layout)).check(matches(DrawerMatchers.isOpen(GravityCompat.START)));
         onView(withId(R.id.nav_user_profil)).perform(scrollTo()).perform(click());
-
     }
 
     @Test
-    public void test(){
-        // HR : Dump test to satisfy the CI
+    public void checkUID(){
+        onView(withId(R.id.info_uid)).check(matches(withText(containsString("EPPOpGluoEQe6OsYZJ96mvZ1Ytu2"))));
     }
 
 }
