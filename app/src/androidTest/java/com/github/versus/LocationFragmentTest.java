@@ -128,6 +128,9 @@ public class LocationFragmentTest {
         onView(withId(R.id.edit_text_radius2)).perform(typeText("10"));
         onView(withText("Show Places")).perform(click());
 
+        onView(withText("Cancel")).perform(click());
+
+
 
         //onView(withId(R.id.test_list_view2)).perform(click());
 

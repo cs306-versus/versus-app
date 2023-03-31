@@ -108,6 +108,10 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     private boolean hasLocations = false;
     private Circle mapCircle;
 
+    private List<CustomPlace> customPlaces = Arrays.asList(new CustomPlace("UNIL Football", "UNIL Football", new LatLng(46.519385, 6.580856)),
+            new CustomPlace("Chavannes Football", "Chavannes Football", new LatLng(46.52527373363714, 6.57366257779824)),
+            new CustomPlace("Bassenges Football","Bassenges Football",new LatLng(46.52309381914529, 6.5608807098372175)));
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -521,7 +525,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 */
 
 private void openPlacesDialog(){
-    /*View view = LayoutInflater.from(getActivity()).inflate(R.layout.radius_layout, null);
+    View view = LayoutInflater.from(getActivity()).inflate(R.layout.radius_layout, null);
 
     // Get a reference to the EditText view in the layout
     EditText radiusInput = view.findViewById(R.id.edit_text_radius2);
@@ -549,8 +553,37 @@ private void openPlacesDialog(){
         }
     }).setNegativeButton("Cancel", null).create();
 
+    dialog.show();
+   // showCurrentPlace(900);
+    /*View view = LayoutInflater.from(getActivity()).inflate(R.layout.radius_layout, null);
+
+    // Get a reference to the EditText view in the layout
+    EditText radiusInput = view.findViewById(R.id.edit_text_radius2);
+    radiusInput.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+    radiusInput.setHint("Enter radius (in meters)");
+
+    // Create a dialog to display the EditText view
+
+
+    AlertDialog dialog = new AlertDialog.Builder(getActivity()).setTitle("Enter radius").setView(view).setPositiveButton("Show Places", new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            // Get the radius entered by the user
+            String radiusStr = radiusInput.getText().toString();
+            if (!TextUtils.isEmpty(radiusStr)) {
+                radius = Float.parseFloat(radiusInput.getText().toString());
+                showCurrentPlace(radius);
+                dialog.dismiss();
+            }
+            else  {
+                showToast("Please enter a radius");
+            }
+
+
+        }
+    }).setNegativeButton("Cancel", null).create();
+
     dialog.show();*/
-    showCurrentPlace(900);
 
 }
 
@@ -561,81 +594,86 @@ private void openPlacesDialog(){
 
 
    private void showCurrentPlace(double radius) {
-       showPlacesList();
-       /* if (map == null) {
-            return;
-        }
-        List<CustomPlace> customPlaces = Arrays.asList(new CustomPlace("UNIL Football", "UNIL Football", new LatLng(46.519385, 6.580856)),
-                new CustomPlace("Chavannes Football", "Chavannes Football", new LatLng(46.52527373363714, 6.57366257779824)),
-                new CustomPlace("Bassenges Football","Bassenges Football",new LatLng(46.52309381914529, 6.5608807098372175))
 
-        );
+       if (map == null) {
+           return;
+       }
+       List<CustomPlace> customPlaces = Arrays.asList(new CustomPlace("UNIL Football", "UNIL Football", new LatLng(46.519385, 6.580856)),
+               new CustomPlace("Chavannes Football", "Chavannes Football", new LatLng(46.52527373363714, 6.57366257779824)),
+               new CustomPlace("Bassenges Football","Bassenges Football",new LatLng(46.52309381914529, 6.5608807098372175))
 
+       );
 
-        if (locationPermissionGranted) {
+       if (locationPermissionGranted) {
 
-            FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity());
-            @SuppressWarnings("MissingPermission") Task<Location> lastLocation = fusedLocationClient.getLastLocation();
-
-
-            lastLocation.addOnSuccessListener(new OnSuccessListener<Location>() {
-                @Override
-                public void onSuccess(Location location) {
-                    if (location != null) {
-                        LatLng userLatLng = new LatLng(location.getLatitude(), location.getLongitude());
-
-                        List<CustomPlace> filteredPlaces = new ArrayList<>();
-                        for (CustomPlace customPlace : customPlaces) {
-                            double distance = haversineDistance(userLatLng, customPlace.latLng);
-
-                            if (distance <= radius) {
-                                filteredPlaces.add(customPlace);
-                                hasLocations=true;
-                            }
-
-                        }
+           FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity());
+           @SuppressWarnings("MissingPermission") Task<Location> lastLocation = fusedLocationClient.getLastLocation();
 
 
+           lastLocation.addOnSuccessListener(new OnSuccessListener<Location>() {
+               @Override
+               public void onSuccess(Location location) {
+                   if (location != null) {
+                       LatLng userLatLng = new LatLng(location.getLatitude(), location.getLongitude());
 
-                            int count = filteredPlaces.size();
+                       List<CustomPlace> filteredPlaces = new ArrayList<>();
+                       for (CustomPlace customPlace : customPlaces) {
+                           double distance = haversineDistance(userLatLng, customPlace.latLng);
 
-                        likelyPlaceNames = new String[count];
-                        likelyPlaceAddresses = new String[count];
-                        likelyPlaceAttributions = new List[count];
-                        likelyPlaceLatLngs = new LatLng[count];
+                           if (distance <= radius) {
+                               filteredPlaces.add(customPlace);
+                               hasLocations=true;
+                           }
 
-                        for (int i = 0; i < count; i++) {
-                            CustomPlace customPlace = filteredPlaces.get(i);
-                            likelyPlaceNames[i] = customPlace.name;
-                            likelyPlaceAddresses[i] = customPlace.address;
-                            likelyPlaceLatLngs[i] = customPlace.latLng;
-                        }
-
-                        // Show a dialog offering the user the list of custom places, and add a
-                        // marker at the selected place.
+                       }
 
 
 
-                        hasLocations=false;
+                       int count = filteredPlaces.size();
+
+                       likelyPlaceNames = new String[count];
+                       likelyPlaceAddresses = new String[count];
+                       likelyPlaceAttributions = new List[count];
+                       likelyPlaceLatLngs = new LatLng[count];
+
+                       for (int i = 0; i < count; i++) {
+                           CustomPlace customPlace = filteredPlaces.get(i);
+                           likelyPlaceNames[i] = customPlace.name;
+                           likelyPlaceAddresses[i] = customPlace.address;
+                           likelyPlaceLatLngs[i] = customPlace.latLng;
+                       }
+
+                       // Show a dialog offering the user the list of custom places, and add a
+                       // marker at the selected place.
+                       /*if(!hasLocations && radius != 0){
+                           showToast("No locations found within the selected radius");
+
+                       }
+                       else {
+                           showPlacesList();
+                       }
+                       hasLocations=false;*/
 
                        // drawCircle(radius);
-                    }
-                }
-            });
-        } else {
-            // The user has not granted permission.
-            Log.i(TAG, "The user did not grant location permission.");
+                       showPlacesList();
+                   }
+               }
+           });
+       } else {
+           // The user has not granted permission.
+           Log.i(TAG, "The user did not grant location permission.");
 
-            getLocationPermission();
-        }*/
+           getLocationPermission();
+       }
+
     }
-    /*private void showPlacesList() {
+    private void showPlacesList() {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
         builder.setTitle("Select a place");
 
         listView = new ListView(requireActivity());
         listView.setAdapter(new ArrayAdapter<>(requireActivity(), android.R.layout.simple_list_item_1, likelyPlaceNames));
-        listView.setId(R.id.test_list_view);
+        listView.setId(R.id.test_list_view2);
         builder.setView(listView);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -647,7 +685,7 @@ private void openPlacesDialog(){
                         .snippet(likelyPlaceAddresses[position]));
                 addBlinkingMarker(selectedPlace, likelyPlaceNames[position], likelyPlaceAddresses[position]);
                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedPlace, DEFAULT_ZOOM));
-                placesDialog.dismiss();
+                placesDialog.dismiss();*/
 
 
             }
@@ -663,15 +701,15 @@ private void openPlacesDialog(){
 
 
         placesDialog.show();
-    }*/
+    }
 
-    private void showPlacesList() {
-        /*
+    private void showPlacesList2() {
+
         //AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
 
-        View customView = LayoutInflater.from(getActivity()).inflate(R.layout.custom_alert_dialog, null);
-       // listView = customView.findViewById(R.id.test_list_view2);
-       // listView.setAdapter(new ArrayAdapter<>(requireActivity(), android.R.layout.simple_list_item_1, likelyPlaceNames));
+       /*View customView = LayoutInflater.from(getActivity()).inflate(R.layout.custom_alert_dialog, null);
+        listView = customView.findViewById(R.id.test_list_view2);
+        listView.setAdapter(new ArrayAdapter<>(requireActivity(), android.R.layout.simple_list_item_1, likelyPlaceNames));
         AlertDialog dialog = new AlertDialog.Builder(getActivity()).setTitle("Select a place").setView(customView).
                 setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
@@ -680,10 +718,10 @@ private void openPlacesDialog(){
             }
         }).create();
 
-        //dialog.setView(customView);
+        dialog.setView(customView);
 
-        dialog.show();
-        /*listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             /*LatLng selectedPlace = likelyPlaceLatLngs[position];
@@ -696,37 +734,8 @@ private void openPlacesDialog(){
                 //dialog.dismiss();
             }
         });
-
+  dialog.show();
 */
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.radius_layout, null);
-
-        // Get a reference to the EditText view in the layout
-        EditText radiusInput = view.findViewById(R.id.edit_text_radius2);
-        radiusInput.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-        radiusInput.setHint("Enter radius (in meters)");
-
-        // Create a dialog to display the EditText view
-
-
-        AlertDialog dialog = new AlertDialog.Builder(getActivity()).setTitle("Enter radius").setView(view).setPositiveButton("Show Places", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // Get the radius entered by the user
-                String radiusStr = radiusInput.getText().toString();
-                if (!TextUtils.isEmpty(radiusStr)) {
-                    radius = Float.parseFloat(radiusInput.getText().toString());
-                    showCurrentPlace(radius);
-                    dialog.dismiss();
-                }
-                else  {
-                    showToast("Please enter a radius");
-                }
-
-
-            }
-        }).setNegativeButton("Cancel", null).create();
-
-        dialog.show();
 
     }
 
