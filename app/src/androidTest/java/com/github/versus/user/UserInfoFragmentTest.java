@@ -19,6 +19,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import com.github.versus.MainActivity;
 import com.github.versus.R;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 import org.junit.Before;
@@ -35,6 +36,8 @@ public class UserInfoFragmentTest {
 
     @Before
     public void setUpFragment(){
+        Task<AuthResult> task = FirebaseAuth.getInstance().signInWithEmailAndPassword("test@versus.ch", "123456789");
+        while(!task.isComplete() || !task.isCanceled());
         frag = setUp();
         // Wait for async
         for (int i = 0; i < 40_000_000; i++);
