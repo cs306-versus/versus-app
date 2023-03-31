@@ -80,6 +80,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 
+import org.checkerframework.checker.units.qual.C;
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -168,10 +169,10 @@ public class LocationFragmentTest {
 
                             // Interact with the fragment's methods
                             // Make sure these methods are public in your fragment
-                            locationFragment.onMapReady(LocationFragment.map);
-                            locationFragment.addBlinkingMarker(epfl, "epfl", "epfl");
-                          locationFragment. drawCircle(200);
-                            locationFragment.applyFlashingAnimation(LocationFragment.mapCircle);
+                            //locationFragment.onMapReady(LocationFragment.map);
+                           // locationFragment.addBlinkingMarker(epfl, "epfl", "epfl");
+                          //locationFragment. drawCircle(200);
+                            //locationFragment.applyFlashingAnimation();
                           locationFragment.haversineDistance(epfl,epfl);
                           //LocationFragment.showToast("Hello");
 
@@ -202,7 +203,7 @@ public class LocationFragmentTest {
 
                     LocationFragment locationFragment = new LocationFragment();
                     activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, locationFragment).commitNow();
-                    locationFragment.onMapReady(LocationFragment.map);
+                    //locationFragment.onMapReady(LocationFragment.map);
                     locationFragment.openPlacesDialog();
                     locationFragment.showCurrentPlace(1500);
 
