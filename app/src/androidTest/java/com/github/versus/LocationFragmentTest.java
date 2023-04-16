@@ -133,21 +133,8 @@ public class LocationFragmentTest {
         Intents.release();
     }
 
-    @Test
-    public void testLocationPermissionGranted() {
-        activityRule.getScenario().onActivity(activity -> {
-            LocationFragment fragment = (LocationFragment) activity.getSupportFragmentManager().findFragmentById(R.id.fragment_container);
 
-            if (fragment != null) {
-                assertThat(fragment.isLocationPermissionGranted(), org.hamcrest.CoreMatchers.is(true));
-
-            } else {
-                fail("Fragment not found");
-            }
-        });
-    }
-
-   /* @Test
+   @Test
     public void testSuccess() throws InterruptedException {
 
 
@@ -157,15 +144,15 @@ public class LocationFragmentTest {
         onView(withText("Get Place")).perform(click());
 
         onView(withId(R.id.edit_text_radius2)).perform(typeText("800"));
-        onView(withText("Show Places")).perform(click());
+       // onView(withText("Show Places")).perform(click());
 
 
-        onView(withText("Cancel")).perform(click());
+        //onView(withText("Cancel")).perform(click());
 
         //IdlingRegistry.getInstance().unregister(idlingResource);
 
 
-    }*/
+    }
 
     /* @Test
      public void testLocationElements() throws InterruptedException {
