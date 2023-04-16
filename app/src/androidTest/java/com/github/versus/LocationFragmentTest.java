@@ -109,7 +109,8 @@ public class LocationFragmentTest {
 
     @Rule
     public ActivityScenarioRule<MainActivity> activityRule = new ActivityScenarioRule<>(MainActivity.class);
-
+    @Rule
+    public GrantPermissionRule grantPermissionRule = GrantPermissionRule.grant(android.Manifest.permission.ACCESS_FINE_LOCATION);
 
     // Verify that the activity properly restored the location and camera position from the instance state
 
@@ -129,23 +130,6 @@ public class LocationFragmentTest {
     public void tearDown() {
         Intents.release();
     }
-
-    /* @Test
-     public void testLocationElements() throws InterruptedException {
-         String placeName = "Bassenges Football";
-         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
-         // Find the menu item by its ID and perform a click
-         onView(withText("Get Place")).perform(click());
-         onView(withId(R.id.edit_text_radius2)).perform(typeText("800"));
-         onView(withText("Show Places")).perform(click());
-        // onView(withText("Cancel")).perform(click());
-         long waitingTime = 7000; // Wait for 5 seconds
-         ElapsedTimeIdlingResource idlingResource = new ElapsedTimeIdlingResource(waitingTime);
-         IdlingRegistry.getInstance().register(idlingResource);
-         onView(withText("Bassenges Football")).perform(click());
-         IdlingRegistry.getInstance().unregister(idlingResource);
-         //IdlingRegistry.getInstance().unregister(idlingResource);
-     }*/
     @Test
     public void testSuccess() throws InterruptedException {
 
@@ -165,4 +149,22 @@ public class LocationFragmentTest {
 
 
     }
+
+    /* @Test
+     public void testLocationElements() throws InterruptedException {
+         String placeName = "Bassenges Football";
+         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
+         // Find the menu item by its ID and perform a click
+         onView(withText("Get Place")).perform(click());
+         onView(withId(R.id.edit_text_radius2)).perform(typeText("800"));
+         onView(withText("Show Places")).perform(click());
+        // onView(withText("Cancel")).perform(click());
+         long waitingTime = 7000; // Wait for 5 seconds
+         ElapsedTimeIdlingResource idlingResource = new ElapsedTimeIdlingResource(waitingTime);
+         IdlingRegistry.getInstance().register(idlingResource);
+         onView(withText("Bassenges Football")).perform(click());
+         IdlingRegistry.getInstance().unregister(idlingResource);
+         //IdlingRegistry.getInstance().unregister(idlingResource);
+     }*/
+
 }
