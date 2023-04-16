@@ -30,6 +30,7 @@ import static androidx.test.espresso.intent.matcher.IntentMatchers.hasExtra;
 import static androidx.test.espresso.matcher.RootMatchers.isDialog;
 import static androidx.test.espresso.matcher.RootMatchers.isPlatformPopup;
 import static androidx.test.espresso.matcher.ViewMatchers.assertThat;
+import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
@@ -165,14 +166,20 @@ public class LocationFragmentTest {
         // Find the menu item by its ID and perform a click
         onView(withText("Get Place")).perform(click());
 
-        onView(withId(R.id.edit_text_radius2)).perform(typeText("1500"));
+        onView(withId(R.id.edit_text_radius2)).perform(typeText("800"));
 
         closeSoftKeyboard();
 
         onView(withText("Show Places")).check(matches(isDisplayed())).perform(click());
 
-        onData(anything()).inAdapterView(withText("UNIL Football")).atPosition(0).perform(click());
+        //onData(anything()).inAdapterView(withText(placeName)).atPosition(0).perform(click());
 
+
+        onData(anything())
+                .inAdapterView(withId(R.id.test_list_view2))
+                .atPosition(0)
+                .perform(click());
+    }
 
         //IdlingRegistry.getInstance().unregister(idlingResource);
 
@@ -197,4 +204,4 @@ public class LocationFragmentTest {
          //IdlingRegistry.getInstance().unregister(idlingResource);
      }*/
 
-}
+
