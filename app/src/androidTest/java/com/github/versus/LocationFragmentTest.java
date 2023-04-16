@@ -151,7 +151,7 @@ public class LocationFragmentTest {
 
         onView(withText("Show Places")).check(matches(isDisplayed())).perform(click());
 
-        onView(withText("Cancel")).perform(click());
+       // onView(withText("Cancel")).perform(click());
 
         //IdlingRegistry.getInstance().unregister(idlingResource);
 
