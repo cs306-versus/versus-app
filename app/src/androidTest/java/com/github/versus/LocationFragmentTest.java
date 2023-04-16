@@ -162,7 +162,7 @@ public class LocationFragmentTest {
     @Test
     public void testSuccess2() throws InterruptedException {
 
-        //The emulator has its default location on GooglePlex 
+        //The emulator has its default location on GooglePlex
         String placeName = "GooglePlex Football";
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
         // Find the menu item by its ID and perform a click
@@ -176,14 +176,14 @@ public class LocationFragmentTest {
 
 
         //onData(anything()).inAdapterView(withText(placeName)).atPosition(0).perform(click());
-        long waitingTime = 5000; // Wait for 5 seconds
-        ElapsedTimeIdlingResource idlingResource = new ElapsedTimeIdlingResource(waitingTime);
-        IdlingRegistry.getInstance().register(idlingResource);
+      //  long waitingTime = 5000; // Wait for 5 seconds
+        //ElapsedTimeIdlingResource idlingResource = new ElapsedTimeIdlingResource(waitingTime);
+        //IdlingRegistry.getInstance().register(idlingResource);
 
         onView(withText("Select a place")).check(matches(isDisplayed()));
         onData(anything()).inAdapterView(withId(R.id.test_list_view2)).atPosition(0).perform(click());
 
-        IdlingRegistry.getInstance().unregister(idlingResource);
+       // IdlingRegistry.getInstance().unregister(idlingResource);
     }
 
     public class ElapsedTimeIdlingResource implements IdlingResource {
