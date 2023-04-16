@@ -178,7 +178,7 @@ public class LocationFragmentTest {
         ElapsedTimeIdlingResource idlingResource = new ElapsedTimeIdlingResource(waitingTime);
         IdlingRegistry.getInstance().register(idlingResource);
 
-
+        onView(withText("Select a place")).check(matches(isDisplayed()));
         onData(anything()).inAdapterView(withId(R.id.test_list_view2)).atPosition(0).perform(click());
 
         IdlingRegistry.getInstance().unregister(idlingResource);
