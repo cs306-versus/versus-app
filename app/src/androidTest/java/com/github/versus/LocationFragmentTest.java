@@ -145,16 +145,39 @@ public class LocationFragmentTest {
 
         onView(withId(R.id.edit_text_radius2)).perform(typeText("800"));
 
-       closeSoftKeyboard();
-        onView(withText("Show Places")).perform(click());
+        closeSoftKeyboard();
 
+       onView(withText("Show Places")).check(matches(isDisplayed())).perform(click());
 
-        //onView(withText("Cancel")).perform(click());
+        onView(withText("Cancel")).perform(click());
 
         //IdlingRegistry.getInstance().unregister(idlingResource);
 
 
     }
+
+    @Test
+    public void testSuccess2() throws InterruptedException {
+
+
+        String placeName = "Bassenges Football";
+        Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
+        // Find the menu item by its ID and perform a click
+        onView(withText("Get Place")).perform(click());
+
+        onView(withId(R.id.edit_text_radius2)).perform(typeText("1500"));
+
+        closeSoftKeyboard();
+
+        onView(withText("Show Places")).check(matches(isDisplayed())).perform(click());
+
+        onView(withText(placeName)).perform(click());
+
+        //IdlingRegistry.getInstance().unregister(idlingResource);
+
+
+    }
+
 
     /* @Test
      public void testLocationElements() throws InterruptedException {
