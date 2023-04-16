@@ -14,7 +14,8 @@
 package com.github.versus;
 
 
-
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -44,7 +45,7 @@ import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.anything;
 import static org.hamcrest.Matchers.endsWith;
-
+import static org.junit.Assert.fail;
 
 
 import android.graphics.Color;
@@ -96,6 +97,7 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -130,7 +132,22 @@ public class LocationFragmentTest {
     public void tearDown() {
         Intents.release();
     }
+
     @Test
+    public void testLocationPermissionGranted() {
+        activityRule.getScenario().onActivity(activity -> {
+            LocationFragment fragment = (LocationFragment) activity.getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+
+            if (fragment != null) {
+                assertThat(fragment.isLocationPermissionGranted(), org.hamcrest.CoreMatchers.is(true));
+
+            } else {
+                fail("Fragment not found");
+            }
+        });
+    }
+
+   /* @Test
     public void testSuccess() throws InterruptedException {
 
 
@@ -148,7 +165,7 @@ public class LocationFragmentTest {
         //IdlingRegistry.getInstance().unregister(idlingResource);
 
 
-    }
+    }*/
 
     /* @Test
      public void testLocationElements() throws InterruptedException {

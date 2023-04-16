@@ -298,6 +298,9 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
             Log.e("Exception: %s", e.getMessage(), e);
         }
     }
+    public boolean isLocationPermissionGranted() {
+        return locationPermissionGranted;
+    }
 
 
     /**
