@@ -149,7 +149,7 @@ public class LocationFragmentTest {
 
         closeSoftKeyboard();
 
-        onView(withText("Show Places")).check(matches(isDisplayed())).perform(click());
+        onView(withText("Show Places")).perform(click());
 
 
        // onView(withText("Cancel")).perform(click());
@@ -172,7 +172,7 @@ public class LocationFragmentTest {
 
         closeSoftKeyboard();
 
-        onView(withText("Show Places")).check(matches(isDisplayed())).perform(click());
+        onView(withText("Show Places")).perform(click());
 
 
         //onData(anything()).inAdapterView(withText(placeName)).atPosition(0).perform(click());
