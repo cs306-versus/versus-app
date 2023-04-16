@@ -150,6 +150,7 @@ public class LocationFragmentTest {
         closeSoftKeyboard();
 
         onView(withText("Show Places")).check(matches(isDisplayed())).perform(click());
+        Thread.sleep(2000);
 
        // onView(withText("Cancel")).perform(click());
 
@@ -162,7 +163,7 @@ public class LocationFragmentTest {
     public void testSuccess2() throws InterruptedException {
 
 
-        String placeName = "Bassenges Football";
+        String placeName = "GooglePlex Football";
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
         // Find the menu item by its ID and perform a click
         onView(withText("Get Place")).perform(click());
@@ -172,6 +173,7 @@ public class LocationFragmentTest {
         closeSoftKeyboard();
 
         onView(withText("Show Places")).check(matches(isDisplayed())).perform(click());
+
 
         //onData(anything()).inAdapterView(withText(placeName)).atPosition(0).perform(click());
         long waitingTime = 5000; // Wait for 5 seconds
