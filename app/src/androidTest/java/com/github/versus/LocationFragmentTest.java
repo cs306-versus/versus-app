@@ -171,7 +171,8 @@ public class LocationFragmentTest {
 
         onView(withText("Show Places")).check(matches(isDisplayed())).perform(click());
 
-        onView(withText(placeName)).perform(click());
+        onData(anything()).inAdapterView(withText("Unil-Sport Football")).atPosition(0).perform(click());
+
 
         //IdlingRegistry.getInstance().unregister(idlingResource);
 
