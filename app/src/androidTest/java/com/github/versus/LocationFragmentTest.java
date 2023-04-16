@@ -162,7 +162,7 @@ public class LocationFragmentTest {
     @Test
     public void testSuccess2() throws InterruptedException {
 
-
+        //The emulator has its default location on GooglePlex 
         String placeName = "GooglePlex Football";
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
         // Find the menu item by its ID and perform a click

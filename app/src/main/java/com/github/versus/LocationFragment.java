@@ -410,7 +410,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         List<CustomPlace> customPlaces = Arrays.asList(new CustomPlace("UNIL Football", "UNIL Football", new LatLng(46.519385, 6.580856)),
                 new CustomPlace("Chavannes Football", "Chavannes Football", new LatLng(46.52527373363714, 6.57366257779824)),
                 new CustomPlace("Bassenges Football","Bassenges Football",new LatLng(46.52309381914529, 6.5608807098372175)),
-            new CustomPlace("GooglePlex Football","Google Football",new LatLng(37.421999, -122.084057))
+            new CustomPlace("GooglePlex Football","Google Football",new LatLng( 37.422083, -122.082555))
 
 
         );
