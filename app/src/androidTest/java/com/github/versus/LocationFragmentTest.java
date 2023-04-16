@@ -106,6 +106,7 @@ import org.junit.runner.RunWith;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @RunWith(AndroidJUnit4.class)
 public class LocationFragmentTest {
@@ -135,7 +136,7 @@ public class LocationFragmentTest {
     }
 
 
-   @Test
+    @Test
     public void testSuccess() throws InterruptedException {
 
 
@@ -148,7 +149,7 @@ public class LocationFragmentTest {
 
         closeSoftKeyboard();
 
-       onView(withText("Show Places")).check(matches(isDisplayed())).perform(click());
+        onView(withText("Show Places")).check(matches(isDisplayed())).perform(click());
 
         onView(withText("Cancel")).perform(click());
 
@@ -166,25 +167,60 @@ public class LocationFragmentTest {
         // Find the menu item by its ID and perform a click
         onView(withText("Get Place")).perform(click());
 
-        onView(withId(R.id.edit_text_radius2)).perform(typeText("800"));
+        onView(withId(R.id.edit_text_radius2)).perform(typeText("1500"));
 
         closeSoftKeyboard();
 
         onView(withText("Show Places")).check(matches(isDisplayed())).perform(click());
 
         //onData(anything()).inAdapterView(withText(placeName)).atPosition(0).perform(click());
+        long waitingTime = 5000; // Wait for 5 seconds
+        ElapsedTimeIdlingResource idlingResource = new ElapsedTimeIdlingResource(waitingTime);
+        IdlingRegistry.getInstance().register(idlingResource);
 
 
-        onData(anything())
-                .inAdapterView(withId(R.id.test_list_view2))
-                .atPosition(0)
-                .perform(click());
+        onData(anything()).inAdapterView(withId(R.id.test_list_view2)).atPosition(0).perform(click());
+
+        IdlingRegistry.getInstance().unregister(idlingResource);
     }
 
-        //IdlingRegistry.getInstance().unregister(idlingResource);
+    public class ElapsedTimeIdlingResource implements IdlingResource {
+        private final long startTime;
+        private final long waitingTime;
+        private ResourceCallback resourceCallback;
 
+        public ElapsedTimeIdlingResource(long waitingTime) {
+            this.startTime = System.currentTimeMillis();
+            this.waitingTime = waitingTime;
+        }
 
+        @Override
+        public String getName() {
+            return ElapsedTimeIdlingResource.class.getName() + ":" + waitingTime;
+        }
+
+        @Override
+        public boolean isIdleNow() {
+            long elapsed = System.currentTimeMillis() - startTime;
+            boolean idle = (elapsed >= waitingTime);
+            if (idle && resourceCallback != null) {
+                resourceCallback.onTransitionToIdle();
+            }
+            return idle;
+        }
+
+        @Override
+        public void registerIdleTransitionCallback(ResourceCallback resourceCallback) {
+            this.resourceCallback = resourceCallback;
+        }
     }
+}
+
+
+    //IdlingRegistry.getInstance().unregister(idlingResource);
+
+
+
 
 
     /* @Test
