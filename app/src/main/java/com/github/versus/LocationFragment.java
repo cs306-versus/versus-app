@@ -424,7 +424,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
                         List<CustomPlace> filteredPlaces = new ArrayList<>();
                         for (CustomPlace customPlace : customPlaces) {
-                            double distance = 1000;
+                            double distance = haversineDistance(userLatLng, customPlace.latLng);
 
                             if (distance <= radius) {
                                 filteredPlaces.add(customPlace);
@@ -548,7 +548,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
      * @param latLng2 The second LatLng point.
      * @return The haversine distance between the two points in meters.
      */
-    /*static double haversineDistance(LatLng latLng1, LatLng latLng2) {
+    static double haversineDistance(LatLng latLng1, LatLng latLng2) {
         double earthRadius = 6371; // Radius of the earth in km
         double dLat = toRadians(latLng2.latitude - latLng1.latitude);
         double dLng = toRadians(latLng2.longitude - latLng1.longitude);
@@ -557,7 +557,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                 * sin(dLng / 2) * sin(dLng / 2);
         double c = 2 * atan2(Math.sqrt(a), Math.sqrt(1 - a));
         return earthRadius * c * 1000; // Distance in meters
-    }*/
+    }
     /**
      * Applies a blinking animation to a given marker on the map.
      * @param marker The marker to apply the blinking animation to.
