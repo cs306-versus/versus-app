@@ -1,3 +1,16 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
 package com.github.versus;
 
 
@@ -47,7 +60,6 @@ import android.widget.TextView;
 import androidx.core.view.GravityCompat;
 import androidx.fragment.app.testing.FragmentScenario;
 import androidx.lifecycle.Lifecycle;
-import androidx.test.core.app.ActivityScenario;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.espresso.DataInteraction;
 import androidx.test.espresso.Espresso;
@@ -74,13 +86,11 @@ import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 
-import org.checkerframework.checker.units.qual.C;
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -120,122 +130,39 @@ public class LocationFragmentTest {
         Intents.release();
     }
 
+    /* @Test
+     public void testLocationElements() throws InterruptedException {
+         String placeName = "Bassenges Football";
+         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
+         // Find the menu item by its ID and perform a click
+         onView(withText("Get Place")).perform(click());
+         onView(withId(R.id.edit_text_radius2)).perform(typeText("800"));
+         onView(withText("Show Places")).perform(click());
+        // onView(withText("Cancel")).perform(click());
+         long waitingTime = 7000; // Wait for 5 seconds
+         ElapsedTimeIdlingResource idlingResource = new ElapsedTimeIdlingResource(waitingTime);
+         IdlingRegistry.getInstance().register(idlingResource);
+         onView(withText("Bassenges Football")).perform(click());
+         IdlingRegistry.getInstance().unregister(idlingResource);
+         //IdlingRegistry.getInstance().unregister(idlingResource);
+     }*/
     @Test
-    public void testShowPlaces() throws InterruptedException {
+    public void testSuccess() throws InterruptedException {
+
+
+        String placeName = "Bassenges Football";
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
         // Find the menu item by its ID and perform a click
         onView(withText("Get Place")).perform(click());
+
         onView(withId(R.id.edit_text_radius2)).perform(typeText("800"));
+        onView(withText("Show Places")).perform(click());
 
 
-    }
+        onView(withText("Cancel")).perform(click());
+
+        //IdlingRegistry.getInstance().unregister(idlingResource);
 
 
-
-
-    @Test
-    public void testIfNoLocationWithinRadius() throws InterruptedException {
-        // Find the overflow menu button and find the "Choose a radius" menu item and perform a type text action
-        Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
-        // Find the menu item by its ID and perform a click
-        onView(withText("Get Place")).perform(click());
-        onView(withId(R.id.edit_text_radius2)).perform(typeText("10"));
-    }
-    @Test
-    public void testNoValidRadius() throws InterruptedException {
-        // Find the overflow menu button and find the "Choose a radius" menu item and perform a type text action
-        Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
-        // Find the menu item by its ID and perform a click
-        onView(withText("Get Place")).perform(click());
-        //onView(withText("Show Places")).perform(click());
-    }
-    @Test
-        public void testAnimations() {
-            try (ActivityScenario<MainActivity> scenario = ActivityScenario.launch(MainActivity.class)) {
-
-                // Open the overflow menu and click on the menu items
-
-
-                // Use onActivity to interact with the fragment
-                scenario.onActivity(new ActivityScenario.ActivityAction<MainActivity>() {
-                    @Override
-                    public void perform(MainActivity activity) {
-                        LocationFragment locationFragment = new LocationFragment();
-                        activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, locationFragment).commitNow();
-
-                       //if (location != null) {
-                            LatLng epfl = new LatLng(46.520536, 6.568318);
-                            MarkerOptions epflMarker = new MarkerOptions().position(epfl).title("EPFL");
-
-                            // Interact with the fragment's methods
-                            // Make sure these methods are public in your fragment
-                            //locationFragment.onMapReady(LocationFragment.map);
-                           // locationFragment.addBlinkingMarker(epfl, "epfl", "epfl");
-                          //locationFragment. drawCircle(200);
-                            //locationFragment.applyFlashingAnimation();
-                          locationFragment.haversineDistance(epfl,epfl);
-                          //LocationFragment.showToast("Hello");
-
-
-
-
-
-
-                    }
-                });
-
-                // Move the activity to a destroyed state
-                scenario.moveToState(Lifecycle.State.DESTROYED);
-            }
-        }
-
-    @Test
-    public void testDialogAlertBox() {
-        try (ActivityScenario<MainActivity> scenario = ActivityScenario.launch(MainActivity.class)) {
-
-            // Open the overflow menu and click on the menu items
-
-
-            // Use onActivity to interact with the fragment
-            scenario.onActivity(new ActivityScenario.ActivityAction<MainActivity>() {
-                @Override
-                public void perform(MainActivity activity) {
-
-                    LocationFragment locationFragment = new LocationFragment();
-                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, locationFragment).commitNow();
-                    //locationFragment.onMapReady(LocationFragment.map);
-                    locationFragment.openPlacesDialog();
-                    locationFragment.showCurrentPlace(1500);
-
-
-                    locationFragment.updateLocationUI();
-                    locationFragment.getLocationPermission();
-                    locationFragment.showToast("Hello User !");
-
-
-
-
-
-
-                }
-            });
-
-            // Move the activity to a destroyed state
-            scenario.moveToState(Lifecycle.State.DESTROYED);
-        }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

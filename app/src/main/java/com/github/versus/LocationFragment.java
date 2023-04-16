@@ -2,6 +2,11 @@
 
 package com.github.versus;
 
+import static java.lang.Math.atan2;
+import static java.lang.Math.cos;
+import static java.lang.Math.sin;
+import static java.lang.Math.toRadians;
+
 import android.animation.ValueAnimator;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
@@ -65,6 +70,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
 
 /**
  * An activity that displays a map showing the place at the device's current location.
@@ -544,12 +550,12 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
      */
     static double haversineDistance(LatLng latLng1, LatLng latLng2) {
         double earthRadius = 6371; // Radius of the earth in km
-        double dLat = Math.toRadians(latLng2.latitude - latLng1.latitude);
-        double dLng = Math.toRadians(latLng2.longitude - latLng1.longitude);
-        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
-                + Math.cos(Math.toRadians(latLng1.latitude)) * Math.cos(Math.toRadians(latLng2.latitude))
-                * Math.sin(dLng / 2) * Math.sin(dLng / 2);
-        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        double dLat = toRadians(latLng2.latitude - latLng1.latitude);
+        double dLng = toRadians(latLng2.longitude - latLng1.longitude);
+        double a = sin(dLat / 2) * sin(dLat / 2)
+                + cos(toRadians(latLng1.latitude)) * cos(toRadians(latLng2.latitude))
+                * sin(dLng / 2) * sin(dLng / 2);
+        double c = 2 * atan2(Math.sqrt(a), Math.sqrt(1 - a));
         return earthRadius * c * 1000; // Distance in meters
     }
     /**
