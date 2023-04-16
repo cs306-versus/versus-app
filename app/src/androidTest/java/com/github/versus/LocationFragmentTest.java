@@ -150,7 +150,7 @@ public class LocationFragmentTest {
         closeSoftKeyboard();
 
         onView(withText("Show Places")).check(matches(isDisplayed())).perform(click());
-        Thread.sleep(2000);
+
 
        // onView(withText("Cancel")).perform(click());
 
