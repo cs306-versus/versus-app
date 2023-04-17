@@ -156,13 +156,14 @@ public class LocationFragmentTest {
         // Find the menu item by its ID and perform a click
         onView(withText("Get Place")).perform(click());
 
-        onView(withId(R.id.edit_text_radius2)).perform(typeText("800"),pressImeActionButton());
+        onView(withId(R.id.edit_text_radius2)).perform(typeText("800"));
+        closeSoftKeyboard();
 
-
+SystemClock.sleep(3000);
 
         onView(withText("Show Places")).perform(click());
 
-
+SystemClock.sleep(3000);
         onView(withText("Cancel")).perform(click());
         SystemClock.sleep(3000);
 

@@ -223,3 +223,5 @@ lint/tmp/
 /app/src/androidTest/java/com/github/versus/GameFragmentTest.java
 /app/src/androidTest/java/com/github/versus/ScheduleTest.java
 /app/src/androidTest/java/com/github/versus/SearchFragTest.java
+/app/src/androidTest/java/com/github/versus/EntryActivityTest.java
+
