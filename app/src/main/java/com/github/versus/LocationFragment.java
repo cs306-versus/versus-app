@@ -413,6 +413,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     public void showCurrentPlace(double radius) {
 
         openPlacesDialog();
+        //showPlacesList();
     }
     /**
      * Creates and displays a custom dialog containing a list of nearby custom places.
