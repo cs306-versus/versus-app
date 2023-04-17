@@ -165,7 +165,7 @@ public class LocationFragmentTest {
 
 
 
-        onView(withText("")).perform(click());
+        onView(withText("Cancel")).perform(click());
 
 
 //Thread.sleep(5000);
