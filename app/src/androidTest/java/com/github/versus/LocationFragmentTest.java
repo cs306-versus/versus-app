@@ -20,6 +20,7 @@ import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
+import static androidx.test.espresso.action.ViewActions.pressImeActionButton;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
@@ -155,15 +156,15 @@ public class LocationFragmentTest {
         // Find the menu item by its ID and perform a click
         onView(withText("Get Place")).perform(click());
 
-        onView(withId(R.id.edit_text_radius2)).perform(typeText("800"));
+        onView(withId(R.id.edit_text_radius2)).perform(typeText("800"),pressImeActionButton());
 
-        closeSoftKeyboard();
+
 
         onView(withText("Show Places")).perform(click());
 
-        SystemClock.sleep(3000);
-        onView(withText("Cancel")).perform(click());
 
+        onView(withText("Cancel")).perform(click());
+        SystemClock.sleep(3000);
 
 //Thread.sleep(5000);
         //onView(withText("Cancel")).inRoot(isDialog()).check(matches(isDisplayed())).perform(click());
