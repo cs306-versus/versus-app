@@ -211,3 +211,15 @@ lint/tmp/
 /app/src/main/java/com/github/versus/.vscode/
 
 !/.idea/deploymentTargetDropDown.xml
+
+# Custom exclusions
+/app/src/androidTest/java/com/github/versus/auth/
+/app/src/test/java/com/github/versus/
+/app/src/androidTest/java/com/github/versus/user/
+/app/src/androidTest/java/com/github/versus/utils/
+/app/src/androidTest/java/com/github/versus/CacheManagerTest.java
+/app/src/androidTest/java/com/github/versus/FsPostManagerTests.java
+/app/src/androidTest/java/com/github/versus/FsScheduleManagerTests.java
+/app/src/androidTest/java/com/github/versus/GameFragmentTest.java
+/app/src/androidTest/java/com/github/versus/ScheduleTest.java
+/app/src/androidTest/java/com/github/versus/SearchFragTest.java
