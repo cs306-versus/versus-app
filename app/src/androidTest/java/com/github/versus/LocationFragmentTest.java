@@ -160,14 +160,17 @@ public class LocationFragmentTest {
         closeSoftKeyboard();
         onView(withText("Show Places")).perform(click());
 
+        //long waitingTime = 5000; // Wait for 5 seconds
+        //ElapsedTimeIdlingResource idlingResource = new ElapsedTimeIdlingResource(waitingTime);
+        //IdlingRegistry.getInstance().register(idlingResource);
 
         onView(withText("Cancel")).perform(click());
 
         //IdlingRegistry.getInstance().unregister(idlingResource);
 
     }
-}
 
+}
    /* @Test
     public void testSuccess() throws InterruptedException {
 
@@ -190,7 +193,7 @@ public class LocationFragmentTest {
 
 
     }
-
+*/
    /* @Test
     public void testSuccess2() throws InterruptedException {
 
@@ -216,9 +219,9 @@ public class LocationFragmentTest {
         onData(anything()).inAdapterView(withId(R.id.test_list_view2)).atPosition(0).perform(click());
 
        // IdlingRegistry.getInstance().unregister(idlingResource);
-    }
+    }*/
 
-  /*  public class ElapsedTimeIdlingResource implements IdlingResource {
+   /* public class ElapsedTimeIdlingResource implements IdlingResource {
         private final long startTime;
         private final long waitingTime;
         private ResourceCallback resourceCallback;
