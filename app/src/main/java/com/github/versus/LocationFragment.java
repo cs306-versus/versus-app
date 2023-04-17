@@ -292,9 +292,6 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
             Log.e("Exception: %s", e.getMessage(), e);
         }
     }
-    public boolean isLocationPermissionGranted() {
-        return locationPermissionGranted;
-    }
 
 
     /**
@@ -364,16 +361,12 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     public void openPlacesDialog(){
         View view;
         EditText radiusInput;
-        if(counter==0){
+
              view = LayoutInflater.from(getActivity()).inflate(R.layout.radius_layout, null);
             radiusInput = view.findViewById(R.id.edit_text_radius2);
-        }
-        else{
-             view = LayoutInflater.from(getActivity()).inflate(R.layout.radius_layout2, null);
-             radiusInput = view.findViewById(R.id.edit_text_radius4);
-        }
 
-        counter ++;
+
+
         // Get a reference to the EditText view in the layout
 
         radiusInput.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
@@ -412,8 +405,68 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
      */
     public void showCurrentPlace(double radius) {
 
-        openPlacesDialog();
-        //showPlacesList();
+
+        List<CustomPlace> customPlaces = Arrays.asList(new CustomPlace("UNIL Football", "UNIL Football", new LatLng(46.519385, 6.580856)), new CustomPlace("Chavannes Football", "Chavannes Football", new LatLng(46.52527373363714, 6.57366257779824)), new CustomPlace("Bassenges Football", "Bassenges Football", new LatLng(46.52309381914529, 6.5608807098372175)), new CustomPlace("GooglePlex Football", "Google Football", new LatLng(37.422083, -122.082555))
+
+
+        );
+
+        if (true) {
+
+            FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity());
+            @SuppressWarnings("MissingPermission") Task<Location> lastLocation = fusedLocationClient.getLastLocation();
+
+
+            lastLocation.addOnSuccessListener(new OnSuccessListener<Location>() {
+                @Override
+                public void onSuccess(Location location) {
+                    if (location != null) {
+                        LatLng userLatLng = new LatLng(location.getLatitude(), location.getLongitude());
+
+                        List<CustomPlace> filteredPlaces = new ArrayList<>();
+                        for (CustomPlace customPlace : customPlaces) {
+                            double distance = haversineDistance(userLatLng, customPlace.latLng);
+
+                            if (distance <= radius) {
+                                filteredPlaces.add(customPlace);
+                                hasLocations = true;
+                            }
+
+                        }
+                        int count = filteredPlaces.size();
+
+                        likelyPlaceNames = new String[count];
+                        likelyPlaceAddresses = new String[count];
+                        likelyPlaceLatLngs = new LatLng[count];
+
+                        for (int i = 0; i < count; i++) {
+                            CustomPlace customPlace = filteredPlaces.get(i);
+                            likelyPlaceNames[i] = customPlace.name;
+                            likelyPlaceAddresses[i] = customPlace.address;
+                            likelyPlaceLatLngs[i] = customPlace.latLng;
+                        }
+
+                        // Show a dialog offering the user the list of custom places, and add a
+                        // marker at the selected place.
+                        if (!hasLocations && radius != 0) {
+                            showToast("No locations found within the selected radius");
+
+                        } else {
+                            showPlacesList();
+                            //drawCircle(radius);
+                        }
+                        hasLocations = false;
+
+                        // drawCircle(radius);
+                    }
+                }
+            });
+        } else {
+            // The user has not granted permission.
+            Log.i(TAG, "The user did not grant location permission.");
+
+            getLocationPermission();
+        }
     }
     /**
      * Creates and displays a custom dialog containing a list of nearby custom places.
