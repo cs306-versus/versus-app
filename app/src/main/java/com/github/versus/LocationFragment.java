@@ -376,7 +376,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                 String radiusStr = radiusInput.getText().toString();
                 if (!TextUtils.isEmpty(radiusStr)) {
                     radius = Float.parseFloat(radiusInput.getText().toString());
-                   // dialog.dismiss();
+                    dialog.dismiss();
                     showCurrentPlace(radius);
                     drawCircle(radius);
                 }
