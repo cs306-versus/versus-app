@@ -158,14 +158,22 @@ public class LocationFragmentTest {
         onView(withId(R.id.edit_text_radius2)).perform(typeText("800"));
 
         closeSoftKeyboard();
+
         onView(withText("Show Places")).perform(click());
+        long waitingTime = 5000; // Wait for 5 seconds
+        ElapsedTimeIdlingResource idlingResource = new ElapsedTimeIdlingResource(waitingTime);
+        IdlingRegistry.getInstance().register(idlingResource);
+
+
         onView(withText("Cancel")).perform(click());
+        IdlingRegistry.getInstance().unregister(idlingResource);
+
 //Thread.sleep(5000);
         //onView(withText("Cancel")).inRoot(isDialog()).check(matches(isDisplayed())).perform(click());
 
 
     }
-}
+
    /* @Test
     public void testSuccess() throws InterruptedException {
 
@@ -216,7 +224,7 @@ public class LocationFragmentTest {
        // IdlingRegistry.getInstance().unregister(idlingResource);
     }*/
 
-/*    public class ElapsedTimeIdlingResource implements IdlingResource {
+    public class ElapsedTimeIdlingResource implements IdlingResource {
         private final long startTime;
         private final long waitingTime;
         private ResourceCallback resourceCallback;
@@ -246,7 +254,8 @@ public class LocationFragmentTest {
             this.resourceCallback = resourceCallback;
         }
     }
-}*/
+}
+
 
 
     //IdlingRegistry.getInstance().unregister(idlingResource);
