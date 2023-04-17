@@ -160,15 +160,14 @@ public class LocationFragmentTest {
         closeSoftKeyboard();
         onView(withText("Show Places")).perform(click());
 
-        //long waitingTime = 5000; // Wait for 5 seconds
-        //ElapsedTimeIdlingResource idlingResource = new ElapsedTimeIdlingResource(waitingTime);
-        //IdlingRegistry.getInstance().register(idlingResource);
+        long waitingTime = 6000; // Wait for 5 seconds
+        ElapsedTimeIdlingResource idlingResource = new ElapsedTimeIdlingResource(waitingTime);
+        IdlingRegistry.getInstance().register(idlingResource);
 
         onView(withText("Cancel")).perform(click());
 
-        //IdlingRegistry.getInstance().unregister(idlingResource);
+        IdlingRegistry.getInstance().unregister(idlingResource);
 
-    }
 
 }
    /* @Test
@@ -221,7 +220,7 @@ public class LocationFragmentTest {
        // IdlingRegistry.getInstance().unregister(idlingResource);
     }*/
 
-   /* public class ElapsedTimeIdlingResource implements IdlingResource {
+    public class ElapsedTimeIdlingResource implements IdlingResource {
         private final long startTime;
         private final long waitingTime;
         private ResourceCallback resourceCallback;
