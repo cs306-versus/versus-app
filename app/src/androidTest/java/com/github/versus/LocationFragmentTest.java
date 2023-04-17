@@ -163,6 +163,8 @@ public class LocationFragmentTest {
                 .perform(click());
 
         onView(withText("Cancel")).inRoot(isDialog())
+
+
                 .perform(click());
 
 
