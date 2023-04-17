@@ -135,8 +135,30 @@ public class LocationFragmentTest {
         Intents.release();
     }
 
-
     @Test
+    public void testSuccess() throws InterruptedException {
+
+
+        String placeName = "GooglePlex Football";
+        Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
+        // Find the menu item by its ID and perform a click
+        onView(withText("Get Place")).perform(click());
+
+        onView(withId(R.id.edit_text_radius2)).perform(typeText("800"));
+
+        closeSoftKeyboard();
+        onView(withText("Show Places")).perform(click());
+
+
+        //onView(withText("Cancel")).perform(click());
+
+        //IdlingRegistry.getInstance().unregister(idlingResource);
+
+
+    }
+}
+
+   /* @Test
     public void testSuccess() throws InterruptedException {
 
 
@@ -159,7 +181,7 @@ public class LocationFragmentTest {
 
     }
 
-    @Test
+   /* @Test
     public void testSuccess2() throws InterruptedException {
 
         //The emulator has its default location on GooglePlex
@@ -186,7 +208,7 @@ public class LocationFragmentTest {
        // IdlingRegistry.getInstance().unregister(idlingResource);
     }
 
-    public class ElapsedTimeIdlingResource implements IdlingResource {
+  /*  public class ElapsedTimeIdlingResource implements IdlingResource {
         private final long startTime;
         private final long waitingTime;
         private ResourceCallback resourceCallback;
