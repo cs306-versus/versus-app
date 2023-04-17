@@ -1,4 +1,3 @@
-
 package com.github.versus;
 
 import static java.lang.Math.atan2;
@@ -70,9 +69,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-/**
- * An activity that displays a map showing the place at the device's current location.
- */
 
 public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
@@ -151,7 +147,6 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
      * Manipulates the map when it's available.
      * This callback is triggered when the map is ready to be used.
      */
-
     @Override
     public  void onMapReady(GoogleMap map) {
         this.map = map;
@@ -322,7 +317,6 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     /**
      * Handles the result of the request for location permissions.
      */
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         locationPermissionGranted = false;
@@ -382,12 +376,15 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                 String radiusStr = radiusInput.getText().toString();
                 if (!TextUtils.isEmpty(radiusStr)) {
                     radius = Float.parseFloat(radiusInput.getText().toString());
+                    dialog.dismiss();
                     showCurrentPlace(radius);
                     drawCircle(radius);
                 }
                 else  {
+                    dialog.dismiss();
                     showToast("Please enter a radius");
                 }
+
 
 
             }
@@ -402,7 +399,6 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
      * If no custom places are found within the radius, a toast message is displayed to the user.
      * @param radius The radius (in meters) around the user's current location to search for custom places.
      */
-
     public void showCurrentPlace(double radius) {
         if (map == null) {
             return;
@@ -469,7 +465,6 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         } else {
             // The user has not granted permission.
             Log.i(TAG, "The user did not grant location permission.");
-
 
             getLocationPermission();
         }
@@ -628,5 +623,11 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
         applyBlinkingAnimation(blinkingMarker);
     }
+
+
+
+
+
+
 
 }
