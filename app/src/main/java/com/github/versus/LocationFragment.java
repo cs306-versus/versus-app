@@ -483,7 +483,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                 setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
+                //dialog.dismiss();
             }
         }).create();
 
@@ -498,7 +498,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                         .snippet(likelyPlaceAddresses[position]));
                 addBlinkingMarker(selectedPlace, likelyPlaceNames[position], likelyPlaceAddresses[position]);
                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedPlace, DEFAULT_ZOOM));
-                dialog.dismiss();
+               // dialog.dismiss();
             }
         });
         dialog.show();
