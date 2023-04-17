@@ -132,10 +132,10 @@ public class LocationFragmentTest {
     }
 
 
-    @After
+   /* @After
     public void tearDown() {
         Intents.release();
-    }
+    }*/
 
     @Test
     public void testSuccess() throws InterruptedException {
