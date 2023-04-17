@@ -159,10 +159,13 @@ public class LocationFragmentTest {
         onView(withId(R.id.edit_text_radius2)).perform(typeText("800"));
         closeSoftKeyboard();
         onView(withText("Show Places")).perform(click());
-        //onView(withText("Cancel")).perform(click());
+        onView(withText("Cancel"))
+                .inRoot(isDialog())
+                .perform(click());
 
 
-//Thread.sleep(5000);
+
+        //Thread.sleep(5000);
         //onView(withText("Cancel")).inRoot(isDialog()).check(matches(isDisplayed())).perform(click());
 
 
