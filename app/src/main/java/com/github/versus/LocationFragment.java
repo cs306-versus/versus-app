@@ -537,6 +537,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     static void drawCircle( double radius) {
         //Clearing the map from previous circles
         map.clear();
+
         CircleOptions circleOptions = new CircleOptions().center(localPos).radius(radius).
                 strokeWidth(2);
         mapCircle = map.addCircle(circleOptions);
