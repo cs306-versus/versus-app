@@ -470,6 +470,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
             // The user has not granted permission.
             Log.i(TAG, "The user did not grant location permission.");
 
+
             getLocationPermission();
         }
     }
