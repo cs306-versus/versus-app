@@ -108,6 +108,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     private static ListView listView ;
     private static boolean hasLocations = false;
     static Circle mapCircle;
+    static int counter;
 
 
     @Override
@@ -361,10 +362,20 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     // Inflate the custom layout 'radius_layout
 
     public void openPlacesDialog(){
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.radius_layout, null);
+        View view;
+        EditText radiusInput;
+        if(counter==0){
+             view = LayoutInflater.from(getActivity()).inflate(R.layout.radius_layout, null);
+            radiusInput = view.findViewById(R.id.edit_text_radius2);
+        }
+        else{
+             view = LayoutInflater.from(getActivity()).inflate(R.layout.radius_layout2, null);
+             radiusInput = view.findViewById(R.id.edit_text_radius4);
+        }
 
+        counter ++;
         // Get a reference to the EditText view in the layout
-        EditText radiusInput = view.findViewById(R.id.edit_text_radius2);
+
         radiusInput.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         radiusInput.setHint("Enter radius (in meters)");
 
