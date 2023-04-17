@@ -1,5 +1,4 @@
 
-
 package com.github.versus;
 
 import static java.lang.Math.atan2;
@@ -71,11 +70,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-
 /**
  * An activity that displays a map showing the place at the device's current location.
  */
-
 
 public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
@@ -114,7 +111,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
     private static ListView listView ;
     private static boolean hasLocations = false;
-     static Circle mapCircle;
+    static Circle mapCircle;
 
 
     @Override
@@ -154,6 +151,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
      * Manipulates the map when it's available.
      * This callback is triggered when the map is ready to be used.
      */
+
     @Override
     public  void onMapReady(GoogleMap map) {
         this.map = map;
@@ -307,7 +305,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
      * Prompts the user for permission to use the device location.
      */
 
-     void getLocationPermission() {
+    void getLocationPermission() {
         /*
          * Request location permission, so that we can get the location of the
          * device. The result of the permission request is handled by a callback,
@@ -324,6 +322,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     /**
      * Handles the result of the request for location permissions.
      */
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         locationPermissionGranted = false;
@@ -341,7 +340,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     /**
      * Updates the map's UI settings based on whether the user has granted location permission.
      */
-      void updateLocationUI() {
+    void updateLocationUI() {
         if (map == null) {
             return;
         }
@@ -365,9 +364,9 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
      * and draw a circle with the given radius.
      */
 
-        // Inflate the custom layout 'radius_layout
+    // Inflate the custom layout 'radius_layout
 
-        public void openPlacesDialog(){
+    public void openPlacesDialog(){
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.radius_layout, null);
 
         // Get a reference to the EditText view in the layout
@@ -403,6 +402,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
      * If no custom places are found within the radius, a toast message is displayed to the user.
      * @param radius The radius (in meters) around the user's current location to search for custom places.
      */
+
     public void showCurrentPlace(double radius) {
         if (map == null) {
             return;
@@ -410,7 +410,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         List<CustomPlace> customPlaces = Arrays.asList(new CustomPlace("UNIL Football", "UNIL Football", new LatLng(46.519385, 6.580856)),
                 new CustomPlace("Chavannes Football", "Chavannes Football", new LatLng(46.52527373363714, 6.57366257779824)),
                 new CustomPlace("Bassenges Football","Bassenges Football",new LatLng(46.52309381914529, 6.5608807098372175)),
-            new CustomPlace("GooglePlex Football","Google Football",new LatLng( 37.422083, -122.082555))
+                new CustomPlace("GooglePlex Football","Google Football",new LatLng( 37.422083, -122.082555))
 
 
         );
@@ -458,7 +458,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                         }
                         else {
                             showPlacesList();
-                            drawCircle(radius);
+                            //drawCircle(radius);
                         }
                         hasLocations=false;
 
@@ -610,7 +610,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
      * @param title The title of the marker.
      * @param snippet The snippet of the marker.
      */
-     static void addBlinkingMarker(LatLng position, String title, String snippet) {
+    static void addBlinkingMarker(LatLng position, String title, String snippet) {
         Marker mainMarker = map.addMarker(new MarkerOptions()
                 .position(position)
                 .title(title)
@@ -627,10 +627,5 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
         applyBlinkingAnimation(blinkingMarker);
     }
-
-
-
-
-
 
 }
