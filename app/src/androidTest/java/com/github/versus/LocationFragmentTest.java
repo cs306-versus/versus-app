@@ -216,11 +216,12 @@ public class LocationFragmentTest {
         // Find the menu item by its ID and perform a click
         onView(withText("Get Place")).perform(click());
         closeSoftKeyboard();
-        onView(withText("Cancel")).inRoot(isDialog())
-                .perform(click());
+
         long waitingTime2 = 10000;
         ElapsedTimeIdlingResource idlingResource2 = new ElapsedTimeIdlingResource(waitingTime2);
         IdlingRegistry.getInstance().register(idlingResource2);
+        onView(withText("Cancel")).inRoot(isDialog())
+                .perform(click());
         IdlingRegistry.getInstance().unregister(idlingResource2);
         IdlingRegistry.getInstance().unregister(idlingResourceFirst);
     }
