@@ -138,19 +138,8 @@ public class LocationFragmentTest {
     }
 
     @Test
-    public void testSuccess() throws InterruptedException {
+    public void testCancel() throws InterruptedException {
 
-
-       /* String placeName = "GooglePlex Football";
-        Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
-        // Find the menu item by its ID and perform a click
-        onView(withText("Get Place")).perform(click());
-
-        onView(withId(R.id.edit_text_radius2)).perform(typeText("800"));
-
-        closeSoftKeyboard();
-        onView(withText("Show Places")).perform(click());
-*/
         String placeName = "GooglePlex Football";
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
         // Find the menu item by its ID and perform a click
@@ -167,12 +156,30 @@ public class LocationFragmentTest {
         onView(withText("Cancel2")).perform(click());
 
          IdlingRegistry.getInstance().unregister(idlingResource);
+    }
+
+    @Test
+    public void testClickOnLocation() throws InterruptedException {
+
+        String placeName = "GooglePlex Football";
+        Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
+        // Find the menu item by its ID and perform a click
+        onView(withText("Get Place")).perform(click());
 
 
-        //Thread.sleep(5000);
-        //onView(withText("Cancel")).inRoot(isDialog()).check(matches(isDisplayed())).perform(click());
+        onView(withId(R.id.edit_text_radius2)).perform(typeText("1500"));
+        closeSoftKeyboard();
+        onView(withText("Show Places")).inRoot(isDialog())
+                .perform(click());
+        long waitingTime = 10000;
+        ElapsedTimeIdlingResource idlingResource = new ElapsedTimeIdlingResource(waitingTime);
+        IdlingRegistry.getInstance().register(idlingResource);
+        onData(anything())
+                .inAdapterView(withId(R.id.test_list_view2))
+                .atPosition(0)
+                .perform(click());
 
-
+        IdlingRegistry.getInstance().unregister(idlingResource);
     }
 
    /* @Test
