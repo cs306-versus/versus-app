@@ -196,6 +196,7 @@ public class LocationFragmentTest {
         IdlingRegistry.getInstance().register(idlingResourceFirst);
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
         // Find the menu item by its ID and perform a click
+
         onView(withText("Get Place")).perform(click());
         closeSoftKeyboard();
         onView(withText("Show Places")).inRoot(isDialog())
