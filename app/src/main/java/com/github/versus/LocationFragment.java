@@ -364,9 +364,14 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     // Inflate the custom layout 'radius_layout
 
     public void openPlacesDialog(){
+        View view;
+        EditText radiusInput;
 
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.radius_layout, null);
-        EditText  radiusInput = view.findViewById(R.id.edit_text_radius2);
+        view = LayoutInflater.from(getActivity()).inflate(R.layout.radius_layout, null);
+        radiusInput = view.findViewById(R.id.edit_text_radius2);
+
+
+
         // Get a reference to the EditText view in the layout
 
         radiusInput.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
@@ -405,7 +410,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
      */
     public void showCurrentPlace(double radius) {
 
-         List<CustomPlace> filteredPlaces = new ArrayList<>();
+        List<CustomPlace> filteredPlaces = new ArrayList<>();
          for (CustomPlace customPlace : customPlaces) {
             double distance = haversineDistance(localPos, customPlace.latLng);
 
@@ -438,6 +443,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                         drawCircle(radius);
                     }
                     hasLocations = false;
+
 
                 }
 
