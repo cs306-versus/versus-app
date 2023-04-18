@@ -463,7 +463,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
                     } else {
                         showPlacesList();
-                        //drawCircle(radius);
+                        drawCircle(radius);
                     }
                     hasLocations = false;
 
