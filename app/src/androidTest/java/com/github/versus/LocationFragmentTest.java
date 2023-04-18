@@ -201,6 +201,7 @@ public class LocationFragmentTest {
         closeSoftKeyboard();
         onView(withText("Show Places")).inRoot(isDialog())
                 .perform(click());
+
         long waitingTime2 = 10000;
         ElapsedTimeIdlingResource idlingResource2 = new ElapsedTimeIdlingResource(waitingTime2);
         IdlingRegistry.getInstance().register(idlingResource2);
