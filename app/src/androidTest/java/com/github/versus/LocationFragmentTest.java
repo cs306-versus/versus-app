@@ -137,7 +137,7 @@ public class LocationFragmentTest {
         Intents.release();
     }
 
-    @Test
+   /* @Test
     public void testCancel() throws InterruptedException {
 
         String placeName = "GooglePlex Football";
@@ -146,7 +146,7 @@ public class LocationFragmentTest {
         onView(withText("Get Place")).perform(click());
 
 
-        onView(withId(R.id.edit_text_radius2)).perform(typeText("800"));
+        onView(withId(R.id.edit_text_radius2)).perform(typeText("1500"));
         closeSoftKeyboard();
         onView(withText("Show Places")).inRoot(isDialog())
                 .perform(click());
@@ -156,9 +156,9 @@ public class LocationFragmentTest {
         onView(withText("Cancel2")).perform(click());
 
          IdlingRegistry.getInstance().unregister(idlingResource);
-    }
+    }*/
 
-  /*  @Test
+    @Test
     public void testClickOnLocation() throws InterruptedException {
 
         String placeName = "GooglePlex Football";
@@ -174,13 +174,10 @@ public class LocationFragmentTest {
         long waitingTime = 10000;
         ElapsedTimeIdlingResource idlingResource = new ElapsedTimeIdlingResource(waitingTime);
         IdlingRegistry.getInstance().register(idlingResource);
-        onData(anything())
-                .inAdapterView(withId(R.id.test_list_view2))
-                .atPosition(0)
-                .perform(click());
+        onView(withText(placeName)).perform(click());
 
         IdlingRegistry.getInstance().unregister(idlingResource);
-    }*/
+    }
 
    /* @Test
     public void testSuccess() throws InterruptedException {
