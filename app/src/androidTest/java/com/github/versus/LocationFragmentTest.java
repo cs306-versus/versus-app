@@ -137,7 +137,7 @@ public class LocationFragmentTest {
         Intents.release();
     }
 
-   /* @Test
+    @Test
     public void testCancel() throws InterruptedException {
 
         String placeName = "GooglePlex Football";
@@ -156,7 +156,7 @@ public class LocationFragmentTest {
         onView(withText("Cancel2")).perform(click());
 
          IdlingRegistry.getInstance().unregister(idlingResource);
-    }*/
+    }
 
     @Test
     public void testClickOnLocation() throws InterruptedException {
