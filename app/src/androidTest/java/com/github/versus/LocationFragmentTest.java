@@ -102,9 +102,11 @@ import org.hamcrest.TypeSafeMatcher;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -112,10 +114,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 @RunWith(AndroidJUnit4.class)
 public class LocationFragmentTest {
-    long waitingTime = 10000;
 
-
-    ElapsedTimeIdlingResource idlingResource = new ElapsedTimeIdlingResource(waitingTime);
 
     @Rule
     public ActivityScenarioRule<MainActivity> activityRule = new ActivityScenarioRule<>(MainActivity.class);
@@ -128,7 +127,7 @@ public class LocationFragmentTest {
     @Before
     public void setUp() {
 
-        IdlingRegistry.getInstance().register(idlingResource);
+
         Intents.init();
         //Open the drawer_layout
         onView(withId(R.id.drawer_layout)).check(matches(DrawerMatchers.isClosed(GravityCompat.START))).perform(DrawerActions.open());
@@ -140,14 +139,16 @@ public class LocationFragmentTest {
 
     @After
     public void tearDown() {
-        IdlingRegistry.getInstance().unregister(idlingResource);
+
         Intents.release();
 
     }
 
     @Test
     public void testCancel() throws InterruptedException {
-
+        long waitingTime = 10000;
+        ElapsedTimeIdlingResource idlingResourceFirst = new ElapsedTimeIdlingResource(waitingTime);
+        IdlingRegistry.getInstance().register(idlingResourceFirst);
         String placeName = "GooglePlex Football";
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
         // Find the menu item by its ID and perform a click
@@ -164,11 +165,14 @@ public class LocationFragmentTest {
         onView(withText("Cancel2")).perform(click());
 
          IdlingRegistry.getInstance().unregister(idlingResource2);
+        IdlingRegistry.getInstance().unregister(idlingResourceFirst);
     }
 
     @Test
     public void testClickOnLocation() throws InterruptedException {
-
+        long waitingTime = 10000;
+        ElapsedTimeIdlingResource idlingResourceFirst = new ElapsedTimeIdlingResource(waitingTime);
+        IdlingRegistry.getInstance().register(idlingResourceFirst);
         String placeName = "GooglePlex Football";
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
         // Find the menu item by its ID and perform a click
@@ -179,12 +183,13 @@ public class LocationFragmentTest {
         closeSoftKeyboard();
         onView(withText("Show Places")).inRoot(isDialog())
                 .perform(click());
-        long waitingTime = 10000;
-        ElapsedTimeIdlingResource idlingResource = new ElapsedTimeIdlingResource(waitingTime);
-        IdlingRegistry.getInstance().register(idlingResource);
+        long waitingTime2 = 10000;
+        ElapsedTimeIdlingResource idlingResource2 = new ElapsedTimeIdlingResource(waitingTime2);
+        IdlingRegistry.getInstance().register(idlingResource2);
         onView(withText(placeName)).perform(click());
 
-        IdlingRegistry.getInstance().unregister(idlingResource);
+        IdlingRegistry.getInstance().unregister(idlingResource2);
+        IdlingRegistry.getInstance().unregister(idlingResourceFirst);
     }
 
    /* @Test
