@@ -112,6 +112,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 @RunWith(AndroidJUnit4.class)
 public class LocationFragmentTest {
+    long waitingTime = 10000;
+    ElapsedTimeIdlingResource idlingResource = new ElapsedTimeIdlingResource(waitingTime);
 
     @Rule
     public ActivityScenarioRule<MainActivity> activityRule = new ActivityScenarioRule<>(MainActivity.class);
@@ -123,6 +125,8 @@ public class LocationFragmentTest {
 
     @Before
     public void setUp() {
+
+        IdlingRegistry.getInstance().register(idlingResource);
         Intents.init();
         //Open the drawer_layout
         onView(withId(R.id.drawer_layout)).check(matches(DrawerMatchers.isClosed(GravityCompat.START))).perform(DrawerActions.open());
@@ -135,6 +139,8 @@ public class LocationFragmentTest {
     @After
     public void tearDown() {
         Intents.release();
+        IdlingRegistry.getInstance().unregister(idlingResource);
+
     }
 
     @Test
@@ -150,12 +156,12 @@ public class LocationFragmentTest {
         closeSoftKeyboard();
         onView(withText("Show Places")).inRoot(isDialog())
                 .perform(click());
-        long waitingTime = 10000;
-        ElapsedTimeIdlingResource idlingResource = new ElapsedTimeIdlingResource(waitingTime);
-        IdlingRegistry.getInstance().register(idlingResource);
+        long waitingTime2 = 10000;
+        ElapsedTimeIdlingResource idlingResource2 = new ElapsedTimeIdlingResource(waitingTime2);
+        IdlingRegistry.getInstance().register(idlingResource2);
         onView(withText("Cancel2")).perform(click());
 
-         IdlingRegistry.getInstance().unregister(idlingResource);
+         IdlingRegistry.getInstance().unregister(idlingResource2);
     }
 
     @Test
