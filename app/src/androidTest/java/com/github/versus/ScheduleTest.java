@@ -89,7 +89,7 @@ public class ScheduleTest {
 
     @Test
     public void testingNextWeeks1(){
-for(int i=0;i<60;i++){
+for(int i=0; i<60 ; i++){
 
         onView(withId(R.id.arrow_11)).perform(click());
 
@@ -120,7 +120,7 @@ for(int i=0;i<60;i++){
     @Test
     public void testing3(){
 
-        onView(withId(R.id.Thursday_button)).perform(click());
+         onView(withId(R.id.Thursday_button)).perform(click());
 
     }
 

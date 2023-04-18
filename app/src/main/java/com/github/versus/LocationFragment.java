@@ -1,6 +1,10 @@
-
-
 package com.github.versus;
+
+import static java.lang.Math.atan2;
+import static java.lang.Math.cos;
+import static java.lang.Math.sin;
+import static java.lang.Math.sqrt;
+import static java.lang.Math.toRadians;
 
 import android.animation.ValueAnimator;
 import android.content.DialogInterface;
@@ -66,10 +70,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-/**
- * An activity that displays a map showing the place at the device's current location.
- */
-
 
 public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
@@ -108,7 +108,12 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
     private static ListView listView ;
     private static boolean hasLocations = false;
-     static Circle mapCircle;
+    private static Circle mapCircle;
+    private List<CustomPlace> customPlaces = Arrays.asList(new CustomPlace("UNIL Football", "UNIL Football", new LatLng(46.519385, 6.580856)),
+            new CustomPlace("Chavannes Football", "Chavannes Football", new LatLng(46.52527373363714, 6.57366257779824)),
+            new CustomPlace("Bassenges Football", "Bassenges Football", new LatLng(46.52309381914529, 6.5608807098372175)),
+            new CustomPlace("GooglePlex Football", "Google Football", new LatLng(37.422083, -122.082555)));
+
 
 
     @Override
@@ -298,7 +303,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
      * Prompts the user for permission to use the device location.
      */
 
-     void getLocationPermission() {
+    void getLocationPermission() {
         /*
          * Request location permission, so that we can get the location of the
          * device. The result of the permission request is handled by a callback,
@@ -332,7 +337,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     /**
      * Updates the map's UI settings based on whether the user has granted location permission.
      */
-      void updateLocationUI() {
+    void updateLocationUI() {
         if (map == null) {
             return;
         }
@@ -356,13 +361,19 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
      * and draw a circle with the given radius.
      */
 
-        // Inflate the custom layout 'radius_layout
+    // Inflate the custom layout 'radius_layout
 
-        public void openPlacesDialog(){
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.radius_layout, null);
+    public void openPlacesDialog(){
+        View view;
+        EditText radiusInput;
+
+        view = LayoutInflater.from(getActivity()).inflate(R.layout.radius_layout, null);
+        radiusInput = view.findViewById(R.id.edit_text_radius2);
+
+
 
         // Get a reference to the EditText view in the layout
-        EditText radiusInput = view.findViewById(R.id.edit_text_radius2);
+
         radiusInput.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         radiusInput.setHint("Enter radius (in meters)");
 
@@ -374,12 +385,15 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                 String radiusStr = radiusInput.getText().toString();
                 if (!TextUtils.isEmpty(radiusStr)) {
                     radius = Float.parseFloat(radiusInput.getText().toString());
+                    dialog.dismiss();
                     showCurrentPlace(radius);
                     drawCircle(radius);
                 }
                 else  {
+                    dialog.dismiss();
                     showToast("Please enter a radius");
                 }
+
 
 
             }
@@ -395,73 +409,47 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
      * @param radius The radius (in meters) around the user's current location to search for custom places.
      */
     public void showCurrentPlace(double radius) {
-        if (map == null) {
-            return;
-        }
-        List<CustomPlace> customPlaces = Arrays.asList(new CustomPlace("UNIL Football", "UNIL Football", new LatLng(46.519385, 6.580856)),
-                new CustomPlace("Chavannes Football", "Chavannes Football", new LatLng(46.52527373363714, 6.57366257779824)),
-                new CustomPlace("Bassenges Football","Bassenges Football",new LatLng(46.52309381914529, 6.5608807098372175))
 
-        );
+        List<CustomPlace> filteredPlaces = new ArrayList<>();
+         for (CustomPlace customPlace : customPlaces) {
+            double distance = haversineDistance(localPos, customPlace.latLng);
 
-        if (locationPermissionGranted) {
+            if (distance <= radius) {
+                filteredPlaces.add(customPlace);
+                hasLocations = true;
+               }
 
-            FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity());
-            @SuppressWarnings("MissingPermission") Task<Location> lastLocation = fusedLocationClient.getLastLocation();
+             }
+                    int count = filteredPlaces.size();
 
+                    likelyPlaceNames = new String[count];
+                    likelyPlaceAddresses = new String[count];
+                    likelyPlaceLatLngs = new LatLng[count];
 
-            lastLocation.addOnSuccessListener(new OnSuccessListener<Location>() {
-                @Override
-                public void onSuccess(Location location) {
-                    if (location != null) {
-                        LatLng userLatLng = new LatLng(location.getLatitude(), location.getLongitude());
-
-                        List<CustomPlace> filteredPlaces = new ArrayList<>();
-                        for (CustomPlace customPlace : customPlaces) {
-                            double distance = haversineDistance(userLatLng, customPlace.latLng);
-
-                            if (distance <= radius) {
-                                filteredPlaces.add(customPlace);
-                                hasLocations=true;
-                            }
-
-                        }
-                        int count = filteredPlaces.size();
-
-                        likelyPlaceNames = new String[count];
-                        likelyPlaceAddresses = new String[count];
-                        likelyPlaceLatLngs = new LatLng[count];
-
-                        for (int i = 0; i < count; i++) {
-                            CustomPlace customPlace = filteredPlaces.get(i);
-                            likelyPlaceNames[i] = customPlace.name;
-                            likelyPlaceAddresses[i] = customPlace.address;
-                            likelyPlaceLatLngs[i] = customPlace.latLng;
-                        }
-
-                        // Show a dialog offering the user the list of custom places, and add a
-                        // marker at the selected place.
-                        if(!hasLocations && radius != 0){
-                            showToast("No locations found within the selected radius");
-
-                        }
-                        else {
-                            showPlacesList();
-                            drawCircle(radius);
-                        }
-                        hasLocations=false;
-
-                        // drawCircle(radius);
+                    for (int i = 0; i < count; i++) {
+                        CustomPlace customPlace = filteredPlaces.get(i);
+                        likelyPlaceNames[i] = customPlace.name;
+                        likelyPlaceAddresses[i] = customPlace.address;
+                        likelyPlaceLatLngs[i] = customPlace.latLng;
                     }
-                }
-            });
-        } else {
-            // The user has not granted permission.
-            Log.i(TAG, "The user did not grant location permission.");
 
-            getLocationPermission();
-        }
-    }
+                    // Show a dialog offering the user the list of custom places, and add a
+                    // marker at the selected place.
+                    if (!hasLocations && radius != 0) {
+                        showToast("No locations found within the selected radius");
+
+                    } else {
+                        showPlacesList();
+                        drawCircle(radius);
+                    }
+                    hasLocations = false;
+
+
+                }
+
+
+
+
     /**
      * Creates and displays a custom dialog containing a list of nearby custom places.
      * When a user selects a place from the list, a blinking marker is added to the selected place on the map,
@@ -476,7 +464,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                 setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
+                //dialog.dismiss();
             }
         }).create();
 
@@ -491,7 +479,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                         .snippet(likelyPlaceAddresses[position]));
                 addBlinkingMarker(selectedPlace, likelyPlaceNames[position], likelyPlaceAddresses[position]);
                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedPlace, DEFAULT_ZOOM));
-                dialog.dismiss();
+               // dialog.dismiss();
             }
         });
         dialog.show();
@@ -544,12 +532,12 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
      */
     static double haversineDistance(LatLng latLng1, LatLng latLng2) {
         double earthRadius = 6371; // Radius of the earth in km
-        double dLat = Math.toRadians(latLng2.latitude - latLng1.latitude);
-        double dLng = Math.toRadians(latLng2.longitude - latLng1.longitude);
-        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
-                + Math.cos(Math.toRadians(latLng1.latitude)) * Math.cos(Math.toRadians(latLng2.latitude))
-                * Math.sin(dLng / 2) * Math.sin(dLng / 2);
-        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        double dLat = toRadians(latLng2.latitude - latLng1.latitude);
+        double dLng = toRadians(latLng2.longitude - latLng1.longitude);
+        double a = sin(dLat / 2) * sin(dLat / 2)
+                + cos(toRadians(latLng1.latitude)) * cos(toRadians(latLng2.latitude))
+                * sin(dLng / 2) * sin(dLng / 2);
+        double c = 2 * atan2(sqrt(a), sqrt(1 - a));
         return earthRadius * c * 1000; // Distance in meters
     }
     /**
@@ -599,7 +587,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
      * @param title The title of the marker.
      * @param snippet The snippet of the marker.
      */
-     static void addBlinkingMarker(LatLng position, String title, String snippet) {
+    static void addBlinkingMarker(LatLng position, String title, String snippet) {
         Marker mainMarker = map.addMarker(new MarkerOptions()
                 .position(position)
                 .title(title)
@@ -616,6 +604,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
         applyBlinkingAnimation(blinkingMarker);
     }
+
 
 
 
