@@ -140,8 +140,8 @@ public class LocationFragmentTest {
 
     @After
     public void tearDown() {
-        Intents.release();
         IdlingRegistry.getInstance().unregister(idlingResource);
+        Intents.release();
 
     }
 
