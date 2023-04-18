@@ -461,7 +461,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         listView = customView.findViewById(R.id.test_list_view2);
         listView.setAdapter(new ArrayAdapter<>(requireActivity(), android.R.layout.simple_list_item_1, likelyPlaceNames));
         AlertDialog dialog = new AlertDialog.Builder(getActivity()).setTitle("Select a place").setView(customView).
-                setNegativeButton("Cancel2", new DialogInterface.OnClickListener() {
+                setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //dialog.dismiss();
