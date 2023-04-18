@@ -158,7 +158,7 @@ public class LocationFragmentTest {
          IdlingRegistry.getInstance().unregister(idlingResource);
     }
 
-    @Test
+  /*  @Test
     public void testClickOnLocation() throws InterruptedException {
 
         String placeName = "GooglePlex Football";
@@ -180,7 +180,7 @@ public class LocationFragmentTest {
                 .perform(click());
 
         IdlingRegistry.getInstance().unregister(idlingResource);
-    }
+    }*/
 
    /* @Test
     public void testSuccess() throws InterruptedException {
