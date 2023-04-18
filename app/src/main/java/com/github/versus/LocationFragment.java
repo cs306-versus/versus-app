@@ -101,7 +101,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     public static MarkerOptions epflMarker;
 
     private static final int M_MAX_ENTRIES = 5;
-    private static String[] likelyPlaceNames={"Unil"};
+    private static String[] likelyPlaceNames;
     private static String[] likelyPlaceAddresses;
 
     private static LatLng[] likelyPlaceLatLngs;
@@ -409,7 +409,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
      * @param radius The radius (in meters) around the user's current location to search for custom places.
      */
     public void showCurrentPlace(double radius) {
-            showPlacesList();
+
         //openPlacesDialog();
        /* FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity());
         @SuppressWarnings("MissingPermission") Task<Location> lastLocation = fusedLocationClient.getLastLocation();
@@ -433,7 +433,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                     }
                     */
 
-       /*  List<CustomPlace> filteredPlaces = new ArrayList<>();
+         List<CustomPlace> filteredPlaces = new ArrayList<>();
          for (CustomPlace customPlace : customPlaces) {
             double distance = haversineDistance(localPos, customPlace.latLng);
 
@@ -466,7 +466,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                         //drawCircle(radius);
                     }
                     hasLocations = false;
-*/
+
                     // drawCircle(radius);
                 }
 
