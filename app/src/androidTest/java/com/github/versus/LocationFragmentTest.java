@@ -113,6 +113,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 @RunWith(AndroidJUnit4.class)
 public class LocationFragmentTest {
     long waitingTime = 10000;
+
+
     ElapsedTimeIdlingResource idlingResource = new ElapsedTimeIdlingResource(waitingTime);
 
     @Rule
