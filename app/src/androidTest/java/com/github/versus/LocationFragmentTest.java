@@ -190,6 +190,46 @@ public class LocationFragmentTest {
         IdlingRegistry.getInstance().unregister(idlingResource2);
         IdlingRegistry.getInstance().unregister(idlingResourceFirst);
     }
+    @Test
+    public void testIfNoRadiusInput() throws InterruptedException {
+        long waitingTime = 10000;
+        ElapsedTimeIdlingResource idlingResourceFirst = new ElapsedTimeIdlingResource(waitingTime);
+        IdlingRegistry.getInstance().register(idlingResourceFirst);
+        Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
+        // Find the menu item by its ID and perform a click
+        onView(withText("Get Place")).perform(click());
+        closeSoftKeyboard();
+        onView(withText("Show Places")).inRoot(isDialog())
+                .perform(click());
+        long waitingTime2 = 10000;
+        ElapsedTimeIdlingResource idlingResource2 = new ElapsedTimeIdlingResource(waitingTime2);
+        IdlingRegistry.getInstance().register(idlingResource2);
+        IdlingRegistry.getInstance().unregister(idlingResource2);
+        IdlingRegistry.getInstance().unregister(idlingResourceFirst);
+    }
+    @Test
+    public void testIfNoPlacesWithinRadius() throws InterruptedException {
+        long waitingTime = 10000;
+        ElapsedTimeIdlingResource idlingResourceFirst = new ElapsedTimeIdlingResource(waitingTime);
+        IdlingRegistry.getInstance().register(idlingResourceFirst);
+        Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
+        // Find the menu item by its ID and perform a click
+        onView(withText("Get Place")).perform(click());
+
+
+        onView(withId(R.id.edit_text_radius2)).perform(typeText("100"));
+        closeSoftKeyboard();
+        onView(withText("Show Places")).inRoot(isDialog())
+                .perform(click());
+        long waitingTime2 = 10000;
+        ElapsedTimeIdlingResource idlingResource2 = new ElapsedTimeIdlingResource(waitingTime2);
+        IdlingRegistry.getInstance().register(idlingResource2);
+
+        IdlingRegistry.getInstance().unregister(idlingResource2);
+        IdlingRegistry.getInstance().unregister(idlingResourceFirst);
+    }
+
+
 
    /* @Test
     public void testSuccess() throws InterruptedException {
