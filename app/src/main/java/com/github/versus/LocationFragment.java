@@ -364,14 +364,9 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     // Inflate the custom layout 'radius_layout
 
     public void openPlacesDialog(){
-        View view;
-        EditText radiusInput;
 
-             view = LayoutInflater.from(getActivity()).inflate(R.layout.radius_layout, null);
-            radiusInput = view.findViewById(R.id.edit_text_radius2);
-
-
-
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.radius_layout, null);
+        EditText  radiusInput = view.findViewById(R.id.edit_text_radius2);
         // Get a reference to the EditText view in the layout
 
         radiusInput.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
@@ -410,29 +405,6 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
      */
     public void showCurrentPlace(double radius) {
 
-        //openPlacesDialog();
-       /* FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity());
-        @SuppressWarnings("MissingPermission") Task<Location> lastLocation = fusedLocationClient.getLastLocation();
-
-
-        lastLocation.addOnSuccessListener(new OnSuccessListener<Location>() {
-            @Override
-            public void onSuccess(Location location) {
-                if (location != null) {
-                    LatLng userLatLng = new LatLng(location.getLatitude(), location.getLongitude());
-
-                    List<CustomPlace> filteredPlaces = new ArrayList<>();
-                    for (CustomPlace customPlace : customPlaces) {
-                        double distance = haversineDistance(userLatLng, customPlace.latLng);
-
-                        if (distance <= radius) {
-                            filteredPlaces.add(customPlace);
-                            hasLocations = true;
-                        }
-
-                    }
-                    */
-
          List<CustomPlace> filteredPlaces = new ArrayList<>();
          for (CustomPlace customPlace : customPlaces) {
             double distance = haversineDistance(localPos, customPlace.latLng);
@@ -467,7 +439,6 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                     }
                     hasLocations = false;
 
-                    // drawCircle(radius);
                 }
 
 

@@ -248,59 +248,6 @@ public class LocationFragmentTest {
         IdlingRegistry.getInstance().unregister(idlingResource2);
         IdlingRegistry.getInstance().unregister(idlingResourceFirst);
     }
-
-
-
-   /* @Test
-    public void testSuccess() throws InterruptedException {
-
-
-        String placeName = "Bassenges Football";
-        Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
-        // Find the menu item by its ID and perform a click
-        onView(withText("Get Place")).perform(click());
-
-        onView(withId(R.id.edit_text_radius2)).perform(typeText("800"));
-
-        closeSoftKeyboard();
-
-        onView(withText("Show Places")).perform(click());
-
-
-       // onView(withText("Cancel")).perform(click());
-
-        //IdlingRegistry.getInstance().unregister(idlingResource);
-
-
-    }
-*/
-   /* @Test
-    public void testSuccess2() throws InterruptedException {
-
-        //The emulator has its default location on GooglePlex
-        String placeName = "GooglePlex Football";
-        Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
-        // Find the menu item by its ID and perform a click
-        onView(withText("Get Place")).perform(click());
-
-        onView(withId(R.id.edit_text_radius2)).perform(typeText("1500"));
-
-        closeSoftKeyboard();
-
-        onView(withText("Show Places")).perform(click());
-
-
-        //onData(anything()).inAdapterView(withText(placeName)).atPosition(0).perform(click());
-      //  long waitingTime = 5000; // Wait for 5 seconds
-        //ElapsedTimeIdlingResource idlingResource = new ElapsedTimeIdlingResource(waitingTime);
-        //IdlingRegistry.getInstance().register(idlingResource);
-
-        onView(withText("Select a place")).check(matches(isDisplayed()));
-        onData(anything()).inAdapterView(withId(R.id.test_list_view2)).atPosition(0).perform(click());
-
-       // IdlingRegistry.getInstance().unregister(idlingResource);
-    }*/
-
     public class ElapsedTimeIdlingResource implements IdlingResource {
         private final long startTime;
         private final long waitingTime;
@@ -333,29 +280,5 @@ public class LocationFragmentTest {
     }
 }
 
-
-
-    //IdlingRegistry.getInstance().unregister(idlingResource);
-
-
-
-
-
-    /* @Test
-     public void testLocationElements() throws InterruptedException {
-         String placeName = "Bassenges Football";
-         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
-         // Find the menu item by its ID and perform a click
-         onView(withText("Get Place")).perform(click());
-         onView(withId(R.id.edit_text_radius2)).perform(typeText("800"));
-         onView(withText("Show Places")).perform(click());
-        // onView(withText("Cancel")).perform(click());
-         long waitingTime = 7000; // Wait for 5 seconds
-         ElapsedTimeIdlingResource idlingResource = new ElapsedTimeIdlingResource(waitingTime);
-         IdlingRegistry.getInstance().register(idlingResource);
-         onView(withText("Bassenges Football")).perform(click());
-         IdlingRegistry.getInstance().unregister(idlingResource);
-         //IdlingRegistry.getInstance().unregister(idlingResource);
-     }*/
 
 
