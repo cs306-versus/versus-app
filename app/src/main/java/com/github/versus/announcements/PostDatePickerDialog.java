@@ -39,7 +39,7 @@ public class PostDatePickerDialog extends DialogFragment implements DatePickerDi
         // Create a new instance of DatePickerDialog and return it
         DatePickerDialog d = new DatePickerDialog(requireContext(), this, year, month, day);
 //        d.getButton(DatePickerDialog.BUTTON_POSITIVE).setText("next");
-       d.setMessage("DATE");
+       d.setMessage(getResources().getString(R.string.create_post_date));
 
         return d;
     }
