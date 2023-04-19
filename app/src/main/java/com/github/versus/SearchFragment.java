@@ -63,20 +63,7 @@ public class SearchFragment extends Fragment implements
         onCancel();
         View rootView = inflater.inflate(R.layout.fragment_research,container,false);
         assignViews(rootView);
-        searchBar.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-            }
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                filterPosts();
-            }
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
         Button addPost = (Button) rootView.findViewById(R.id.add_posts);
         addPost.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,6 +91,20 @@ public class SearchFragment extends Fragment implements
         pdpd = new PostDatePickerDialog();
         pm = new FsPostManager(FirebaseFirestore.getInstance());
         searchBar = rootView.findViewById(R.id.search_posts);
+        searchBar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                filterPosts();
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
     }
 
     public void createPost(){
