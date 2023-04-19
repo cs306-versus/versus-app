@@ -52,8 +52,6 @@ public class OptionGetPlacesTest {
 
     @Before
     public void setUp() {
-
-
         Intents.init();
         //Open the drawer_layout
         onView(withId(R.id.drawer_layout)).check(matches(DrawerMatchers.isClosed(GravityCompat.START))).perform(DrawerActions.open());
