@@ -44,8 +44,8 @@ public class MaxPlayerDialogFragment extends DialogFragment  {
         Builder builder = new Builder(a);
         FsPostManager fpm = new FsPostManager(FirebaseFirestore.getInstance());
         View innerView = inflater.inflate(R.layout.create_post_max_players, null);
-        builder.setTitle("max number of players").setView(innerView)
-                .setPositiveButton("next", new OnClickListener() {
+        builder.setTitle(R.string.create_post_max_player).setView(innerView)
+                .setPositiveButton(R.string.next, new OnClickListener() {
                     public void onClick(DialogInterface dialog, int id){
                        EditText et =  ((EditText) innerView.findViewById(R.id.editMaxPlayers));
                        System.out.println(et.getText());
@@ -53,7 +53,7 @@ public class MaxPlayerDialogFragment extends DialogFragment  {
                         tl.onMaxPlayerPositiveClick(maxPlayerCount);
                     }
                 })
-                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         tl.onCancel();
                     }

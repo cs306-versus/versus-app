@@ -37,15 +37,15 @@ public class CreatePostTitleDialogFragment extends DialogFragment {
         View innerView = inflater.inflate(R.layout.create_post_layout, null);
         Builder builder = new Builder(a);
         FsPostManager fpm = new FsPostManager(FirebaseFirestore.getInstance());
-        builder.setMessage("create a post").setView(innerView)
-                .setPositiveButton("next", new DialogInterface.OnClickListener() {
+        builder.setMessage(R.string.create_post).setView(innerView)
+                .setPositiveButton(R.string.next, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         EditText et = innerView.findViewById(R.id.editPostTitle);
                         String title = et.getText().toString();
                         tl.onTitlePositiveClick(title);
                     }
                 })
-                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         tl.onCancel();
                     }

@@ -70,5 +70,10 @@
         <item>5</item>
 
     </string-array>
-
+    <string name="create_post_choose_sport">Choose a sport</string>
+    <string name="create_post">Create a post</string>
+    <string name="create_post_max_player">Select max # of players</string>
+    <string name="create_post_date">When will you meet?</string>
+    <string name="next">Next</string>
+    <string name="cancel">Cancel</string>
 </resources>

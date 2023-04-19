@@ -15,6 +15,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
+import com.github.versus.R;
 import com.github.versus.posts.Timestamp;
 
 import java.sql.Time;
@@ -38,7 +39,8 @@ public class PostDatePickerDialog extends DialogFragment implements DatePickerDi
         // Create a new instance of DatePickerDialog and return it
         DatePickerDialog d = new DatePickerDialog(requireContext(), this, year, month, day);
 //        d.getButton(DatePickerDialog.BUTTON_POSITIVE).setText("next");
-       d.setMessage("When will you meet?");
+       d.setMessage("DATE");
+
         return d;
     }
 

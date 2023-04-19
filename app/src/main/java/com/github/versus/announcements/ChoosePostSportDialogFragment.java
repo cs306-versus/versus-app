@@ -43,18 +43,18 @@ public class ChoosePostSportDialogFragment extends DialogFragment {
         Builder builder = new Builder(a);
         FsPostManager fpm = new FsPostManager(FirebaseFirestore.getInstance());
         final String[] items = Stream.of(Sport.values()).map(sport -> sport.name).collect(Collectors.toList()).toArray(new String[0]);
-        builder.setTitle("choose a sport").setSingleChoiceItems(items, 0, new DialogInterface.OnClickListener(){
+        builder.setTitle(R.string.create_post_choose_sport).setSingleChoiceItems(items, 0, new DialogInterface.OnClickListener(){
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         sport = Sport.values()[i];
                     }
                 })
-                .setPositiveButton("next", new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.next, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         tl.onSportPositiveClick(sport);
                     }
                 })
-                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         tl.onCancel();
                     }
