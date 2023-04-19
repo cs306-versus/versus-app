@@ -62,14 +62,7 @@ public class SearchFragment extends Fragment implements
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         onCancel();
         View rootView = inflater.inflate(R.layout.fragment_research,container,false);
-        recyclerView = rootView.findViewById(R.id.recyclerView);
-        recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
-        cpdf = new CreatePostTitleDialogFragment();
-        cpsdf = new ChoosePostSportDialogFragment();
-        mpdf = new MaxPlayerDialogFragment();
-        pdpd = new PostDatePickerDialog();
-        pm = new FsPostManager(FirebaseFirestore.getInstance());
-        searchBar = rootView.findViewById(R.id.search_posts);
+        assignViews(rootView);
         searchBar.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -100,6 +93,17 @@ public class SearchFragment extends Fragment implements
         recyclerView.setAdapter(aa);
 
         return rootView;
+    }
+
+    protected void assignViews(View rootView){
+        recyclerView = rootView.findViewById(R.id.recyclerView);
+        recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
+        cpdf = new CreatePostTitleDialogFragment();
+        cpsdf = new ChoosePostSportDialogFragment();
+        mpdf = new MaxPlayerDialogFragment();
+        pdpd = new PostDatePickerDialog();
+        pm = new FsPostManager(FirebaseFirestore.getInstance());
+        searchBar = rootView.findViewById(R.id.search_posts);
     }
 
     public void createPost(){
