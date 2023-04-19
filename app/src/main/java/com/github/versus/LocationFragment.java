@@ -269,28 +269,33 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         return true;
     }
 
+    // Enable custom location selection by setting a map click listener
     private void enableCustomLocationSelection() {
         map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
-
+                // Find closest fields to the clicked position
                 findClosestFields(latLng);
             }
         });
     }
 
+    // Find the closest fields to a clicked position on the map
     private void findClosestFields(LatLng clickedPosition) {
-        double thresholdDistance = 1000.0;
+        double thresholdDistance = 1000.0; // Threshold distance to consider a field as nearby (in meters)
 
+        // Remove the last clicked marker if it exists
         if (lastClickedMarker != null) {
             lastClickedMarker.remove();
         }
+
+        // Add a new marker to the map at the clicked position
         lastClickedMarker = map.addMarker(new MarkerOptions()
                 .position(clickedPosition)
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
                 .title("Clicked Location"));
-        // Iterate through the custom places and find the ones within the threshold distance
 
+        // Iterate through the custom places and find the ones within the threshold distance
         List<CustomPlace> nearbyFields = new ArrayList<>();
         for (CustomPlace customPlace : customPlaces) {
             double distance = haversineDistance(clickedPosition, customPlace.latLng);
@@ -338,7 +343,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
                             if (lastKnownLocation != null) {
                                 localPos = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
-                                // map.moveCamera(CameraUpdateFactory.newLatLngZoom(localPos, DEFAULT_ZOOM));
+                                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(localPos, DEFAULT_ZOOM));
                             }
                         } else {
                             Log.d(TAG, "Current location is null. Using defaults.");

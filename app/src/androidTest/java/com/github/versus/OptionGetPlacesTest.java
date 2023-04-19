@@ -1,28 +1,13 @@
 package com.github.versus;
 
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.intent.Intents.intended;
-import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
-import static androidx.test.espresso.intent.matcher.IntentMatchers.hasExtra;
 import static androidx.test.espresso.matcher.RootMatchers.isDialog;
-import static androidx.test.espresso.matcher.ViewMatchers.assertThat;
-import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
-import static androidx.test.espresso.matcher.ViewMatchers.withHint;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static org.hamcrest.CoreMatchers.allOf;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.Matchers.anything;
-import static org.junit.Assert.fail;
-
-
 import androidx.core.view.GravityCompat;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.espresso.Espresso;
@@ -44,12 +29,13 @@ import org.junit.runner.RunWith;
 
 @RunWith(AndroidJUnit4.class)
 public class OptionGetPlacesTest {
-
+    // Declare activity rule and permission rule
     @Rule
     public ActivityScenarioRule<MainActivity> activityRule = new ActivityScenarioRule<>(MainActivity.class);
     @Rule
     public GrantPermissionRule grantPermissionRule = GrantPermissionRule.grant(android.Manifest.permission.ACCESS_FINE_LOCATION);
 
+    // Set up the testing environment before each test
     @Before
     public void setUp() {
         Intents.init();
@@ -60,14 +46,14 @@ public class OptionGetPlacesTest {
 
     }
 
-
+    // Clean up the testing environment after each test
     @After
     public void tearDown() {
 
         Intents.release();
 
     }
-
+    // Test for canceling the get places operation
     @Test
     public void testCancel() throws InterruptedException {
         long waitingTime = 10000;
@@ -91,7 +77,7 @@ public class OptionGetPlacesTest {
         IdlingRegistry.getInstance().unregister(idlingResource2);
         IdlingRegistry.getInstance().unregister(idlingResourceFirst);
     }
-
+    // Test for clicking on a specific location
     @Test
     public void testClickOnLocation() throws InterruptedException {
         long waitingTime = 10000;
@@ -114,6 +100,7 @@ public class OptionGetPlacesTest {
         IdlingRegistry.getInstance().unregister(idlingResource2);
         IdlingRegistry.getInstance().unregister(idlingResourceFirst);
     }
+    // Test for the case when no radius is input
     @Test
     public void testIfNoRadiusInput() throws InterruptedException {
         long waitingTime = 10000;
@@ -133,7 +120,7 @@ public class OptionGetPlacesTest {
         IdlingRegistry.getInstance().unregister(idlingResource2);
         IdlingRegistry.getInstance().unregister(idlingResourceFirst);
     }
-
+    // Test for the case when there are no places within the specified radius
     @Test
     public void testIfNoPlacesWithinRadius() throws InterruptedException {
         long waitingTime = 10000;
@@ -155,6 +142,7 @@ public class OptionGetPlacesTest {
         IdlingRegistry.getInstance().unregister(idlingResource2);
         IdlingRegistry.getInstance().unregister(idlingResourceFirst);
     }
+    // ElapsedTimeIdlingResource class for waiting a specified amount of time before continuing
     public class ElapsedTimeIdlingResource implements IdlingResource {
         private final long startTime;
         private final long waitingTime;

@@ -52,56 +52,44 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
 @RunWith(AndroidJUnit4.class)
 public class OptionChooseLocationTest {
 
-
+    // Declare activity rule and permission rule
     @Rule
     public ActivityScenarioRule<MainActivity> activityRule = new ActivityScenarioRule<>(MainActivity.class);
     @Rule
     public GrantPermissionRule grantPermissionRule = GrantPermissionRule.grant(android.Manifest.permission.ACCESS_FINE_LOCATION);
 
-    // Verify that the activity properly restored the location and camera position from the instance state
-
-
+    // Set up the testing environment before each test
     @Before
     public void setUp() {
-
         Intents.init();
-        //Open the drawer_layout
+        // Open the drawer_layout
         onView(withId(R.id.drawer_layout)).check(matches(DrawerMatchers.isClosed(GravityCompat.START))).perform(DrawerActions.open());
         onView(withId(R.id.drawer_layout)).check(matches(DrawerMatchers.isOpen(GravityCompat.START)));
         onView(withId(R.id.nav_location)).perform(click());
-
     }
 
-
+    // Clean up the testing environment after each test
     @After
     public void tearDown() {
-
         Intents.release();
-
     }
 
+    // Test for simulating a click on the map
     @Test
     public void testClick() throws InterruptedException {
         long waitingTime = 10000;
         ElapsedTimeIdlingResource idlingResourceFirst = new ElapsedTimeIdlingResource(waitingTime);
-        // IdlingRegistry.getInstance().register(idlingResourceFirst);
+
         String placeName = "GooglePlex Football";
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
 
-
+        // Open the Choose location option
+        onView(withText("Choose location")).perform(click());
 
         // Get screen dimensions
-
-
-
-
-        onView(withText("Choose location")).perform(click());
         DisplayMetrics displayMetrics = new DisplayMetrics();
         WindowManager windowManager = (WindowManager) ApplicationProvider.getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
         windowManager.getDefaultDisplay().getRealMetrics(displayMetrics);
@@ -109,7 +97,6 @@ public class OptionChooseLocationTest {
         // Calculate the center coordinates
         int centerX = displayMetrics.widthPixels / 2;
         int centerY = displayMetrics.heightPixels / 2;
-
 
         // Simulate a map click event at the center of the screen
         simulateMapClick(centerX, centerY);
@@ -121,14 +108,14 @@ public class OptionChooseLocationTest {
         IdlingRegistry.getInstance().unregister(idlingResource2);
         IdlingRegistry.getInstance().unregister(idlingResourceFirst);
     }
+
+    // Method to simulate a map click at given screen coordinates
     private void simulateMapClick(int x, int y) {
         UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         device.click(x, y);
     }
 
-
-
-
+    // ElapsedTimeIdlingResource class for waiting a specified amount of time before continuing
     public class ElapsedTimeIdlingResource implements IdlingResource {
         private final long startTime;
         private final long waitingTime;
@@ -160,6 +147,7 @@ public class OptionChooseLocationTest {
         }
     }
 }
+
 
 
 
