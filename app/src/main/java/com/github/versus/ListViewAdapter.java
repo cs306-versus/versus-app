@@ -10,6 +10,7 @@ import android.widget.TextView;
 import java.util.List;
 
 public class ListViewAdapter extends ArrayAdapter<List<String>> {
+
     private Context context;
     private List<List<String>> books;
 
