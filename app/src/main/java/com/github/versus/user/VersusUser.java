@@ -29,7 +29,6 @@ public final class VersusUser implements User {
     private final int zipCode;
     private final List<Sport> preferredSports;
 
-
     private VersusUser(Builder builder){
         this.uid = builder.uid;
         this.firstName = builder.firstName;
