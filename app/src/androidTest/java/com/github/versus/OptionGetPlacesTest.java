@@ -8,18 +8,18 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.RootMatchers.isDialog;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+
 import androidx.core.view.GravityCompat;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.IdlingRegistry;
 import androidx.test.espresso.IdlingResource;
+import androidx.test.espresso.contrib.DrawerActions;
+import androidx.test.espresso.contrib.DrawerMatchers;
 import androidx.test.espresso.intent.Intents;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.rule.GrantPermissionRule;
 import androidx.test.runner.AndroidJUnit4;
-import androidx.test.espresso.contrib.DrawerActions;
-import androidx.test.espresso.contrib.DrawerMatchers;
-
 
 import org.junit.After;
 import org.junit.Before;
@@ -64,6 +64,7 @@ public class OptionGetPlacesTest {
     /**
      * Test for canceling the get places operation.
      * Ensures that canceling the operation results in the expected behavior.
+     *
      * @throws InterruptedException if the test is interrupted
      */
     @Test
@@ -78,8 +79,7 @@ public class OptionGetPlacesTest {
 
         onView(withId(R.id.edit_text_radius2)).perform(typeText("1500"));
         closeSoftKeyboard();
-        onView(withText("Show Places")).inRoot(isDialog())
-                .perform(click());
+        onView(withText("Show Places")).inRoot(isDialog()).perform(click());
 
         long waitingTime2 = 10000;
         ElapsedTimeIdlingResource idlingResource2 = new ElapsedTimeIdlingResource(waitingTime2);
@@ -92,6 +92,7 @@ public class OptionGetPlacesTest {
     /**
      * Test for clicking on a specific location.
      * Ensures that clicking on a location results in the expected behavior.
+     *
      * @throws InterruptedException if the test is interrupted
      */
     @Test
@@ -106,8 +107,7 @@ public class OptionGetPlacesTest {
 
         onView(withId(R.id.edit_text_radius2)).perform(typeText("1500"));
         closeSoftKeyboard();
-        onView(withText("Show Places")).inRoot(isDialog())
-                .perform(click());
+        onView(withText("Show Places")).inRoot(isDialog()).perform(click());
         long waitingTime2 = 10000;
         ElapsedTimeIdlingResource idlingResource2 = new ElapsedTimeIdlingResource(waitingTime2);
         IdlingRegistry.getInstance().register(idlingResource2);
@@ -115,9 +115,11 @@ public class OptionGetPlacesTest {
         IdlingRegistry.getInstance().unregister(idlingResource2);
         IdlingRegistry.getInstance().unregister(idlingResourceFirst);
     }
+
     /**
      * Test for the case when no radius is input.
      * Ensures that the application handles the situation when no radius is provided.
+     *
      * @throws InterruptedException if the test is interrupted
      */
     @Test
@@ -130,8 +132,7 @@ public class OptionGetPlacesTest {
 
         onView(withText("Get Place")).perform(click());
         closeSoftKeyboard();
-        onView(withText("Show Places")).inRoot(isDialog())
-                .perform(click());
+        onView(withText("Show Places")).inRoot(isDialog()).perform(click());
 
         long waitingTime2 = 10000;
         ElapsedTimeIdlingResource idlingResource2 = new ElapsedTimeIdlingResource(waitingTime2);
@@ -143,6 +144,7 @@ public class OptionGetPlacesTest {
     /**
      * Test for the case when there are no places within the specified radius.
      * Ensures that the application handles the situation when no places are found within the specified radius.
+     *
      * @throws InterruptedException if the test is interrupted
      */
     @Test
@@ -156,8 +158,7 @@ public class OptionGetPlacesTest {
 
         onView(withId(R.id.edit_text_radius2)).perform(typeText("100"));
         closeSoftKeyboard();
-        onView(withText("Show Places")).inRoot(isDialog())
-                .perform(click());
+        onView(withText("Show Places")).inRoot(isDialog()).perform(click());
         long waitingTime2 = 10000;
         ElapsedTimeIdlingResource idlingResource2 = new ElapsedTimeIdlingResource(waitingTime2);
         IdlingRegistry.getInstance().register(idlingResource2);
