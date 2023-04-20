@@ -52,6 +52,10 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+/**
+ * Test class for the OptionChooseLocation feature.
+ * Tests the behavior of clicking on the map to choose a location.
+ */
 @RunWith(AndroidJUnit4.class)
 public class OptionChooseLocationTest {
 
@@ -61,7 +65,10 @@ public class OptionChooseLocationTest {
     @Rule
     public GrantPermissionRule grantPermissionRule = GrantPermissionRule.grant(android.Manifest.permission.ACCESS_FINE_LOCATION);
 
-    // Set up the testing environment before each test
+    /**
+     * Sets up the testing environment before each test.
+     * Initializes the Intents framework and opens the drawer layout.
+     */
     @Before
     public void setUp() {
         Intents.init();
@@ -71,13 +78,21 @@ public class OptionChooseLocationTest {
         onView(withId(R.id.nav_location)).perform(click());
     }
 
-    // Clean up the testing environment after each test
+    /**
+     * Cleans up the testing environment after each test.
+     * Releases the Intents framework.
+     */
     @After
     public void tearDown() {
         Intents.release();
     }
 
-    // Test for simulating a click on the map
+    /**
+     * Test for simulating a click on the map.
+     * Ensures that clicking on the map results in the expected behavior.
+     *
+     * @throws InterruptedException if the test is interrupted
+     */
     @Test
     public void testClick() throws InterruptedException {
         long waitingTime = 10000;
@@ -109,28 +124,52 @@ public class OptionChooseLocationTest {
         IdlingRegistry.getInstance().unregister(idlingResourceFirst);
     }
 
-    // Method to simulate a map click at given screen coordinates
+    /**
+     * Simulates a map click at the given screen coordinates.
+     *
+     * @param x int representing the x-coordinate of the screen location to click
+     * @param y int representing the y-coordinate of the screen location to click
+     */
     private void simulateMapClick(int x, int y) {
         UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         device.click(x, y);
     }
 
-    // ElapsedTimeIdlingResource class for waiting a specified amount of time before continuing
+    /**
+     * ElapsedTimeIdlingResource is an implementation of the IdlingResource interface.
+     * It is used to wait for a specified amount of time before allowing the test to continue.
+     * This can be useful when testing UI components that require a certain time to load or update.
+     */
     public class ElapsedTimeIdlingResource implements IdlingResource {
         private final long startTime;
         private final long waitingTime;
         private ResourceCallback resourceCallback;
 
+        /**
+         * Constructs an ElapsedTimeIdlingResource with a specified waiting time.
+         *
+         * @param waitingTime The amount of time to wait, in milliseconds, before allowing the test to continue.
+         */
         public ElapsedTimeIdlingResource(long waitingTime) {
             this.startTime = System.currentTimeMillis();
             this.waitingTime = waitingTime;
         }
 
+        /**
+         * Returns the name of the ElapsedTimeIdlingResource.
+         *
+         * @return A String containing the name of the ElapsedTimeIdlingResource.
+         */
         @Override
         public String getName() {
-            return com.github.versus.OptionGetPlacesTest.ElapsedTimeIdlingResource.class.getName() + ":" + waitingTime;
+            return ElapsedTimeIdlingResource.class.getName() + ":" + waitingTime;
         }
 
+        /**
+         * Checks whether the specified waiting time has elapsed.
+         *
+         * @return true if the waiting time has elapsed, false otherwise.
+         */
         @Override
         public boolean isIdleNow() {
             long elapsed = System.currentTimeMillis() - startTime;
@@ -141,14 +180,14 @@ public class OptionChooseLocationTest {
             return idle;
         }
 
+        /**
+         * Registers a ResourceCallback to be notified when the resource transitions to the idle state.
+         *
+         * @param resourceCallback The ResourceCallback to be registered.
+         */
         @Override
         public void registerIdleTransitionCallback(ResourceCallback resourceCallback) {
             this.resourceCallback = resourceCallback;
         }
     }
 }
-
-
-
-
-
