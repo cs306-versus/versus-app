@@ -221,7 +221,6 @@ public class OptionGetPlacesTest {
             this.resourceCallback = resourceCallback;
         }
     }
-
 }
 
 
