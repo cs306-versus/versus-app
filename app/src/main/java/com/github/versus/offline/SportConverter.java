@@ -2,17 +2,35 @@ package com.github.versus.offline;
 
 import com.github.versus.sports.Sport;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class SportConverter {
-
+    /**
+     * converts a sport to a string to make it possible to cache
+     * @param sport
+     * @return
+     * the string representation
+     */
     public static String convertSport(Sport sport){
         return sport.name();
     }
+
+    /**
+     * converts back a string to the corresponding sport
+     * @param sport
+     * @return
+     * the corresponding sport or null if none matches
+     */
     public static Sport convertSportBack(String sport){
-        return Sport.valueOf(sport);
+        try {
+            return Sport.valueOf(sport);
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
+
     }
     /**
      * Coverts a list of sports to a string
@@ -41,6 +59,8 @@ public class SportConverter {
      */
     public static List<Sport> convertBackToSports(String conversion,String sep){
         String split[]= conversion.split(sep);
+        if(split.length==0)
+            return new ArrayList<>();
         return Arrays.asList(split).stream().map(s -> convertSportBack(s)).collect(Collectors.toList());
     }
 }
