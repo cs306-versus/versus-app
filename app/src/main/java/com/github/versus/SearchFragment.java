@@ -48,7 +48,7 @@ public class SearchFragment extends Fragment implements
 
     protected RecyclerView recyclerView;
     protected Post newPost;
-    protected VersusUser user = new VersusUser.Builder(FirebaseAuth.getInstance().getUid()).build();
+    protected VersusUser user = new VersusUser.Builder("fake").build();
 
     protected EditText searchBar;
     protected CreatePostTitleDialogFragment cpdf;
@@ -76,15 +76,18 @@ public class SearchFragment extends Fragment implements
                 createPost();
             }
         });
-        FsUserManager db = new FsUserManager(FirebaseFirestore.getInstance());
-        ((CompletableFuture<User>)db.fetch(FirebaseAuth.getInstance().getUid()))
-                .thenAccept(this::setUser);
+        FsUserManager db = null;
+        if(FirebaseFirestore.getInstance() != null) {
+            db = new FsUserManager(FirebaseFirestore.getInstance());
+            ((CompletableFuture<User>)db.fetch(FirebaseAuth.getInstance().getUid()))
+                    .thenAccept(this::setUser);
+            user = new VersusUser.Builder(FirebaseAuth.getInstance().getUid()).build();
+        }
+
         aa = new AnnouncementAdapter(displayPosts, user, pm);
         loadPosts();
-        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
-        llm.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(llm);
-        recyclerView.setAdapter(aa);
+
+
 
         return rootView;
     }
@@ -94,6 +97,10 @@ public class SearchFragment extends Fragment implements
     protected void assignViews(View rootView){
         recyclerView = rootView.findViewById(R.id.recyclerView);
         recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
+        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(llm);
+        recyclerView.setAdapter(aa);
         cpdf = new CreatePostTitleDialogFragment();
         cpsdf = new ChoosePostSportDialogFragment();
         mpdf = new MaxPlayerDialogFragment();
@@ -102,17 +109,13 @@ public class SearchFragment extends Fragment implements
         searchBar = rootView.findViewById(R.id.search_posts);
         searchBar.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 filterPosts();
             }
             @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
+            public void afterTextChanged(Editable editable) {}
         });
     }
 
