@@ -2,24 +2,29 @@ package chats;
 
 import com.github.versus.posts.Post;
 import com.github.versus.posts.Timestamp;
+import com.github.versus.user.DummyUser;
 import com.github.versus.user.User;
+import com.github.versus.user.VersusUser;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class Message {
 
-    private final User sender;
-    private final User recipient;
+    private final DummyUser sender;
+    private final DummyUser recipient;
     private final String body;
     private final Timestamp timestamp;
 
     // Constructor
-    public Message(User sender, User recipient, String body, Timestamp timestamp) {
+    public Message(DummyUser sender, DummyUser recipient, String body, Timestamp timestamp) {
         this.sender = sender;
         this.recipient = recipient;
         this.body = body;
         this.timestamp = timestamp;
+    }
+    public Message() {
+        this(null, null, null, null);
     }
 
     // Getters and Setters

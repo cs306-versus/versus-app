@@ -121,10 +121,10 @@ public class FsChatManager implements DataBaseManager<Chat>{
 
     public Future<Boolean> addMessageToChat(String chatId, Message m) {
         //accessing the chat collection
-        CollectionReference scheduleRef = db.collection(CHATCOLLECTION.toString());
+        CollectionReference chatRef = db.collection(CHATCOLLECTION.toString());
 
         //finding the schedule with the right chatId
-        Query query = scheduleRef.whereEqualTo("chatId", chatId);
+        Query query = chatRef.whereEqualTo("chatId", chatId);
         Task<QuerySnapshot> task = query.get();
 
         // Wrap the Task in a CompletableFuture that returns the status of the schedule update

@@ -41,7 +41,7 @@ public class FsChatManagerTest {
         // Creating a test post
         Chat chat = new Chat(new DummyUser("abdess"), new DummyUser("aymane"), "hehe" );
 
-        //inserting the post
+        //inserting the chat
         Future<Boolean> insertResult = chatm.insert(chat);
 
         // Wait for the insert operation to complete
@@ -70,24 +70,31 @@ public class FsChatManagerTest {
         // Creating a test chat
         DummyUser u1 = new DummyUser("p1");
         DummyUser u2 = new DummyUser("p2");
-        String testChatName = "p1p2";
-        Chat chat = new Chat(u1, u2, testChatName );
+        Chat chat = new Chat(u1, u2, testChatId );
+
+        //inserting the chat
+        Future<Boolean> insertResult = chatm.insert(chat);
 
         // Wait for the insert operation to complete
+        boolean insertSuccess = insertResult.get();
+        assertTrue(insertSuccess);
+
+        // creating a new message and adding it
+
         Message testMessage = new Message(u1, u2, "heyy",  new Timestamp(2023, Month.AUGUST, 18, 11, 15, Timestamp.Meridiem.AM));
         boolean additionSuccess = chatm.addMessageToChat(testChatId, testMessage).get();
 
-        // Verify that the insert operation succeeded
+        // Verify that the addition operation succeeded
         assertTrue(additionSuccess);
 
         //adding the post to the schedule
 
 
-        Future<Boolean> messageAdditionResult = chatm.addMessageToChat(testChatName, testMessage);
+        Future<Boolean> messageAdditionResult = chatm.addMessageToChat(testChatId, testMessage);
         assertTrue(messageAdditionResult.get());
 
         //getting the modified schedule from the db
-        Chat fetchedChathat = chatm.fetch(testChatName).get();
+        Chat fetchedChathat = chatm.fetch(testChatId).get();
         assertTrue(fetchedChathat.getMessages().get(0).equals(testMessage));
 
         //cleaning up
