@@ -8,6 +8,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * class used to model a Chat in the app
+ */
 public class Chat {
 
     private String chatId;
@@ -15,7 +18,12 @@ public class Chat {
     private DummyUser user2;
     private List<Message> messages;
 
-
+    /**
+     * main constructor of a Chat class
+     * @param user1  first user contributing to the chat
+     * @param user2 second user contributing to the chat
+     * @param chatId the unique id used to identify the chat
+     */
     public Chat(DummyUser user1, DummyUser user2, String chatId) {
         this.chatId = chatId;
         this.user1 = user1;
@@ -26,25 +34,47 @@ public class Chat {
         this(null, null, "");
     }
 
+    /**
+     *
+     * @return first user contributing to the chat
+     */
     public DummyUser getUser1() {
         return user1;
     }
-
+    /**
+     *
+     * @return second user contributing to the chat
+     */
     public DummyUser getUser2() {
         return user2;
     }
+    /**
+     *
+     * @return caht messages
+     */
     public List<Message> getMessages() {
         return messages;
     }
+     /**
+     *
+     * @return chatId of teh chat
+     */
     public String getChatId() {
         return chatId;
     }
 
-    // Add message to chat
+    /**
+     * adds the message given as argument to the chat
+     * @param message
+     */
     public void addMessage(Message message) {
         messages.add(message);
     }
 
+    /**
+     *
+     * @return all attributes of the chat in map "fieldName -> Value" format
+     */
     public Map<String, Object>getAllAttributes(){
         Map<String, Object> res =  new HashMap<String, Object>();
         res.put("user1", getUser1());

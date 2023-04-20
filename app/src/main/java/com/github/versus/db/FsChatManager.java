@@ -119,6 +119,12 @@ public class FsChatManager implements DataBaseManager<Chat>{
         return future;
     }
 
+    /**
+     * adds a message to a chat between two users
+     * @param chatId the id of the chat to which we want to add a message
+     * @param m the message to add
+     * @return a future wrapping the status of the addition
+     */
     public Future<Boolean> addMessageToChat(String chatId, Message m) {
         //accessing the chat collection
         CollectionReference chatRef = db.collection(CHATCOLLECTION.toString());
