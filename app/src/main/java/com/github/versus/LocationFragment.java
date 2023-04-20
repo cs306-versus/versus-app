@@ -42,6 +42,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.github.versus.db.DummyLocationManager;
 import com.github.versus.user.CustomPlace;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -73,6 +74,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 
 public class LocationFragment extends Fragment implements OnMapReadyCallback {
@@ -101,6 +103,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     private EditText editTextRadius;
     private static Location lastKnownLocation;
     private static LatLng epfl;
+    private static LatLng google;
     private float radius;
     public static MarkerOptions epflMarker;
 
@@ -114,12 +117,9 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     private static boolean hasLocations = false;
     private Marker lastClickedMarker;
     private Circle lastDrawnCircle;
+    private DummyLocationManager dummyLocationManager;
 
-    private List<CustomPlace> customPlaces = Arrays.asList(new CustomPlace("UNIL Football", "UNIL Football", new LatLng(46.519385, 6.580856)),
-            new CustomPlace("Chavannes Football", "Chavannes Football", new LatLng(46.52527373363714, 6.57366257779824)),
-            new CustomPlace("Bassenges Football", "Bassenges Football", new LatLng(46.52309381914529, 6.5608807098372175)),
-            new CustomPlace("GooglePlex Football", "Google Football", new LatLng(37.422083, -122.082555)));
-
+    private List<CustomPlace> customPlaces ;
 
 
     @Override
@@ -186,14 +186,21 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         });
         // Add markers for EPFL and Satellite
         epfl = new LatLng(46.520536, 6.568318);
-        LatLng google = new LatLng(37.42, -122.084);
+        epflMarker = new MarkerOptions().position(epfl).title("EPFL");
+        map.addMarker(epflMarker);
+        google = new LatLng(37.42, -122.084);
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(google, 15));
 
-        epflMarker = new MarkerOptions().position(epfl).title("EPFL");
-
-        map.addMarker(epflMarker);
 
 
+        dummyLocationManager = new DummyLocationManager();
+        try {
+            customPlaces = (List<CustomPlace>) dummyLocationManager.fetch("Places").get();
+        } catch (ExecutionException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         //  map.moveCamera(CameraUpdateFactory.newLatLng(epfl));
         map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
@@ -215,6 +222,8 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
     /**
      * Saves the state of the map when the activity is paused.
+     *
+     * @param outState The Bundle object to save the state.
      */
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -269,7 +278,10 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         return true;
     }
 
-    // Enable custom location selection by setting a map click listener
+    /**
+     * Enables custom location selection by setting a map click listener.
+     * When the map is clicked, it calls the findClosestFields method to find the closest fields to the clicked position.
+     */
     private void enableCustomLocationSelection() {
         map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
@@ -280,7 +292,13 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         });
     }
 
-    // Find the closest fields to a clicked position on the map
+    /**
+     * Finds the closest fields to a clicked position on the map.
+     * Iterates through the custom places and finds the ones within the threshold distance.
+     * Prepares the data for the showPlacesList() method and shows the list of nearby fields.
+     *
+     * @param clickedPosition LatLng object representing the position where the user clicked on the map.
+     */
     private void findClosestFields(LatLng clickedPosition) {
         double thresholdDistance = 1000.0; // Threshold distance to consider a field as nearby (in meters)
 
@@ -325,7 +343,6 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     /**
      * Gets the current location of the device, and positions the map's camera.
      */
-
     private void getDeviceLocation() {
         /*
          * Get the best and most recent location of the device, which may be null in rare
@@ -343,7 +360,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
                             if (lastKnownLocation != null) {
                                 localPos = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
-                                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(localPos, DEFAULT_ZOOM));
+                                map.moveCamera(CameraUpdateFactory.newLatLngZoom(localPos, DEFAULT_ZOOM));
                             }
                         } else {
                             Log.d(TAG, "Current location is null. Using defaults.");
@@ -380,6 +397,10 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
     /**
      * Handles the result of the request for location permissions.
+     *
+     * @param requestCode The request code passed to requestPermissions().
+     * @param permissions The requested permissions.
+     * @param grantResults The grant results for the corresponding permissions.
      */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -421,9 +442,6 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
      * After the user enters the radius and clicks "Show Places," the app will show the current place
      * and draw a circle with the given radius.
      */
-
-    // Inflate the custom layout 'radius_layout
-
     public void openPlacesDialog(){
         View view;
         EditText radiusInput;
@@ -505,7 +523,6 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
             drawCircle(radius);
         }
         hasLocations = false;
-
 
     }
 
