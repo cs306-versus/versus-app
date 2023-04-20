@@ -2,10 +2,13 @@ package com.github.versus;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -34,6 +37,7 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 public class SearchFragment extends Fragment implements
         CreatePostTitleDialogFragment.TitleListener,
@@ -45,12 +49,16 @@ public class SearchFragment extends Fragment implements
     protected RecyclerView recyclerView;
     protected Post newPost;
     protected VersusUser user = new VersusUser.Builder(FirebaseAuth.getInstance().getUid()).build();
+
+    protected EditText searchBar;
     protected CreatePostTitleDialogFragment cpdf;
     protected ChoosePostSportDialogFragment cpsdf;
     protected MaxPlayerDialogFragment mpdf;
     protected PostDatePickerDialog pdpd;
 
     protected List<Post> posts = new ArrayList<>();
+    protected List<Post> displayPosts = new ArrayList<>();
+    protected String filter = "";
 
     protected AnnouncementAdapter aa;
     protected FsPostManager pm;
@@ -61,7 +69,7 @@ public class SearchFragment extends Fragment implements
         View rootView = inflater.inflate(R.layout.fragment_research,container,false);
         recyclerView = rootView.findViewById(R.id.recyclerView);
         recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
-        createFragments();
+        createFragments(rootView);
         FsUserManager db = new FsUserManager(FirebaseFirestore.getInstance());
         ((CompletableFuture<User>)db.fetch(FirebaseAuth.getInstance().getUid()))
                 .thenAccept(this::setUser);
@@ -84,16 +92,34 @@ public class SearchFragment extends Fragment implements
         return rootView;
     }
 
-    private void createFragments(){
+    private void setUser(User user){
+        this.user = (VersusUser) user;
+    }
+    private void createFragments(View rootView){
         cpdf = new CreatePostTitleDialogFragment();
         cpsdf = new ChoosePostSportDialogFragment();
         mpdf = new MaxPlayerDialogFragment();
         pdpd = new PostDatePickerDialog();
         pm = new FsPostManager(FirebaseFirestore.getInstance());
+    
+    
+        searchBar = rootView.findViewById(R.id.search_posts);
+        searchBar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                filterPosts();
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
     }
-    private void setUser(User user){
-        this.user = (VersusUser) user;
-    }
+
     public void createPost(){
 
         cpdf.show(getChildFragmentManager(), "1");
@@ -131,10 +157,32 @@ public class SearchFragment extends Fragment implements
         postsFuture.thenApply(newPosts -> {
             posts.clear();
             posts.addAll(newPosts);
-            System.out.println(posts.size());
-            aa.notifyDataSetChanged();
+            filterPosts();
             return posts;
         });
+    }
+
+    protected void filterPosts(){
+        filter = searchBar.getText().toString();
+        displayPosts.clear();
+        if(filter.length() == 0){
+            displayPosts.addAll(posts);
+        }
+        else {
+            displayPosts.addAll(
+              posts.stream().filter(post -> {
+                  return post.getSport().name().toLowerCase().contains(filter.toLowerCase())
+                          || post.getTitle().toLowerCase().contains(filter.toLowerCase());
+              }).collect(Collectors.toList())
+            );
+        }
+
+        aa.notifyDataSetChanged();
+    }
+
+    protected void clearFilter(){
+        searchBar.setText("");
+        filterPosts();
     }
 
     @Override
