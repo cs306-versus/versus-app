@@ -1,22 +1,18 @@
 package com.github.versus.posts;
 
-import com.github.versus.rating.Rating;
 import com.github.versus.sports.Sport;
 import com.github.versus.user.DummyUser;
+import com.github.versus.user.User;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * Post in the Versus app
  */
-public class Post {
+public class Post implements Serializable {
 
     private  String title;
     private  Timestamp date;
@@ -112,6 +108,7 @@ public class Post {
         res.put("ratings", ratings);
         return res;
     }
+
 
 
     @Override

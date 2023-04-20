@@ -1,22 +1,23 @@
 package com.github.versus;
 
-import org.junit.Test;
-
-import static org.junit.Assert.*;
+import static com.github.versus.offline.CachedPost.computeID;
+import static com.github.versus.offline.CachedPost.match;
+import static com.github.versus.offline.CachedPost.postIsInvalid;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import com.github.versus.offline.CachedPost;
 import com.github.versus.offline.SimpleTestPost;
 import com.github.versus.posts.Location;
 import com.github.versus.posts.Post;
 import com.github.versus.posts.Timestamp;
+import com.github.versus.sports.Sport;
+import com.github.versus.user.DummyUser;
+
+import org.junit.Test;
 
 import java.time.Month;
 import java.util.Calendar;
-
-
-import static com.github.versus.offline.CachedPost.match;
-import static com.github.versus.offline.CachedPost.postIsInvalid;
-import static com.github.versus.offline.CachedPost.computeID;
 
 public class CachedPostTest {
     @Test
@@ -27,11 +28,7 @@ public class CachedPostTest {
     @Test
     public void postIsInvalidWithNullTitle() {
 
-        Post post= SimpleTestPost.postWith(null,
-                new Timestamp(Calendar.getInstance().get(Calendar.YEAR)
-                        , Month.JANUARY, 1, 8, 1, Timestamp.Meridiem.PM),
-                new Location("Lausanne", 10, 10),10);
-
+        Post post= new SimpleTestPost(null);
         assertTrue(postIsInvalid(post));
     }
 
@@ -56,10 +53,17 @@ public class CachedPostTest {
         Post post = new SimpleTestPost();
         assertFalse(postIsInvalid(post));
     }
+    @Test
+    public void postWithNoSportIsInvalid(){
+        Post post = SimpleTestPost.postWith("Invalid post",
+                new Timestamp(Calendar.getInstance().get(Calendar.YEAR), Month.JANUARY, 1, 8, 1, Timestamp.Meridiem.PM),
+                new Location("Lausanne",10,10),10,null);
+        assertTrue(postIsInvalid(post));
+    }
 
     @Test
     public void emptyCachedPostHasCorrectID(){
-        assertTrue(new CachedPost().id.equals(CachedPost.emptyID));
+        assertTrue(new CachedPost().id.equals(CachedPost.EMPTY_ID));
     }
 
     @Test
@@ -74,7 +78,7 @@ public class CachedPostTest {
 
     @Test
     public void computeIDWithEmptyPost(){
-        assertTrue(computeID(null).equals(CachedPost.emptyID));
+        assertTrue(computeID(null).equals(CachedPost.EMPTY_ID));
     }
     @Test
     public void computeIDWithValidPost(){
@@ -89,6 +93,46 @@ public class CachedPostTest {
         CachedPost cached = CachedPost.match(post);
         assertTrue(post.equals(cached.revert()));
     }
+
+    @Test
+    public void matchPreservesUserId(){
+        DummyUser user = new DummyUser("i play football");
+        Post post = SimpleTestPost.postWith("Invalid post",
+                new Timestamp(Calendar.getInstance().get(Calendar.YEAR), Month.JANUARY, 1, 8, 1, Timestamp.Meridiem.PM),
+                new Location("Lausanne",10,10),10, Sport.SOCCER, user);
+        CachedPost cached = CachedPost.match(post);
+        assertTrue(cached.uid.equals(user.getUID()));
+    }
+    @Test
+    public void matchDoesNotIntroduceInconsistentId(){
+        Post post = SimpleTestPost.postWith("Invalid post",
+                new Timestamp(Calendar.getInstance().get(Calendar.YEAR), Month.JANUARY, 1, 8, 1, Timestamp.Meridiem.PM),
+                new Location("Lausanne",10,10),10, Sport.SOCCER);
+        CachedPost cached = CachedPost.match(post);
+        assertTrue(cached.uid==null);
+    }
+
+    @Test
+    public void revertPreservesUserId(){
+        DummyUser user = new DummyUser("i play football");
+        Post post = SimpleTestPost.postWith("Invalid post",
+                new Timestamp(Calendar.getInstance().get(Calendar.YEAR), Month.JANUARY, 1, 8, 1, Timestamp.Meridiem.PM),
+                new Location("Lausanne",10,10),10, Sport.SOCCER, user);
+        CachedPost cached = CachedPost.match(post);
+        Post reverted = cached.revert();
+        assertTrue(reverted.getPlayers().get(0).equals(user));
+    }
+
+    @Test
+    public void revertDoesNotIntroduceInconsistentId(){
+        Post post = SimpleTestPost.postWith("Invalid post",
+                new Timestamp(Calendar.getInstance().get(Calendar.YEAR), Month.JANUARY, 1, 8, 1, Timestamp.Meridiem.PM),
+                new Location("Lausanne",10,10),10, Sport.SOCCER);
+        CachedPost cached = CachedPost.match(post);
+        Post reverted = cached.revert();
+        assertTrue(reverted.getPlayers().isEmpty());
+    }
+
 
 
 

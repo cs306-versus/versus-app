@@ -47,6 +47,7 @@ hs_err_pid*
 .idea/**/dynamic.xml
 .idea/**/uiDesigner.xml
 .idea/**/dbnavigator.xml
+./idea/androidTestResultsUserPreferences.xml
 
 # Gradle
 .idea/**/gradle.xml
@@ -167,6 +168,7 @@ captures/
 .idea/modules.xml
 # Comment next line if keeping position of elements in Navigation Editor is relevant for you
 .idea/navEditor.xml
+.idea\androidTestResultsUserPreferences.xml
 
 # Keystore files
 # Uncomment the following lines if you do not want to check your keystore files in.
@@ -205,4 +207,10 @@ lint/tmp/
 # Android Profiling
 *.hprof
 /.idea/deploymentTargetDropDown.xml
+/app/src/main/java/com/github/versus/.metals/
+/app/src/main/java/com/github/versus/.vscode/
+
 !/.idea/deploymentTargetDropDown.xml
+
+
+

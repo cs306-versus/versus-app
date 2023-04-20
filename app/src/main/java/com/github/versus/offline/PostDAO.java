@@ -8,8 +8,11 @@ import androidx.room.Query;
 
 import java.util.List;
 
+/**
+ * This intereface represents the object that interacts with the database using SQL queries
+ */
 @Dao
-public interface PostDAO  {
+public interface  PostDAO  {
     @Query("SELECT * FROM CachedPost")
     List<CachedPost> getAll();
 
@@ -17,20 +20,21 @@ public interface PostDAO  {
     CachedPost loadById(String id);
 
     @Query("SELECT * FROM CachedPost WHERE id IN (:ids)")
-    List<CachedPost> loadAllByIds(int[] ids);
+    List<CachedPost> loadAllByIds(String ids[]);
+
 
     @Query("SELECT * FROM CachedPost ORDER BY RANDOM() LIMIT 1")
-    CachedPost randomSelect();
+    List<CachedPost> randomSelect();
+
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(CachedPost... rows);
 
+
+    @Query("SELECT * FROM CachedPost WHERE sport LIKE :sport ")
+    CachedPost loadBySport(String sport);
+
     @Query("DELETE FROM CachedPost WHERE id LIKE :id")
     void deleteById(String id);
-
-
-    @Delete
-    void delete(CachedPost row);
-
 
 }

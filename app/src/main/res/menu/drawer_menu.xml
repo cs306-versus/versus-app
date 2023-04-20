@@ -13,6 +13,9 @@
             android:id="@+id/nav_schedule"
             android:icon="@drawable/ic_schedule"
             android:title="Schedule" />
+        <item
+            android:id="@+id/nav_user_profil"
+            android:title="Profil" />
 
 
     </group>
