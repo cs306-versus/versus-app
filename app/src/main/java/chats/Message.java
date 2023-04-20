@@ -1,5 +1,6 @@
 package chats;
 
+import com.github.versus.posts.Post;
 import com.github.versus.posts.Timestamp;
 import com.github.versus.user.User;
 
@@ -58,5 +59,21 @@ public class Message {
                 "To: " + recipient + "\n" +
                 "Date: " + timestamp.toString() + "\n" +
                 "Body: " + body;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof Post)) {
+            return false;
+        }
+
+        Message other = (Message) obj;
+        return this.getSender().getUID().equals(other.getRecipient().getUID())&&
+                this.getBody().equals(other.getBody())&&
+                this.getTimestamp().equals(other.getTimestamp());
     }
 }

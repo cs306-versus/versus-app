@@ -4,11 +4,13 @@ import static org.junit.Assert.assertTrue;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
+import com.github.versus.db.FsChatManager;
 import com.github.versus.db.FsPostManager;
 import com.github.versus.posts.Location;
 import com.github.versus.posts.Post;
 import com.github.versus.posts.Timestamp;
 import com.github.versus.sports.Sport;
+import com.github.versus.user.DummyUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.junit.Test;
@@ -20,6 +22,8 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeoutException;
 
+import chats.Chat;
+
 @RunWith(AndroidJUnit4.class)
 
 public class FsChatManagerTest {
@@ -29,14 +33,13 @@ public class FsChatManagerTest {
     {
         // Creating FsPostm instance
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        FsPostManager postm = new FsPostManager(db);
+        FsChatManager postm = new FsChatManager(db);
 
         // Creating a test post
-        Post post = new Post( "_test_", new Timestamp(2023, Month.AUGUST, 18, 11, 15, Timestamp.Meridiem.AM) ,
-                new Location("tirane", 0, 0), new ArrayList<>(), 15, Sport.SOCCER, new ArrayList<>());
+        Chat chat = new Chat(new DummyUser("abdess"), new DummyUser("aymane"), "abdessaymane" );
 
         //inserting the post
-        Future<Boolean> insertResult = postm.insert(post);
+        Future<Boolean> insertResult = postm.insert(chat);
 
         // Wait for the insert operation to complete
         boolean insertSuccess = insertResult.get();
@@ -44,10 +47,10 @@ public class FsChatManagerTest {
         // Verify that the insert operation succeeded
         assertTrue(insertSuccess);
 
-        // Verify that the post was inserted into Firestore
+        // Verify that the chat was inserted into Firestore
         //by fetching it and then comparing
-        Post p = postm.fetch("_test_").get();
-        assertTrue(post.equals(p));
+        Chat c = postm.fetch(chat.getChatId()).get();
+        assertTrue(c.equals(chat));
 
         // Clean up the test data
         boolean deletionSuccess = postm.delete("_test_").get();

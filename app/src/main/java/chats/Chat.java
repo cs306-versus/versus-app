@@ -1,4 +1,5 @@
 package chats;
+import com.github.versus.posts.Post;
 import com.github.versus.user.User;
 
 import java.util.ArrayList;
@@ -43,10 +44,26 @@ public class Chat {
 
     public Map<String, Object>getAllAttributes(){
         Map<String, Object> res =  new HashMap<String, Object>();
-        res.put("user1", user1);
-        res.put("user2", user2);
-        res.put("messages", messages);
-        res.put("chatId", chatId);
+        res.put("user1", getUser1());
+        res.put("user2", getUser2());
+        res.put("messages", getMessages());
+        res.put("chatId", getChatId());
         return res;
+    }
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof Post)) {
+            return false;
+        }
+
+        Chat other = (Chat) obj;
+        return this.getChatId().equals(other.getChatId()) &&
+                this.getUser1().getUID().equals(other.getUser1().getUID())&&
+                this.getUser2().getUID().equals(other.getUser2().getUID())&&
+                this.getMessages().equals(other.getMessages());
     }
 }
