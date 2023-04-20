@@ -1,6 +1,7 @@
 package com.github.versus.db;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.versus.posts.Post;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -9,6 +10,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
@@ -116,4 +118,50 @@ public class FsChatManager implements DataBaseManager<Chat>{
 
         return future;
     }
+
+    public Future<Boolean> addMessageToChat(String chatId, Message message) {
+        //accessing the chat collection
+        CollectionReference scheduleRef = db.collection(CHATCOLLECTION.toString());
+
+        //finding the schedule with the right chatId
+        Query query = scheduleRef.whereEqualTo("chatId", chatId);
+        Task<QuerySnapshot> task = query.get();
+
+        // Wrap the Task in a CompletableFuture that returns the status of the schedule update
+        CompletableFuture<Boolean> future = new CompletableFuture<>();
+
+        //we complete the future with false if the query failed
+        //otherwise we try to update the value of the scheduled posts field
+        task.addOnSuccessListener(res -> {
+
+            //getting the documents corresponding to the post
+            List<DocumentSnapshot> docs = res.getDocuments();
+            if(docs.isEmpty()){
+                future.complete(false);
+            }else{
+                DocumentSnapshot doc = docs.get(0);
+                List<Message> messages = (List<Message>)doc.get("messages");
+
+                //creating a new list corresponding to the old one + the new post
+                List<Message> newMessages = new ArrayList<>(messages);
+                newMessages.add(message);
+
+                //updating the field value
+                //if the update task is a success we complete the future with true
+                //otherwise we complete the future with false
+                doc.getReference().update("messages", newMessages).addOnSuccessListener(aVoid ->{
+                    future.complete(true);
+                }).addOnFailureListener(e ->{
+                            future.complete(false);
+                        }
+                );
+
+            }
+        }).addOnFailureListener(e -> {
+            future.complete(false);
+        });
+
+        return future;
+    }
+
 }

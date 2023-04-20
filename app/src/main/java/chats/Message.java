@@ -15,7 +15,7 @@ public class Message {
     private final Timestamp timestamp;
 
     // Constructor
-    public Message(User sender, User recipient, String subject, String body, Timestamp timestamp) {
+    public Message(User sender, User recipient, String body, Timestamp timestamp) {
         this.sender = sender;
         this.recipient = recipient;
         this.body = body;
@@ -39,18 +39,6 @@ public class Message {
     public Timestamp getTimestamp() {
         return timestamp;
     }
-
-    public Map<String, Object> getAllAttributes() {
-        Map<String, Object> res =  new HashMap<String, Object>();
-        res.put("sender", sender );
-        res.put("recipient", recipient);
-        res.put("body", body);
-        res.put("timestamp", timestamp);
-        return res;
-
-    }
-
-
 
     // toString method
     @Override
