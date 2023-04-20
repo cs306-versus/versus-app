@@ -54,7 +54,6 @@ public class PlayersListViewAdapter extends ArrayAdapter<PlayerToBeRated> {
 
         }
         else {
-          //  EditText editText = (EditText)view.findViewById(R.id.edit_texty);
             Button button = (Button)view.findViewById(R.id.rate_button);
             Spinner spinner = (Spinner)view.findViewById(R.id.spinner_rate);
             View contour = view.findViewById(R.id.rating_contour);

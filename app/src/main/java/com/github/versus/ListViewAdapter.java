@@ -28,12 +28,6 @@ public class ListViewAdapter extends ArrayAdapter<List<String>> {
         ((TextView)view.findViewById(R.id.Location_text)).setText(book.get(1));
         ((TextView)view.findViewById(R.id.Meeting_time)).setText(book.get(2));
 
-        //TextView titleTextView = (TextView) view.findViewById(R.id.text_view_1);
-        //TextView authorTextView = (TextView) view.findViewById(R.id.text_view_2);
-
-      //  titleTextView.setText(book);
-       // authorTextView.setText("this is text2");
-
         return view;
     }
 }
