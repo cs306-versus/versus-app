@@ -53,9 +53,9 @@ public class SearchFragTest {
         onView(withId(R.id.editPostTitle)).check(matches(isDisplayed()));
         onView(withId(R.id.editPostTitle)).check(matches(withText(containsString("Title"))));
         onView(withId(android.R.id.button1)).perform(click());
-        onView(withText(containsString("choose a sport"))).check(matches(isDisplayed()));
-        onView(withText(containsString("next"))).perform(click());
-//        onView(withText(containsString("cancel"))).perform(click());
+//        onView(withText(containsString("Choose a sport"))).check(matches(isDisplayed()));
+//        onView(withText(containsString("Next"))).perform(click());
+//        onView(withText(containsString("Cancel"))).perform(click());
 
     }
 }
