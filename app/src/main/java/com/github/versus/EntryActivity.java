@@ -5,8 +5,10 @@ import static java.util.Objects.isNull;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.github.versus.auth.AuthActivity;
@@ -14,6 +16,9 @@ import com.github.versus.auth.Authenticator;
 import com.github.versus.auth.VersusAuthenticator;
 import com.github.versus.user.User;
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.Objects;
+import java.util.Optional;
 
 
 /**
@@ -35,6 +40,10 @@ public class EntryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_entry);
+        // Hide the ActionBar during initialization of the App
+        Optional.ofNullable(getSupportActionBar()).ifPresent(ActionBar::hide);
+
         initAuthentication();
     }
 
@@ -55,8 +64,12 @@ public class EntryActivity extends AppCompatActivity {
         Class<?> activity = isNull(user)
                 ? AuthActivity.class
                 : MainActivity.class;
-        Intent intent = new Intent(this, activity);
-        startActivity(intent);
+
+        new Handler().postDelayed(() -> {
+            Intent intent = new Intent(this, activity);
+            startActivity(intent);
+            finish();
+        }, 3000);
     }
 
     /**
