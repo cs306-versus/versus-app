@@ -14,23 +14,18 @@ import android.graphics.drawable.GradientDrawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.SystemClock;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,11 +37,11 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.github.versus.db.DataBaseManager;
 import com.github.versus.db.DummyLocationManager;
 import com.github.versus.user.CustomPlace;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -56,25 +51,17 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
-import com.google.android.libraries.places.api.model.Place;
-import com.google.android.libraries.places.api.model.PlaceLikelihood;
-import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest;
-import com.google.android.libraries.places.api.net.FindCurrentPlaceResponse;
 import com.google.android.libraries.places.api.net.PlacesClient;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
 
 
 public class LocationFragment extends Fragment implements OnMapReadyCallback {
@@ -86,40 +73,34 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     // [START maps_current_place_state_keys]
     private static final String KEY_CAMERA_POSITION = "camera_position";
     private static final String KEY_LOCATION = "location";
-
+    private static final int M_MAX_ENTRIES = 5;
+    public static GoogleMap map;//TODO
+    public static MarkerOptions epflMarker;
     private static LatLng localPos;
-
+    private static boolean locationPermissionGranted;
+    private static Location lastKnownLocation;
+    private static LatLng epfl;
+    private static LatLng google;
+    private static String[] likelyPlaceNames;
+    private static String[] likelyPlaceAddresses;
+    private static LatLng[] likelyPlaceLatLngs;
+    private static ListView listView;
+    private static boolean hasLocations = false;
     // A default location (Sydney, Australia) and default zoom to use when location permission is
     // not granted.
     private final LatLng defaultLocation = new LatLng(-33.8523341, 151.2106085);
-    public static GoogleMap map;//TODO
     private CameraPosition cameraPosition;
     // The entry point to the Places API.
     private PlacesClient placesClient;
     // The entry point to the Fused Location Provider.
     private FusedLocationProviderClient fusedLocationProviderClient;
-    private static boolean locationPermissionGranted;
-
     private EditText editTextRadius;
-    private static Location lastKnownLocation;
-    private static LatLng epfl;
-    private static LatLng google;
     private float radius;
-    public static MarkerOptions epflMarker;
-
-    private static final int M_MAX_ENTRIES = 5;
-    private static String[] likelyPlaceNames;
-    private static String[] likelyPlaceAddresses;
-
-    private static LatLng[] likelyPlaceLatLngs;
-
-    private static ListView listView ;
-    private static boolean hasLocations = false;
     private Marker lastClickedMarker;
     private Circle lastDrawnCircle;
-    private DummyLocationManager dummyLocationManager;
+    private DataBaseManager dummyLocationManager;
 
-    private List<CustomPlace> customPlaces ;
+    private List<CustomPlace> customPlaces;
 
 
     @Override
@@ -160,11 +141,11 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
      * This callback is triggered when the map is ready to be used.
      */
     @Override
-    public  void onMapReady(GoogleMap map) {
-        this.map = map;
+    public void onMapReady(GoogleMap map) {
+        LocationFragment.map = map;
         map.getUiSettings().setZoomControlsEnabled(true);
         map.getUiSettings().setCompassEnabled(true);
-        this.map.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+        LocationFragment.map.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
             // Return null here, so that getInfoContents() is called next.
             public View getInfoWindow(Marker arg0) {
                 return null;
@@ -190,7 +171,6 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         map.addMarker(epflMarker);
         google = new LatLng(37.42, -122.084);
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(google, 15));
-
 
 
         dummyLocationManager = new DummyLocationManager();
@@ -267,12 +247,9 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         if (item.getItemId() == R.id.option_get_place) {
             openPlacesDialog();
 
-        }
-        else if(item.getItemId() == R.id.option_choose_location){
+        } else if (item.getItemId() == R.id.option_choose_location) {
             enableCustomLocationSelection();
         }
-
-
 
 
         return true;
@@ -308,19 +285,11 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         }
 
         // Add a new marker to the map at the clicked position
-        lastClickedMarker = map.addMarker(new MarkerOptions()
-                .position(clickedPosition)
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
-                .title("Clicked Location"));
+        lastClickedMarker = map.addMarker(new MarkerOptions().position(clickedPosition).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).title("Clicked Location"));
 
         // Iterate through the custom places and find the ones within the threshold distance
-        List<CustomPlace> nearbyFields = new ArrayList<>();
-        for (CustomPlace customPlace : customPlaces) {
-            double distance = haversineDistance(clickedPosition, customPlace.latLng);
-            if (distance <= thresholdDistance) {
-                nearbyFields.add(customPlace);
-            }
-        }
+        List<CustomPlace> nearbyFields = customPlaces.stream().filter(place -> haversineDistance(clickedPosition, place.latLng) <= thresholdDistance).collect(Collectors.toList());
+
 
         // Prepare the data for the showPlacesList() method
         likelyPlaceNames = new String[nearbyFields.size()];
@@ -336,8 +305,6 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         // Show the list of nearby fields
         showPlacesList();
     }
-
-
 
 
     /**
@@ -398,8 +365,8 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     /**
      * Handles the result of the request for location permissions.
      *
-     * @param requestCode The request code passed to requestPermissions().
-     * @param permissions The requested permissions.
+     * @param requestCode  The request code passed to requestPermissions().
+     * @param permissions  The requested permissions.
      * @param grantResults The grant results for the corresponding permissions.
      */
     @Override
@@ -437,18 +404,18 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
             Log.e("Exception: %s", e.getMessage());
         }
     }
+
     /**
      * Opens a custom dialog for users to input a radius value (in meters).
      * After the user enters the radius and clicks "Show Places," the app will show the current place
      * and draw a circle with the given radius.
      */
-    public void openPlacesDialog(){
+    public void openPlacesDialog() {
         View view;
         EditText radiusInput;
 
         view = LayoutInflater.from(getActivity()).inflate(R.layout.radius_layout, null);
         radiusInput = view.findViewById(R.id.edit_text_radius2);
-
 
 
         // Get a reference to the EditText view in the layout
@@ -467,12 +434,10 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                     dialog.dismiss();
                     showCurrentPlaces(radius);
                     drawCircle(radius);
-                }
-                else  {
+                } else {
                     dialog.dismiss();
                     showToast("Please enter a radius");
                 }
-
 
 
             }
@@ -482,9 +447,11 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
 
     }
+
     /**
      * Shows a list of custom places within a specified radius around the user's current location.
      * If no custom places are found within the radius, a toast message is displayed to the user.
+     *
      * @param radius The radius (in meters) around the user's current location to search for custom places.
      */
     public void showCurrentPlaces(double radius) {
@@ -527,20 +494,17 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     }
 
 
-
-
     /**
      * Creates and displays a custom dialog containing a list of nearby custom places.
      * When a user selects a place from the list, a blinking marker is added to the selected place on the map,
      * and the camera moves to focus on the selected place with the default zoom level.
      */
 
-    private  void showPlacesList() {
+    private void showPlacesList() {
         View customView = LayoutInflater.from(getActivity()).inflate(R.layout.custom_alert_dialog, null);
         listView = customView.findViewById(R.id.test_list_view2);
         listView.setAdapter(new ArrayAdapter<>(requireActivity(), android.R.layout.simple_list_item_1, likelyPlaceNames));
-        AlertDialog dialog = new AlertDialog.Builder(getActivity()).setTitle("Select a place").setView(customView).
-                setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        AlertDialog dialog = new AlertDialog.Builder(getActivity()).setTitle("Select a place").setView(customView).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
@@ -552,10 +516,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 LatLng selectedPlace = likelyPlaceLatLngs[position];
-                Marker marker = map.addMarker(new MarkerOptions()
-                        .title(likelyPlaceNames[position])
-                        .position(selectedPlace)
-                        .snippet(likelyPlaceAddresses[position]));
+                Marker marker = map.addMarker(new MarkerOptions().title(likelyPlaceNames[position]).position(selectedPlace).snippet(likelyPlaceAddresses[position]));
                 addBlinkingMarker(selectedPlace, likelyPlaceNames[position], likelyPlaceAddresses[position]);
                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedPlace, DEFAULT_ZOOM));
                 dialog.dismiss();
@@ -564,6 +525,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         dialog.show();
 
     }
+
     /**
      * Displays a custom toast with the specified message.
      * The custom toast has a specific layout, background color, and corner radius.
@@ -573,7 +535,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
     private void showToast(String message) {
         LayoutInflater inflater = getLayoutInflater();
-        View layout = inflater.inflate(R.layout.custom_toast, (ViewGroup) requireActivity().findViewById(R.id.custom_toast_root));
+        View layout = inflater.inflate(R.layout.custom_toast, requireActivity().findViewById(R.id.custom_toast_root));
 
         TextView text = layout.findViewById(R.id.custom_toast_text);
         text.setText(message);
@@ -593,22 +555,24 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     /**
      * Draws a circle with the specified radius around a predefined center point (localPos) on the map.
      * The method clears the map of any previous circles and applies a flashing animation to the newly drawn circle.
+     *
      * @param radius The radius (in meters) of the circle to be drawn.
      */
-    private void drawCircle( double radius) {
+    private void drawCircle(double radius) {
         if (lastDrawnCircle != null) {
             //Clearing the map from previous circles
             lastDrawnCircle.remove();
         }
 
 
-        CircleOptions circleOptions = new CircleOptions().center(localPos).radius(radius).
-                strokeWidth(2);
+        CircleOptions circleOptions = new CircleOptions().center(localPos).radius(radius).strokeWidth(2);
         lastDrawnCircle = map.addCircle(circleOptions);
         applyFlashingAnimation(lastDrawnCircle);
     }
+
     /**
      * Calculates the haversine distance between two LatLng points in meters.
+     *
      * @param latLng1 The first LatLng point.
      * @param latLng2 The second LatLng point.
      * @return The haversine distance between the two points in meters.
@@ -617,14 +581,14 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         double earthRadius = 6371; // Radius of the earth in km
         double dLat = toRadians(latLng2.latitude - latLng1.latitude);
         double dLng = toRadians(latLng2.longitude - latLng1.longitude);
-        double a = sin(dLat / 2) * sin(dLat / 2)
-                + cos(toRadians(latLng1.latitude)) * cos(toRadians(latLng2.latitude))
-                * sin(dLng / 2) * sin(dLng / 2);
+        double a = sin(dLat / 2) * sin(dLat / 2) + cos(toRadians(latLng1.latitude)) * cos(toRadians(latLng2.latitude)) * sin(dLng / 2) * sin(dLng / 2);
         double c = 2 * atan2(sqrt(a), sqrt(1 - a));
         return earthRadius * c * 1000; // Distance in meters
     }
+
     /**
      * Applies a blinking animation to a given marker on the map.
+     *
      * @param marker The marker to apply the blinking animation to.
      */
 
@@ -633,11 +597,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         final Runnable blinkingRunnable = new Runnable() {
             @Override
             public void run() {
-                if (marker.isVisible()) {
-                    marker.setVisible(false);
-                } else {
-                    marker.setVisible(true);
-                }
+                marker.setVisible(!marker.isVisible());
                 handler.postDelayed(this, 500); // Change the duration of the blinking effect here (in milliseconds)
             }
         };
@@ -646,6 +606,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
     /**
      * Applies a flashing animation to a given circle on the map by altering its stroke and fill colors' alpha values.
+     *
      * @param circle The circle to apply the flashing animation to.
      */
 
@@ -664,25 +625,18 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         });
         animator.start();
     }
+
     /**
      * Adds a blinking marker to the map at the specified position with the provided title and snippet.
+     *
      * @param position The LatLng position of the marker to be added.
-     * @param title The title of the marker.
-     * @param snippet The snippet of the marker.
+     * @param title    The title of the marker.
+     * @param snippet  The snippet of the marker.
      */
     private void addBlinkingMarker(LatLng position, String title, String snippet) {
-        Marker mainMarker = map.addMarker(new MarkerOptions()
-                .position(position)
-                .title(title)
-                .snippet(snippet));
+        Marker mainMarker = map.addMarker(new MarkerOptions().position(position).title(title).snippet(snippet));
 
-        MarkerOptions blinkingMarkerOptions = new MarkerOptions()
-                .position(position)
-                .title(title)
-                .snippet(snippet)
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
-                .alpha(0.5f)
-                .visible(false);
+        MarkerOptions blinkingMarkerOptions = new MarkerOptions().position(position).title(title).snippet(snippet).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).alpha(0.5f).visible(false);
         Marker blinkingMarker = map.addMarker(blinkingMarkerOptions);
 
         applyBlinkingAnimation(blinkingMarker);
