@@ -15,6 +15,7 @@ import com.github.versus.posts.Post;
 import com.github.versus.posts.Timestamp;
 import com.github.versus.sports.Sport;
 import com.github.versus.user.DummyUser;
+import com.github.versus.user.VersusUser;
 
 import org.junit.After;
 import org.junit.Before;
@@ -181,7 +182,7 @@ public class CacheManagerTest {
 
     @Test
     public  void userPresentUIDCachedCorrectly() throws ExecutionException, InterruptedException {
-        DummyUser user = new DummyUser("i play football");
+        VersusUser user = new VersusUser.Builder("uid").build();
         Post post = SimpleTestPost.postWith("Looking for football team",
                 new Timestamp(Calendar.getInstance().get(Calendar.YEAR), Month.JANUARY, 1, 8, 1, Timestamp.Meridiem.PM),
                 new Location("Lausanne",10,10),10, Sport.SOCCER, user);
