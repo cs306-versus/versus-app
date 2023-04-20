@@ -29,6 +29,7 @@ public final class VersusUser implements User {
     private final int zipCode;
     private final List<Sport> preferredSports;
 
+
     public VersusUser(){
         city = null;
         preferredSports = null;
