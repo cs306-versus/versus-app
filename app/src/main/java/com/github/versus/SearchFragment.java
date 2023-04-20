@@ -20,10 +20,14 @@ import com.github.versus.announcements.CreatePostTitleDialogFragment;
 import com.github.versus.announcements.MaxPlayerDialogFragment;
 import com.github.versus.announcements.PostDatePickerDialog;
 import com.github.versus.db.FsPostManager;
+import com.github.versus.db.FsUserManager;
 import com.github.versus.posts.Location;
 import com.github.versus.posts.Post;
 import com.github.versus.posts.Timestamp;
 import com.github.versus.sports.Sport;
+import com.github.versus.user.User;
+import com.github.versus.user.VersusUser;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.time.Month;
@@ -40,6 +44,7 @@ public class SearchFragment extends Fragment implements
 
     protected RecyclerView recyclerView;
     protected Post newPost;
+    protected VersusUser user = new VersusUser.Builder(FirebaseAuth.getInstance().getUid()).build();
     protected CreatePostTitleDialogFragment cpdf;
     protected ChoosePostSportDialogFragment cpsdf;
     protected MaxPlayerDialogFragment mpdf;
@@ -62,6 +67,9 @@ public class SearchFragment extends Fragment implements
         pdpd = new PostDatePickerDialog();
         pm = new FsPostManager(FirebaseFirestore.getInstance());
 
+        FsUserManager db = new FsUserManager(FirebaseFirestore.getInstance());
+        ((CompletableFuture<User>)db.fetch(FirebaseAuth.getInstance().getUid()))
+                .thenAccept(this::setUser);
 
         Button addPost = (Button) rootView.findViewById(R.id.add_posts);
         addPost.setOnClickListener(new View.OnClickListener() {
@@ -71,7 +79,7 @@ public class SearchFragment extends Fragment implements
             }
         });
 
-        aa = new AnnouncementAdapter(posts);
+        aa = new AnnouncementAdapter(posts, user, pm);
         loadPosts();
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
@@ -81,6 +89,9 @@ public class SearchFragment extends Fragment implements
         return rootView;
     }
 
+    private void setUser(User user){
+        this.user = (VersusUser) user;
+    }
     public void createPost(){
 
         cpdf.show(getChildFragmentManager(), "1");
@@ -97,6 +108,8 @@ public class SearchFragment extends Fragment implements
         newPost.setTitle(title);
         cpsdf.show(getChildFragmentManager(), "1");
     }
+
+
 
     @Override
     public void onCancel() {
@@ -131,6 +144,9 @@ public class SearchFragment extends Fragment implements
     @Override
     public void onPickPostDate(Timestamp ts) {
         newPost.setDate(ts);
+        ArrayList<VersusUser> users = new ArrayList<>();
+        users.add(user);
+        newPost.setPlayers(users);
         pm.insert(newPost);
         loadPosts();
     }

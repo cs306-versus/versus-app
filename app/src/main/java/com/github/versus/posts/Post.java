@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import com.github.versus.sports.Sport;
 import com.github.versus.user.DummyUser;
 import com.github.versus.user.User;
+import com.github.versus.user.VersusUser;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -23,13 +24,13 @@ public class Post implements Serializable {
     private  String title;
     private  Timestamp date;
     private  Location location;
-    private List<DummyUser> players;
+    private List<VersusUser> players;
     private int playerLimit;
     private Sport sport ;
 
     private String CreatorId;
 
-    public Post(String title, Timestamp date, Location location, List<DummyUser> players, int playerLimit, Sport sport) {
+    public Post(String title, Timestamp date, Location location, List<VersusUser> players, int playerLimit, Sport sport) {
         this.title = title;
         this.date = date;
         this.location = location;
@@ -70,7 +71,7 @@ public class Post implements Serializable {
     /**
      * @return the users who joined the post
      */
-    public List<DummyUser> getPlayers() {
+    public List<VersusUser> getPlayers() {
         return players;
     }
 
@@ -137,7 +138,7 @@ public class Post implements Serializable {
         this.location = location;
     }
 
-    public void setPlayers(List<DummyUser> players) {
+    public void setPlayers(List<VersusUser> players) {
         this.players = players;
     }
 

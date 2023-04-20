@@ -3,25 +3,34 @@ package com.github.versus.announcements;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.versus.R;
+import com.github.versus.db.FsPostManager;
 import com.github.versus.posts.Post;
+import com.github.versus.user.User;
+import com.github.versus.user.VersusUser;
 
 import org.w3c.dom.Text;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class AnnouncementAdapter extends RecyclerView.Adapter<AnnouncementAdapter.ViewHolder> {
     private List<Post> posts;
-    public AnnouncementAdapter(List<Post> posts){
+    private VersusUser user;
+    private FsPostManager fpm;
+    public AnnouncementAdapter(List<Post> posts, VersusUser currentUser, FsPostManager fpm){
         if(posts == null) {
             throw new IllegalArgumentException("Posts must be non-null!");
         }
         this.posts = posts;
+        user = currentUser;
+        this.fpm = fpm;
     }
     @NonNull
     @Override
@@ -34,12 +43,33 @@ public class AnnouncementAdapter extends RecyclerView.Adapter<AnnouncementAdapte
 
     @Override
     public void onBindViewHolder(@NonNull AnnouncementAdapter.ViewHolder viewHolder, int position) {
-        viewHolder.getTitleTextView().setText(posts.get(position).getTitle());
-        viewHolder.getSportTextView().setText(posts.get(position).getSport().name);
-        viewHolder.getMaxPlayerCountTextView().setText(posts.get(position).getPlayers().size() + "/" + posts.get(position).getPlayerLimit());
-        viewHolder.getDateTextView().setText(posts.get(position).getDate().getDay() + "/" +posts.get(position).getDate().getMonth().getValue() + "/" + posts.get(position).getDate().getYear());
-
-        viewHolder.getLocationTextView().setText(posts.get(position).getLocation().toString());
+        Post currentPost = posts.get(position);
+        viewHolder.getTitleTextView().setText(currentPost.getTitle());
+        viewHolder.getSportTextView().setText(currentPost.getSport().name);
+        viewHolder.getMaxPlayerCountTextView().setText(currentPost.getPlayers().size() + "/" + posts.get(position).getPlayerLimit());
+        viewHolder.getDateTextView().setText(currentPost.getDate().getDay() + "/" +posts.get(position).getDate().getMonth().getValue() + "/" + posts.get(position).getDate().getYear());
+        viewHolder.getLocationTextView().setText(currentPost.getLocation().toString());
+        boolean joined = currentPost.getPlayers().stream().map(user -> user.getUID()).collect(Collectors.toList()).contains(user.getUID());
+        if(joined){
+            viewHolder.getJoinButton().setText("Joined");
+            viewHolder.getJoinButton().setEnabled(false);
+        } else {
+            if(currentPost.getPlayers().size() < currentPost.getPlayerLimit()){
+            viewHolder.getJoinButton().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    fpm.joinPost(currentPost.getTitle(), user);
+                    viewHolder.getJoinButton().setText("Joined");
+                    viewHolder.getJoinButton().setEnabled(false);
+                    currentPost.getPlayers().add(user);
+                    notifyDataSetChanged();
+                }
+            });
+            } else {
+                viewHolder.getJoinButton().setText("Full");
+                viewHolder.getJoinButton().setEnabled(false);
+            }
+        }
     }
 
     @Override
@@ -53,6 +83,7 @@ public class AnnouncementAdapter extends RecyclerView.Adapter<AnnouncementAdapte
         private final TextView maxPlayerCount;
         private final TextView location;
         private final TextView date;
+        private final Button join;
         public ViewHolder(View view) {
 
             super(view);
@@ -62,7 +93,7 @@ public class AnnouncementAdapter extends RecyclerView.Adapter<AnnouncementAdapte
             maxPlayerCount = (TextView) view.findViewById(R.id.announcement_players);
             location = (TextView) view.findViewById(R.id.announcement_location);
             date = (TextView) view.findViewById(R.id.announcement_date);
-
+            join = (Button) view.findViewById(R.id.join_button);
         }
 
         public TextView getTitleTextView() {
@@ -72,5 +103,6 @@ public class AnnouncementAdapter extends RecyclerView.Adapter<AnnouncementAdapte
         public TextView getMaxPlayerCountTextView() { return maxPlayerCount; }
         public TextView getLocationTextView() { return location; }
         public TextView getDateTextView() { return date; }
+        public Button getJoinButton() {return join; }
     }
 }

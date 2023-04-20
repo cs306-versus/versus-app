@@ -5,6 +5,8 @@ import com.github.versus.posts.Post;
 import com.github.versus.posts.Timestamp;
 import com.github.versus.sports.Sport;
 import com.github.versus.user.DummyUser;
+import com.github.versus.user.User;
+import com.github.versus.user.VersusUser;
 
 import java.time.Month;
 import java.util.ArrayList;
@@ -31,8 +33,8 @@ public final class SimpleTestPost extends Post {
         return  new Post(title,timestamp,location,new ArrayList<>(),limit, sport);
     }
 
-    public static Post postWith(String title,Timestamp timestamp,Location location, int limit,Sport sport,DummyUser creator){
-        List<DummyUser> ls = new ArrayList<>();
+    public static Post postWith(String title,Timestamp timestamp,Location location, int limit,Sport sport,VersusUser creator){
+        List<VersusUser> ls = new ArrayList<>();
         ls.add(creator);
         return new Post(title,timestamp,location,ls,limit, sport);
     }
