@@ -529,6 +529,7 @@ public class ScheduleFragment extends Fragment {
         List c=new ArrayList<List<String>>();
 
         try {schedulermanager.getScheduleOnDate("Abdess-xl",new Timestamp(year,month,dayOfMonth,0,0, Timestamp.Meridiem.AM)).thenAccept(sched -> {
+            posts=sched.getPosts();
             sched.getPosts().forEach(post -> {
                 List a =new ArrayList<String>();
                 a.add(post.getSport().toString());
@@ -555,7 +556,9 @@ public class ScheduleFragment extends Fragment {
                     TextView date = (TextView)(viewFrag.findViewById(R.id.date));
 
                     Post p  = posts.stream().filter(post -> {
-                        return  post.getSport().name.equals(sportText.toString()) && locationText.toString().equals(post.getLocation().getName());
+
+
+                      return  post.getSport().name().equals(sportText.getText().toString() );
                     }).collect(Collectors.toList()).get(0);
                     List<PlayerToBeRated> listPlayers = p.getPlayers().stream().map(player -> {
 
@@ -717,44 +720,37 @@ public class ScheduleFragment extends Fragment {
         }
         months.add(today.getMonthValue());
         years.add(today.getYear());
-       // TextView date_monday =(TextView)view.findViewById(R.id.Monday_date);
-        //date_monday.setText(today.getDayOfMonth());
+
         today=today.plusDays(1);
 
         months.add(today.getMonthValue());
         years.add(today.getYear());
-       // TextView date_tuesday =(TextView)view.findViewById(R.id.Tuesday_date);
-      //  date_tuesday.setText(today.getDayOfMonth());
+
         today=today.plusDays(1);
 
         months.add(today.getMonthValue());
         years.add(today.getYear());
-       // TextView date_wednesday =(TextView)view.findViewById(R.id.Wednesday_date);
-      //  date_wednesday.setText(today.getDayOfMonth());
+
         today=today.plusDays(1);
 
         months.add(today.getMonthValue());
         years.add(today.getYear());
-       // TextView date_thursday =(TextView)view.findViewById(R.id.Thursday_date);
-      //  date_thursday.setText(today.getDayOfMonth());
+
         today=today.plusDays(1);
 
         months.add(today.getMonthValue());
         years.add(today.getYear());
-       // TextView date_friday =(TextView)view.findViewById(R.id.Friday_date);
-       // date_friday.setText(today.getDayOfMonth());
+
         today=today.plusDays(1);
 
         months.add(today.getMonthValue());
         years.add(today.getYear());
-        //TextView date_saturday =(TextView)view.findViewById(R.id.Saturday_date);
-       // date_saturday.setText(today.getDayOfMonth());
+
         today=today.plusDays(1);
 
         months.add(today.getMonthValue());
         years.add(today.getYear());
-        //TextView date_sunday =(TextView)view.findViewById(R.id.Sunday_date);
-      //  date_sunday.setText(today.getDayOfMonth());
+
 
 
         ImageView myImageView = view.findViewById(R.id.arrow_image_2);
@@ -841,6 +837,7 @@ public class ScheduleFragment extends Fragment {
                 try {  schedulermanager.getScheduleOnDate("Abdess-xl",new Timestamp(years.get(0),Month.of(months.get(0)),Integer.parseInt(MondayText.getText().toString()),0,0, Timestamp.Meridiem.AM)).thenAccept(sched -> {
                     posts=sched.getPosts();
                     sched.getPosts().forEach(post -> {
+
                         List a =new ArrayList<String>();
                         a.add(post.getSport().toString());
                         a.add(post.getLocation().toString());
