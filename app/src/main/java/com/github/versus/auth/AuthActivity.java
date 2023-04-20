@@ -1,5 +1,6 @@
 package com.github.versus.auth;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -7,6 +8,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.github.versus.R;
+
+import java.util.Optional;
 
 public class AuthActivity extends AppCompatActivity {
 
