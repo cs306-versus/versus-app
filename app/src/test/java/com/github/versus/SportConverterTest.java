@@ -64,11 +64,6 @@ public class SportConverterTest {
         assertTrue(sportList.equals(Arrays.asList(sports)));
 
     }
-    /*
-    @Test
-    public void convertBackFailsWithNoException(){
-        assertTrue();
-    }
-    */
+
 
 }
