@@ -1,13 +1,17 @@
 package com.github.versus.posts;
 
+import com.github.versus.rating.Rating;
 import com.github.versus.sports.Sport;
 import com.github.versus.user.DummyUser;
-import com.github.versus.user.User;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Post in the Versus app
@@ -23,6 +27,8 @@ public class Post {
 
     private String CreatorId;
 
+    private List<Rating> ratings;
+
     public Post(String title, Timestamp date, Location location, List<DummyUser> players, int playerLimit, Sport sport) {
         this.title = title;
         this.date = date;
@@ -30,6 +36,8 @@ public class Post {
         this.players = players;
         this.playerLimit = playerLimit;
         this.sport = sport;
+        this.ratings = new ArrayList<>();
+
     }
 
     public Post(){
@@ -83,6 +91,12 @@ public class Post {
         return sport;
     }
     /**
+     * @return the player to player ratings of the game
+     */
+    public List<Rating> getRatings() {
+        return ratings;
+    }
+    /**
      * @return all the attributes of the post in a map fashion
      */
     public Map<String, Object> getAllAttributes() {
@@ -93,9 +107,12 @@ public class Post {
         res.put("playerLimit", playerLimit);
         res.put("players", players);
         res.put("sport", sport);
+        res.put("ratings", ratings);
         return res;
-
     }
+
+
+
     @Override
     public int hashCode() {
         return Objects.hash(title);
