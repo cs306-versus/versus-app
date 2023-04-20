@@ -32,13 +32,11 @@ public class Rating {
 
     public float ComputeNewRating() {
         float centeredRating = rating - (MAX_RATING + MIN_RATING /2);
-        int newElo = (int)(rated.getRating() + ELOCONSTANT*(centeredRating/5));
+        int newElo = (int)(getRater().getRating() + ELOCONSTANT*(centeredRating/5));
         return clampElo(newElo,Min_ELO, MAX_ELO);
     }
     private static int clampElo(int elo, int minVal,int maxVal){
         return Math.max(Min_ELO, Math.min(elo, MAX_ELO));
     }
-
-
 
 }

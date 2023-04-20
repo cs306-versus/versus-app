@@ -29,15 +29,17 @@ public class Post {
 
     private List<Rating> ratings;
 
-    public Post(String title, Timestamp date, Location location, List<DummyUser> players, int playerLimit, Sport sport) {
+    public Post(String title, Timestamp date, Location location, List<DummyUser> players, int playerLimit, Sport sport, List<Rating> ratings) {
         this.title = title;
         this.date = date;
         this.location = location;
         this.players = players;
         this.playerLimit = playerLimit;
         this.sport = sport;
-        this.ratings = new ArrayList<>();
-
+        this.ratings = ratings;
+    }
+    public Post(String title, Timestamp date, Location location, List<DummyUser> players, int playerLimit, Sport sport) {
+        this(title, date, location, players, playerLimit, sport, new ArrayList<>());
     }
 
     public Post(){
@@ -110,7 +112,6 @@ public class Post {
         res.put("ratings", ratings);
         return res;
     }
-
 
 
     @Override

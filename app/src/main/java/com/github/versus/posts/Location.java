@@ -1,5 +1,7 @@
 package com.github.versus.posts;
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Location implements Serializable {
 
@@ -36,7 +38,15 @@ public class Location implements Serializable {
     public double getLongitude() {
         return longitude;
     }
-    @Override
+
+    public Map<String, Object> getAllAttributes() {
+        Map<String, Object> res =  new HashMap<String, Object>();
+        res.put("name", name );
+        res.put("latitude", latitude);
+        res.put("longitude", longitude);
+        return res;
+    }
+        @Override
     public String toString(){
         return name + " " + "(" +longitude+","+ latitude + ")";
     }

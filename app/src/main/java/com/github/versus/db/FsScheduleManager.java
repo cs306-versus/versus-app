@@ -42,7 +42,8 @@ public class FsScheduleManager implements ScheduleManager {
             completableFuture.complete(false);
         });
 
-        return completableFuture;    }
+        return completableFuture;
+    }
 
     @Override
     public CompletableFuture<Schedule> fetch(String UID){
@@ -95,7 +96,7 @@ public class FsScheduleManager implements ScheduleManager {
         //accessing the collection
         CollectionReference postsRef = db.collection(SCHEDULECOLLECTION.toString());
         //finding the post with the right id
-        Query query = postsRef.whereEqualTo("title", id);
+        Query query = postsRef.whereEqualTo("UID", id);
         Task<QuerySnapshot> task = query.get();
 
         // Wrap the Task in a CompletableFuture that returns status of deletion
