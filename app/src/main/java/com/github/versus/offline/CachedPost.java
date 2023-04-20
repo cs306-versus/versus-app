@@ -17,7 +17,9 @@ import java.util.List;
 import java.util.Map;
 
 //TODO: Use Class Converter instead of dumb caching
-
+/*
+ Class that represents how posts are cached in memory
+ */
 @Entity
 public final class CachedPost {
 
@@ -90,17 +92,33 @@ public final class CachedPost {
         isEmpty= false;
 
     }
+
+
+    /**
+     * Creates an empty cached post
+     */
     public CachedPost(){
         isEmpty= true;
         id= EMPTY_ID;
     }
 
+    /**
+     * Creates a cached post that matches the given parameter post
+     * @param post
+     * @return
+     */
     public static CachedPost match(Post post){
         if(postIsInvalid(post)) {
             return new CachedPost();
         }
         return new CachedPost(post);
     }
+
+    /**
+     * Reverts back a cached post
+     * @return
+     * The equivalent post.
+     */
 
     public Post revert(){
         Timestamp timestamp= new Timestamp(year,Month.valueOf(month),day,hour,minutes, Timestamp.Meridiem.valueOf(meridiem));
@@ -112,6 +130,12 @@ public final class CachedPost {
         return new  Post(title, timestamp, location,postCreator,  limit, Sport.valueOf(sport));
     }
 
+    /**
+     * Computes the id of the post
+     * @param post
+     * @return
+     * The String id of the post, which is the primary key in the db.
+     */
     public static String computeID(Post post){
         if(postIsInvalid(post)){
             return EMPTY_ID;
@@ -119,6 +143,12 @@ public final class CachedPost {
         return String.valueOf(post.getTitle().hashCode());
     }
 
+    /**
+     * Computes if a post is valid and can be cached
+     * @param post
+     * @return
+     * true iff the post is valid
+     */
     public static boolean postIsInvalid(Post post){
         return post==null||post.getTitle()==null||post.getLocation()==null||post.getDate()==null || post.getSport()==null;
     }
