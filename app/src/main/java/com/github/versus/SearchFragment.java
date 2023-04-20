@@ -67,12 +67,7 @@ public class SearchFragment extends Fragment implements
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         onCancel();
         View rootView = inflater.inflate(R.layout.fragment_research,container,false);
-        recyclerView = rootView.findViewById(R.id.recyclerView);
-        recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
-        createFragments(rootView);
-        FsUserManager db = new FsUserManager(FirebaseFirestore.getInstance());
-        ((CompletableFuture<User>)db.fetch(FirebaseAuth.getInstance().getUid()))
-                .thenAccept(this::setUser);
+        assignViews(rootView);
 
         Button addPost = (Button) rootView.findViewById(R.id.add_posts);
         addPost.setOnClickListener(new View.OnClickListener() {
@@ -81,8 +76,10 @@ public class SearchFragment extends Fragment implements
                 createPost();
             }
         });
-
-        aa = new AnnouncementAdapter(posts, user, pm);
+        FsUserManager db = new FsUserManager(FirebaseFirestore.getInstance());
+        ((CompletableFuture<User>)db.fetch(FirebaseAuth.getInstance().getUid()))
+                .thenAccept(this::setUser);
+        aa = new AnnouncementAdapter(displayPosts, user, pm);
         loadPosts();
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
@@ -91,18 +88,17 @@ public class SearchFragment extends Fragment implements
 
         return rootView;
     }
-
     private void setUser(User user){
         this.user = (VersusUser) user;
     }
-    private void createFragments(View rootView){
+    protected void assignViews(View rootView){
+        recyclerView = rootView.findViewById(R.id.recyclerView);
+        recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
         cpdf = new CreatePostTitleDialogFragment();
         cpsdf = new ChoosePostSportDialogFragment();
         mpdf = new MaxPlayerDialogFragment();
         pdpd = new PostDatePickerDialog();
         pm = new FsPostManager(FirebaseFirestore.getInstance());
-    
-    
         searchBar = rootView.findViewById(R.id.search_posts);
         searchBar.addTextChangedListener(new TextWatcher() {
             @Override
@@ -137,8 +133,6 @@ public class SearchFragment extends Fragment implements
         cpsdf.show(getChildFragmentManager(), "1");
     }
 
-
-
     @Override
     public void onCancel() {
         Timestamp ts =  new Timestamp(2023, Month.APRIL, 4, 5, 1, Timestamp.Meridiem.AM);
@@ -170,10 +164,10 @@ public class SearchFragment extends Fragment implements
         }
         else {
             displayPosts.addAll(
-              posts.stream().filter(post -> {
-                  return post.getSport().name().toLowerCase().contains(filter.toLowerCase())
-                          || post.getTitle().toLowerCase().contains(filter.toLowerCase());
-              }).collect(Collectors.toList())
+                    posts.stream().filter(post -> {
+                        return post.getSport().name().toLowerCase().contains(filter.toLowerCase())
+                                || post.getTitle().toLowerCase().contains(filter.toLowerCase());
+                    }).collect(Collectors.toList())
             );
         }
 
@@ -194,9 +188,6 @@ public class SearchFragment extends Fragment implements
     @Override
     public void onPickPostDate(Timestamp ts) {
         newPost.setDate(ts);
-        ArrayList<VersusUser> users = new ArrayList<>();
-        users.add(user);
-        newPost.setPlayers(users);
         pm.insert(newPost);
         loadPosts();
     }
