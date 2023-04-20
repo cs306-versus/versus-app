@@ -20,13 +20,18 @@
         android:layout_centerHorizontal="true"
 
         />
-
     <item
-        android:id="@+id/option_radius"
-        android:title="Choose a radius"
+        android:id="@+id/option_choose_location"
+        android:title="Choose location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+
+        />
+
+
+
+
 
 
 </menu>

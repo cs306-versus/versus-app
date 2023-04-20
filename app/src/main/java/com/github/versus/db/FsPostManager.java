@@ -139,33 +139,28 @@ public class FsPostManager implements DataBaseManager<Post> {
         Task<QuerySnapshot> task = query.get();
 
         // Wrap the Task in a CompletableFuture that returns status of deletion
-        CompletableFuture<Boolean> future = new CompletableFuture<>();
+        CompletableFuture<Boolean> compFuture = new CompletableFuture<>();
 
-        // Add a listener to the Task to handle the result
         task.addOnSuccessListener(res -> {
-            //we get the query result
-            List<DocumentSnapshot> docs = res.getDocuments();
-            if(docs.isEmpty()){
-                //in case the query result is empty complete the future with true
-                //because there was nothing to delete
-                future.complete(true);
+            List<DocumentSnapshot> schedules = res.getDocuments();
+            if(schedules.isEmpty()){
+                compFuture.complete(true);
             }else{
                 //getting all the matching posts reference
-                for (DocumentSnapshot doc: docs
+                for (DocumentSnapshot doc: schedules
                      ) {
                     DocumentReference docRef = doc.getReference();
-                    //deleting the document
                     docRef.delete().addOnFailureListener(av ->{
-                        future.complete(false);
+                        compFuture.complete(false);
                     });
                 }
-                future.complete(true);
+                compFuture.complete(true);
             }
         }).addOnFailureListener(res ->{
-            future.complete(false);
+            compFuture.complete(false);
         });
 
-        return future;
+        return compFuture;
     }
 
     public Future<Boolean> joinPost(String postId, User user){

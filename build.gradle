@@ -1,7 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     ext {
-        kotlin_version = '1.8.10'
+        kotlin_version = '1.8.20'
     }
     repositories {
         // Make sure that you have the following two repositories
@@ -11,6 +11,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.google.gms:google-services:4.3.15'
+
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -18,13 +19,13 @@ buildscript {
 plugins {
     id 'com.android.application' version '7.4.2' apply false
     id 'com.android.library' version '7.4.2' apply false
-    id 'org.jetbrains.dokka' version '1.8.10'
     id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin' version '2.0.1' apply false
+    id 'org.jetbrains.dokka' version '1.8.10'
 }
-
 subprojects {
     apply plugin: 'org.jetbrains.dokka'
 }
+
 
 //allprojects {
 //    repositories {
@@ -33,3 +34,5 @@ subprojects {
 //        mavenCentral()  // Maven Central repository
 //    }
 //}
+
+apply plugin: 'com.google.gms.google-services'

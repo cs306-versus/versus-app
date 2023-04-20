@@ -50,16 +50,10 @@ public final class VersusAuthenticator implements Authenticator {
 
     @Override
     public User currentUser() {
-        FirebaseUser firebase_user = auth.getCurrentUser();
-        if (isNull(firebase_user))
+        // TODO HR : Find a way to return the user from a future
+        //FirebaseUser firebase_user = auth.getCurrentUser();
+        //if (isNull(firebase_user))
             return null;
-        FsUserManager db = new FsUserManager(FirebaseFirestore.getInstance());
-        Future<User> task = db.fetch(firebase_user.getUid());
-        try{
-            return task.get();
-        } catch (ExecutionException | InterruptedException e) {
-            return null;
-        }
     }
 
     @Override

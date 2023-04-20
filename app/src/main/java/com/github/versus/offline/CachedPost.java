@@ -8,18 +8,23 @@ import androidx.room.PrimaryKey;
 import com.github.versus.posts.Location;
 import com.github.versus.posts.Post;
 import com.github.versus.posts.Timestamp;
+import com.github.versus.sports.Sport;
 import com.github.versus.user.DummyUser;
 
 import java.time.Month;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 //TODO: Use Class Converter instead of dumb caching
-
+/*
+ Class that represents how posts are cached in memory
+ */
 @Entity
 public final class CachedPost {
 
-    @PrimaryKey @NonNull
+    @PrimaryKey(autoGenerate = false)
+    @NonNull
     public  String id;
     @ColumnInfo(name = "title")
     public  String title;
@@ -56,10 +61,15 @@ public final class CachedPost {
     @ColumnInfo(name = "meridiem")
     public  String  meridiem;
 
-
     @ColumnInfo(name = "empty")
     public  boolean  isEmpty;
-    public static final String emptyID= "Empty";
+
+    @ColumnInfo(name = "sport")
+    public String sport;
+
+    @ColumnInfo(name = "userID")
+    public String uid;
+    public static final String EMPTY_ID = "Empty";
     private CachedPost(Post post){
 
         id= computeID(post);
@@ -77,14 +87,26 @@ public final class CachedPost {
         minutes= timestamp.getMinutes();
         seconds= timestamp.getSeconds();
         meridiem= timestamp.getMeridiem().name();
+        sport= post.getSport().name();
+        uid= post.getPlayers().size()==0?null:post.getPlayers().get(0).getUID();
         isEmpty= false;
 
     }
+
+
+    /**
+     * Creates an empty cached post
+     */
     public CachedPost(){
         isEmpty= true;
-        id= emptyID;
+        id= EMPTY_ID;
     }
 
+    /**
+     * Creates a cached post that matches the given parameter post
+     * @param post
+     * @return
+     */
     public static CachedPost match(Post post){
         if(postIsInvalid(post)) {
             return new CachedPost();
@@ -92,49 +114,43 @@ public final class CachedPost {
         return new CachedPost(post);
     }
 
+    /**
+     * Reverts back a cached post
+     * @return
+     * The equivalent post.
+     */
+
     public Post revert(){
-        return new Post() {
-            @Override
-            public String getTitle() {
-                return title;
-            }
-
-            @Override
-            public Timestamp getDate() {
-                return new Timestamp(year,Month.valueOf(month),day,hour,minutes, Timestamp.Meridiem.valueOf(meridiem));
-            }
-
-            @Override
-            public Location getLocation() {
-                return new Location(locationName,latitude,longitude);
-            }
-
-            @Override
-            public List<DummyUser> getPlayers() {
-                 throw new RuntimeException("Not implemented");
-            }
-
-            @Override
-            public int getPlayerLimit() {
-                return limit;
-            }
-
-            @Override
-            public Map<String, Object> getAllAttributes() {
-                throw  new RuntimeException("Not Implemented");
-            }
-        };
+        Timestamp timestamp= new Timestamp(year,Month.valueOf(month),day,hour,minutes, Timestamp.Meridiem.valueOf(meridiem));
+        Location location = new Location(locationName,latitude,longitude);
+        List<DummyUser> postCreator= new ArrayList<>();
+        if(uid!=null) {
+            postCreator.add(new DummyUser(uid));
+        }
+        return new  Post(title, timestamp, location,postCreator,  limit, Sport.valueOf(sport));
     }
 
+    /**
+     * Computes the id of the post
+     * @param post
+     * @return
+     * The String id of the post, which is the primary key in the db.
+     */
     public static String computeID(Post post){
         if(postIsInvalid(post)){
-            return emptyID;
+            return EMPTY_ID;
         }
         return String.valueOf(post.getTitle().hashCode());
     }
 
+    /**
+     * Computes if a post is valid and can be cached
+     * @param post
+     * @return
+     * true iff the post is valid
+     */
     public static boolean postIsInvalid(Post post){
-        return post==null||post.getTitle()==null||post.getLocation()==null||post.getDate()==null;
+        return post==null||post.getTitle()==null||post.getLocation()==null||post.getDate()==null || post.getSport()==null;
     }
 
 }
