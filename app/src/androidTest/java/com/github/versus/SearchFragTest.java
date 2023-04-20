@@ -3,8 +3,10 @@ package com.github.versus;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.scrollTo;
+import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withHint;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
@@ -56,6 +58,14 @@ public class SearchFragTest {
         onView(withText(containsString("choose a sport"))).check(matches(isDisplayed()));
         onView(withText(containsString("next"))).perform(click());
         onView(withText(containsString("cancel"))).perform(click());
+    }
+
+    @Test
+    public void testSearchBar(){
+        onView(withId(R.id.search_posts)).check(matches(withHint(containsString("Search"))));
+        onView(withId(R.id.search_posts)).perform(click());
+        onView(withId(R.id.search_posts)).perform(typeText("aloha"));
+        onView(withId(R.id.search_posts)).check(matches(withText(containsString("aloha"))));
 
     }
 }
