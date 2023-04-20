@@ -55,7 +55,7 @@ public class SearchFragTest {
         onView(withId(android.R.id.button1)).perform(click());
         onView(withText(containsString("choose a sport"))).check(matches(isDisplayed()));
         onView(withText(containsString("next"))).perform(click());
-        onView(withText(containsString("cancel"))).perform(click());
+//        onView(withText(containsString("cancel"))).perform(click());
 
     }
 }

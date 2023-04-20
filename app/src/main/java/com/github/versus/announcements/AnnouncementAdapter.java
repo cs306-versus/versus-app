@@ -41,14 +41,17 @@ public class AnnouncementAdapter extends RecyclerView.Adapter<AnnouncementAdapte
         return new ViewHolder(view);
     }
 
+    private void setViewText(AnnouncementAdapter.ViewHolder viewHolder, Post currentPost){
+        viewHolder.getTitleTextView().setText(currentPost.getTitle());
+        viewHolder.getSportTextView().setText(currentPost.getSport().name);
+        viewHolder.getMaxPlayerCountTextView().setText(currentPost.getPlayers().size() + "/" + currentPost.getPlayerLimit());
+        viewHolder.getDateTextView().setText(currentPost.getDate().getDay() + "/" +currentPost.getDate().getMonth().getValue() + "/" + currentPost.getDate().getYear());
+        viewHolder.getLocationTextView().setText(currentPost.getLocation().toString());
+    }
     @Override
     public void onBindViewHolder(@NonNull AnnouncementAdapter.ViewHolder viewHolder, int position) {
         Post currentPost = posts.get(position);
-        viewHolder.getTitleTextView().setText(currentPost.getTitle());
-        viewHolder.getSportTextView().setText(currentPost.getSport().name);
-        viewHolder.getMaxPlayerCountTextView().setText(currentPost.getPlayers().size() + "/" + posts.get(position).getPlayerLimit());
-        viewHolder.getDateTextView().setText(currentPost.getDate().getDay() + "/" +posts.get(position).getDate().getMonth().getValue() + "/" + posts.get(position).getDate().getYear());
-        viewHolder.getLocationTextView().setText(currentPost.getLocation().toString());
+        setViewText(viewHolder, currentPost);
         boolean joined = currentPost.getPlayers().stream().map(user -> user.getUID()).collect(Collectors.toList()).contains(user.getUID());
         if(joined){
             viewHolder.getJoinButton().setText("Joined");
