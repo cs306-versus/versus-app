@@ -140,8 +140,10 @@ public final class CacheManager implements DataBaseManager<Post> {
                         .handle((r,e)-> e==null? r:null);
     }
 
+
     /**
      * fetches all the posts with a given sport
+     * not yet available since the representation of sport is changing
      * @param sport
      * @return
      */
