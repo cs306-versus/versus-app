@@ -1,9 +1,12 @@
 package com.github.versus.posts;
 
+import com.github.versus.rating.Rating;
 import com.github.versus.sports.Sport;
 import com.github.versus.user.DummyUser;
 import com.github.versus.user.User;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -136,4 +139,19 @@ public class Post implements Serializable {
     }
 
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setSport(Sport sport) {
+        this.sport = sport;
+    }
+
+    public void setPlayerLimit(int playerCount) {
+        this.playerLimit = playerCount;
+    }
+
+    public void setDate(Timestamp ts) {
+        this.date = ts;
+    }
 }

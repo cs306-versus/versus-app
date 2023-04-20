@@ -55,12 +55,13 @@ public class Message {
             return true;
         }
 
-        if (!(obj instanceof Post)) {
+        if (!(obj instanceof Message)) {
             return false;
         }
 
         Message other = (Message) obj;
-        return this.getSender().getUID().equals(other.getRecipient().getUID())&&
+        return this.getSender().getUID().equals(other.getSender().getUID())&&
+                this.getRecipient().getUID().equals(other.getRecipient().getUID())&&
                 this.getBody().equals(other.getBody())&&
                 this.getTimestamp().equals(other.getTimestamp());
     }

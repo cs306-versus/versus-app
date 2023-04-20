@@ -1,4 +1,4 @@
-package com.github.versus.utils;
+package com.github.versus;
 
 import static org.junit.Assert.assertTrue;
 
@@ -36,13 +36,13 @@ public class FsChatManagerTest {
     {
         // Creating FsPostm instance
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        FsChatManager chat_m = new FsChatManager(db);
+        FsChatManager chatm = new FsChatManager(db);
 
         // Creating a test post
-        Chat chat = new Chat(new DummyUser("abdess"), new DummyUser("aymane"), "abdessaymane" );
+        Chat chat = new Chat(new DummyUser("abdess"), new DummyUser("aymane"), "hehe" );
 
         //inserting the post
-        Future<Boolean> insertResult = chat_m.insert(chat);
+        Future<Boolean> insertResult = chatm.insert(chat);
 
         // Wait for the insert operation to complete
         boolean insertSuccess = insertResult.get();
@@ -52,11 +52,11 @@ public class FsChatManagerTest {
 
         // Verify that the chat was inserted into Firestore
         //by fetching it and then comparing
-        Chat c = chat_m.fetch(chat.getChatId()).get();
+        Chat c = chatm.fetch(chat.getChatId()).get();
         assertTrue(c.equals(chat));
 
         // Clean up the test data
-        boolean deletionSuccess = chat_m.delete(c.getChatId()).get();
+        boolean deletionSuccess = chatm.delete(c.getChatId()).get();
         assertTrue(deletionSuccess);
     }
 
@@ -75,17 +75,16 @@ public class FsChatManagerTest {
 
         // Wait for the insert operation to complete
         Message testMessage = new Message(u1, u2, "heyy",  new Timestamp(2023, Month.AUGUST, 18, 11, 15, Timestamp.Meridiem.AM));
-        boolean insertSuccess = chatm.addMessageToChat(testChatId, testMessage).get();
+        boolean additionSuccess = chatm.addMessageToChat(testChatId, testMessage).get();
 
         // Verify that the insert operation succeeded
-        assertTrue(insertSuccess);
+        assertTrue(additionSuccess);
 
         //adding the post to the schedule
 
 
         Future<Boolean> messageAdditionResult = chatm.addMessageToChat(testChatName, testMessage);
-        boolean joinSuccess = messageAdditionResult.get();
-        assertTrue(joinSuccess);
+        assertTrue(messageAdditionResult.get());
 
         //getting the modified schedule from the db
         Chat fetchedChathat = chatm.fetch(testChatName).get();

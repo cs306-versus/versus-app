@@ -1,5 +1,6 @@
 package chats;
 import com.github.versus.posts.Post;
+import com.github.versus.user.DummyUser;
 import com.github.versus.user.User;
 
 import java.util.ArrayList;
@@ -10,24 +11,26 @@ import java.util.Map;
 public class Chat {
 
     private String chatId;
-    private User user1;
-    private User user2;
+    private DummyUser user1;
+    private DummyUser user2;
     private List<Message> messages;
 
 
-    public Chat(User user1, User user2, String chatId) {
+    public Chat(DummyUser user1, DummyUser user2, String chatId) {
         this.chatId = chatId;
         this.user1 = user1;
         this.user2 = user2;
         this.messages = new ArrayList<>();
-
+    }
+    public Chat(){
+        this(null, null, "");
     }
 
-    public User getUser1() {
+    public DummyUser getUser1() {
         return user1;
     }
 
-    public User getUser2() {
+    public DummyUser getUser2() {
         return user2;
     }
     public List<Message> getMessages() {
@@ -56,7 +59,7 @@ public class Chat {
             return true;
         }
 
-        if (!(obj instanceof Post)) {
+        if (!(obj instanceof Chat)) {
             return false;
         }
 

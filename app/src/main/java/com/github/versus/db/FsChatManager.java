@@ -119,7 +119,7 @@ public class FsChatManager implements DataBaseManager<Chat>{
         return future;
     }
 
-    public Future<Boolean> addMessageToChat(String chatId, Message message) {
+    public Future<Boolean> addMessageToChat(String chatId, Message m) {
         //accessing the chat collection
         CollectionReference scheduleRef = db.collection(CHATCOLLECTION.toString());
 
@@ -142,9 +142,9 @@ public class FsChatManager implements DataBaseManager<Chat>{
                 DocumentSnapshot doc = docs.get(0);
                 List<Message> messages = (List<Message>)doc.get("messages");
 
-                //creating a new list corresponding to the old one + the new post
+                //creating a new list corresponding to the old one + the new message
                 List<Message> newMessages = new ArrayList<>(messages);
-                newMessages.add(message);
+                newMessages.add(m);
 
                 //updating the field value
                 //if the update task is a success we complete the future with true
