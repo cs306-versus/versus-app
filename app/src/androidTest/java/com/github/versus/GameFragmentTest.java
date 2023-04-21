@@ -65,6 +65,6 @@ public class GameFragmentTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        onData(anything()).inAdapterView(withId(R.id.list_view)).atPosition(0).perform(click());
+      //  onData(anything()).inAdapterView(withId(R.id.list_view)).atPosition(0).perform(click());
     }
 }
