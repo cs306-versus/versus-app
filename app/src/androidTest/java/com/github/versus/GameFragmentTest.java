@@ -60,6 +60,11 @@ public class GameFragmentTest {
         rectangleView1.perform(ViewActions.scrollTo());
 
         rectangleView1.perform(ViewActions.scrollTo());
+        try {
+            Thread.sleep(7000); // wait for 1 second
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         onData(anything()).inAdapterView(withId(R.id.list_view)).atPosition(0).perform(click());
     }
 }
