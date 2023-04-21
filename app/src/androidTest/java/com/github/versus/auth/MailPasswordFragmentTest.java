@@ -31,7 +31,6 @@ public class MailPasswordFragmentTest {
 
     @Test
     public void testOnSuccessLogin(){
-        onView(withId(R.id.auth_login_mail)).perform(click());
         onView(withId(R.id.auth_login_mail_mail)).perform(replaceText(test_account_mail));
         onView(withId(R.id.auth_login_mail_password)).perform(replaceText(test_account_pwd));
         onView(withId(R.id.auth_login_mail_button)).perform(click());
@@ -44,7 +43,6 @@ public class MailPasswordFragmentTest {
 
     @Test
     public void testOnFailLogin(){
-        onView(withId(R.id.auth_login_mail)).perform(click());
         onView(withId(R.id.auth_login_mail_mail)).perform(replaceText(test_account_mail));
         onView(withId(R.id.auth_login_mail_password)).perform(replaceText(test_account_pwd + "0"));
         onView(withId(R.id.auth_login_mail_button)).perform(click());

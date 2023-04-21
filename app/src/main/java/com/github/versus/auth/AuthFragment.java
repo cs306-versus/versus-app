@@ -36,7 +36,7 @@ public class AuthFragment extends BaseAuthFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //binding.authSignin.setOnClickListener(this::signInRequest);
+        binding.authSignin.setOnClickListener(this::signInRequest);
         registerLoginButton(binding.authLoginMail);
         binding.authLoginGoogle.setOnClickListener(this::loginWithGoogleRequest);
     }
