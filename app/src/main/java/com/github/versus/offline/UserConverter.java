@@ -24,6 +24,13 @@ public class UserConverter {
         return null ;
     }*/
 
+    /**
+     * Coverts a list of sports to a string
+     * @param sportList
+     * @param sep
+     * @return
+     * The string representation of the list of sports
+     */
     public static String convertListOfSports(List<Sport> sportList,String sep){
         StringBuilder builder = new StringBuilder();
         for(int i =0 ; i<sportList.size();++i){
@@ -35,6 +42,13 @@ public class UserConverter {
         return builder.toString();
     }
 
+    /**
+     * Converts a String to a list of sports
+     * @param conversion
+     * @param sep
+     * @return
+     * The string representation of the sport.
+     */
     public static List<Sport> convertBackToSports(String conversion,String sep){
         String split[]= conversion.split(sep);
         return Arrays.asList(split).stream().map(s -> Sport.valueOf(s)).collect(Collectors.toList());
