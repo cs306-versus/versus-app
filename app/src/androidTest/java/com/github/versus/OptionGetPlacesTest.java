@@ -1,149 +1,72 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
 package com.github.versus;
 
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
-import static androidx.test.espresso.action.ViewActions.pressImeActionButton;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
-import static androidx.test.espresso.contrib.RecyclerViewActions.scrollTo;
-import static androidx.test.espresso.intent.Intents.intended;
-import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
-import static androidx.test.espresso.intent.matcher.IntentMatchers.hasExtra;
 import static androidx.test.espresso.matcher.RootMatchers.isDialog;
-import static androidx.test.espresso.matcher.RootMatchers.isPlatformPopup;
-import static androidx.test.espresso.matcher.ViewMatchers.assertThat;
-import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
-import static androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom;
-import static androidx.test.espresso.matcher.ViewMatchers.isClickable;
-import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
-import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
-import static androidx.test.espresso.matcher.ViewMatchers.withHint;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withParent;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
-import static org.hamcrest.CoreMatchers.allOf;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.Matchers.anything;
-import static org.hamcrest.Matchers.endsWith;
-import static org.junit.Assert.fail;
-
-
-import android.graphics.Color;
-import android.location.Location;
-import android.os.Bundle;
-import android.os.SystemClock;
-import android.view.View;
-import android.view.WindowManager;
-import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import androidx.core.view.GravityCompat;
-import androidx.fragment.app.testing.FragmentScenario;
-import androidx.lifecycle.Lifecycle;
 import androidx.test.core.app.ApplicationProvider;
-import androidx.test.espresso.DataInteraction;
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.IdlingRegistry;
 import androidx.test.espresso.IdlingResource;
-import androidx.test.espresso.PerformException;
-import androidx.test.espresso.Root;
-import androidx.test.espresso.UiController;
-import androidx.test.espresso.ViewAction;
-import androidx.test.espresso.action.ViewActions;
-import androidx.test.espresso.idling.CountingIdlingResource;
-import androidx.test.espresso.intent.Intents;
-import androidx.test.espresso.util.HumanReadables;
-import androidx.test.espresso.util.TreeIterables;
-import androidx.test.ext.junit.rules.ActivityScenarioRule;
-import androidx.test.platform.app.InstrumentationRegistry;
-import androidx.test.rule.GrantPermissionRule;
-import androidx.test.runner.AndroidJUnit4;
 import androidx.test.espresso.contrib.DrawerActions;
 import androidx.test.espresso.contrib.DrawerMatchers;
-import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
+import androidx.test.espresso.intent.Intents;
+import androidx.test.ext.junit.rules.ActivityScenarioRule;
+import androidx.test.rule.GrantPermissionRule;
+import androidx.test.runner.AndroidJUnit4;
 
-
-
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.CircleOptions;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-
-
-import org.hamcrest.BaseMatcher;
-import org.hamcrest.Description;
-import org.hamcrest.Matcher;
-import org.hamcrest.TypeSafeMatcher;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
-import org.junit.FixMethodOrder;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.MethodSorters;
 
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
-import java.util.concurrent.atomic.AtomicBoolean;
-
+/**
+ * Test class for the OptionGetPlaces feature.
+ * Tests the behavior of the Get Places operation, including edge cases like no radius input or no places within the specified radius.
+ */
 @RunWith(AndroidJUnit4.class)
-public class LocationFragmentTest {
-
-
+public class OptionGetPlacesTest {
+    // Declare activity rule and permission rule
     @Rule
     public ActivityScenarioRule<MainActivity> activityRule = new ActivityScenarioRule<>(MainActivity.class);
     @Rule
     public GrantPermissionRule grantPermissionRule = GrantPermissionRule.grant(android.Manifest.permission.ACCESS_FINE_LOCATION);
 
-    // Verify that the activity properly restored the location and camera position from the instance state
-
-
+    /**
+     * Sets up the testing environment before each test.
+     * Initializes the Intents framework and opens the drawer layout.
+     */
     @Before
     public void setUp() {
-
-
         Intents.init();
-        //Open the drawer_layout
+        // Open the drawer_layout
         onView(withId(R.id.drawer_layout)).check(matches(DrawerMatchers.isClosed(GravityCompat.START))).perform(DrawerActions.open());
         onView(withId(R.id.drawer_layout)).check(matches(DrawerMatchers.isOpen(GravityCompat.START)));
         onView(withId(R.id.nav_location)).perform(click());
-
     }
 
-
+    /**
+     * Cleans up the testing environment after each test.
+     * Releases the Intents framework.
+     */
     @After
     public void tearDown() {
-
         Intents.release();
-
     }
 
+    /**
+     * Test for canceling the get places operation.
+     * Ensures that canceling the operation results in the expected behavior.
+     *
+     * @throws InterruptedException if the test is interrupted
+     */
     @Test
     public void testCancel() throws InterruptedException {
         long waitingTime = 10000;
@@ -154,11 +77,9 @@ public class LocationFragmentTest {
         // Find the menu item by its ID and perform a click
         onView(withText("Get Place")).perform(click());
 
-
         onView(withId(R.id.edit_text_radius2)).perform(typeText("1500"));
         closeSoftKeyboard();
-        onView(withText("Show Places")).inRoot(isDialog())
-                .perform(click());
+        onView(withText("Show Places")).inRoot(isDialog()).perform(click());
 
         long waitingTime2 = 10000;
         ElapsedTimeIdlingResource idlingResource2 = new ElapsedTimeIdlingResource(waitingTime2);
@@ -168,6 +89,12 @@ public class LocationFragmentTest {
         IdlingRegistry.getInstance().unregister(idlingResourceFirst);
     }
 
+    /**
+     * Test for clicking on a specific location.
+     * Ensures that clicking on a location results in the expected behavior.
+     *
+     * @throws InterruptedException if the test is interrupted
+     */
     @Test
     public void testClickOnLocation() throws InterruptedException {
         long waitingTime = 10000;
@@ -178,11 +105,9 @@ public class LocationFragmentTest {
         // Find the menu item by its ID and perform a click
         onView(withText("Get Place")).perform(click());
 
-
         onView(withId(R.id.edit_text_radius2)).perform(typeText("1500"));
         closeSoftKeyboard();
-        onView(withText("Show Places")).inRoot(isDialog())
-                .perform(click());
+        onView(withText("Show Places")).inRoot(isDialog()).perform(click());
         long waitingTime2 = 10000;
         ElapsedTimeIdlingResource idlingResource2 = new ElapsedTimeIdlingResource(waitingTime2);
         IdlingRegistry.getInstance().register(idlingResource2);
@@ -190,6 +115,13 @@ public class LocationFragmentTest {
         IdlingRegistry.getInstance().unregister(idlingResource2);
         IdlingRegistry.getInstance().unregister(idlingResourceFirst);
     }
+
+    /**
+     * Test for the case when no radius is input.
+     * Ensures that the application handles the situation when no radius is provided.
+     *
+     * @throws InterruptedException if the test is interrupted
+     */
     @Test
     public void testIfNoRadiusInput() throws InterruptedException {
         long waitingTime = 10000;
@@ -200,8 +132,7 @@ public class LocationFragmentTest {
 
         onView(withText("Get Place")).perform(click());
         closeSoftKeyboard();
-        onView(withText("Show Places")).inRoot(isDialog())
-                .perform(click());
+        onView(withText("Show Places")).inRoot(isDialog()).perform(click());
 
         long waitingTime2 = 10000;
         ElapsedTimeIdlingResource idlingResource2 = new ElapsedTimeIdlingResource(waitingTime2);
@@ -210,6 +141,12 @@ public class LocationFragmentTest {
         IdlingRegistry.getInstance().unregister(idlingResourceFirst);
     }
 
+    /**
+     * Test for the case when there are no places within the specified radius.
+     * Ensures that the application handles the situation when no places are found within the specified radius.
+     *
+     * @throws InterruptedException if the test is interrupted
+     */
     @Test
     public void testIfNoPlacesWithinRadius() throws InterruptedException {
         long waitingTime = 10000;
@@ -219,11 +156,9 @@ public class LocationFragmentTest {
         // Find the menu item by its ID and perform a click
         onView(withText("Get Place")).perform(click());
 
-
         onView(withId(R.id.edit_text_radius2)).perform(typeText("100"));
         closeSoftKeyboard();
-        onView(withText("Show Places")).inRoot(isDialog())
-                .perform(click());
+        onView(withText("Show Places")).inRoot(isDialog()).perform(click());
         long waitingTime2 = 10000;
         ElapsedTimeIdlingResource idlingResource2 = new ElapsedTimeIdlingResource(waitingTime2);
         IdlingRegistry.getInstance().register(idlingResource2);
@@ -231,21 +166,42 @@ public class LocationFragmentTest {
         IdlingRegistry.getInstance().unregister(idlingResource2);
         IdlingRegistry.getInstance().unregister(idlingResourceFirst);
     }
+
+    /**
+     * ElapsedTimeIdlingResource is an implementation of the IdlingResource interface.
+     * It is used to wait for a specified amount of time before allowing the test to continue.
+     * This can be useful when testing UI components that require a certain time to load or update.
+     */
     public class ElapsedTimeIdlingResource implements IdlingResource {
         private final long startTime;
         private final long waitingTime;
         private ResourceCallback resourceCallback;
 
+        /**
+         * Constructs an ElapsedTimeIdlingResource with a specified waiting time.
+         *
+         * @param waitingTime The amount of time to wait, in milliseconds, before allowing the test to continue.
+         */
         public ElapsedTimeIdlingResource(long waitingTime) {
             this.startTime = System.currentTimeMillis();
             this.waitingTime = waitingTime;
         }
 
+        /**
+         * Returns the name of the ElapsedTimeIdlingResource.
+         *
+         * @return A String containing the name of the ElapsedTimeIdlingResource.
+         */
         @Override
         public String getName() {
             return ElapsedTimeIdlingResource.class.getName() + ":" + waitingTime;
         }
 
+        /**
+         * Checks whether the specified waiting time has elapsed.
+         *
+         * @return true if the waiting time has elapsed, false otherwise.
+         */
         @Override
         public boolean isIdleNow() {
             long elapsed = System.currentTimeMillis() - startTime;
@@ -256,12 +212,16 @@ public class LocationFragmentTest {
             return idle;
         }
 
+        /**
+         * Registers a ResourceCallback to be notified when the resource transitions to the idle state.
+         *
+         * @param resourceCallback The ResourceCallback to be registered.
+         */
         @Override
         public void registerIdleTransitionCallback(ResourceCallback resourceCallback) {
             this.resourceCallback = resourceCallback;
         }
     }
 }
-
 
 

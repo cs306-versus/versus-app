@@ -200,4 +200,14 @@ public class CacheManagerTest {
         assertTrue(manager.fetch(CachedPost.computeID(post)).get().getPlayers().isEmpty());
     }
 
+    @Test
+    public void loadBySportsGivesCorrectResult() throws ExecutionException, InterruptedException {
+        Post post = SimpleTestPost.postWith("looking for football team  but im not playing",
+                new Timestamp(Calendar.getInstance().get(Calendar.YEAR), Month.JANUARY, 1, 8, 1, Timestamp.Meridiem.PM),
+                new Location("Lausanne",10,10),10, Sport.SOCCER);
+        manager.insert(post).get();
+        assertTrue(manager.loadBySport(Sport.SOCCER).get().getTitle().equals(post.getTitle()));
+
+    }
+
 }

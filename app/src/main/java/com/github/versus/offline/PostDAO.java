@@ -8,6 +8,9 @@ import androidx.room.Query;
 
 import java.util.List;
 
+/**
+ * This intereface represents the object that interacts with the database using SQL queries
+ */
 @Dao
 public interface  PostDAO  {
     @Query("SELECT * FROM CachedPost")
