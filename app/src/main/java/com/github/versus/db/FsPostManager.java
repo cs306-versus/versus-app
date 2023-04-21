@@ -24,7 +24,6 @@ public class FsPostManager implements DataBaseManager<Post> {
 
     //Collection representative Constants
     public static FsCollections POSTCOLLECTION = FsCollections.POSTS ;
-    public static FsCollections SCHEDULECOLLECTION = FsCollections.SCHEDULES ;
 
     private final FirebaseFirestore db;
 

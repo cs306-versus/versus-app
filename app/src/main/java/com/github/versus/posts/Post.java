@@ -1,15 +1,12 @@
 package com.github.versus.posts;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
-import androidx.annotation.NonNull;
-
+import com.github.versus.rating.Rating;
 import com.github.versus.sports.Sport;
 import com.github.versus.user.DummyUser;
 import com.github.versus.user.User;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,13 +26,19 @@ public class Post implements Serializable {
 
     private String CreatorId;
 
-    public Post(String title, Timestamp date, Location location, List<DummyUser> players, int playerLimit, Sport sport) {
+    private List<Rating> ratings;
+
+    public Post(String title, Timestamp date, Location location, List<DummyUser> players, int playerLimit, Sport sport, List<Rating> ratings) {
         this.title = title;
         this.date = date;
         this.location = location;
         this.players = players;
         this.playerLimit = playerLimit;
         this.sport = sport;
+        this.ratings = ratings;
+    }
+    public Post(String title, Timestamp date, Location location, List<DummyUser> players, int playerLimit, Sport sport) {
+        this(title, date, location, players, playerLimit, sport, new ArrayList<>());
     }
 
     public Post(){
@@ -48,6 +51,7 @@ public class Post implements Serializable {
     public String getTitle(){
         return title;
     }
+
 
 
 
@@ -88,6 +92,12 @@ public class Post implements Serializable {
         return sport;
     }
     /**
+     * @return the player to player ratings of the game
+     */
+    public List<Rating> getRatings() {
+        return ratings;
+    }
+    /**
      * @return all the attributes of the post in a map fashion
      */
     public Map<String, Object> getAllAttributes() {
@@ -98,9 +108,12 @@ public class Post implements Serializable {
         res.put("playerLimit", playerLimit);
         res.put("players", players);
         res.put("sport", sport);
+        res.put("ratings", ratings);
         return res;
-
     }
+
+
+
     @Override
     public int hashCode() {
         return Objects.hash(title);
@@ -125,29 +138,20 @@ public class Post implements Serializable {
                 && this.sport.equals(other.sport);
     }
 
+
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public void setDate(Timestamp date) {
-        this.date = date;
-    }
-
-    public void setLocation(Location location) {
-        this.location = location;
-    }
-
-    public void setPlayers(List<DummyUser> players) {
-        this.players = players;
-    }
-
-    public void setPlayerLimit(int playerLimit) {
-        this.playerLimit = playerLimit;
     }
 
     public void setSport(Sport sport) {
         this.sport = sport;
     }
 
+    public void setPlayerLimit(int playerCount) {
+        this.playerLimit = playerCount;
+    }
 
+    public void setDate(Timestamp ts) {
+        this.date = ts;
+    }
 }

@@ -2,9 +2,6 @@ package com.github.versus.db;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.versus.posts.Post;
-import com.github.versus.posts.Timestamp;
-import com.github.versus.schedule.Schedule;
-import com.github.versus.user.User;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -18,19 +15,22 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 
-public class FsScheduleManager implements ScheduleManager {
-    private final FirebaseFirestore db;
-    public static FsCollections SCHEDULECOLLECTION = FsCollections.SCHEDULES ;
+import chats.Chat;
+import chats.Message;
 
-    public FsScheduleManager(FirebaseFirestore db){
+public class FsChatManager implements DataBaseManager<Chat>{
+    private final FirebaseFirestore db;
+    public static FsCollections CHATCOLLECTION = FsCollections.CHATS ;
+
+    public FsChatManager(FirebaseFirestore db){
         this.db = db;
     }
 
 
     @Override
-    public Future<Boolean> insert(Schedule data) {
-        //inserting the schedule in the Schedule database
-        DocumentReference docRef = db.collection(SCHEDULECOLLECTION.toString()).document();
+    public Future<Boolean> insert(Chat data) {
+        //inserting the Chat in the Chat database
+        DocumentReference docRef = db.collection(CHATCOLLECTION.toString()).document();
         Task<Void> task = docRef.set(data.getAllAttributes());
 
         // Wrap the Task in a CompletableFuture that returns the status of the insertion
@@ -46,17 +46,17 @@ public class FsScheduleManager implements ScheduleManager {
     }
 
     @Override
-    public CompletableFuture<Schedule> fetch(String UID){
-
-        //accessing the User Schedule collection
-        CollectionReference postsRef = db.collection(SCHEDULECOLLECTION.toString());
+    //TODO: for now the id of the chat will just be a concatenation of the uids of the users, should be changed later to a better hash function
+    public Future<Chat> fetch(String chatId) {
+        //accessing the User Chat collection
+        CollectionReference postsRef = db.collection(CHATCOLLECTION.toString());
 
         //finding the user with the right id
-        Query query = postsRef.whereEqualTo("UID", UID);
+        Query query = postsRef.whereEqualTo("chatId", chatId);
         Task<QuerySnapshot> task = query.get();
 
-        //Creating the CompletableFuture wrap that returns the schedule
-        CompletableFuture<Schedule> future = new CompletableFuture<>();
+        //Creating the CompletableFuture wrap that returns the Chat
+        CompletableFuture<Chat> future = new CompletableFuture<>();
 
         // Add a listener to the Task to handle the result
         task.addOnSuccessListener(res -> {
@@ -70,8 +70,8 @@ public class FsScheduleManager implements ScheduleManager {
                 DocumentSnapshot doc = docs.get(0);
                 //converting the data we get into an actual post object
 
-                Schedule schedule = (new ObjectMapper()).convertValue(doc.getData(), Schedule.class);
-                future.complete(schedule);
+                Chat chat = (new ObjectMapper()).convertValue(doc.getData(), Chat.class);
+                future.complete(chat);
             }
         }).addOnFailureListener(res ->{
             future.complete(null);
@@ -81,22 +81,12 @@ public class FsScheduleManager implements ScheduleManager {
     }
 
     @Override
-    public CompletableFuture<Schedule> getScheduleStartingFromDate(String UID, Timestamp startingDate) {
-        return fetch(UID).thenApply(s -> s == null ? null :  s.startingFromDate(startingDate));
-    }
-
-
-    public CompletableFuture<Schedule> getScheduleOnDate(String UID, Timestamp startingDate) {
-        return fetch(UID).thenApply(s -> s == null ? null :  s.onDate(startingDate));
-    }
-
-    @Override
     public Future<Boolean> delete(String id) {
 
         //accessing the collection
-        CollectionReference postsRef = db.collection(SCHEDULECOLLECTION.toString());
-        //finding the post with the right id
-        Query query = postsRef.whereEqualTo("UID", id);
+        CollectionReference postsRef = db.collection(CHATCOLLECTION.toString());
+        //finding the chat with the right id
+        Query query = postsRef.whereEqualTo("chatId", id);
         Task<QuerySnapshot> task = query.get();
 
         // Wrap the Task in a CompletableFuture that returns status of deletion
@@ -129,13 +119,18 @@ public class FsScheduleManager implements ScheduleManager {
         return future;
     }
 
-    @Override
-    public Future<Boolean> addPostToSchedule(String UID, Post post) {
-        //accessing the schedule collection
-        CollectionReference scheduleRef = db.collection(SCHEDULECOLLECTION.toString());
+    /**
+     * adds a message to a chat between two users
+     * @param chatId the id of the chat to which we want to add a message
+     * @param m the message to add
+     * @return a future wrapping the status of the addition
+     */
+    public Future<Boolean> addMessageToChat(String chatId, Message m) {
+        //accessing the chat collection
+        CollectionReference chatRef = db.collection(CHATCOLLECTION.toString());
 
-        //finding the schedule with the right UID
-        Query query = scheduleRef.whereEqualTo("UID", UID);
+        //finding the schedule with the right chatId
+        Query query = chatRef.whereEqualTo("chatId", chatId);
         Task<QuerySnapshot> task = query.get();
 
         // Wrap the Task in a CompletableFuture that returns the status of the schedule update
@@ -151,21 +146,21 @@ public class FsScheduleManager implements ScheduleManager {
                 future.complete(false);
             }else{
                 DocumentSnapshot doc = docs.get(0);
-                List<Post> scheduledPosts = (List<Post>)doc.get("posts");
+                List<Message> messages = (List<Message>)doc.get("messages");
 
-                //creating a new list corresponding to the old one + the new post
-                List<Post> newScheduledPosts = new ArrayList<>(scheduledPosts);
-                newScheduledPosts.add(post);
+                //creating a new list corresponding to the old one + the new message
+                List<Message> newMessages = new ArrayList<>(messages);
+                newMessages.add(m);
 
                 //updating the field value
                 //if the update task is a success we complete the future with true
                 //otherwise we complete the future with false
-                doc.getReference().update("posts", newScheduledPosts).addOnSuccessListener(aVoid ->{
-                        future.complete(true);
-                    }).addOnFailureListener(e ->{
-                                future.complete(false);
-                            }
-                    );
+                doc.getReference().update("messages", newMessages).addOnSuccessListener(aVoid ->{
+                    future.complete(true);
+                }).addOnFailureListener(e ->{
+                            future.complete(false);
+                        }
+                );
 
             }
         }).addOnFailureListener(e -> {
