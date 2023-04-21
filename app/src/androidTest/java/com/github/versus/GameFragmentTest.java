@@ -58,6 +58,7 @@ public class GameFragmentTest {
         rectangleView1.perform(ViewActions.scrollTo());
         rectangleView1.perform(ViewActions.scrollTo());
         rectangleView1.perform(ViewActions.scrollTo());
+        
         rectangleView1.perform(ViewActions.scrollTo());
         onData(anything()).inAdapterView(withId(R.id.list_view)).atPosition(0).perform(click());
     }
