@@ -4,15 +4,19 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.github.versus.R;
+
+import java.util.Optional;
 
 public class AuthActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Optional.ofNullable(getSupportActionBar()).ifPresent(ActionBar::hide);
         setContentView(R.layout.activity_auth);
     }
 
