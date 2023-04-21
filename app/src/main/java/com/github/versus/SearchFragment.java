@@ -77,7 +77,7 @@ public class SearchFragment extends Fragment implements
             }
         });
         FsUserManager db = null;
-        if(FirebaseFirestore.getInstance() != null) {
+        if(FirebaseFirestore.getInstance() != null && FirebaseAuth.getInstance() != null && FirebaseAuth.getInstance().getUid() != null) {
             db = new FsUserManager(FirebaseFirestore.getInstance());
             ((CompletableFuture<User>)db.fetch(FirebaseAuth.getInstance().getUid()))
                     .thenAccept(this::setUser);
