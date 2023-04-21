@@ -75,11 +75,11 @@ public class FsScheduleManagerTests {
         Post p = postm.fetch(hoaxName).get();
         assertNull(p);
     }
-/*
+
     @Test
 
     public void addPostsToScheduleTest() throws ExecutionException, InterruptedException, TimeoutException {
-        String testSchedName = "Abdess";
+        String testSchedName = "Abdess-xl";
         // Creating FsScheduleManager instance
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FsScheduleManager schedm = new FsScheduleManager(db);
@@ -110,7 +110,7 @@ public class FsScheduleManagerTests {
         boolean deletionSuccess = schedm.delete(postName).get();
         assertTrue(deletionSuccess);
     }
-*/
+
     //testing the getSchedule on and after date :
     @Test
     public void getScheduleFromDateTest() throws ExecutionException, InterruptedException, TimeoutException {
