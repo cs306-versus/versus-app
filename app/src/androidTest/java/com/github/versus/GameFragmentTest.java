@@ -57,7 +57,9 @@ public class GameFragmentTest {
         ViewInteraction rectangleView1 = onView(withId(R.id.rectangle1));
         rectangleView1.perform(ViewActions.scrollTo());
         rectangleView1.perform(ViewActions.scrollTo());
+        
         rectangleView1.perform(ViewActions.scrollTo());
+
 
         rectangleView1.perform(ViewActions.scrollTo());
         try {
