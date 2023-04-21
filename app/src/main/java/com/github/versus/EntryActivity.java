@@ -65,11 +65,9 @@ public class EntryActivity extends AppCompatActivity {
                 ? AuthActivity.class
                 : MainActivity.class;
 
-        new Handler().postDelayed(() -> {
-            Intent intent = new Intent(this, activity);
-            startActivity(intent);
-            finish();
-        }, 3000);
+        Intent intent = new Intent(this, activity);
+        startActivity(intent);
+        finish();
     }
 
     /**
