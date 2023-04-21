@@ -78,7 +78,7 @@ public class FsScheduleManagerTests {
 
     @Test
     public void addPostsToScheduleTest() throws ExecutionException, InterruptedException, TimeoutException {
-        String testSchedName = "Abdess-xl";
+        String testSchedName = "Abdess";
         // Creating FsScheduleManager instance
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FsScheduleManager schedm = new FsScheduleManager(db);
