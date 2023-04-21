@@ -77,6 +77,7 @@ public class FsScheduleManagerTests {
     }
 
     @Test
+
     public void addPostsToScheduleTest() throws ExecutionException, InterruptedException, TimeoutException {
         String testSchedName = "Abdess-xl";
         // Creating FsScheduleManager instance

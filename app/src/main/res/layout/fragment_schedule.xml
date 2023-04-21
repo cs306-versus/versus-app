@@ -261,7 +261,7 @@
                     android:layout_marginTop="439dp"
                     android:layout_width="51.5dp"
                     android:layout_height="45.5dp"
-                    android:text="26"
+                    android:text="16"
                     />
                 <TextView android:id="@+id/Monday_text"
                     android:fontFamily="Comic Neue"
@@ -283,7 +283,7 @@
                     android:layout_marginTop="439dp"
                     android:layout_width="51.5dp"
                     android:layout_height="45.5dp"
-                    android:text="27"
+                    android:text="17"
                     />
                 <TextView android:id="@+id/Tuesday_text"
                     android:fontFamily="Comic Neue"
@@ -306,7 +306,7 @@
                     android:layout_marginTop="439dp"
                     android:layout_width="51.5dp"
                     android:layout_height="45.5dp"
-                    android:text="28"
+                    android:text="18"
                     />
                 <TextView android:id="@+id/Wednesday_text"
                     android:fontFamily="Comic Neue"
@@ -329,7 +329,7 @@
                     android:layout_marginTop="439dp"
                     android:layout_width="51.5dp"
                     android:layout_height="45.5dp"
-                    android:text="29"
+                    android:text="19"
                     />
 
                 <TextView android:id="@+id/Thursday_date"
@@ -341,7 +341,7 @@
                     android:layout_marginTop="439dp"
                     android:layout_width="51.5dp"
                     android:layout_height="45.5dp"
-                    android:text="30"
+                    android:text="20"
                     />
                 <TextView android:id="@+id/Friday_text"
                     android:fontFamily="Comic Neue"
@@ -364,7 +364,7 @@
                     android:layout_marginTop="439dp"
                     android:layout_width="51.5dp"
                     android:layout_height="45.5dp"
-                    android:text="31"
+                    android:text="21"
                     />
                 <TextView android:id="@+id/Saturday_text"
                     android:fontFamily="Comic Neue"
@@ -386,7 +386,7 @@
                     android:layout_marginTop="439dp"
                     android:layout_width="51.5dp"
                     android:layout_height="45.5dp"
-                    android:text="1"
+                    android:text="22"
                     />
 
                 <View   android:id="@+id/rectangle4"
