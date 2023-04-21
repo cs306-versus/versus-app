@@ -15,11 +15,13 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.github.versus.R;
 import com.github.versus.databinding.FragmentAuthBinding;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 
 /**
  * ???
  */
-public class AuthFragment extends Fragment {
+public class AuthFragment extends BaseAuthFragment {
 
     private FragmentAuthBinding binding;
 
@@ -34,8 +36,8 @@ public class AuthFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.authSignin.setOnClickListener(this::signInRequest);
-        binding.authLoginMail.setOnClickListener(this::loginWithMailRequest);
+        //binding.authSignin.setOnClickListener(this::signInRequest);
+        registerLoginButton(binding.authLoginMail);
         binding.authLoginGoogle.setOnClickListener(this::loginWithGoogleRequest);
     }
 
@@ -46,15 +48,6 @@ public class AuthFragment extends Fragment {
      */
     private void loginWithGoogleRequest(View view) {
         switchTo(GoogleAuthFragment.class);
-    }
-
-    /**
-     * ???
-     *
-     * @param view
-     */
-    private void loginWithMailRequest(View view) {
-        switchTo(MailPasswordFragment.class);
     }
 
     /**
@@ -73,4 +66,27 @@ public class AuthFragment extends Fragment {
         transaction.commit();
     }
 
+    @Override
+    protected Task<AuthResult> requestAuthentication() {
+        String mailText = binding.authLoginMailMail.getText().toString();
+        String pwdText = binding.authLoginMailPwd.getText().toString();
+        return auth.signInWithMail(mailText, pwdText);
+    }
+
+    @Override
+    protected void handleSuccessfulConnection(AuthResult result) {
+
+    }
+
+    @Override
+    protected void handleFailedConnection(Exception exception) {
+        Toast.makeText(getContext(), "handleFailedConnection",
+                Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void handleCancelledConnection() {
+        Toast.makeText(getContext(), "handleCancelledConnection",
+                Toast.LENGTH_SHORT).show();
+    }
 }
