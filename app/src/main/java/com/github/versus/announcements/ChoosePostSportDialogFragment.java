@@ -33,6 +33,7 @@ public class ChoosePostSportDialogFragment extends DialogFragment {
     SportListener tl;
     Sport sport = Sport.SOCCER;
 
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the Builder class for convenient dialog construction
