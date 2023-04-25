@@ -84,7 +84,6 @@ public class SearchFragment extends Fragment implements
             user = new VersusUser.Builder(FirebaseAuth.getInstance().getUid()).build();
         }
 
-        aa = new AnnouncementAdapter(displayPosts, user, pm);
         loadPosts();
 
 
@@ -99,13 +98,15 @@ public class SearchFragment extends Fragment implements
         recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
+        pm = new FsPostManager(FirebaseFirestore.getInstance());
+
+        aa = new AnnouncementAdapter(displayPosts, user, pm);
         recyclerView.setLayoutManager(llm);
         recyclerView.setAdapter(aa);
         cpdf = new CreatePostTitleDialogFragment();
         cpsdf = new ChoosePostSportDialogFragment();
         mpdf = new MaxPlayerDialogFragment();
         pdpd = new PostDatePickerDialog();
-        pm = new FsPostManager(FirebaseFirestore.getInstance());
         searchBar = rootView.findViewById(R.id.search_posts);
         searchBar.addTextChangedListener(new TextWatcher() {
             @Override
