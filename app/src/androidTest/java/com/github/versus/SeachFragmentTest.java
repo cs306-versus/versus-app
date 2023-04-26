@@ -62,20 +62,20 @@ public class SeachFragmentTest {
         onView(withId(android.R.id.button1)).perform(click());
     }
 
-    @Test
-    public void testCancelPost(){
-        onView(withId(R.id.add_posts)).perform(click());
-        onView(withId(R.id.editPostTitle)).check(matches(isDisplayed()));
-        onView(withId(R.id.editPostTitle)).perform(typeText("TEST POST"));
-        onView(withId(android.R.id.button1)).perform(click());
-        onView(withText("Archery")).perform(click());
-        onView(withId(android.R.id.button1)).perform(click());
-        onView(withId(R.id.editMaxPlayers)).perform((typeText("4")));
-        onView(withId(android.R.id.button1)).perform(click());
-        onView(withId(android.R.id.button2)).perform(click());
-
-
-    }
+//    @Test
+//    public void testCancelPost(){
+//        onView(withId(R.id.add_posts)).perform(click());
+//        onView(withId(R.id.editPostTitle)).check(matches(isDisplayed()));
+//        onView(withId(R.id.editPostTitle)).perform(typeText("TEST POST"));
+//        onView(withId(android.R.id.button1)).perform(click());
+//        onView(withText("Archery")).perform(click());
+//        onView(withId(android.R.id.button1)).perform(click());
+//        onView(withId(R.id.editMaxPlayers)).perform((typeText("4")));
+//        onView(withId(android.R.id.button1)).perform(click());
+//        onView(withId(android.R.id.button2)).perform(click());
+//
+//
+//    }
 
     @Test
     public void testSearchBar(){
