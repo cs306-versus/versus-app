@@ -55,8 +55,10 @@ public class EntryActivity extends AppCompatActivity {
         Class<?> activity = isNull(user)
                 ? AuthActivity.class
                 : MainActivity.class;
+
         Intent intent = new Intent(this, activity);
         startActivity(intent);
+        finish();
     }
 
     /**

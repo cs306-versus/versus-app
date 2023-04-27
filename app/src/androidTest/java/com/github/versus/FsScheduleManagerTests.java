@@ -14,6 +14,8 @@ import com.github.versus.posts.Timestamp;
 import com.github.versus.schedule.Schedule;
 import com.github.versus.sports.Sport;
 import com.github.versus.user.DummyUser;
+import com.github.versus.user.User;
+import com.github.versus.user.VersusUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.junit.Test;
@@ -77,6 +79,7 @@ public class FsScheduleManagerTests {
     }
 
     @Test
+
     public void addPostsToScheduleTest() throws ExecutionException, InterruptedException, TimeoutException {
         String testSchedName = "Abdess-xl";
         // Creating FsScheduleManager instance
@@ -106,8 +109,9 @@ public class FsScheduleManagerTests {
         assertTrue(updatedSchedule.getPosts().get(0).equals(testPost));
 
         //cleaning up
-        boolean deletionSuccess = schedm.delete(postName).get();
+        boolean deletionSuccess = schedm.delete(testSchedName).get();
         assertTrue(deletionSuccess);
+
     }
 
     //testing the getSchedule on and after date :
@@ -139,7 +143,9 @@ public class FsScheduleManagerTests {
             schedule.removePost(String.format("random_num_%d", i));
         }
         assertEquals(fetchedSched.getPosts(), schedule.getPosts().subList(startingDay - 1, nbPosts));
-
+        //cleaning up
+        boolean deletionSuccess = schedm.delete(testSchedName).get();
+        assertTrue(deletionSuccess);
     }
     @Test
     public void getScheduleOnDateTest() throws ExecutionException, InterruptedException, TimeoutException {
@@ -167,8 +173,48 @@ public class FsScheduleManagerTests {
 
         assertEquals(fetchedSched.getPosts(), schedule.getPosts().subList(startingDay - 1, startingDay));
 
+
+        //cleaning up
+        boolean deletionSuccess = schedm.delete(testSchedName).get();
+        assertTrue(deletionSuccess);
     }
 
+
+
+    @Test
+    public void postAdditionTest() throws ExecutionException, InterruptedException, TimeoutException {
+        String testSchedName = "Abdess-xl";
+        // Creating FsScheduleManager instance
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FsScheduleManager schedm = new FsScheduleManager(db);
+
+        // Creating a test schedule
+        Schedule testSchedule = new Schedule(testSchedName);
+
+        // Wait for the insert operation to complete
+        boolean insertSuccess = schedm.insert(testSchedule).get();
+
+        // Verify that the insert operation succeeded
+        assertTrue(insertSuccess);
+
+        //adding the post to the schedule
+        String postName = "tkherbi9a";
+        Post testPost = new Post( postName, new Timestamp(2023, Month.AUGUST, 18, 11, 15, Timestamp.Meridiem.AM) ,
+                new Location("tirane", 0, 0), new ArrayList<>(), 15, Sport.FOOTBALL);
+
+        Future<Boolean> postAdditionResult = schedm.addPostToSchedule(testSchedName, testPost);
+        boolean joinSuccess = postAdditionResult.get();
+        assertTrue(joinSuccess);
+
+        //getting the modified schedule from the db
+        Schedule updatedSchedule = schedm.fetch(testSchedName).get();
+        assertTrue(updatedSchedule.getPosts().get(0).equals(testPost));
+
+        //cleaning up
+        boolean deletionSuccess = schedm.delete(testSchedName).get();
+        assertTrue(deletionSuccess);
+
+    }
 
 
 }

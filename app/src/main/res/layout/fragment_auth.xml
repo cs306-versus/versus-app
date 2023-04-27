@@ -1,62 +1,209 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frag_auth_layout"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/frag_auth_layout"
     tools:context=".auth.AuthFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout android:id="@+id/page_sign_in_mail_screen_ek1"
+        android:layout_marginTop="0dp"
+        android:layout_marginStart="0dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/auth_login_google"
+        <RelativeLayout android:id="@+id/background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView android:id="@+id/ellipse_1"
+                android:src="@drawable/ellipse_1"
+                android:contentDescription="ellipse_1"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="0dp"
+                android:layout_width="890.97dp"
+                android:layout_height="744dp"/>
+
+            <ImageView android:id="@+id/ellipse_2"
+                android:src="@drawable/ellipse_3"
+                android:contentDescription="ellipse_3"
+                android:layout_marginStart="47dp"
+                android:layout_marginTop="512dp"
+                android:layout_width="660.5dp"
+                android:layout_height="504.5dp"/>
+
+            <View android:id="@+id/ellipse_3"
+                android:background="@drawable/ellipse_3_shape"
+                android:layout_marginStart="529dp"
+                android:layout_marginTop="150dp"
+                android:layout_width="143dp"
+                android:layout_height="258dp"/>
+
+        </RelativeLayout>
+
+        <ImageView android:id="@+id/vector"
+            android:src="@drawable/vector_ek11"
+            android:contentDescription="vector"
+            android:layout_marginTop="31dp"
+            android:layout_marginStart="75dp"
+            android:layout_width="210dp"
+            android:layout_height="210dp"/>
+
+        <View android:id="@+id/card"
+            android:background="@drawable/card_shape"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="270dp"
+            android:layout_width="326dp"
+            android:layout_height="470dp" />
+
+        <TextView android:id="@+id/login"
+            android:fontFamily="@font/poppins_medium"
+            android:layout_gravity="center_horizontal|center"
+            android:gravity="center"
+            android:textSize="32sp"
+            android:textColor="@color/login_color"
+            android:layout_marginStart="39dp"
+            android:layout_marginTop="296dp"
+            android:layout_width="107dp"
+            android:layout_height="70dp"
+            android:text="@string/login_string"
+            />
+
+        <EditText
+            android:id="@+id/auth_login_mail_mail"
+            android:layout_width="280dp"
+            android:layout_height="33dp"
+            android:layout_gravity="center_horizontal|center"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="396dp"
+            android:background="@drawable/mail_input_ek1"
+            android:drawableStart="@drawable/_3_friends"
+            android:ems="10"
+            android:fontFamily="@font/poppins_medium"
+            android:gravity="center"
+            android:hint="@string/enter_your_mail_string"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/login_color"
+            android:textColorHint="@color/login_color"
+            android:textSize="12sp" />
+
+        <EditText
+            android:id="@+id/auth_login_mail_pwd"
+            android:fontFamily="@font/poppins_medium"
+            android:layout_gravity="center_horizontal|center"
+            android:gravity="center"
+            android:textSize="12sp"
+            android:textColorHint="@color/login_color"
+            android:textColor="@color/login_color"
+            android:drawableStart="@drawable/vector_ek12"
+            android:background="@drawable/mail_input_ek2"
+            android:layout_marginTop="482dp"
+            android:layout_marginStart="40dp"
+            android:layout_width="280dp"
+            android:layout_height="33dp"
+            android:ems="10"
+            android:hint="@string/enter_your_password_string"
+            android:inputType="textPassword" />
+
+
+        <RelativeLayout android:id="@+id/pwd_reset"
+            android:layout_marginTop="524dp"
+            android:layout_marginStart="159dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="111dp"
-            android:layout_marginEnd="111dp"
-            android:layout_marginBottom="320dp"
-            android:text="@string/auth_login_google"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:layout_height="wrap_content">
+
+            <TextView android:id="@+id/did_you_forget_your_password__"
+                android:fontFamily="@font/poppins_medium"
+                android:layout_gravity="center_horizontal|center"
+                android:gravity="center"
+                android:textColor="@color/did_you_forget_your_password___color"
+                android:layout_marginLeft="-1dp"
+                android:layout_marginTop="0dp"
+                android:layout_width="134dp"
+                android:layout_height="18dp"
+                android:text="@string/did_you_forget_your_password___string"
+                />
+
+            <TextView android:id="@+id/reset_it"
+                android:fontFamily="@font/poppins_medium"
+                android:layout_gravity="center_horizontal|center"
+                android:gravity="center"
+                android:shadowRadius="4"
+                android:shadowColor="#000000"
+                android:shadowDx="0"
+                android:shadowDy="4"
+                android:textColor="@color/login_color"
+                android:layout_marginLeft="130dp"
+                android:layout_marginTop="0dp"
+                android:layout_width="39dp"
+                android:layout_height="18dp"
+                android:text="@string/reset_it_string"
+                />
+
+        </RelativeLayout>
 
         <Button
             android:id="@+id/auth_login_mail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="122dp"
-            android:layout_marginEnd="123dp"
-            android:layout_marginBottom="17dp"
-            android:text="@string/auth_with_mail"
-            app:layout_constraintBottom_toTopOf="@+id/auth_login_google"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:background="@drawable/rectangle_1_ek1_shape"
+            android:fontFamily="@font/poppins_medium"
+            android:layout_gravity="center_horizontal|center"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:textColor="@color/login_ek1_color"
+            android:layout_marginTop="558dp"
+            android:layout_marginStart="107dp"
+            android:layout_width="145dp"
+            android:layout_height="38dp"
+            android:text="@string/login_ek1_string" />
 
-        <TextView
-            android:id="@+id/auth_missing_account"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="72dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="268dp"
-            android:text="@string/account_missing"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/auth_signin"
-            app:layout_constraintStart_toStartOf="parent" />
+        <View android:id="@+id/left_line"
+            android:background="@drawable/left_line_shape"
+            android:layout_marginStart="27dp"
+            android:layout_marginTop="625dp"
+            android:layout_width="60dp"
+            android:layout_height="1dp" />
 
+        <TextView android:id="@+id/you_can_also_sign_in_using"
+            android:fontFamily="@font/poppins_medium"
+            android:layout_gravity="center_horizontal|center"
+            android:gravity="center"
+            android:textSize="12sp"
+            android:textColor="@color/did_you_forget_your_password___color"
+            android:layout_marginLeft="99dp"
+            android:layout_marginTop="616dp"
+            android:layout_width="169dp"
+            android:layout_height="26dp"
+            android:text="@string/you_can_also_sign_in_using_string"
+            />
+
+        <View android:id="@+id/right_line"
+            android:background="@drawable/right_line_shape"
+            android:layout_marginStart="271dp"
+            android:layout_marginTop="625dp"
+            android:layout_width="60dp"
+            android:layout_height="1dp"/>
+
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/auth_login_google"
+            android:background="@drawable/auth_button"
+            android:layout_gravity="center_horizontal|center"
+            android:gravity="center"
+            android:layout_width="145dp"
+            android:layout_height="38dp"
+            android:layout_marginTop="654dp"
+            android:layout_marginStart="107dp"
+            android:layout_marginEnd="142dp"
+            android:layout_marginBottom="87dp" />
+
+        <!-- THIS IS JUST A TMP BUTTON-->
         <Button
             android:id="@+id/auth_signin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="700dp"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="79dp"
             android:layout_marginBottom="253dp"
-            android:text="@string/auth_signin"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/auth_missing_account" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</FrameLayout>
+            android:text="@string/auth_signin" />
+
+    </RelativeLayout>
+
+</RelativeLayout>
