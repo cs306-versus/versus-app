@@ -32,11 +32,11 @@ import java.util.List;
 @RunWith(AndroidJUnit4.class)
 public class UserInfoFragmentTest {
 
-    //@Rule
+    @Rule
     public ActivityScenarioRule<MainActivity> scenario = new ActivityScenarioRule<>(MainActivity.class);
     UserInfoFragment frag;
 
-    //@Before
+    @Before
     public void setUpFragment(){
         Task<AuthResult> task = FirebaseAuth.getInstance().signInWithEmailAndPassword("test@versus.ch", "123456789");
         while(!task.isComplete() && !task.isCanceled());
@@ -48,13 +48,13 @@ public class UserInfoFragmentTest {
         onView(withId(R.id.nav_user_profil)).perform(click());
     }
 
-    //@Test
+    @Test
     public void checkWithNull(){
         //frag.updateUI(null);
         //onView(withId(R.id.info_uid)).check(matches(withText(containsString("EPPOpGluoEQe6OsYZJ96mvZ1Ytu2"))));
     }
 
-    //@Test
+    @Test
     public void checkWithUser(){
         VersusUser.Builder builder = new VersusUser.Builder("aywxdctfvgb");
         builder.setFirstName("John")
