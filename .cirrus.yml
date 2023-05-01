@@ -13,9 +13,7 @@ check_android_task:
   install_emulator_script:
     sdkmanager --install "system-images;android-30;google_apis_playstore;x86"
   create_avd_script: |
-    echo no | avdmanager create avd --force
-      --name emulator
-      --package "system-images;android-30;google_apis_playstore;x86"
+    echo no | avdmanager create avd --force --name emulator --package "system-images;android-30;google_apis_playstore;x86"
     echo skin.name=1080x2340 >> ~/.android/avd/emulator.avd/config.ini
     echo skin.path=_no_skin >> ~/.android/avd/emulator.avd/config.ini
     echo hw.lcd.density=440 >> ~/.android/avd/emulator.avd/config.ini
