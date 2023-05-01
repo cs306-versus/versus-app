@@ -54,7 +54,7 @@ public class EntryActivity extends AppCompatActivity {
     private void yieldActivity(@Nullable User user) {
         Class<?> activity = isNull(user)
                 ? AuthActivity.class
-                : MainActivity.class;
+                : ChatActivity.class;
 
         Intent intent = new Intent(this, activity);
         startActivity(intent);
