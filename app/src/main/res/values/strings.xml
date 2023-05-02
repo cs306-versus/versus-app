@@ -80,4 +80,17 @@
     <string name="you_can_also_sign_in_using_string">You can also Sign in using</string>
     <string name="google_string">Google</string>
 
+
+    	<!-- main_chat strings -->
+
+	<string name="app_name">export page </string>
+	<string name="ek_img_content">ExportKit Image</string>
+	<string name="private_string">Private</string>
+	<string name="posts_string">Posts</string>
+	<string name="dec_13_string">5 min ago</string>
+	<string name="_2_string">4</string>
+	<string name="miracle_vaccaro_string">Ali Benta</string>
+	<string name="dec_13_ek1_string">15 min ago</string>
+	<string name="hello__how_are_you__string">Hello! How are you?</string>
+	<string name="miracle_vaccaro_ek1_string">Alex De Bruyne</string>
 </resources>
