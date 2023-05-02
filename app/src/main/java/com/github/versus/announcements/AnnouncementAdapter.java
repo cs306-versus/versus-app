@@ -61,7 +61,7 @@ public class AnnouncementAdapter extends RecyclerView.Adapter<AnnouncementAdapte
             viewHolder.getJoinButton().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    fpm.joinPost(currentPost.getTitle(), user);
+                    fpm.joinPost(currentPost, user);
                     viewHolder.getJoinButton().setText("Joined");
                     viewHolder.getJoinButton().setEnabled(false);
                     currentPost.getPlayers().add(user);

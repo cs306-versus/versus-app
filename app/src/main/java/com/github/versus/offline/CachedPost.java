@@ -129,7 +129,7 @@ public final class CachedPost {
         if(uid!=null) {
             postCreator.add(new VersusUser.Builder(uid).build());
         }
-        return new  Post(title, timestamp, location,postCreator,  limit, Sport.valueOf(sport));
+        return new  Post(title, timestamp, location,postCreator,  limit, Sport.valueOf(sport), "");
     }
 
     /**

@@ -141,7 +141,7 @@ public class SearchFragment extends Fragment implements
     public void onCancel() {
         Timestamp ts =  new Timestamp(2023, Month.APRIL, 4, 5, 1, Timestamp.Meridiem.AM);
         Location unil = new Location("UNIL", 42, 42);
-        newPost = new Post("Casual Soccer", ts, unil, new ArrayList<>(), 24, Sport.SOCCER);
+        newPost = new Post("Casual Soccer", ts, unil, new ArrayList<>(), 24, Sport.SOCCER, "");
     }
 
     @Override
@@ -192,6 +192,9 @@ public class SearchFragment extends Fragment implements
     @Override
     public void onPickPostDate(Timestamp ts) {
         newPost.setDate(ts);
+        ArrayList<VersusUser> users = new ArrayList<>();
+        users.add(user);
+        newPost.setPlayers(users);
         pm.insert(newPost);
         loadPosts();
     }

@@ -48,7 +48,7 @@ public class FsPostManagerTests {
 
             // Creating a test post
             Post post = new Post( "_test_", new Timestamp(2023, Month.AUGUST, 18, 11, 15, Timestamp.Meridiem.AM) ,
-                    new Location("tirane", 0, 0), new ArrayList<>(), 15, Sport.SOCCER, new ArrayList<>());
+                    new Location("tirane", 0, 0), new ArrayList<>(), 15, Sport.SOCCER, new ArrayList<>(), "_test_");
 
             //inserting the post
             Future<Boolean> insertResult = postm.insert(post);
@@ -96,11 +96,11 @@ public class FsPostManagerTests {
             //creating test posts
 
             Post postTest = new Post( "_test_", new Timestamp(2023, Month.AUGUST, 18, 10, 15, Timestamp.Meridiem.AM) ,
-                    new Location("tirane", 0, 0), new ArrayList<>(), 15, Sport.FOOTBALL, new ArrayList<>());
+                    new Location("tirane", 0, 0), new ArrayList<>(), 15, Sport.FOOTBALL, new ArrayList<>(), "");
             Post postTest1 = new Post( "_test_1", new Timestamp(2023, Month.AUGUST, 18, 10, 15, Timestamp.Meridiem.AM) ,
-                    new Location("tirane", 0, 0), new ArrayList<>(), 15, Sport.FOOTBALL, new ArrayList<>());
+                    new Location("tirane", 0, 0), new ArrayList<>(), 15, Sport.FOOTBALL, new ArrayList<>(), "");
             Post postTest2 = new Post( "_test_2", new Timestamp(2023, Month.AUGUST, 18, 10, 15, Timestamp.Meridiem.AM) ,
-                    new Location("tirane", 0, 0), new ArrayList<>(), 15, Sport.FOOTBALL, new ArrayList<>());
+                    new Location("tirane", 0, 0), new ArrayList<>(), 15, Sport.FOOTBALL, new ArrayList<>(), "");
             Set<Post> refSet = new HashSet<>();
             refSet.add(postTest);
             refSet.add(postTest1);
@@ -118,7 +118,7 @@ public class FsPostManagerTests {
         // Creating a test post
         String postName = "_test_1";
         Post post = new Post( postName, new Timestamp(2023, Month.AUGUST, 18, 11, 15, Timestamp.Meridiem.AM) ,
-                new Location("tirane", 0, 0), new ArrayList<>(), 15, Sport.FOOTBALL, new ArrayList<>());
+                new Location("tirane", 0, 0), new ArrayList<>(), 15, Sport.FOOTBALL, new ArrayList<>(), "test");
 
         //inserting the post
         Future<Boolean> insertResult = postm.insert(post);
@@ -131,7 +131,7 @@ public class FsPostManagerTests {
 
         //joining the post
         String name = "hassan";
-        Future<Boolean> joinResult = postm.joinPost(postName, new DummyUser(name));
+        Future<Boolean> joinResult = postm.joinPost(post, new DummyUser(name));
         boolean joinSuccess = joinResult.get();
         assertTrue(joinSuccess);
 
@@ -156,7 +156,7 @@ public class FsPostManagerTests {
         Location testLocation = new Location("tirane", 0, 0);
         String testPostName = "_test_";
         Post post = new Post( testPostName, new Timestamp(2023, Month.AUGUST, 18, 11, 15, Timestamp.Meridiem.AM) ,
-               testLocation, new ArrayList<>(), 15, Sport.SOCCER, new ArrayList<>());
+               testLocation, new ArrayList<>(), 15, Sport.SOCCER, new ArrayList<>(), "");
 
         //inserting the post
         Future<Boolean> insertResult = postm.insert(post);

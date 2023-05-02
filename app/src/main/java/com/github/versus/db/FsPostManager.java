@@ -81,6 +81,7 @@ public class FsPostManager implements DataBaseManager<Post> {
                     DocumentSnapshot doc = docs.get(0);
                     //converting the data we get into an actual post object
                     Post post = (new ObjectMapper()).convertValue(doc.getData(), Post.class);
+                    post.setUid(doc.getId());
                     future.complete(post);
                 }
              }).addOnFailureListener(res ->{
@@ -118,6 +119,7 @@ public class FsPostManager implements DataBaseManager<Post> {
             ) {
                 //converting the data we get into an actual post object
                 Post post = (new ObjectMapper()).convertValue(doc.getData(), Post.class);
+                post.setUid(doc.getId());
                 posts.add(post);
             }
             future.complete(posts);
@@ -162,51 +164,48 @@ public class FsPostManager implements DataBaseManager<Post> {
         return compFuture;
     }
 
-    public Future<Boolean> joinPost(String postId, User user){
+    public Future<Boolean> joinPost(Post post, User user){
         //accessing the collection
         CollectionReference postsRef = db.collection(POSTCOLLECTION.toString());
         //finding the announcement with the right id
-        Query query = postsRef.whereEqualTo("title", postId);
-        Task<QuerySnapshot> task = query.get();
+        Task<DocumentSnapshot> task = postsRef.document(post.getUid()).get();
 
         // Wrap the Task in a CompletableFuture that returns the status of the post join
         CompletableFuture<Boolean> future = new CompletableFuture<>();
 
         //we complete the future with false if the query failed
         //otherwise we try to update the value of the players field
-        task.addOnSuccessListener(res -> {
+        task.addOnSuccessListener(res-> {
 
             //getting the documents corresponding to the post
-            List<DocumentSnapshot> docs = res.getDocuments();
-            if(docs.isEmpty()){
+
+
+            DocumentSnapshot doc = res;
+            List<User> players = (List<User>)doc.get("players");
+
+            //getting the player limit
+            long playerLimit = (long)doc.get("playerLimit");
+
+            //check that the limit isn't reached yet
+            if(players.size() >= playerLimit){
                 future.complete(false);
             }else{
-                DocumentSnapshot doc = docs.get(0);
-                List<User> players = (List<User>)doc.get("players");
+                //creating a new list corresponding to the old one + the new user
+                List<User> newPlayers = new ArrayList<>(players);
 
-                //getting the player limit
-                long playerLimit = (long)doc.get("playerLimit");
+                newPlayers.add(user);
 
-                //check that the limit isn't reached yet
-                if(players.size() >= playerLimit){
+                //updating the field value
+                //if the update task is a success we complete the future with true
+                //otherwise we complete the future with false
+                doc.getReference().update("players", newPlayers).addOnSuccessListener(aVoid ->{
+                    future.complete(true);
+                }).addOnFailureListener(e ->{
                     future.complete(false);
-                }else{
-                    //creating a new list corresponding to the old one + the new user
-                    List<User> newPlayers = new ArrayList<>(players);
-
-                    newPlayers.add(user);
-
-                    //updating the field value
-                    //if the update task is a success we complete the future with true
-                    //otherwise we complete the future with false
-                    doc.getReference().update("players", newPlayers).addOnSuccessListener(aVoid ->{
-                        future.complete(true);
-                    }).addOnFailureListener(e ->{
-                        future.complete(false);
-                    }
-                    );
                 }
-        }
+                );
+            }
+
         }).addOnFailureListener(e -> {
             future.complete(false);
         });
