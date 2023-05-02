@@ -60,11 +60,7 @@ import com.github.versus.auth.AuthActivity;
 public class TopGamesTest {
     @Rule
     public ActivityScenarioRule<MainActivity> scenario = new ActivityScenarioRule<>(MainActivity.class);
-    @Before
-    public void setUp() {
-        Intents.init();
 
-    }
 
     @After
     public void tearDown() {
@@ -72,6 +68,7 @@ public class TopGamesTest {
     }
     @Before
     public void testScheduleButtons2(){
+        Intents.init();
         onView(withId(R.id.drawer_layout)).check(matches(DrawerMatchers.isClosed(GravityCompat.START))).perform(DrawerActions.open());
 
 
@@ -95,6 +92,15 @@ public class TopGamesTest {
         onView(withId(R.id.arrow_left)).perform(click());
         onView(withId(R.id.arrow_left)).perform(click());
         onView(withId(R.id.arrow_left)).perform(click());
+        onView(withId(R.id.rectangle_22));
+
+
+
+    }
+    @Test
+    public void test2(){
+
+
         onView(withId(R.id.rectangle_22));
 
 
