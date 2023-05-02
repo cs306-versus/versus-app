@@ -63,7 +63,7 @@ public class TopGamesTest {
     @Before
     public void setUp() {
         Intents.init();
-        
+
     }
 
     @After
@@ -95,7 +95,7 @@ public class TopGamesTest {
         onView(withId(R.id.arrow_left)).perform(click());
         onView(withId(R.id.arrow_left)).perform(click());
         onView(withId(R.id.arrow_left)).perform(click());
-        //onView(withId(R.id.rectangle_22));
+        onView(withId(R.id.rectangle_22));
 
 
 
