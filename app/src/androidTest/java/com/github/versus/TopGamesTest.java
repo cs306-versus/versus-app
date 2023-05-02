@@ -72,6 +72,7 @@ public class TopGamesTest {
         onView(withId(R.id.nav_trending_sports)).perform(click());
         onView(withId(R.id.arrow_right)).perform(click());
         onView(withId(R.id.arrow_right)).perform(click());
+        
         onView(withId(R.id.arrow_right)).perform(click());
         onView(withId(R.id.arrow_right)).perform(click());
         onView(withId(R.id.arrow_right)).perform(click());
