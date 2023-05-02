@@ -83,8 +83,6 @@
 
     	<!-- main_chat strings -->
 
-	<string name="app_name">export page </string>
-	<string name="ek_img_content">ExportKit Image</string>
 	<string name="private_string">Private</string>
 	<string name="posts_string">Posts</string>
 	<string name="dec_13_string">5 min ago</string>
