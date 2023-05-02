@@ -283,9 +283,7 @@ public class FsPostManager implements DataBaseManager<Post> {
                 if(playerLimit <= players.size()){
                     future.complete(false);
                 }else{
-                    //creating a new list corresponding to the old one + the new user
-                    List<User> nplayers = new ArrayList<>(players);
-
+                    List<User> nplayers = new ArrayList<User>(players);
                     nplayers.add(user);
 
                     //updating the field value
