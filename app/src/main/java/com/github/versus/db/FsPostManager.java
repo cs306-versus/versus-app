@@ -280,18 +280,18 @@ public class FsPostManager implements DataBaseManager<Post> {
                 long playerLimit = (long)doc.get("playerLimit");
 
                 //check that the limit isn't reached yet
-                if(players.size() >= playerLimit){
+                if(playerLimit <= players.size()){
                     future.complete(false);
                 }else{
                     //creating a new list corresponding to the old one + the new user
-                    List<User> newPlayers = new ArrayList<>(players);
+                    List<User> nplayers = new ArrayList<>(players);
 
-                    newPlayers.add(user);
+                    nplayers.add(user);
 
                     //updating the field value
                     //if the update task is a success we complete the future with true
                     //otherwise we complete the future with false
-                    doc.getReference().update("players", newPlayers).addOnSuccessListener(aVoid ->{
+                    doc.getReference().update("players", nplayers).addOnSuccessListener(aVoid ->{
                         future.complete(true);
                     }).addOnFailureListener(e ->{
                                 future.complete(false);
