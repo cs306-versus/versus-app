@@ -63,6 +63,7 @@ public class TopGamesTest {
     @Before
     public void setUp() {
         Intents.init();
+        
     }
 
     @After
