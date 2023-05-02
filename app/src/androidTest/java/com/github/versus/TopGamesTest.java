@@ -32,6 +32,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.containsString;
 
 
 import android.graphics.Color;
@@ -92,17 +93,19 @@ public class TopGamesTest {
         onView(withId(R.id.arrow_left)).perform(click());
         onView(withId(R.id.arrow_left)).perform(click());
         onView(withId(R.id.arrow_left)).perform(click());
-        onView(withId(R.id.rectangle_22));
 
+        try {
+            Thread.sleep(10000); // wait for 10 seconds
+        } catch (InterruptedException e) {
+            // handle the exception
+        }
+        onView(withId(R.id.rectangle_22)).perform(ViewActions.scrollTo()).perform(click());
 
-
-    }
-    @Test
-    public void test2(){
-
-
-        onView(withId(R.id.rectangle_22));
-
+        try {
+            Thread.sleep(10000); // wait for 10 seconds
+        } catch (InterruptedException e) {
+            // handle the exception
+        }
 
 
     }
