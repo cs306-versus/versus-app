@@ -164,11 +164,11 @@ public class FsPostManager implements DataBaseManager<Post> {
         return compFuture;
     }
 
-    public Future<Boolean> joinPost(Post post, User user){
+    public Future<Boolean> joinPost(User user, String uid){
         //accessing the collection
         CollectionReference postsRef = db.collection(POSTCOLLECTION.toString());
         //finding the announcement with the right id
-        Task<DocumentSnapshot> task = postsRef.document(post.getUid()).get();
+        Task<DocumentSnapshot> task = postsRef.document(uid).get();
 
         // Wrap the Task in a CompletableFuture that returns the status of the post join
         CompletableFuture<Boolean> future = new CompletableFuture<>();
@@ -273,26 +273,9 @@ public class FsPostManager implements DataBaseManager<Post> {
                 future.complete(false);
             }else{
                 DocumentSnapshot doc = docs.get(0);
-                List<User> players = (List<User>)doc.get("players");
-
-                //getting the player limit
-                long playerLimit = (long)doc.get("playerLimit");
-
-                //check that the limit isn't reached yet
-                if(playerLimit <= players.size()){
-                    future.complete(false);
-                }else{
-                    List<User> nplayers = new ArrayList<User>(players);
-                    nplayers.add(user);
-
-                    doc.getReference().update("players", nplayers).addOnSuccessListener(aVoid ->{
-                        future.complete(true);
-                    }).addOnFailureListener(e ->{
-                                future.complete(false);
-                            }
-                    );
-                }
+                joinPost(user, doc.getId());
             }
+
         }).addOnFailureListener(e -> {
             future.complete(false);
         });
