@@ -57,6 +57,8 @@ public class SearchFragment extends Fragment implements
 
     protected AnnouncementAdapter aa;
     protected FsPostManager pm;
+    protected Boolean isCalledSportsFrag=false;
+    public String SearchTextSportsFrag="";
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -91,6 +93,10 @@ public class SearchFragment extends Fragment implements
         pdpd = new PostDatePickerDialog();
         pm = new FsPostManager(FirebaseFirestore.getInstance());
         searchBar = rootView.findViewById(R.id.search_posts);
+        if(isCalledSportsFrag){ searchBar.setText(SearchTextSportsFrag);
+        isCalledSportsFrag=false;
+
+        }
         searchBar.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -181,5 +187,9 @@ public class SearchFragment extends Fragment implements
         newPost.setDate(ts);
         pm.insert(newPost);
         loadPosts();
+    }
+    public void setSearchBarTextFromTradingSportsFrag(String text){
+         isCalledSportsFrag=true;
+         SearchTextSportsFrag=text;
     }
 }

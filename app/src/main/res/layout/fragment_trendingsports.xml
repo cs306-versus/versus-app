@@ -1,0 +1,227 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent" android:layout_height="wrap_content" >
+	<!-- 
+	/*
+	 *	This content is generated from the API File Info.
+	 *	(Alt+Shift+Ctrl+I).
+	 *
+	 *	@desc 		
+	 *	@file 		frame_2
+	 *	@date 		Sunday 23rd of April 2023 06:08:39 PM
+	 *	@title 		Page 1
+	 *	@author 	
+	 *	@keywords 	
+	 *	@generator 	Export Kit v1.3.figma
+	 *
+	 */
+	-->
+	<ScrollView android:id="@+id/frame_2" 
+		android:layout_width="wrap_content" 
+		android:layout_height="match_parent" >
+
+		<RelativeLayout android:id="@+id/content_container" 
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content" >
+
+
+
+			<RelativeLayout android:id="@+id/page_frame_2_ek1"
+				android:layout_marginTop="0dp"
+				android:layout_marginStart="0dp"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				>
+
+
+				<ImageView android:id="@+id/arrow_2"
+					android:src="@drawable/arrow_2"
+					android:contentDescription="arrow_2"
+					android:layout_marginStart="207dp"
+					android:layout_marginTop="200dp"
+					android:layout_width="35.13dp"
+					android:layout_height="0dp" />
+
+				<View   android:id="@+id/_bg__frame_2_ek2"
+					android:background="@drawable/_bg__frame_2_ek2_shape"
+					 android:layout_marginStart="0dp"
+					android:layout_marginTop="0dp"
+					android:layout_width="414dp"
+					android:layout_height="896dp" />
+
+
+				<RelativeLayout android:id="@+id/menu_1"
+					android:layout_marginTop="20dp"
+					android:layout_marginStart="353dp"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					>
+
+					<ImageView android:id="@+id/vector"
+						android:src="@drawable/vector"
+						android:contentDescription="vector"
+						 android:layout_marginStart="10dp"
+						android:layout_marginTop="0dp"
+						android:layout_width="34dp"
+						android:layout_height="5dp" />
+
+					<ImageView android:id="@+id/vector_ek1"
+						android:src="@drawable/vector_ek1"
+						android:contentDescription="vector_ek1"
+						 android:layout_marginStart="0dp"
+						android:layout_marginTop="11dp"
+						android:layout_width="44dp"
+						android:layout_height="5dp" />
+
+					<ImageView android:id="@+id/vector_ek2"
+						android:src="@drawable/vector_ek2"
+						android:contentDescription="vector_ek2"
+						 android:layout_marginStart="18dp"
+						android:layout_marginTop="22dp"
+						android:layout_width="26dp"
+						android:layout_height="5dp" />
+
+				</RelativeLayout>
+
+				<TextView android:id="@+id/search"
+					android:fontFamily="Inter"
+					android:textStyle="bold"
+					android:textSize="33sp"
+					android:textColor="@color/search_color"
+					android:layout_marginLeft="25dp"
+					android:layout_marginTop="99dp"
+					android:layout_width="360.5dp"
+					android:layout_height="143.5dp"
+					android:text="Our Top Trending Sports of April"
+					 />
+
+				<View   android:id="@+id/rectangle_1"
+					android:background="@drawable/rectangle_1_shape"
+					 android:layout_marginStart="0dp"
+					android:layout_marginTop="220dp"
+					android:layout_width="414dp"
+					android:layout_height="676dp" />
+
+				<View   android:id="@+id/rectangle_2"
+					android:background="@drawable/rectangle_2_shape"
+					 android:layout_marginStart="0dp"
+					android:layout_marginTop="251dp"
+					android:layout_width="414dp"
+					android:layout_height="645dp" />
+
+
+
+				<TextView android:id="@+id/sport_text"
+					android:fontFamily="Inter"
+					android:textStyle="bold"
+					android:textSize="32sp"
+					android:shadowRadius="4"
+					android:shadowColor="#000000"
+					android:shadowDx="0"
+					android:shadowDy="4"
+					android:textColor="@color/rectangle_1_color"
+					android:layout_marginLeft="140dp"
+					android:layout_marginTop="325dp"
+					android:layout_width="283dp"
+					android:layout_height="101dp"
+					android:text="Football"
+					 />
+
+				<TextView android:id="@+id/numberofgames"
+					android:fontFamily="Inter"
+					android:textStyle="bold"
+					android:textSize="24sp"
+					android:shadowRadius="4"
+					android:shadowColor="#000000"
+					android:shadowDx="0"
+					android:shadowDy="4"
+					android:textColor="@color/rectangle_1_color"
+					android:layout_marginLeft="58dp"
+					android:layout_marginTop="754dp"
+					android:layout_width="392dp"
+					android:layout_height="96dp"
+					android:text="10 games played in February !"
+					 />
+
+				<ImageView android:id="@+id/rectangle_22"
+					android:background="@drawable/image_border_selector"
+					android:src="@drawable/tennis_picture"
+
+					android:contentDescription="rectangle_22"
+					 android:layout_marginStart="0dp"
+					android:layout_marginTop="419dp"
+					android:layout_width="match_parent"
+					android:layout_height="317dp"
+					android:clickable="true"
+					android:paddingLeft="10dp"
+					android:paddingRight="10dp"
+
+					/>
+
+				<TextView android:id="@+id/see_related_posts"
+					android:fontFamily="Comic Neue"
+					android:textStyle="bold"
+					android:textSize="36sp"
+					android:textColor="@color/search_color"
+					android:layout_marginLeft="17dp"
+					android:layout_marginTop="674dp"
+					android:layout_width="377dp"
+					android:layout_height="171dp"
+					android:text="See Related Posts!"
+					 />
+				<ImageView android:id="@+id/medalbronze_champion_award_winner_olympic_icon_1"
+					android:src="@drawable/medal_bronze"
+					android:contentDescription="_8684654_medal_champion_award_winner_olympic_icon_1"
+					android:layout_marginStart="58dp"
+					android:layout_marginTop="317dp"
+					android:layout_width="48dp"
+					android:layout_height="48dp" />
+				<ImageView android:id="@+id/medalsilver_champion_award_winner_olympic_icon_1"
+					android:src="@drawable/medal_silver"
+					android:contentDescription="_8684654_medal_champion_award_winner_olympic_icon_1"
+					android:layout_marginStart="58dp"
+					android:layout_marginTop="317dp"
+					android:layout_width="48dp"
+					android:layout_height="48dp" />
+
+				<ImageView android:id="@+id/medalgold_champion_award_winner_olympic_icon_1"
+					android:src="@drawable/medal_gold"
+					android:contentDescription="_8684654_medal_champion_award_winner_olympic_icon_1"
+					 android:layout_marginStart="58dp"
+					android:layout_marginTop="317dp"
+					android:layout_width="48dp"
+					android:layout_height="48dp" />
+
+
+				<ImageView android:id="@+id/check_icon"
+					android:src="@drawable/_299110_check_sign_icon_1"
+					android:contentDescription="_299110_check_sign_icon_1"
+					 android:layout_marginStart="6dp"
+					android:layout_marginTop="747dp"
+					android:layout_width="38dp"
+					android:layout_height="38dp" />
+
+
+
+				<ImageView android:id="@+id/arrow_left"
+					android:src="@drawable/arrow_1"
+					android:contentDescription="_8684636_medal_champion_award_winner_olympic_icon_1"
+					 android:layout_marginStart="155dp"
+					android:layout_marginTop="390dp"
+					android:clickable="true"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content" />
+				<ImageView android:id="@+id/arrow_right"
+					android:src="@drawable/arrow_2"
+					android:clickable="true"
+					android:layout_marginStart="205dp"
+					android:layout_marginTop="391dp"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content" />
+
+
+
+			</RelativeLayout>
+		</RelativeLayout>
+
+	</ScrollView>
+</ScrollView>
