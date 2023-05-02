@@ -131,7 +131,7 @@ public class FsPostManagerTests {
 
         //joining the post
         String name = "hassan";
-        Future<Boolean> joinResult = postm.joinPost(post, new DummyUser(name));
+        Future<Boolean> joinResult = postm.joinPost(postName, new DummyUser(name));
         boolean joinSuccess = joinResult.get();
         assertTrue(joinSuccess);
 
