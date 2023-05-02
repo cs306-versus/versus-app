@@ -118,7 +118,7 @@ public class FsPostManagerTests {
         // Creating a test post
         String postName = "_test_1";
         Post post = new Post( postName, new Timestamp(2023, Month.AUGUST, 18, 11, 15, Timestamp.Meridiem.AM) ,
-                new Location("tirane", 0, 0), new ArrayList<>(), 15, Sport.FOOTBALL, new ArrayList<>(), "test");
+                new Location("tirane", 0, 0), new ArrayList<>(), 15, Sport.FOOTBALL, new ArrayList<>(), "");
 
         //inserting the post
         Future<Boolean> insertResult = postm.insert(post);

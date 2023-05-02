@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.ObjectCodec;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.versus.posts.Post;
+import com.github.versus.user.DummyUser;
 import com.github.versus.user.User;
 import com.google.android.gms.tasks.*;
 import com.google.firebase.firestore.CollectionReference;
@@ -253,7 +254,7 @@ public class FsPostManager implements DataBaseManager<Post> {
 
         return future;
     }
-    public Future<Boolean> joinPost(String postId, User user){
+    public Future<Boolean> joinPost(String postId, DummyUser user){
         //accessing the collection
         CollectionReference postsRef = db.collection(POSTCOLLECTION.toString());
         //finding the announcement with the right id
@@ -265,16 +266,24 @@ public class FsPostManager implements DataBaseManager<Post> {
 
         //we complete the future with false if the query failed
         //otherwise we try to update the value of the players field
-        task.addOnSuccessListener(res -> {
+        task.addOnSuccessListener(doc -> {
 
             //getting the documents corresponding to the post
-            List<DocumentSnapshot> docs = res.getDocuments();
+            List<DocumentSnapshot> docs = doc.getDocuments();
             if(docs.isEmpty()){
                 future.complete(false);
-            }else{
-                DocumentSnapshot doc = docs.get(0);
-                joinPost(user, doc.getId());
+            }else {
+                List<User> newPlayers = new ArrayList<>();
+                newPlayers.add(user);
+
+                docs.get(0).getReference().update("players", newPlayers).addOnSuccessListener(aVoid ->{
+                    future.complete(true);
+                }).addOnFailureListener(e ->{
+                            future.complete(false);
+                        }
+                );
             }
+
 
         }).addOnFailureListener(e -> {
             future.complete(false);
