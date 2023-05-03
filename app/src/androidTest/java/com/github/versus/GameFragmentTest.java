@@ -83,6 +83,8 @@ public class GameFragmentTest {
             Thread.sleep(10000); // wait for 1 second
         } catch (InterruptedException e) {
             e.printStackTrace();
+
+            
         }
          onData(anything()).inAdapterView(withId(R.id.list_view)).atPosition(0).perform(click());
         try {
