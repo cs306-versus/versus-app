@@ -61,7 +61,7 @@ public class OptionGetPlacesTest {
         Intents.release();
     }
 
-   /* @Test
+    @Test
     public void testDrawingPathWithPlaceSelected() throws InterruptedException {
         long waitingTime = 10000;
         ElapsedTimeIdlingResource idlingResourceFirst = new ElapsedTimeIdlingResource(waitingTime);
@@ -85,7 +85,7 @@ public class OptionGetPlacesTest {
         IdlingRegistry.getInstance().unregister(idlingResource2);
 
         IdlingRegistry.getInstance().unregister(idlingResourceFirst);
-    }*/
+    }
 
 
     /**

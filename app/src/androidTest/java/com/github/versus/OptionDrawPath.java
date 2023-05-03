@@ -61,7 +61,7 @@ public class OptionDrawPath {
         Intents.release();
     }
 
-    @Test
+   /* @Test
     public void testDrawingPathWithPlaceSelected() throws InterruptedException {
         long waitingTime = 10000;
         ElapsedTimeIdlingResource idlingResourceFirst = new OptionDrawPath.ElapsedTimeIdlingResource(waitingTime);
@@ -84,7 +84,7 @@ public class OptionDrawPath {
         IdlingRegistry.getInstance().unregister(idlingResource2);
 
         IdlingRegistry.getInstance().unregister(idlingResourceFirst);
-    }
+    }*/
 
     /**
      * ElapsedTimeIdlingResource is an implementation of the IdlingResource interface.

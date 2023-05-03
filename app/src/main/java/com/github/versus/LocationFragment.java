@@ -794,7 +794,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         protected void onPostExecute(List<LatLng> result) {
             if (result != null) {
                 drawPath(map, result);
-                showToast("Distance: " + distanceText);
+               // showToast("Distance: " + distanceText);
             } else {
                 if (errorMessage != null) {
                     showToast(errorMessage);
