@@ -786,7 +786,6 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                 errorMessage = "Error parsing the JSON response";
                 Log.e("FetchDirectionsTask", errorMessage, e);
             }
-
             return null;
         }
 
