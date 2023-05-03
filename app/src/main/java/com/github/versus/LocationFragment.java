@@ -704,10 +704,14 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         polylineOptions.color(Color.BLUE);
         map.addPolyline(polylineOptions);
     }
+
+
     private class FetchDirectionsTask extends AsyncTask<Void, Void, List<LatLng>> {
         private LatLng origin;
         private LatLng destination;
         private String errorMessage;
+        private double distanceValue;
+        private String distanceText;
 
         public FetchDirectionsTask(LatLng origin, LatLng destination) {
             this.origin = origin;
@@ -762,6 +766,9 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                         double endLat = endLocation.getDouble("lat");
                         double endLng = endLocation.getDouble("lng");
                         pathPoints.add(new LatLng(endLat, endLng));
+                        JSONObject distanceObject = leg.getJSONObject("distance");
+                        distanceText = distanceObject.getString("text");
+                        distanceValue = distanceObject.getDouble("value");
 
                         return pathPoints;
                     } else {
@@ -787,6 +794,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         protected void onPostExecute(List<LatLng> result) {
             if (result != null) {
                 drawPath(map, result);
+                showToast("Distance: " + distanceText);
             } else {
                 if (errorMessage != null) {
                     showToast(errorMessage);
