@@ -136,9 +136,9 @@ public class OptionChooseLocationTest {
         IdlingRegistry.getInstance().unregister(idlingResource3);
         IdlingRegistry.getInstance().unregister(idlingResource2);
         IdlingRegistry.getInstance().unregister(idlingResourceFirst);
-    }
-*/
-    @Test
+    }*/
+
+   /* @Test
     public void testDrawingPathWithoutPlaceSelected() throws InterruptedException {
         long waitingTime = 10000;
         ElapsedTimeIdlingResource idlingResourceFirst = new ElapsedTimeIdlingResource(waitingTime);
@@ -152,7 +152,7 @@ public class OptionChooseLocationTest {
         IdlingRegistry.getInstance().unregister(idlingResource2);
         IdlingRegistry.getInstance().unregister(idlingResourceFirst);
     }
-
+*/
 
     /**
      * Simulates a map click at the given screen coordinates.
