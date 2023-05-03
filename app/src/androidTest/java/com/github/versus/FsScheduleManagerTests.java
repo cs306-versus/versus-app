@@ -208,6 +208,7 @@ public class FsScheduleManagerTests {
 
         //getting the modified schedule from the db
         Schedule updatedSchedule = schedm.fetch(testSchedName).get();
+        
         assertTrue(updatedSchedule.getPosts().get(0).equals(testPost));
 
         //cleaning up
