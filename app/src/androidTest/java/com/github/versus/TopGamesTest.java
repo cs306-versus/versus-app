@@ -61,27 +61,25 @@ import com.github.versus.auth.AuthActivity;
 public class TopGamesTest {
     @Rule
     public ActivityScenarioRule<MainActivity> scenario = new ActivityScenarioRule<>(MainActivity.class);
-
-
+    @Before
+    public void setUp() {
+        Intents.init();
+    }
     @After
     public void tearDown() {
         Intents.release();
     }
-    @Before
-    public void testScheduleButtons2(){
-        Intents.init();
+
+
+
+    @Test
+    public void test1(){
         onView(withId(R.id.drawer_layout)).check(matches(DrawerMatchers.isClosed(GravityCompat.START))).perform(DrawerActions.open());
 
 
         onView(withId(R.id.drawer_layout)).check(matches(DrawerMatchers.isOpen(GravityCompat.START)));
         onView(withId(R.id.nav_trending_sports)).perform(click());
 
-    }
-
-
-    @Test
-    public void test1(){
-/*
         onView(withId(R.id.arrow_right)).perform(click());
         onView(withId(R.id.arrow_right)).perform(click());
 
@@ -107,7 +105,7 @@ public class TopGamesTest {
             // handle the exception
         }
 
-*/
+
     }
 
 
