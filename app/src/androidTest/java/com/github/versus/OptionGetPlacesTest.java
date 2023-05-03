@@ -78,13 +78,11 @@ public class OptionGetPlacesTest {
         ElapsedTimeIdlingResource idlingResource2 = new ElapsedTimeIdlingResource(waitingTime2);
         IdlingRegistry.getInstance().register(idlingResource2);
         onView(withText(placeName)).perform(click());
-        IdlingRegistry.getInstance().unregister(idlingResource2);
 
-        ElapsedTimeIdlingResource idlingResource3 = new ElapsedTimeIdlingResource(waitingTime2);
-        IdlingRegistry.getInstance().register(idlingResource3);
+
+
         onView(withText("Draw Path")).perform(click());
-        IdlingRegistry.getInstance().unregister(idlingResource3);
-
+        IdlingRegistry.getInstance().unregister(idlingResource2);
 
         IdlingRegistry.getInstance().unregister(idlingResourceFirst);
     }
