@@ -61,6 +61,35 @@ public class OptionGetPlacesTest {
         Intents.release();
     }
 
+    @Test
+    public void testDrawingPathWithPlaceSelected() throws InterruptedException {
+        long waitingTime = 10000;
+        ElapsedTimeIdlingResource idlingResourceFirst = new ElapsedTimeIdlingResource(waitingTime);
+        IdlingRegistry.getInstance().register(idlingResourceFirst);
+        String placeName = "GooglePlex Football";
+        Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
+        // Find the menu item by its ID and perform a click
+        onView(withText("Get Place")).perform(click());
+
+        onView(withId(R.id.edit_text_radius2)).perform(typeText("1500"));
+        closeSoftKeyboard();
+        onView(withText("Show Places")).inRoot(isDialog()).perform(click());
+        long waitingTime2 = 10000;
+        ElapsedTimeIdlingResource idlingResource2 = new ElapsedTimeIdlingResource(waitingTime2);
+        IdlingRegistry.getInstance().register(idlingResource2);
+        onView(withText(placeName)).perform(click());
+        IdlingRegistry.getInstance().unregister(idlingResource2);
+
+        ElapsedTimeIdlingResource idlingResource3 = new ElapsedTimeIdlingResource(waitingTime2);
+        IdlingRegistry.getInstance().register(idlingResource3);
+        onView(withText("Draw Path")).perform(click());
+        IdlingRegistry.getInstance().unregister(idlingResource3);
+
+
+        IdlingRegistry.getInstance().unregister(idlingResourceFirst);
+    }
+
+
     /**
      * Test for canceling the get places operation.
      * Ensures that canceling the operation results in the expected behavior.
@@ -116,33 +145,6 @@ public class OptionGetPlacesTest {
         IdlingRegistry.getInstance().unregister(idlingResourceFirst);
     }
 
-    @Test
-    public void testDrawingPathWithPlaceSelected() throws InterruptedException {
-        long waitingTime = 10000;
-        ElapsedTimeIdlingResource idlingResourceFirst = new ElapsedTimeIdlingResource(waitingTime);
-        IdlingRegistry.getInstance().register(idlingResourceFirst);
-        String placeName = "GooglePlex Football";
-        Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
-        // Find the menu item by its ID and perform a click
-        onView(withText("Get Place")).perform(click());
-
-        onView(withId(R.id.edit_text_radius2)).perform(typeText("1500"));
-        closeSoftKeyboard();
-        onView(withText("Show Places")).inRoot(isDialog()).perform(click());
-        long waitingTime2 = 10000;
-        ElapsedTimeIdlingResource idlingResource2 = new ElapsedTimeIdlingResource(waitingTime2);
-        IdlingRegistry.getInstance().register(idlingResource2);
-        onView(withText(placeName)).perform(click());
-        IdlingRegistry.getInstance().unregister(idlingResource2);
-
-        ElapsedTimeIdlingResource idlingResource3 = new ElapsedTimeIdlingResource(waitingTime2);
-        IdlingRegistry.getInstance().register(idlingResource3);
-        onView(withText("Draw Path")).perform(click());
-        IdlingRegistry.getInstance().unregister(idlingResource3);
-
-
-        IdlingRegistry.getInstance().unregister(idlingResourceFirst);
-    }
 
     /**
      * Test for the case when no radius is input.
