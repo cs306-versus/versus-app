@@ -5,13 +5,7 @@ import static org.junit.Assert.assertTrue;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.github.versus.db.FsChatManager;
-import com.github.versus.db.FsPostManager;
-import com.github.versus.db.FsScheduleManager;
-import com.github.versus.posts.Location;
-import com.github.versus.posts.Post;
 import com.github.versus.posts.Timestamp;
-import com.github.versus.schedule.Schedule;
-import com.github.versus.sports.Sport;
 import com.github.versus.user.DummyUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -19,13 +13,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.time.Month;
-import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeoutException;
 
-import chats.Chat;
-import chats.Message;
+import com.github.versus.chats.Chat;
+import com.github.versus.chats.Message;
 
 @RunWith(AndroidJUnit4.class)
 

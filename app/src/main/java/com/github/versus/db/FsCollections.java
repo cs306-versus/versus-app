@@ -1,7 +1,7 @@
 package com.github.versus.db;
 
 public enum FsCollections {
-    CHATS("chats"),LOCATIONS("locations"),SCHEDULES("schedules"), POSTS("posts"), TEST_POSTS("test_posts"), USERS("users");
+    CHATS("com/github/versus/chats"),LOCATIONS("locations"),SCHEDULES("schedules"), POSTS("posts"), TEST_POSTS("test_posts"), USERS("users");
 
     private final String name;
 

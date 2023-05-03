@@ -1,7 +1,6 @@
 package com.github.versus.db;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.versus.posts.Post;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -15,8 +14,8 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 
-import chats.Chat;
-import chats.Message;
+import com.github.versus.chats.Chat;
+import com.github.versus.chats.Message;
 
 public class FsChatManager implements DataBaseManager<Chat>{
     private final FirebaseFirestore db;
