@@ -14,10 +14,15 @@
         android:id="@+id/draw_path_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/custom_button_background"
+        android:textColor="@android:color/white"
+        android:text="Draw Path"
+        android:textSize="16sp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_margin="16dp"
-        android:text="Draw Path" />
+        android:layout_alignParentStart="true"
+        android:layout_margin="16dp" />
+
+
 
 
 
