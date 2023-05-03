@@ -1,5 +1,7 @@
 package com.github.versus.db;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.versus.posts.Post;
 import com.github.versus.user.User;
 import com.github.versus.user.VersusUser;
 import com.google.android.gms.tasks.Task;
@@ -7,9 +9,11 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
@@ -69,6 +73,48 @@ public class FsUserManager implements DataBaseManager<User> {
         task.addOnSuccessListener(result -> future.complete(true))
                 .addOnFailureListener(future::completeExceptionally)
                 .addOnCanceledListener(() -> future.cancel(true));
+        return future;
+    }
+
+
+    public Future<List<User>> fetchAll(String collectionName){
+        //accessing the collection
+        CollectionReference postsRef = db.collection(collectionName);
+        //task that gets all documents
+        Task<QuerySnapshot> task = postsRef.get();
+
+        // Wrap the Task in a CompletableFuture that returns the posts
+        CompletableFuture<List<User>> future = new CompletableFuture<>();
+
+        // Add a listener to the Task to handle the result
+        task.addOnSuccessListener(res -> {
+            //we get the query result
+            List<DocumentSnapshot> docs = res.getDocuments();
+            //transforming the query result into a list odf posts
+            List<User> users = new ArrayList<>();
+            for (DocumentSnapshot doc: docs
+            ) {
+                //converting the data we get into an actual post object
+                System.out.println(doc.get(FIRST_NAME_FIELD, String.class));
+                VersusUser.Builder builder = new VersusUser.Builder(doc.getId());
+                builder.setFirstName(doc.get(FIRST_NAME_FIELD, String.class))
+                        .setLastName(doc.get(LAST_NAME_FIELD, String.class))
+                        .setUserName(doc.get(USERNAME_FIELD, String.class))
+                        .setMail(doc.get(MAIL_FIELD, String.class))
+                        .setPhone(doc.get(PHONE_FIELD, String.class))
+                        // TODO HR : Fix the issue here,
+                        //  cannot deserialize field as was done before
+                        //.setRating(content.get(RATING_FIELD, int.class))
+                        .setCity(doc.get(CITY_FIELD, String.class));
+                //.setZipCode(content.get(ZIP_CODE_FIELD, int.class))
+                //.setPreferredSports(new ArrayList<>());
+                users.add(builder.build());
+            }
+            future.complete(users);
+
+        }).addOnFailureListener(res ->{
+            future.complete(null);
+        });
         return future;
     }
 
