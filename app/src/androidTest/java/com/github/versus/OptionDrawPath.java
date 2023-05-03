@@ -32,7 +32,7 @@ import org.junit.runner.RunWith;
  * Tests the behavior of the Get Places operation, including edge cases like no radius input or no places within the specified radius.
  */
 @RunWith(AndroidJUnit4.class)
-public class OptionGetPlacesTest {
+public class OptionDrawPath {
     // Declare activity rule and permission rule
     @Rule
     public ActivityScenarioRule<MainActivity> activityRule = new ActivityScenarioRule<>(MainActivity.class);
@@ -61,10 +61,10 @@ public class OptionGetPlacesTest {
         Intents.release();
     }
 
-   /* @Test
+    @Test
     public void testDrawingPathWithPlaceSelected() throws InterruptedException {
         long waitingTime = 10000;
-        ElapsedTimeIdlingResource idlingResourceFirst = new ElapsedTimeIdlingResource(waitingTime);
+        ElapsedTimeIdlingResource idlingResourceFirst = new OptionDrawPath.ElapsedTimeIdlingResource(waitingTime);
         IdlingRegistry.getInstance().register(idlingResourceFirst);
         String placeName = "GooglePlex Football";
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
@@ -75,106 +75,14 @@ public class OptionGetPlacesTest {
         closeSoftKeyboard();
         onView(withText("Show Places")).inRoot(isDialog()).perform(click());
         long waitingTime2 = 10000;
-        ElapsedTimeIdlingResource idlingResource2 = new ElapsedTimeIdlingResource(waitingTime2);
+        ElapsedTimeIdlingResource idlingResource2 = new OptionDrawPath.ElapsedTimeIdlingResource(waitingTime2);
         IdlingRegistry.getInstance().register(idlingResource2);
         onView(withText(placeName)).perform(click());
-
 
 
         onView(withText("Draw Path")).perform(click());
         IdlingRegistry.getInstance().unregister(idlingResource2);
 
-        IdlingRegistry.getInstance().unregister(idlingResourceFirst);
-    }*/
-
-
-    /**
-     * Test for canceling the get places operation.
-     * Ensures that canceling the operation results in the expected behavior.
-     *
-     * @throws InterruptedException if the test is interrupted
-     */
-    @Test
-    public void testCancel() throws InterruptedException {
-        long waitingTime = 10000;
-        ElapsedTimeIdlingResource idlingResourceFirst = new ElapsedTimeIdlingResource(waitingTime);
-        IdlingRegistry.getInstance().register(idlingResourceFirst);
-        String placeName = "GooglePlex Football";
-        Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
-        // Find the menu item by its ID and perform a click
-        onView(withText("Get Place")).perform(click());
-
-        onView(withId(R.id.edit_text_radius2)).perform(typeText("1500"));
-        closeSoftKeyboard();
-        onView(withText("Show Places")).inRoot(isDialog()).perform(click());
-
-        long waitingTime2 = 10000;
-        ElapsedTimeIdlingResource idlingResource2 = new ElapsedTimeIdlingResource(waitingTime2);
-        IdlingRegistry.getInstance().register(idlingResource2);
-        onView(withText("Cancel")).perform(click());
-        IdlingRegistry.getInstance().unregister(idlingResource2);
-        IdlingRegistry.getInstance().unregister(idlingResourceFirst);
-    }
-
-    /**
-     * Test for clicking on a specific location.
-     * Ensures that clicking on a location results in the expected behavior.
-     *
-     * @throws InterruptedException if the test is interrupted
-     */
-    @Test
-    public void testClickOnLocation() throws InterruptedException {
-        long waitingTime = 10000;
-        ElapsedTimeIdlingResource idlingResourceFirst = new ElapsedTimeIdlingResource(waitingTime);
-        IdlingRegistry.getInstance().register(idlingResourceFirst);
-        String placeName = "GooglePlex Football";
-        Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
-        // Find the menu item by its ID and perform a click
-        onView(withText("Get Place")).perform(click());
-
-        onView(withId(R.id.edit_text_radius2)).perform(typeText("1500"));
-        closeSoftKeyboard();
-        onView(withText("Show Places")).inRoot(isDialog()).perform(click());
-        long waitingTime2 = 10000;
-        ElapsedTimeIdlingResource idlingResource2 = new ElapsedTimeIdlingResource(waitingTime2);
-        IdlingRegistry.getInstance().register(idlingResource2);
-        onView(withText(placeName)).perform(click());
-        IdlingRegistry.getInstance().unregister(idlingResource2);
-        IdlingRegistry.getInstance().unregister(idlingResourceFirst);
-    }
-
-
-    /**
-     * Test for the case when no radius is input.
-     * Ensures that the application handles the situation when no radius is provided.
-     *
-     * @throws InterruptedException if the test is interrupted
-     */
-
-
-    /**
-     * Test for the case when there are no places within the specified radius.
-     * Ensures that the application handles the situation when no places are found within the specified radius.
-     *
-     * @throws InterruptedException if the test is interrupted
-     */
-    @Test
-    public void testIfNoPlacesWithinRadius() throws InterruptedException {
-        long waitingTime = 10000;
-        ElapsedTimeIdlingResource idlingResourceFirst = new ElapsedTimeIdlingResource(waitingTime);
-        IdlingRegistry.getInstance().register(idlingResourceFirst);
-        Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
-        // Find the menu item by its ID and perform a click
-        onView(withText("Get Place")).perform(click());
-
-        onView(withId(R.id.edit_text_radius2)).perform(typeText("100"));
-        closeSoftKeyboard();
-        onView(withText("Show Places")).inRoot(isDialog()).perform(click());
-        long waitingTime2 = 10000;
-        ElapsedTimeIdlingResource idlingResource2 = new ElapsedTimeIdlingResource(waitingTime2);
-        IdlingRegistry.getInstance().register(idlingResource2);
-
-        IdlingRegistry.getInstance().unregister(idlingResource2);
         IdlingRegistry.getInstance().unregister(idlingResourceFirst);
     }
 
@@ -205,7 +113,7 @@ public class OptionGetPlacesTest {
          */
         @Override
         public String getName() {
-            return ElapsedTimeIdlingResource.class.getName() + ":" + waitingTime;
+            return OptionGetPlacesTest.ElapsedTimeIdlingResource.class.getName() + ":" + waitingTime;
         }
 
         /**
@@ -234,5 +142,3 @@ public class OptionGetPlacesTest {
         }
     }
 }
-
-
