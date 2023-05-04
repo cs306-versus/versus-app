@@ -49,7 +49,7 @@ public class UserConverter {
                 .collect(Collectors.joining("[u]"));
     }
 
-    public static List<User> convertStringToUserList(String usersString) {
+    public static List<User> convertBackListOfUsers(String usersString) {
         String[] userStrings = usersString.split("\\[u\\]");
         List<User> userList = new ArrayList<>();
         for (String userString : userStrings) {

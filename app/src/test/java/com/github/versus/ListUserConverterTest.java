@@ -16,7 +16,7 @@ public class ListUserConverterTest {
 
     private static List<User> users = buildTestUsers();
 
-    //private static User reverted= UserConverter.convertBackUser(strUser);
+    private static List<User> reverted= UserConverter.convertBackListOfUsers(strUsers);
 
     private static List<User> buildTestUsers() {
         List<Sport> preferredSports1= Arrays.asList(Sport.MARTIALARTS,Sport.CLIMBING,Sport.CRICKET,
@@ -73,7 +73,52 @@ public class ListUserConverterTest {
         assertTrue(UserConverter.convertListOfUsers(users).equals(strUsers));
     }
 
+    @Test
+    public void convertBackListUsersYieldsCorrectUID(){
+        boolean uid0=(users.get(0).getUID().equals(reverted.get(0).getUID()));
+        boolean uid1=(users.get(1).getUID().equals(reverted.get(1).getUID()));
+        boolean uid2=(users.get(2).getUID().equals(reverted.get(2).getUID()));
+        assertTrue(uid0 && uid1 && uid2);
+    }
 
+    @Test
+    public void convertBackListUsersYieldsCorrectFirstName(){
+        boolean u0=(users.get(0).getFirstName().equals(reverted.get(0).getFirstName()));
+        boolean u1=(users.get(1).getFirstName().equals(reverted.get(1).getFirstName()));
+        boolean u2=(users.get(2).getFirstName().equals(reverted.get(2).getFirstName()));
+        assertTrue(u0 && u1 && u2);
+    }
+    @Test
+    public void convertBackListUsersYieldsCorrectLastName(){
+        boolean u0=(users.get(0).getLastName().equals(reverted.get(0).getLastName()));
+        boolean u1=(users.get(1).getLastName().equals(reverted.get(1).getLastName()));
+        boolean u2=(users.get(2).getLastName().equals(reverted.get(2).getLastName()));
+        assertTrue(u0 && u1 && u2);
+    }
+
+    @Test
+    public void convertBackListUsersYieldsCorrectMail(){
+        boolean u0=(users.get(0).getMail().equals(reverted.get(0).getMail()));
+        boolean u1=(users.get(1).getMail().equals(reverted.get(1).getMail()));
+        boolean u2=(users.get(2).getMail().equals(reverted.get(2).getMail()));
+        assertTrue(u0 && u1 && u2);
+    }
+
+    @Test
+    public void convertBackListUserYieldsCorrectPhone(){
+        boolean u0=(users.get(0).getPhone().equals(reverted.get(0).getPhone()));
+        boolean u1=(users.get(1).getPhone().equals(reverted.get(1).getPhone()));
+        boolean u2=(users.get(2).getPhone().equals(reverted.get(2).getPhone()));
+        assertTrue(u0 && u1 && u2);
+    }
+
+    @Test
+    public void convertBackListUserYieldsCorrectRating(){
+        boolean u0=(users.get(0).getRating()==(reverted.get(0).getRating()));
+        boolean u1=(users.get(1).getRating()==(reverted.get(1).getRating()));
+        boolean u2=(users.get(2).getRating()==(reverted.get(2).getRating()));
+        assertTrue(u0 && u1 && u2);
+    }
 
 
 }
