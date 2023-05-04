@@ -8,23 +8,13 @@
 
     <TextView
         android:id="@+id/user_fn"
-        android:layout_width="83dp"
+        android:layout_width="139dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="18dp"
+        android:layout_marginStart="45dp"
         android:layout_marginTop="30dp"
         android:text="Title" />
-
-    <TextView
-        android:id="@+id/user_ln"
-        android:layout_width="81dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="21dp"
-        android:layout_marginTop="30dp"
-        android:layout_toEndOf="@+id/user_fn"
-        android:text="UNIL-sport" />
 
     <Button
         android:id="@+id/view_profile"
@@ -50,13 +40,13 @@
 
     <TextView
         android:id="@+id/user_un"
-        android:layout_width="112dp"
+        android:layout_width="142dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="48dp"
-        android:layout_marginEnd="74dp"
-        android:layout_marginBottom="42dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginEnd="47dp"
+        android:layout_marginBottom="44dp"
         android:layout_toStartOf="@+id/view_profile"
         android:text="TextView" />
 </RelativeLayout>

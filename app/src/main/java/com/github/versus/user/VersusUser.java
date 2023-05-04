@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.github.versus.sports.Sport;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -18,7 +19,7 @@ import java.util.Objects;
  * @since SPRINT 2
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public final class VersusUser implements User {
+public final class VersusUser implements User, Serializable {
 
     private final String uid;
     private final String firstName;

@@ -60,7 +60,6 @@ public class SearchFriendsFragment extends Fragment{
         View rootView = inflater.inflate(R.layout.search_users_fragment,container,false);
         assignViews(rootView);
 
-
         FsUserManager db = null;
         if(FirebaseFirestore.getInstance() != null && FirebaseAuth.getInstance() != null && FirebaseAuth.getInstance().getUid() != null) {
             db = new FsUserManager(FirebaseFirestore.getInstance());
@@ -85,7 +84,7 @@ public class SearchFriendsFragment extends Fragment{
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         pm = new FsUserManager(FirebaseFirestore.getInstance());
 
-        aa = new UserAnnouncementAdapter(displayUsers, user, pm);
+        aa = new UserAnnouncementAdapter(displayUsers, user, pm, getContext());
         recyclerView.setLayoutManager(llm);
         recyclerView.setAdapter(aa);
 
