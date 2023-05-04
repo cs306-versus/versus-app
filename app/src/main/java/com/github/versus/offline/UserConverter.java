@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
 
 public class UserConverter {
     public static String convertUser(User user) {
-        String sportsString= SportConverter.convertListOfSports(user.getPreferredSports());
         return String.format(Locale.ENGLISH,"%s|%s|%s|%s|%s|%s|%d|%s|%d|%s",
                 user.getUID(), user.getFirstName(), user.getLastName(),
                 user.getUserName(), user.getMail(), user.getPhone(),
