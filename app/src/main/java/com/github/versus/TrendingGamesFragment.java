@@ -96,6 +96,7 @@ public class TrendingGamesFragment extends Fragment {
                 } else if (currentPositionInRating == 2) {
                     silver_medal.setVisibility(View.VISIBLE);
                     bronze_medal.setVisibility(View.INVISIBLE);
+                    
 
                 } else if (currentPositionInRating == 3) {
                     bronze_medal.setVisibility(View.VISIBLE);
