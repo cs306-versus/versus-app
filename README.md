@@ -5,6 +5,7 @@
     <a href="https://codeclimate.com/github/cs306-versus/versus-app/maintainability"><img src="https://api.codeclimate.com/v1/badges/b5faf1701dd0bafea7c2/maintainability"/></a>
     <a href="https://codeclimate.com/github/cs306-versus/versus-app/test_coverage"><img src="https://api.codeclimate.com/v1/badges/b5faf1701dd0bafea7c2/test_coverage"/></a>
 </div>
+
 ## About the Project
 
 The developers of the project are :
