@@ -104,8 +104,15 @@ public class ScheduleFragment extends Fragment {
 
                     }).collect(Collectors.toList());
 
+                    //Dummy List Of players waiting to connect this to the concept of user in the DB
+                    List<PlayerToBeRated> fakeList = new ArrayList<>();
+                    fakeList.add(new PlayerToBeRated(true,"Abdess_piquant","4"));
+                    fakeList.add(new PlayerToBeRated(true,"Aymane_lam","5"));
+                    fakeList.add(new PlayerToBeRated(true,"Mernissi_Adam","4"));
+                    fakeList.add(new PlayerToBeRated(true,"Si-Ziazi","5"));
 
-                    GameFragment gameFragment = new GameFragment(p.getTitle(),sportText.getText().toString(),locationText.getText().toString(),date.getText().toString(),p.getPlayerLimit(),listPlayers);
+                   // Create the new GameFragment  and transit to this new fragment
+                    GameFragment gameFragment = new GameFragment(p.getTitle(),sportText.getText().toString(),locationText.getText().toString(),date.getText().toString(),p.getPlayerLimit(),fakeList);
                     fragmentTransaction.replace(R.id.fragment_container, gameFragment);
                     fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();

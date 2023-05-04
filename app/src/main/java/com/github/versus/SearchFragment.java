@@ -62,6 +62,8 @@ public class SearchFragment extends Fragment implements
 
     protected AnnouncementAdapter aa;
     protected FsPostManager pm;
+    protected Boolean isCalledSportsFrag=false;
+    public String SearchTextSportsFrag="";
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -108,6 +110,10 @@ public class SearchFragment extends Fragment implements
         mpdf = new MaxPlayerDialogFragment();
         pdpd = new PostDatePickerDialog();
         searchBar = rootView.findViewById(R.id.search_posts);
+        if(isCalledSportsFrag){ searchBar.setText(SearchTextSportsFrag);
+        isCalledSportsFrag=false;
+
+        }
         searchBar.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
@@ -197,5 +203,13 @@ public class SearchFragment extends Fragment implements
         newPost.setPlayers(users);
         pm.insert(newPost);
         loadPosts();
+    }
+    /*
+    * This method   takes as input a String that will be used to filter the posts , this method is only called
+    * from the TopGamesFragment
+    * */
+    public void setSearchBarTextFromTradingSportsFrag(String text){
+         isCalledSportsFrag=true;
+         SearchTextSportsFrag=text;
     }
 }
