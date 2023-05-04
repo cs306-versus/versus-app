@@ -50,7 +50,8 @@ public class SportConverter {
      * Converts a String to a list of sports
      * @param sportsString
      * @return
-     * The string representation of the sport.
+     * Corresponding list of sports that was encoded in the string
+     *
      */
     public static List<Sport> convertBackToSports(String sportsString){
         List<Sport> sports = new ArrayList<>();
