@@ -4,6 +4,7 @@ import com.github.versus.sports.Sport;
 import com.github.versus.user.User;
 import com.github.versus.user.VersusUser;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
@@ -42,5 +43,22 @@ public class UserConverter {
         builder.setPreferredSports(preferredSports);
         return builder.build();
     }
+    public static String convertListOfUsers(List<User> userList) {
+        return userList.stream()
+                .map(UserConverter::convertUser)
+                .collect(Collectors.joining("[u]"));
+    }
+
+    public static List<User> convertStringToUserList(String usersString) {
+        String[] userStrings = usersString.split("\\[u\\]");
+        List<User> userList = new ArrayList<>();
+        for (String userString : userStrings) {
+            User user = convertBackUser(userString);
+            userList.add(user);
+        }
+        return userList;
+    }
+
+
 
 }

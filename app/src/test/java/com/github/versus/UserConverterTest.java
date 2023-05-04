@@ -106,6 +106,10 @@ public class UserConverterTest {
     public void convertBackEmptyStringFails(){
         assertThrows(Exception.class,()->UserConverter.convertBackUser(""));
     }
+    @Test
+    public void convertListOfUsersWorksWithOneListElement(){
+        assertTrue(UserConverter.convertListOfUsers(Arrays.asList(user)).equals(strUser));
+    }
 
 
 
