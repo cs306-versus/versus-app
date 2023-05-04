@@ -40,7 +40,10 @@ class ChatsActivity : AppCompatActivity() {
 
         userRecyclerView.adapter = adapter
 
+        userList.add(VersusUser.Builder("gchasdvhs").setFirstName("Abdess").setLastName("Derouich").build())
+        userList.add(VersusUser.Builder("nibbisbvfd").setFirstName("Aymane").setLastName("Lamyaghri").build())
 
+/*
         // Add a listener to the "user" collection
         mDbRef.addSnapshotListener { snapshot: QuerySnapshot?, error: FirebaseFirestoreException? ->
             if (error != null) {
@@ -60,6 +63,10 @@ class ChatsActivity : AppCompatActivity() {
             adapter.notifyDataSetChanged()
         }
 
+ */
+
+
     }
+
 
 }
