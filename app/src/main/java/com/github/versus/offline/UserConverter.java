@@ -11,6 +11,12 @@ import java.util.Locale;
 import java.util.stream.Collectors;
 
 public class UserConverter {
+    /**
+     * Converts a user to a string
+     * @param user
+     * @return
+     * The string encoding of a user
+     */
     public static String convertUser(User user) {
         return String.format(Locale.ENGLISH,"%s|%s|%s|%s|%s|%s|%d|%s|%d|%s",
                 user.getUID(), user.getFirstName(), user.getLastName(),
@@ -19,6 +25,13 @@ public class UserConverter {
                 SportConverter.convertListOfSports(user.getPreferredSports()));
 
     }
+
+    /**
+     * Converts back a string to a user
+     * @param userString
+     * @return
+     * The User matching the string
+     */
     public static User convertBackUser(String userString) {
         String[] tokens = userString.split("\\|");
         String uid = tokens[0];
@@ -43,12 +56,25 @@ public class UserConverter {
         builder.setPreferredSports(preferredSports);
         return builder.build();
     }
+
+    /**
+     * Converts a list of users to string
+     * @param userList
+     * @return
+     * The string encoding of the list of users
+     */
     public static String convertListOfUsers(List<User> userList) {
         return userList.stream()
                 .map(UserConverter::convertUser)
                 .collect(Collectors.joining("[u]"));
     }
 
+    /**
+     * Converts back a string to a list of users
+     * @param usersString
+     * @return
+     * The list of users matching the string
+     */
     public static List<User> convertBackListOfUsers(String usersString) {
         String[] userStrings = usersString.split("\\[u\\]");
         List<User> userList = new ArrayList<>();
