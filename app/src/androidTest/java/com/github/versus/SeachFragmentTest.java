@@ -28,7 +28,7 @@ import org.junit.Test;
 import java.util.regex.Matcher;
 
 public class SeachFragmentTest {
-    /*
+
     @Rule
     public ActivityScenarioRule<MainActivity> scenario = new ActivityScenarioRule<>(MainActivity.class);
     @Before
@@ -83,5 +83,5 @@ public class SeachFragmentTest {
         onView((withText("Football"))).check(matches(isDisplayed()));
     }
 
-*/
+
 }
