@@ -4,20 +4,17 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
-import com.github.versus.offline.CachedPost;
 import com.github.versus.offline.UserConverter;
 import com.github.versus.sports.Sport;
 import com.github.versus.user.User;
 import com.github.versus.user.VersusUser;
 
-import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class UserConverterTest {
+public class SingleUserConverterTest {
    private static String strUser= buildTestString();
 
    private static User user = buildTestUser();
@@ -105,10 +102,6 @@ public class UserConverterTest {
     @Test
     public void convertBackEmptyStringFails(){
         assertThrows(Exception.class,()->UserConverter.convertBackUser(""));
-    }
-    @Test
-    public void convertListOfUsersWorksWithOneListElement(){
-        assertTrue(UserConverter.convertListOfUsers(Arrays.asList(user)).equals(strUser));
     }
 
 
