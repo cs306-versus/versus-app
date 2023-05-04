@@ -3,7 +3,6 @@ package com.github.versus.friends;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,12 +10,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.versus.R;
 import com.github.versus.db.FsUserManager;
-import com.github.versus.posts.Post;
 import com.github.versus.user.User;
 import com.github.versus.user.VersusUser;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class UserAnnouncementAdapter extends RecyclerView.Adapter<UserAnnouncementAdapter.ViewHolder> {
     private List<User> users;
