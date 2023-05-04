@@ -20,10 +20,8 @@ public class ListUserConverterTest {
 
     private static List<User> buildTestUsers() {
         List<Sport> preferredSports1= Arrays.asList(Sport.MARTIALARTS,Sport.CLIMBING,Sport.CRICKET,
-                Sport.JUDO,Sport.GOLF, Sport.SURFING,Sport.WRESTLING);
-
+                                                    Sport.JUDO,Sport.GOLF, Sport.SURFING,Sport.WRESTLING);
         List<Sport> preferredSports2= Arrays.asList(Sport.BOXING);
-
         List<Sport> preferredSports3= Arrays.asList(Sport.FOOTBALL,Sport.BASKETBALL);
 
         VersusUser.Builder builder ;
