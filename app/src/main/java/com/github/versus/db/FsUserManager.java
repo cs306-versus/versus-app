@@ -95,17 +95,7 @@ public class FsUserManager implements DataBaseManager<User> {
             for (DocumentSnapshot doc: docs
             ) {
                 //converting the data we get into an actual post object
-                System.out.println(doc.get(FIRST_NAME_FIELD, String.class));
-                VersusUser.Builder builder = new VersusUser.Builder(doc.getId());
-                builder.setFirstName(doc.get(FIRST_NAME_FIELD, String.class))
-                        .setLastName(doc.get(LAST_NAME_FIELD, String.class))
-                        .setUserName(doc.get(USERNAME_FIELD, String.class))
-                        .setMail(doc.get(MAIL_FIELD, String.class))
-                        .setPhone(doc.get(PHONE_FIELD, String.class))
-                        // TODO HR : Fix the issue here,
-                        //  cannot deserialize field as was done before
-                        //.setRating(content.get(RATING_FIELD, int.class))
-                        .setCity(doc.get(CITY_FIELD, String.class));
+                VersusUser.Builder builder = build(doc);
                 //.setZipCode(content.get(ZIP_CODE_FIELD, int.class))
                 //.setPreferredSports(new ArrayList<>());
                 users.add(builder.build());
@@ -118,24 +108,26 @@ public class FsUserManager implements DataBaseManager<User> {
         return future;
     }
 
+    private VersusUser.Builder build(DocumentSnapshot doc){
+        VersusUser.Builder builder = new VersusUser.Builder(doc.getId());
+        return builder.setFirstName(doc.get(FIRST_NAME_FIELD, String.class))
+                .setLastName(doc.get(LAST_NAME_FIELD, String.class))
+                .setUserName(doc.get(USERNAME_FIELD, String.class))
+                .setMail(doc.get(MAIL_FIELD, String.class))
+                .setPhone(doc.get(PHONE_FIELD, String.class))
+                // TODO HR : Fix the issue here,
+                //  cannot deserialize field as was done before
+                //.setRating(content.get(RATING_FIELD, int.class))
+                .setCity(doc.get(CITY_FIELD, String.class));
+    }
+
     @Override
     public Future<User> fetch(String uid) {
         CollectionReference collection = db.collection(USERS_COLLECTION_ID);
         CompletableFuture<User> future = new CompletableFuture<>();
         Task<DocumentSnapshot> doc = collection.document(uid).get();
         doc.addOnSuccessListener(content -> {
-            VersusUser.Builder builder = new VersusUser.Builder(uid);
-            builder.setFirstName(content.get(FIRST_NAME_FIELD, String.class))
-                    .setLastName(content.get(LAST_NAME_FIELD, String.class))
-                    .setUserName(content.get(USERNAME_FIELD, String.class))
-                    .setMail(content.get(MAIL_FIELD, String.class))
-                    .setPhone(content.get(PHONE_FIELD, String.class))
-                    // TODO HR : Fix the issue here,
-                    //  cannot deserialize field as was done before
-                    //.setRating(content.get(RATING_FIELD, int.class))
-                    .setCity(content.get(CITY_FIELD, String.class));
-                    //.setZipCode(content.get(ZIP_CODE_FIELD, int.class))
-                    //.setPreferredSports(new ArrayList<>());
+            VersusUser.Builder builder = build(content);
             future.complete(builder.build());
         })
         .addOnFailureListener(failure -> {

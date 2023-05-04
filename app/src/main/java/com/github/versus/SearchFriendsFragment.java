@@ -1,13 +1,11 @@
 package com.github.versus;
 
-import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
@@ -17,24 +15,13 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.github.versus.announcements.AnnouncementAdapter;
-import com.github.versus.announcements.ChoosePostSportDialogFragment;
-import com.github.versus.announcements.CreatePostTitleDialogFragment;
-import com.github.versus.announcements.MaxPlayerDialogFragment;
-import com.github.versus.announcements.PostDatePickerDialog;
-import com.github.versus.db.FsPostManager;
 import com.github.versus.db.FsUserManager;
 import com.github.versus.friends.UserAnnouncementAdapter;
-import com.github.versus.posts.Location;
-import com.github.versus.posts.Post;
-import com.github.versus.posts.Timestamp;
-import com.github.versus.sports.Sport;
 import com.github.versus.user.User;
 import com.github.versus.user.VersusUser;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -61,14 +48,13 @@ public class SearchFriendsFragment extends Fragment{
         assignViews(rootView);
 
         FsUserManager db = null;
-        if(FirebaseFirestore.getInstance() != null && FirebaseAuth.getInstance() != null && FirebaseAuth.getInstance().getUid() != null) {
-            db = new FsUserManager(FirebaseFirestore.getInstance());
-            ((CompletableFuture<User>)db.fetch(FirebaseAuth.getInstance().getUid()))
-                    .thenAccept(this::setUser);
+        if(FirebaseAuth.getInstance() != null && FirebaseFirestore.getInstance() != null && FirebaseAuth.getInstance().getUid() != null) {
             user = new VersusUser.Builder(FirebaseAuth.getInstance().getUid()).build();
+            db = new FsUserManager(FirebaseFirestore.getInstance());
+            ((CompletableFuture<User>)db.fetch(FirebaseAuth.getInstance().getUid())).thenAccept(this::setUser);
         }
 
-        loadPosts();
+        loadUsers();
 
 
 
@@ -94,7 +80,7 @@ public class SearchFriendsFragment extends Fragment{
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                filterPosts();
+                filterUsers();
             }
             @Override
             public void afterTextChanged(Editable editable) {}
@@ -112,17 +98,17 @@ public class SearchFriendsFragment extends Fragment{
 
 
 
-    protected void loadPosts(){
+    protected void loadUsers(){
         CompletableFuture<List<User>> usersFuture = (CompletableFuture<List<User>>) pm.fetchAll("users");
         usersFuture.thenApply(newUsers -> {
             users.clear();
             users.addAll(newUsers);
-            filterPosts();
+            filterUsers();
             return users;
         });
     }
 
-    protected void filterPosts(){
+    protected void filterUsers(){
         filter = searchBar.getText().toString();
         displayUsers.clear();
         if(filter.length() == 0){
@@ -143,7 +129,7 @@ public class SearchFriendsFragment extends Fragment{
 
     protected void clearFilter(){
         searchBar.setText("");
-        filterPosts();
+        filterUsers();
     }
 
 
