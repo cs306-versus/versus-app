@@ -99,8 +99,7 @@ public class SearchFriendsFragment extends Fragment{
 
 
     protected void loadUsers(){
-        CompletableFuture<List<User>> usersFuture = (CompletableFuture<List<User>>) pm.fetchAll("users");
-        usersFuture.thenApply(newUsers -> {
+        ((CompletableFuture<List<User>>) pm.fetchAll("users")).thenApply(newUsers -> {
             users.clear();
             users.addAll(newUsers);
             filterUsers();
