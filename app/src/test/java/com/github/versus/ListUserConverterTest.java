@@ -6,6 +6,8 @@ import com.github.versus.user.User;
 import com.github.versus.user.VersusUser;
 
 import org.junit.Test;
+
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
@@ -103,7 +105,7 @@ public class ListUserConverterTest {
     }
 
     @Test
-    public void convertBackListUserYieldsCorrectPhone(){
+    public void convertBackListUsersYieldsCorrectPhone(){
         boolean u0=(users.get(0).getPhone().equals(reverted.get(0).getPhone()));
         boolean u1=(users.get(1).getPhone().equals(reverted.get(1).getPhone()));
         boolean u2=(users.get(2).getPhone().equals(reverted.get(2).getPhone()));
@@ -111,12 +113,38 @@ public class ListUserConverterTest {
     }
 
     @Test
-    public void convertBackListUserYieldsCorrectRating(){
+    public void convertBackListUsersYieldsCorrectRating(){
         boolean u0=(users.get(0).getRating()==(reverted.get(0).getRating()));
         boolean u1=(users.get(1).getRating()==(reverted.get(1).getRating()));
         boolean u2=(users.get(2).getRating()==(reverted.get(2).getRating()));
         assertTrue(u0 && u1 && u2);
     }
 
+    @Test
+    public void convertBackListUsersYieldsCorrectCity(){
+        boolean u0=(users.get(0).getCity().equals(reverted.get(0).getCity()));
+        boolean u1=(users.get(1).getCity().equals(reverted.get(1).getCity()));
+        boolean u2=(users.get(2).getCity().equals(reverted.get(2).getCity()));
+        assertTrue(u0 && u1 && u2);
+    }
+    @Test
+    public void convertBackListUsersYieldsCorrectZIP(){
+        boolean u0=(users.get(0).getZipCode()==(reverted.get(0).getZipCode()));
+        boolean u1=(users.get(1).getZipCode()==(reverted.get(1).getZipCode()));
+        boolean u2=(users.get(2).getZipCode()==(reverted.get(2).getZipCode()));
+        assertTrue(u0 && u1 && u2);
+    }
+    @Test
+    public void convertBackListUsersYieldsCorrectPreferredSports(){
+        boolean u0=(users.get(0).getPreferredSports().equals(reverted.get(0).getPreferredSports()));
+        boolean u1=(users.get(1).getPreferredSports().equals(reverted.get(1).getPreferredSports()));
+        boolean u2=(users.get(2).getPreferredSports().equals(reverted.get(2).getPreferredSports()));
+        assertTrue(u0 && u1 && u2);
+    }
 
+
+    @Test
+    public void convertBackListUsersFailsOnEmptyString(){
+        assertThrows(Exception.class,()-> UserConverter.convertBackListOfUsers(""));
+    }
 }
