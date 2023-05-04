@@ -41,7 +41,7 @@ public class UserConverter {
         builder.setCity(city);
         builder.setZipCode(zipCode);
         builder.setPreferredSports(preferredSports);
-        return new VersusUser(builder);
+        return builder.build();
     }
 
 }
