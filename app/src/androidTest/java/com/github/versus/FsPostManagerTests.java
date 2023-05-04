@@ -161,6 +161,7 @@ public class FsPostManagerTests {
         //inserting the post
         Future<Boolean> insertResult = postm.insert(post);
 
+
         // Wait for the insert operation to complete
         boolean insertSuccess = insertResult.get();
 
