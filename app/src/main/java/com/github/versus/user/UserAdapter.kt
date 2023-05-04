@@ -12,17 +12,13 @@ class UserAdapter(val context : Context, val userList : ArrayList<VersusUser>):
         RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
 
 
-
-
-
-
-
     class UserViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
         val textName = itemView.findViewById<TextView>(R.id.txt_name)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
         val view : View = LayoutInflater.from(context).inflate(R.layout.user_layout, parent, false)
+        return UserViewHolder(view)
     }
 
     override fun getItemCount(): Int {
@@ -31,8 +27,7 @@ class UserAdapter(val context : Context, val userList : ArrayList<VersusUser>):
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
         val currentUser = userList[position]
-        holder.textName.text = currentUser.userName
-
+        holder.textName.text = currentUser.firstName + currentUser.lastName
     }
 }
 

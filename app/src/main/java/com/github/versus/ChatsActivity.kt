@@ -26,7 +26,7 @@ class ChatsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.main_chat)
 
         mAuth = FirebaseAuth.getInstance()
         mDbRef = FirebaseFirestore.getInstance().collection("user")
@@ -34,7 +34,7 @@ class ChatsActivity : AppCompatActivity() {
         userList = ArrayList()
         adapter = UserAdapter(this, userList)
 
-        userRecyclerView = findViewById(R.id.userRecyclerView)
+        userRecyclerView = findViewById(R.id.recyclerView)
 
         userRecyclerView.layoutManager = LinearLayoutManager(this)
 
@@ -57,16 +57,9 @@ class ChatsActivity : AppCompatActivity() {
                 val currentUser = document.toObject(VersusUser::class.java)
                 userList.add(currentUser!!)
             }
+            adapter.notifyDataSetChanged()
         }
 
-
-
     }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-
-        return super.onCreateOptionsMenu(menu)
-    }
-
 
 }

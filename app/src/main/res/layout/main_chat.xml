@@ -1,84 +1,18 @@
-<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent" android:layout_height="wrap_content" >
-	<!-- 
-	/*
-	 *	This content is generated from the API File Info.
-	 *	(Alt+Shift+Ctrl+I).
-	 *
-	 *	@desc 		
-	 *	@file 		main_chat
-	 *	@date 		Monday 01st of May 2023 05:23:03 PM
-	 *	@title 		export page 
-	 *	@author 	
-	 *	@keywords 	
-	 *	@generator 	Export Kit v1.3.figma
-	 *
-	 */
-	-->
-	<ScrollView android:id="@+id/main_chat"
-		android:layout_width="wrap_content" 
-		android:layout_height="match_parent" >
-
-		<RelativeLayout android:id="@+id/content_container" 
-			android:layout_width="wrap_content" 
-			android:layout_height="wrap_content" >
-
-			<RelativeLayout android:id="@+id/page_main_chat_ek1"
-				android:layout_marginTop="0dp"
-				android:layout_marginStart="0dp"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				>
-
-				<View   android:id="@+id/rectangle_34"
-					android:background="@drawable/rectangle_34_shape"
-					android:layout_marginStart="24dp"
-					android:layout_marginTop="166dp"
-					android:layout_width="164dp"
-					android:layout_height="50dp" />
-
-				<View   android:id="@+id/rectangle_35"
-					android:background="@drawable/rectangle_35_shape"
-					android:layout_marginStart="188dp"
-					android:layout_marginTop="166dp"
-					android:layout_width="168dp"
-					android:layout_height="50dp" />
 
 
 
-				<TextView android:id="@+id/p"
-					android:fontFamily="Poppins"
-					android:layout_gravity="center_horizontal|center"
-					android:gravity="center"
-					android:textSize="32sp"
-					android:textColor="@color/private_color"
-					android:layout_marginLeft="28dp"
-					android:layout_marginTop="164dp"
-					android:layout_width="176dp"
-					android:layout_height="55dp"
-					android:text="@string/private_string"
-					/>
+	<androidx.recyclerview.widget.RecyclerView
+		android:id="@+id/recyclerView"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		tools:listitem="@layout/user_layout"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
 
-				<TextView android:id="@+id/posts"
-					android:fontFamily="Poppins"
-					android:layout_gravity="center_horizontal|center"
-					android:gravity="center"
-					android:textSize="32sp"
-					android:textColor="@color/private_color"
-					android:layout_marginLeft="183dp"
-					android:layout_marginTop="164dp"
-					android:layout_width="176dp"
-					android:layout_height="55dp"
-					android:text="@string/posts_string"
-					 />
-
-
-
-
-
-
-			</RelativeLayout>
-		</RelativeLayout>
-
-	</ScrollView>
-</HorizontalScrollView>
+</ScrollView>
