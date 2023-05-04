@@ -78,6 +78,11 @@ public class TrendingGamesFragment extends Fragment {
         //ImageView of the left arrow to switch to next trending sport
         ImageView right_arrow = view.findViewById(R.id.arrow_right);
 
+        //TextView  of the number of games in the current month
+        TextView text_number_of_games= view.findViewById(R.id.numberofgames);
+       String s = String.valueOf(gamesManager.getNumberPosts(gamesManager.topSportAtPosition(currentPositionInRating))).concat(" games played in May!");
+       text_number_of_games.setText(s);
+
         //Add the OnClickLister to the leftarrow to switch to next trending sport
         left_arrow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,6 +103,8 @@ public class TrendingGamesFragment extends Fragment {
                 imageView.setImageResource(gamesManager.getSportImageAtPos(currentPositionInRating));
                 TextView sport_text = (TextView) view.findViewById(R.id.sport_text);
                 sport_text.setText(gamesManager.getSportNameAtPosition(currentPositionInRating));
+                String s = String.valueOf(gamesManager.getNumberPosts(gamesManager.topSportAtPosition(currentPositionInRating))).concat(" games played in May!");
+                text_number_of_games.setText(s);
 
             }
 
@@ -124,7 +131,8 @@ public class TrendingGamesFragment extends Fragment {
                 imageView.invalidate();
                 TextView sport_text = (TextView) view.findViewById(R.id.sport_text);
                 sport_text.setText(gamesManager.getSportNameAtPosition(currentPositionInRating));
-
+                String s = String.valueOf(gamesManager.getNumberPosts(gamesManager.topSportAtPosition(currentPositionInRating))).concat(" games played in May!");
+                text_number_of_games.setText(s);
             }
         });
         imageView.setOnClickListener(new View.OnClickListener() {

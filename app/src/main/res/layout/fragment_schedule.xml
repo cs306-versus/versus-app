@@ -167,7 +167,7 @@
                         android:layout_height="74dp" />
                     <Button   android:id="@+id/Saturday_button"
                         android:background="@drawable/rectangle_16_shape"
-                        android:layout_marginStart="359dp"
+                        android:layout_marginStart="350dp"
                         android:layout_marginTop="394dp"
                         android:layout_width="38dp"
                         android:layout_height="74dp" />
@@ -216,7 +216,7 @@
                     android:layout_height="74dp" />
                 <View   android:id="@+id/Saturday1_button"
                     android:background="@drawable/rectangle_16_shape"
-                    android:layout_marginStart="359dp"
+                    android:layout_marginStart="350dp"
                     android:layout_marginTop="394dp"
                     android:layout_width="38dp"
                     android:layout_height="74dp" />
@@ -371,7 +371,7 @@
                     android:textStyle="bold"
                     android:textSize="23sp"
                     android:textColor="@color/planning_for_the_day_color"
-                    android:layout_marginLeft="365dp"
+                    android:layout_marginLeft="350dp"
                     android:layout_marginTop="402dp"
                     android:layout_width="432.5dp"
                     android:layout_height="94.5dp"
