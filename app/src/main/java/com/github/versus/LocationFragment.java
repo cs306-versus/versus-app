@@ -126,6 +126,8 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     private LatLng   bc = new LatLng(46.51906462963576, 6.561923350291548);
     private LatLng selectedPlace ;
     private int posSelectedPlace;
+    // Threshold distance to consider a field as nearby (in meters)
+    private double thresholdDistanceInput=1000;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -296,6 +298,9 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         } else if (item.getItemId() == R.id.option_choose_location) {
             enableCustomLocationSelection();
         }
+         else if (item.getItemId() == R.id.option_choose_radius) {
+        chooseDefaultRadius();
+    }
 
 
         return true;
@@ -323,7 +328,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
      * @param clickedPosition LatLng object representing the position where the user clicked on the map.
      */
     private void findClosestFields(LatLng clickedPosition) {
-        double thresholdDistance = 1000.0; // Threshold distance to consider a field as nearby (in meters)
+
 
         // Remove the last clicked marker if it exists
         if (lastClickedMarker != null) {
@@ -334,22 +339,27 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         lastClickedMarker = map.addMarker(new MarkerOptions().position(clickedPosition).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).title("Clicked Location"));
 
         // Iterate through the custom places and find the ones within the threshold distance
-        List<CustomPlace> nearbyFields = customPlaces.stream().filter(place -> haversineDistance(clickedPosition, place.latLng) <= thresholdDistance).collect(Collectors.toList());
+        List<CustomPlace> nearbyFields = customPlaces.stream().filter(place -> haversineDistance(clickedPosition, place.latLng) <= thresholdDistanceInput).collect(Collectors.toList());
 
 
         // Prepare the data for the showPlacesList() method
-        likelyPlaceNames = new String[nearbyFields.size()];
-        likelyPlaceAddresses = new String[nearbyFields.size()];
-        likelyPlaceLatLngs = new LatLng[nearbyFields.size()];
+        if(!nearbyFields.isEmpty()) {
+            likelyPlaceNames = new String[nearbyFields.size()];
+            likelyPlaceAddresses = new String[nearbyFields.size()];
+            likelyPlaceLatLngs = new LatLng[nearbyFields.size()];
 
-        for (int i = 0; i < nearbyFields.size(); i++) {
-            likelyPlaceNames[i] = nearbyFields.get(i).name;
-            likelyPlaceAddresses[i] = nearbyFields.get(i).address;
-            likelyPlaceLatLngs[i] = nearbyFields.get(i).latLng;
+            for (int i = 0; i < nearbyFields.size(); i++) {
+                likelyPlaceNames[i] = nearbyFields.get(i).name;
+                likelyPlaceAddresses[i] = nearbyFields.get(i).address;
+                likelyPlaceLatLngs[i] = nearbyFields.get(i).latLng;
+            }
+
+            // Show the list of nearby fields
+            showPlacesList();
         }
-
-        // Show the list of nearby fields
-        showPlacesList();
+        else{
+            showToast("No locations found within the selected radius");
+        }
     }
 
 
@@ -435,7 +445,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     /**
      * Updates the map's UI settings based on whether the user has granted location permission.
      */
-    void updateLocationUI() {
+    private void updateLocationUI() {
         if (map == null) {
             return;
         }
@@ -452,6 +462,38 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         } catch (SecurityException e) {
             Log.e("Exception: %s", e.getMessage());
         }
+    }
+    private void chooseDefaultRadius(){
+
+        View view;
+        EditText radiusInput;
+
+        view = LayoutInflater.from(getActivity()).inflate(R.layout.custom_radius_layout, null);
+
+        radiusInput = view.findViewById(R.id.edit_text_radius3);
+
+
+        // Get a reference to the EditText view in the layout
+
+        radiusInput.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        radiusInput.setHint("Enter radius (in meters)");
+        AlertDialog dialog = new AlertDialog.Builder(getActivity()).setTitle("Enter radius").setView(view).setPositiveButton("Enter", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Get the radius entered by the user
+                String radiusStr = radiusInput.getText().toString();
+                if (!TextUtils.isEmpty(radiusStr)) {
+                    thresholdDistanceInput = Float.parseFloat(radiusInput.getText().toString());
+                    dialog.dismiss();
+
+                } else {
+                    dialog.dismiss();
+                }
+
+
+            }
+        }).setNegativeButton("Cancel", null).create();
+        dialog.show();
     }
 
     /**
