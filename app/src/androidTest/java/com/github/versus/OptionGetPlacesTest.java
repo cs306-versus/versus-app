@@ -86,6 +86,26 @@ public class OptionGetPlacesTest {
 
         IdlingRegistry.getInstance().unregister(idlingResourceFirst);
     }
+    @Test
+    public void testDrawingPathWithoutPlaceSelected() throws InterruptedException {
+        long waitingTime = 10000;
+        ElapsedTimeIdlingResource idlingResourceFirst = new ElapsedTimeIdlingResource(waitingTime);
+        IdlingRegistry.getInstance().register(idlingResourceFirst);
+        String placeName = "GooglePlex Football";
+
+        long waitingTime2 = 10000;
+        ElapsedTimeIdlingResource idlingResource2 = new ElapsedTimeIdlingResource(waitingTime2);
+        IdlingRegistry.getInstance().register(idlingResource2);
+
+
+
+
+        onView(withText("Draw Path")).perform(click());
+        IdlingRegistry.getInstance().unregister(idlingResource2);
+
+        IdlingRegistry.getInstance().unregister(idlingResourceFirst);
+    }
+
 
 
     /**
