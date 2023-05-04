@@ -46,7 +46,7 @@ public final class CacheManager implements DataBaseManager<Post> {
      * Inserts the post in the cache
      * @param post
      * @return
-     * true iff the operation was successful
+     * A Completable future indicating if the operation was successful or not
      */
     @Override
     public Future<Boolean> insert(Post post) {
@@ -62,7 +62,7 @@ public final class CacheManager implements DataBaseManager<Post> {
      * Fetches the post that matches the given id from the database
      * @param id
      * @return
-     * The post if cached and null otherwise
+     * A completable future resulting in the post if cached and null otherwise
      */
     @Override
     public Future<Post> fetch(String id) {
@@ -74,7 +74,7 @@ public final class CacheManager implements DataBaseManager<Post> {
      * Removes the post with the given id
      * @param id id of the entry to remove
      * @return
-     * true iff the operation was successful
+     * A Completable future indicating if the operation was successful or not
      */
     @Override
     public Future<Boolean> delete(String id) {
@@ -90,7 +90,7 @@ public final class CacheManager implements DataBaseManager<Post> {
      *  Inserts all the posts in the cache
      * @param posts
      * @return
-     * true iff the operation was successful
+     * A Completable future indicating if the operation was successful or not
      */
     public Future<Boolean> insertAll(Post ...posts){
         CachedPost match[]= new CachedPost[posts.length];
@@ -108,7 +108,7 @@ public final class CacheManager implements DataBaseManager<Post> {
      * Fetches the all the posts that matches the given ids from the database
      * @param ids
      * @return
-     * The posts if cached and null otherwise
+     *  A Completable future resulting in a list of posts if present and null otherwise
      */
     public Future<List<Post>> fetchAllByIds(String ...ids){
         return CompletableFuture.supplyAsync(()->dao.loadAllByIds(ids).stream()
@@ -120,7 +120,7 @@ public final class CacheManager implements DataBaseManager<Post> {
     /**
      * fetches all the cached posts
      * @return
-     * the content of the cache
+     *  A Completable future resulting the content of the cache
      */
     public Future<List<Post>> getAllPosts(){
         return CompletableFuture.supplyAsync(()-> dao.getAll().stream()
@@ -133,6 +133,7 @@ public final class CacheManager implements DataBaseManager<Post> {
     /**
      * randomly selects posts from cache
      * @return
+     * A Completable future resulting in the fetched post
      */
     public Future<List<Post>> randomSelect(){
         return CompletableFuture.supplyAsync(()->dao.randomSelect().stream()
@@ -146,6 +147,7 @@ public final class CacheManager implements DataBaseManager<Post> {
      * not yet available since the representation of sport is changing
      * @param sport
      * @return
+     *  A Completable future resulting in the fetched post
      */
     public Future<Post> loadBySport(Sport sport){
         return CompletableFuture.supplyAsync(()->dao.loadBySport(sport.name()).revert())
