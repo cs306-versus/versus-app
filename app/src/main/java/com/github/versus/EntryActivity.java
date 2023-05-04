@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.WindowCompat;
 
 import com.github.versus.auth.AuthActivity;
 import com.github.versus.auth.Authenticator;
@@ -23,7 +24,7 @@ import com.google.firebase.auth.FirebaseAuth;
  * it will yield for the {@link MainActivity}. Otherwise, it will ask
  * the user to log in by starting the {@link AuthActivity}.
  */
-public class EntryActivity extends AppCompatActivity {
+public final class EntryActivity extends AppCompatActivity {
 
     /**
      * Key to add an authenticator server to an Intent
@@ -35,6 +36,8 @@ public class EntryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // See edge-to-edge : https://developer.android.com/develop/ui/views/layout/edge-to-edge#java
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), true);
         initAuthentication();
     }
 
