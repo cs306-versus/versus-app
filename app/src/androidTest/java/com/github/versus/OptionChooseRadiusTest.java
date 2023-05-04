@@ -36,6 +36,7 @@ public class OptionChooseRadiusTest {
     // Declare activity rule and permission rule
     @Rule
     public ActivityScenarioRule<MainActivity> activityRule = new ActivityScenarioRule<>(MainActivity.class);
+
     @Rule
     public GrantPermissionRule grantPermissionRule = GrantPermissionRule.grant(android.Manifest.permission.ACCESS_FINE_LOCATION);
 
