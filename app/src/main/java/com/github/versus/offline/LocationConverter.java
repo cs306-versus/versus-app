@@ -2,9 +2,11 @@ package com.github.versus.offline;
 
 import com.github.versus.posts.Location;
 
+import java.util.Locale;
+
 public class LocationConverter {
     public static String convertLocation(Location location){
-        return  String.format("%s (%.2f, %.2f)", location.getName()
+        return  String.format(Locale.ENGLISH,"%s (%.2f, %.2f)", location.getName()
                 , location.getLatitude(), location.getLongitude());
 
     }
