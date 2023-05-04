@@ -188,6 +188,10 @@ public class SearchFragment extends Fragment implements
         pm.insert(newPost);
         loadPosts();
     }
+    /*
+    * This method   takes as input a String that will be used to filter the posts , this method is only called
+    * from the TopGamesFragment
+    * */
     public void setSearchBarTextFromTradingSportsFrag(String text){
          isCalledSportsFrag=true;
          SearchTextSportsFrag=text;

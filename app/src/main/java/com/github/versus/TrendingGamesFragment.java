@@ -79,9 +79,9 @@ public class TrendingGamesFragment extends Fragment {
         ImageView right_arrow = view.findViewById(R.id.arrow_right);
 
         //TextView  of the number of games in the current month
-        TextView text_number_of_games= view.findViewById(R.id.numberofgames);
-       String s = String.valueOf(gamesManager.getNumberPosts(gamesManager.topSportAtPosition(currentPositionInRating))).concat(" games played in May!");
-       text_number_of_games.setText(s);
+        TextView text_number_of_games = view.findViewById(R.id.numberofgames);
+        String s = String.valueOf(gamesManager.getNumberPosts(gamesManager.topSportAtPosition(currentPositionInRating))).concat(" games played in May!");
+        text_number_of_games.setText(s);
 
         //Add the OnClickLister to the leftarrow to switch to next trending sport
         left_arrow.setOnClickListener(new View.OnClickListener() {
@@ -100,9 +100,12 @@ public class TrendingGamesFragment extends Fragment {
                 } else if (currentPositionInRating == 3) {
                     bronze_medal.setVisibility(View.VISIBLE);
                 }
+                //Changing the image of the sport with the new one in the current position
                 imageView.setImageResource(gamesManager.getSportImageAtPos(currentPositionInRating));
+                //Setting the text of the sport to the new one
                 TextView sport_text = (TextView) view.findViewById(R.id.sport_text);
                 sport_text.setText(gamesManager.getSportNameAtPosition(currentPositionInRating));
+                //Setting the number of games of the sport to the new one
                 String s = String.valueOf(gamesManager.getNumberPosts(gamesManager.topSportAtPosition(currentPositionInRating))).concat(" games played in May!");
                 text_number_of_games.setText(s);
 
@@ -110,6 +113,8 @@ public class TrendingGamesFragment extends Fragment {
 
 
         });
+
+        // Setting the OnClickLister to the next arrow to show the next trending sports
         right_arrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -126,21 +131,25 @@ public class TrendingGamesFragment extends Fragment {
                 } else if (currentPositionInRating == 4) {
                     bronze_medal.setVisibility(View.INVISIBLE);
                 }
+                //Changing the image sport to the new one that matches the current position
                 imageView.setImageResource(gamesManager.getSportImageAtPos(currentPositionInRating));
-
                 imageView.invalidate();
+                //Changing the sport text to the new one that matches the current position
                 TextView sport_text = (TextView) view.findViewById(R.id.sport_text);
                 sport_text.setText(gamesManager.getSportNameAtPosition(currentPositionInRating));
+                //Changing the number of games to match the new sport
                 String s = String.valueOf(gamesManager.getNumberPosts(gamesManager.topSportAtPosition(currentPositionInRating))).concat(" games played in May!");
                 text_number_of_games.setText(s);
             }
         });
+        //Setting the OnClickListener of the sport image to go to a new SearchFragment filtered by the sport in the current position
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Replace the current fragment with TestFrag
                 FragmentManager fragmentManager = getParentFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                //Creating the new SearchFragment  that will show the filtered posts
                 SearchFragment search_fragment = new SearchFragment();
                 fragmentTransaction.replace(R.id.fragment_container, search_fragment);
                 fragmentTransaction.addToBackStack(null);
@@ -173,7 +182,7 @@ public class TrendingGamesFragment extends Fragment {
     /**
      * Called after the view hierarchy of the fragment is inflated and ready for use.
      *
-     * @param view The inflated view of the fragment.
+     * @param view               The inflated view of the fragment.
      * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state.
      */
     @Override
