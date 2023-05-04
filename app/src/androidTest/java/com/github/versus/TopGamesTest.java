@@ -178,6 +178,7 @@ public class TopGamesTest {
         onView(withId(R.id.rectangle_22)).perform(ViewActions.scrollTo()).perform(click());
 
         try {
+            
             Thread.sleep(10000); // wait for 10 seconds
         } catch (InterruptedException e) {
             // handle the exception
