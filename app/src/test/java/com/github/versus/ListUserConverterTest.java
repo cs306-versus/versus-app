@@ -6,6 +6,7 @@ import com.github.versus.user.User;
 import com.github.versus.user.VersusUser;
 
 import org.junit.Test;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
 import java.util.List;
@@ -69,7 +70,7 @@ public class ListUserConverterTest {
 
     @Test
     public void convertListOfUsersConvertsCorrectly(){
-        System.out.println(UserConverter.convertListOfUsers(users));
+        assertTrue(UserConverter.convertListOfUsers(users).equals(strUsers));
     }
 
 
