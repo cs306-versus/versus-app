@@ -1,6 +1,7 @@
 package com.github.versus;
 
 import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
 import com.github.versus.offline.CachedPost;
@@ -95,6 +96,16 @@ public class UserConverterTest {
         assertTrue(user.getPreferredSports().equals(reverted.getPreferredSports()));
     }
 
+
+    @Test
+    public void convertEmptyUserFails(){
+        assertThrows(Exception.class,()->UserConverter.convertUser(new VersusUser()));
+    }
+
+    @Test
+    public void convertBackEmptyStringFails(){
+        assertThrows(Exception.class,()->UserConverter.convertBackUser(""));
+    }
 
 
 
