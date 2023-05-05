@@ -16,7 +16,9 @@ public class EmulatorUserProvider {
      * @return
      */
     public static String validMail(){
-        return String.format("auth.user+%d@test.versus.ch", rnd.nextInt(9) + 1);
+        // TODO HR : All all other missing user's to the database
+        //return String.format("auth.user+%d@test.versus.ch", rnd.nextInt(9) + 1);
+        return String.format("auth.user+%d@test.versus.ch", 1);
     }
 
     /**
