@@ -1,0 +1,30 @@
+{
+  "kind": "identitytoolkit#DownloadAccountResponse",
+  "users": [
+    {
+      "localId": "VtTq4eGXWGJNqYftScuLoh3ZiM1D",
+      "lastLoginAt": "1683312390150",
+      "displayName": "Test User #1",
+      "photoUrl": "",
+      "emailVerified": false,
+      "email": "user.test+1@versus.ch",
+      "salt": "fakeSaltLYGeaTWtpcPYHsB9w2AE",
+      "passwordHash": "fakeHash:salt=fakeSaltLYGeaTWtpcPYHsB9w2AE:password=123456789",
+      "passwordUpdatedAt": 1683312382210,
+      "validSince": "1683312382",
+      "mfaInfo": [],
+      "createdAt": "1683312382210",
+      "providerUserInfo": [
+        {
+          "providerId": "password",
+          "email": "user.test+1@versus.ch",
+          "federatedId": "user.test+1@versus.ch",
+          "rawId": "user.test+1@versus.ch",
+          "displayName": "Test User #1",
+          "photoUrl": ""
+        }
+      ],
+      "lastRefreshAt": "2023-05-05T18:46:30.150Z"
+    }
+  ]
+}
