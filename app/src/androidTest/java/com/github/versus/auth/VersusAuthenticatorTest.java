@@ -2,52 +2,29 @@ package com.github.versus.auth;
 
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
-import android.content.Context;
-
-import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
+import com.github.versus.utils.FirebaseEmulator;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.Objects;
 import java.util.Optional;
+
+import static com.github.versus.utils.auth.EmulatorUserProvider.* ;
 
 @RunWith(AndroidJUnit4.class)
 public class VersusAuthenticatorTest {
 
-    VersusAuthenticator auth;
-    FirebaseAuth firebase;
-
-    private final String MAIL_USER_IN_DB = "user.test+1@versus.ch";
-
-    private final String MAIL_USER_NOT_IN_DB = "user.test+2@versus.ch";
-
-    private final String PWD = "123456789";
-
-    @Before
-    public void setUp(){
-        // Set up firebase auth to use the emulator
-        firebase = FirebaseAuth.getInstance();
-        firebase.useEmulator("10.0.2.2", 9099);
-        // Instantiate the VersusAuthenticator to use the emulator
-        auth = VersusAuthenticator.getInstance(firebase);
-    }
+    private VersusAuthenticator auth = VersusAuthenticator.getInstance(FirebaseEmulator.FIREBASE_AUTH);
 
     @Test
     public void createSuccessfulMailAccount(){
         // Request an account creation
-        Task<AuthResult> task = auth.createAccountWithMail(MAIL_USER_NOT_IN_DB, PWD);
+        Task<AuthResult> task = auth.createAccountWithMail(freeMail(), validPassword());
 
         // spin and wait for the task to complete
         while(!(task.isComplete() || task.isCanceled()));
@@ -62,7 +39,7 @@ public class VersusAuthenticatorTest {
     @Test
     public void signInSuccessfulMailAccount(){
         // Request an account creation
-        Task<AuthResult> task = auth.signInWithMail(MAIL_USER_IN_DB, PWD);
+        Task<AuthResult> task = auth.signInWithMail(validMail(), validPassword());
 
         // spin and wait for the task to complete
         while(!(task.isComplete() || task.isCanceled()));
