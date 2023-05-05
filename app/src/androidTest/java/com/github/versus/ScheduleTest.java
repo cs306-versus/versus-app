@@ -76,6 +76,7 @@ public class ScheduleTest {
     public void testScheduleButtons2(){
         onView(withId(R.id.drawer_layout)).check(matches(DrawerMatchers.isClosed(GravityCompat.START))).perform(DrawerActions.open());
 
+
         onView(withId(R.id.drawer_layout)).check(matches(DrawerMatchers.isOpen(GravityCompat.START)));
         onView(withId(R.id.nav_schedule)).perform(click());
 

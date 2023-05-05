@@ -167,7 +167,7 @@
                         android:layout_height="74dp" />
                     <Button   android:id="@+id/Saturday_button"
                         android:background="@drawable/rectangle_16_shape"
-                        android:layout_marginStart="359dp"
+                        android:layout_marginStart="350dp"
                         android:layout_marginTop="394dp"
                         android:layout_width="38dp"
                         android:layout_height="74dp" />
@@ -216,7 +216,7 @@
                     android:layout_height="74dp" />
                 <View   android:id="@+id/Saturday1_button"
                     android:background="@drawable/rectangle_16_shape"
-                    android:layout_marginStart="359dp"
+                    android:layout_marginStart="350dp"
                     android:layout_marginTop="394dp"
                     android:layout_width="38dp"
                     android:layout_height="74dp" />
@@ -261,7 +261,7 @@
                     android:layout_marginTop="439dp"
                     android:layout_width="51.5dp"
                     android:layout_height="45.5dp"
-                    android:text="16"
+                    android:text="30"
                     />
                 <TextView android:id="@+id/Monday_text"
                     android:fontFamily="Comic Neue"
@@ -283,7 +283,7 @@
                     android:layout_marginTop="439dp"
                     android:layout_width="51.5dp"
                     android:layout_height="45.5dp"
-                    android:text="17"
+                    android:text="1"
                     />
                 <TextView android:id="@+id/Tuesday_text"
                     android:fontFamily="Comic Neue"
@@ -306,7 +306,7 @@
                     android:layout_marginTop="439dp"
                     android:layout_width="51.5dp"
                     android:layout_height="45.5dp"
-                    android:text="18"
+                    android:text="2"
                     />
                 <TextView android:id="@+id/Wednesday_text"
                     android:fontFamily="Comic Neue"
@@ -329,7 +329,7 @@
                     android:layout_marginTop="439dp"
                     android:layout_width="51.5dp"
                     android:layout_height="45.5dp"
-                    android:text="19"
+                    android:text="3"
                     />
 
                 <TextView android:id="@+id/Thursday_date"
@@ -341,7 +341,7 @@
                     android:layout_marginTop="439dp"
                     android:layout_width="51.5dp"
                     android:layout_height="45.5dp"
-                    android:text="20"
+                    android:text="4"
                     />
                 <TextView android:id="@+id/Friday_text"
                     android:fontFamily="Comic Neue"
@@ -364,14 +364,14 @@
                     android:layout_marginTop="439dp"
                     android:layout_width="51.5dp"
                     android:layout_height="45.5dp"
-                    android:text="21"
+                    android:text="5"
                     />
                 <TextView android:id="@+id/Saturday_text"
                     android:fontFamily="Comic Neue"
                     android:textStyle="bold"
                     android:textSize="23sp"
                     android:textColor="@color/planning_for_the_day_color"
-                    android:layout_marginLeft="365dp"
+                    android:layout_marginLeft="350dp"
                     android:layout_marginTop="402dp"
                     android:layout_width="432.5dp"
                     android:layout_height="94.5dp"
@@ -386,7 +386,7 @@
                     android:layout_marginTop="439dp"
                     android:layout_width="51.5dp"
                     android:layout_height="45.5dp"
-                    android:text="22"
+                    android:text="6"
                     />
 
                 <View   android:id="@+id/rectangle4"

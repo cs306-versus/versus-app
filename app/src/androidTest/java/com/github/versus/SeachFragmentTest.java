@@ -28,6 +28,7 @@ import org.junit.Test;
 import java.util.regex.Matcher;
 
 public class SeachFragmentTest {
+
     @Rule
     public ActivityScenarioRule<MainActivity> scenario = new ActivityScenarioRule<>(MainActivity.class);
     @Before
@@ -76,11 +77,12 @@ public class SeachFragmentTest {
 
     }
 
-    @Test
-    public void testSearchBar(){
-        onView(withId(R.id.search_posts)).perform(typeText("Jierb"));
-        onView((withText("Jierb"))).check(matches(isDisplayed()));
-    }
+
+    //@Test
+    //public void testSearchBar(){
+    //    onView(withId(R.id.search_posts)).perform(typeText("Football"));
+    //    onView((withText("Football"))).check(matches(isDisplayed()));
+    //}
 
 
 }

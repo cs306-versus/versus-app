@@ -35,32 +35,35 @@ public class SportConverter {
     /**
      * Coverts a list of sports to a string
      * @param sportList
-     * @param sep
      * @return
      * The string representation of the list of sports
      */
-    public static String convertListOfSports(List<Sport> sportList, String sep){
-        StringBuilder builder = new StringBuilder();
-        for(int i =0 ; i<sportList.size();++i){
-            builder.append(convertSport(sportList.get(i)));
-            if(i<sportList.size()-1){
-                builder.append(sep);
-            }
-        }
-        return builder.toString();
+    public static String convertListOfSports(List<Sport> sportList){
+
+        return sportList.stream()
+                .map(Sport::name)
+                .collect(Collectors.joining(", "));
+
     }
 
     /**
      * Converts a String to a list of sports
-     * @param conversion
-     * @param sep
+     * @param sportsString
      * @return
-     * The string representation of the sport.
+     * Corresponding list of sports that was encoded in the string
+     *
      */
-    public static List<Sport> convertBackToSports(String conversion,String sep){
-        String split[]= conversion.split(sep);
-        if(split.length==0)
-            return new ArrayList<>();
-        return Arrays.asList(split).stream().map(s -> convertSportBack(s)).collect(Collectors.toList());
+    public static List<Sport> convertBackToSports(String sportsString){
+        List<Sport> sports = new ArrayList<>();
+        String[] sportNames = sportsString.split(",\\s*");
+        for (String name : sportNames) {
+            try {
+                Sport sport = Sport.valueOf(name.toUpperCase());
+                sports.add(sport);
+            } catch (IllegalArgumentException e) {
+               continue;
+            }
+        }
+        return sports;
     }
 }

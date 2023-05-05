@@ -20,6 +20,10 @@
             android:id="@+id/friend_search"
             android:icon="@drawable/ic_user"
             android:title="Find Friends" />
+        <item
+            android:id="@+id/nav_trending_sports"
+            android:icon="@drawable/trending"
+            android:title="Trending Sports" />
 
 
     </group>

@@ -30,25 +30,23 @@ public class SportConverterTest {
     @Test
     public void convertListOfSportsWorks() {
         Sport sports[]= {Sport.FOOTBALL,Sport.CLIMBING,Sport.ROWING,Sport.SOCCER};
-        String sep = "***";
-        String conversion = SportConverter.convertListOfSports(Arrays.asList(sports),sep);
-        String shouldBe= Sport.FOOTBALL.name()+sep+Sport.CLIMBING.name()+sep+Sport.ROWING.name()+sep+Sport.SOCCER.name();
+        String conversion = SportConverter.convertListOfSports(Arrays.asList(sports));
+        String shouldBe= Sport.FOOTBALL.name()+", "+Sport.CLIMBING.name()+", "+Sport.ROWING.name()+", "+Sport.SOCCER.name();
         assertTrue(conversion.equals(shouldBe));
     }
 
     @Test
     public void convertListOnEmptyStrings() {
         Sport sports[]= {};
-        String sep = "***";
-        String conversion = SportConverter.convertListOfSports(Arrays.asList(sports),sep);
+        String conversion = SportConverter.convertListOfSports(Arrays.asList(sports));
         String shouldBe= "";
         assertTrue(conversion.equals(shouldBe));
     }
     @Test
     public void convertBackToSportsWorks(){
         String sep = "&";
-        String conversion ="FOOTBALL&CLIMBING&ROWING&SOCCER";
-        List<Sport> sportList= SportConverter.convertBackToSports(conversion,sep);
+        String conversion ="FOOTBALL, CLIMBING, ROWING, SOCCER";
+        List<Sport> sportList= SportConverter.convertBackToSports(conversion);
         Sport shouldBe[]= {Sport.FOOTBALL,Sport.CLIMBING,Sport.ROWING,Sport.SOCCER};
         System.out.println(sportList);
         assertTrue(sportList.equals(Arrays.asList(shouldBe)));
@@ -58,9 +56,8 @@ public class SportConverterTest {
     @Test
     public void convertBackToSportsIsTheInverseOfConvertListOfSports(){
         Sport sports[]= {Sport.FOOTBALL,Sport.CLIMBING,Sport.ROWING,Sport.SOCCER};
-        String sep = "&";
-        String conversion = SportConverter.convertListOfSports(Arrays.asList(sports),sep);
-        List<Sport> sportList= SportConverter.convertBackToSports(conversion,sep);
+        String conversion = SportConverter.convertListOfSports(Arrays.asList(sports));
+        List<Sport> sportList= SportConverter.convertBackToSports(conversion);
         assertTrue(sportList.equals(Arrays.asList(sports)));
 
     }
