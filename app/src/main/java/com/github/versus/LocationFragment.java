@@ -12,6 +12,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.InputType;
@@ -25,6 +26,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -37,6 +39,9 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.github.versus.db.DataBaseManager;
 import com.github.versus.db.DummyLocationManager;
 import com.github.versus.user.CustomPlace;
@@ -53,15 +58,30 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.maps.android.PolyUtil;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
+
+
 
 
 public class LocationFragment extends Fragment implements OnMapReadyCallback {
@@ -101,13 +121,20 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     private DataBaseManager dummyLocationManager;
 
     private List<CustomPlace> customPlaces;
-
+    private String API_KEY;
+    private Button drawPathButton;
+    private LatLng   bc = new LatLng(46.51906462963576, 6.561923350291548);
+    private LatLng selectedPlace ;
+    private int posSelectedPlace;
+    // Threshold distance to consider a field as nearby (in meters)
+    private double thresholdDistanceInput=1000;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_location, container, false);
         //call setHasOptionsMenu(true) to notify the fragment
         // that it has options menu items that need to be created
+
         setHasOptionsMenu(true);
 
         // Retrieve location and camera position from saved instance state.
@@ -118,8 +145,9 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
         // Construct a PlacesClient and retrieve the API Key from local.properties file
         try {
-            String API_KEY = getContext().getPackageManager().getApplicationInfo(getContext().getPackageName(), PackageManager.GET_META_DATA).metaData.getString("com.google.android.geo.API_KEY");
+            API_KEY = getContext().getPackageManager().getApplicationInfo(getContext().getPackageName(), PackageManager.GET_META_DATA).metaData.getString("com.google.android.geo.API_KEY");
             Places.initialize(getActivity().getApplicationContext(), API_KEY);
+            System.out.println(API_KEY);
 
         } catch (PackageManager.NameNotFoundException e) {
             throw new RuntimeException(e);
@@ -132,6 +160,22 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         // Build the map
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        Button drawPathButton = view.findViewById(R.id.draw_path_button);
+        drawPathButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Replace originLatLng and destinationLatLng with the actual LatLng objects
+                if(selectedPlace != null){
+                    FetchDirectionsTask fetchDirectionsTask = new FetchDirectionsTask(localPos, selectedPlace);
+                    fetchDirectionsTask.execute();
+                }
+                else {
+                    showToast("No selected place !");
+                }
+
+            }
+        });
+
 
         return view;
     }
@@ -165,13 +209,15 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                 return infoWindow;
             }
         });
+
+
         // Add markers for EPFL and Satellite
         epfl = new LatLng(46.520536, 6.568318);
+
         epflMarker = new MarkerOptions().position(epfl).title("EPFL");
         map.addMarker(epflMarker);
         google = new LatLng(37.42, -122.084);
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(google, 15));
-
 
         dummyLocationManager = new DummyLocationManager();
         try {
@@ -190,6 +236,8 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                 Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
             }
         });
+
+
         // Prompt the user for permission.
         getLocationPermission();
 
@@ -250,6 +298,9 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         } else if (item.getItemId() == R.id.option_choose_location) {
             enableCustomLocationSelection();
         }
+         else if (item.getItemId() == R.id.option_choose_radius) {
+        chooseDefaultRadius();
+    }
 
 
         return true;
@@ -277,7 +328,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
      * @param clickedPosition LatLng object representing the position where the user clicked on the map.
      */
     private void findClosestFields(LatLng clickedPosition) {
-        double thresholdDistance = 1000.0; // Threshold distance to consider a field as nearby (in meters)
+
 
         // Remove the last clicked marker if it exists
         if (lastClickedMarker != null) {
@@ -288,22 +339,27 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         lastClickedMarker = map.addMarker(new MarkerOptions().position(clickedPosition).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).title("Clicked Location"));
 
         // Iterate through the custom places and find the ones within the threshold distance
-        List<CustomPlace> nearbyFields = customPlaces.stream().filter(place -> haversineDistance(clickedPosition, place.latLng) <= thresholdDistance).collect(Collectors.toList());
+        List<CustomPlace> nearbyFields = customPlaces.stream().filter(place -> haversineDistance(clickedPosition, place.latLng) <= thresholdDistanceInput).collect(Collectors.toList());
 
 
         // Prepare the data for the showPlacesList() method
-        likelyPlaceNames = new String[nearbyFields.size()];
-        likelyPlaceAddresses = new String[nearbyFields.size()];
-        likelyPlaceLatLngs = new LatLng[nearbyFields.size()];
+        if(!nearbyFields.isEmpty()) {
+            likelyPlaceNames = new String[nearbyFields.size()];
+            likelyPlaceAddresses = new String[nearbyFields.size()];
+            likelyPlaceLatLngs = new LatLng[nearbyFields.size()];
 
-        for (int i = 0; i < nearbyFields.size(); i++) {
-            likelyPlaceNames[i] = nearbyFields.get(i).name;
-            likelyPlaceAddresses[i] = nearbyFields.get(i).address;
-            likelyPlaceLatLngs[i] = nearbyFields.get(i).latLng;
+            for (int i = 0; i < nearbyFields.size(); i++) {
+                likelyPlaceNames[i] = nearbyFields.get(i).name;
+                likelyPlaceAddresses[i] = nearbyFields.get(i).address;
+                likelyPlaceLatLngs[i] = nearbyFields.get(i).latLng;
+            }
+
+            // Show the list of nearby fields
+            showPlacesList();
         }
-
-        // Show the list of nearby fields
-        showPlacesList();
+        else{
+            showToast("No locations found within the selected radius");
+        }
     }
 
 
@@ -383,10 +439,13 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     }
 
 
+
+
+
     /**
      * Updates the map's UI settings based on whether the user has granted location permission.
      */
-    void updateLocationUI() {
+    private void updateLocationUI() {
         if (map == null) {
             return;
         }
@@ -403,6 +462,38 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         } catch (SecurityException e) {
             Log.e("Exception: %s", e.getMessage());
         }
+    }
+    private void chooseDefaultRadius(){
+
+        View view;
+        EditText radiusInput;
+
+        view = LayoutInflater.from(getActivity()).inflate(R.layout.custom_radius_layout, null);
+
+        radiusInput = view.findViewById(R.id.edit_text_radius3);
+
+
+        // Get a reference to the EditText view in the layout
+
+        radiusInput.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        radiusInput.setHint("Enter radius (in meters)");
+        AlertDialog dialog = new AlertDialog.Builder(getActivity()).setTitle("Enter radius").setView(view).setPositiveButton("Enter", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Get the radius entered by the user
+                String radiusStr = radiusInput.getText().toString();
+                if (!TextUtils.isEmpty(radiusStr)) {
+                    thresholdDistanceInput = Float.parseFloat(radiusInput.getText().toString());
+                    dialog.dismiss();
+
+                } else {
+                    dialog.dismiss();
+                }
+
+
+            }
+        }).setNegativeButton("Cancel", null).create();
+        dialog.show();
     }
 
     /**
@@ -515,13 +606,16 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                LatLng selectedPlace = likelyPlaceLatLngs[position];
+                selectedPlace= likelyPlaceLatLngs[position];
+                posSelectedPlace =position;
                 Marker marker = map.addMarker(new MarkerOptions().title(likelyPlaceNames[position]).position(selectedPlace).snippet(likelyPlaceAddresses[position]));
+
                 addBlinkingMarker(selectedPlace, likelyPlaceNames[position], likelyPlaceAddresses[position]);
                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedPlace, DEFAULT_ZOOM));
                 dialog.dismiss();
             }
         });
+        selectedPlace= likelyPlaceLatLngs[posSelectedPlace];
         dialog.show();
 
     }
@@ -641,4 +735,117 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
         applyBlinkingAnimation(blinkingMarker);
     }
+    private void drawPath(GoogleMap map, List<LatLng> points) {
+        if (lastDrawnCircle != null) {
+            //Clearing the map from previous circles
+            lastDrawnCircle.remove();
+        }
+        PolylineOptions polylineOptions = new PolylineOptions();
+        polylineOptions.addAll(points);
+        polylineOptions.width(10);
+        polylineOptions.color(Color.BLUE);
+        map.addPolyline(polylineOptions);
+    }
+    private class FetchDirectionsTask extends AsyncTask<Void, Void, List<LatLng>> {
+        private LatLng origin;
+        private LatLng destination;
+        private String errorMessage;
+        private double distanceValue;
+        private String distanceText;
+
+        public FetchDirectionsTask(LatLng origin, LatLng destination) {
+            this.origin = origin;
+            this.destination = destination;
+            this.errorMessage = null;
+        }
+
+        @Override
+        protected List<LatLng> doInBackground(Void... voids) {
+            // Fetch the directions from the Google Maps Directions API
+            try {
+                // Prepare the URL for the API request
+                String url = "https://maps.googleapis.com/maps/api/directions/json?origin=" +
+                        origin.latitude + "," + origin.longitude +
+                        "&destination=" + destination.latitude + "," + destination.longitude +
+                        "&key=" + API_KEY;
+
+                URL apiUrl = new URL(url);
+                HttpURLConnection connection = (HttpURLConnection) apiUrl.openConnection();
+                connection.setRequestMethod("GET");
+
+                // Get the response from the API
+                try (InputStream inputStream = connection.getInputStream();
+                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream))) {
+                    StringBuilder stringBuilder = new StringBuilder();
+                    String line;
+                    while ((line = bufferedReader.readLine()) != null) {
+                        stringBuilder.append(line);
+                    }
+
+                    // Parse the response and extract the path points
+                    JSONObject jsonResponse = new JSONObject(stringBuilder.toString());
+                    JSONArray routes = jsonResponse.getJSONArray("routes");
+                    if (routes.length() > 0) {
+                        JSONObject route = routes.getJSONObject(0);
+                        JSONArray legs = route.getJSONArray("legs");
+                        JSONObject leg = legs.getJSONObject(0);
+                        JSONArray steps = leg.getJSONArray("steps");
+
+                        // Get the LatLng points for each step
+                        List<LatLng> pathPoints = new ArrayList<>();
+                        for (int i = 0; i < steps.length(); i++) {
+                            JSONObject step = steps.getJSONObject(i);
+                            JSONObject startLocation = step.getJSONObject("start_location");
+                            double startLat = startLocation.getDouble("lat");
+                            double startLng = startLocation.getDouble("lng");
+                            pathPoints.add(new LatLng(startLat, startLng));
+                        }
+
+                        // Add the destination point
+                        JSONObject endLocation = leg.getJSONObject("end_location");
+                        double endLat = endLocation.getDouble("lat");
+                        double endLng = endLocation.getDouble("lng");
+                        pathPoints.add(new LatLng(endLat, endLng));
+                        JSONObject distanceObject = leg.getJSONObject("distance");
+                        distanceText = distanceObject.getString("text");
+                        distanceValue = distanceObject.getDouble("value");
+
+                        return pathPoints;
+                    } else {
+                        errorMessage = "No routes found in the API response";
+                    }
+                }
+            } catch (MalformedURLException e) {
+                errorMessage = "Error in the URL";
+                Log.e("FetchDirectionsTask", errorMessage, e);
+            } catch (IOException e) {
+                errorMessage = "Error connecting to the API";
+                Log.e("FetchDirectionsTask", errorMessage, e);
+                e.printStackTrace();
+            } catch (JSONException e) {
+                errorMessage = "Error parsing the JSON response";
+                Log.e("FetchDirectionsTask", errorMessage, e);
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(List<LatLng> result) {
+            if (result != null) {
+                drawPath(map, result);
+                showToast("Distance: " + distanceText);
+            } else {
+                if (errorMessage != null) {
+                    showToast(errorMessage);
+                } else {
+                    showToast("Failed to fetch directions");
+                }
+            }
+        }
+    }
+
+
+
+
 }

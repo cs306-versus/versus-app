@@ -103,6 +103,57 @@ public class OptionChooseLocationTest {
         IdlingRegistry.getInstance().unregister(idlingResourceFirst);
     }
 
+   /* @Test
+    public void testDrawingPathWithPlaceSelected() throws InterruptedException {
+        long waitingTime = 10000;
+        ElapsedTimeIdlingResource idlingResourceFirst = new ElapsedTimeIdlingResource(waitingTime);
+
+        String placeName = "GooglePlex Football";
+        Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
+
+        // Open the Choose location option
+        onView(withText("Choose location")).perform(click());
+
+        // Get screen dimensions
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        WindowManager windowManager = (WindowManager) ApplicationProvider.getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
+        windowManager.getDefaultDisplay().getRealMetrics(displayMetrics);
+
+        // Calculate the center coordinates
+        int centerX = displayMetrics.widthPixels / 2;
+        int centerY = displayMetrics.heightPixels / 2;
+
+        // Simulate a map click event at the center of the screen
+        simulateMapClick(centerX, centerY);
+
+        long short_waitingTime = 5000;
+        ElapsedTimeIdlingResource idlingResource2 = new ElapsedTimeIdlingResource(waitingTime);
+        IdlingRegistry.getInstance().register(idlingResource2);
+        onView(withText(placeName)).perform(click());
+        ElapsedTimeIdlingResource idlingResource3 = new ElapsedTimeIdlingResource(short_waitingTime);
+        IdlingRegistry.getInstance().register(idlingResource3);
+        onView(withText("Draw Path")).perform(click());
+        IdlingRegistry.getInstance().unregister(idlingResource3);
+        IdlingRegistry.getInstance().unregister(idlingResource2);
+        IdlingRegistry.getInstance().unregister(idlingResourceFirst);
+    }*/
+
+   /* @Test
+    public void testDrawingPathWithoutPlaceSelected() throws InterruptedException {
+        long waitingTime = 10000;
+        ElapsedTimeIdlingResource idlingResourceFirst = new ElapsedTimeIdlingResource(waitingTime);
+        String placeName = "Bassenges Football";
+        long short_waitingTime = 10000;
+        ElapsedTimeIdlingResource idlingResource2 = new ElapsedTimeIdlingResource(waitingTime);
+        IdlingRegistry.getInstance().register(idlingResource2);
+
+        onView(withText("Draw Path")).perform(click());
+
+        IdlingRegistry.getInstance().unregister(idlingResource2);
+        IdlingRegistry.getInstance().unregister(idlingResourceFirst);
+    }
+*/
+
     /**
      * Simulates a map click at the given screen coordinates.
      *

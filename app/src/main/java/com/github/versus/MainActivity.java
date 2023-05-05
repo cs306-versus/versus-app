@@ -51,6 +51,8 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
                 break;
             case R.id.friend_search:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SearchFriendsFragment()).commit();
+            case R.id.nav_chats:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new ChatsFragment()).commit();
                 break;
             case R.id.nav_trending_sports:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new TrendingGamesFragment()).commit();

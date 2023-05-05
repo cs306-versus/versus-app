@@ -1,13 +1,8 @@
-package chats;
+package com.github.versus.chats;
 
-import com.github.versus.posts.Post;
 import com.github.versus.posts.Timestamp;
 import com.github.versus.user.DummyUser;
 import com.github.versus.user.User;
-import com.github.versus.user.VersusUser;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * class used to model a message in the app
