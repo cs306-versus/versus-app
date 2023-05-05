@@ -10,11 +10,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-
 import com.github.versus.user.UserInfoFragment;
 import com.google.android.material.navigation.NavigationView;
 
@@ -53,6 +48,9 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
                 break;
             case R.id.nav_user_profil:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new UserInfoFragment()).commit();
+                break;
+            case R.id.nav_trending_sports:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new TrendingGamesFragment()).commit();
                 break;
 
         }

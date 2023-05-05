@@ -4,6 +4,7 @@ import com.github.versus.rating.Rating;
 import com.github.versus.sports.Sport;
 import com.github.versus.user.DummyUser;
 import com.github.versus.user.User;
+import com.github.versus.user.VersusUser;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -18,9 +19,12 @@ import java.util.Objects;
 public class Post implements Serializable {
 
     private  String title;
+
+
+    private String uid;
     private  Timestamp date;
     private  Location location;
-    private List<DummyUser> players;
+    private List<VersusUser> players;
     private int playerLimit;
     private Sport sport ;
 
@@ -28,7 +32,7 @@ public class Post implements Serializable {
 
     private List<Rating> ratings;
 
-    public Post(String title, Timestamp date, Location location, List<DummyUser> players, int playerLimit, Sport sport, List<Rating> ratings) {
+    public Post(String title, Timestamp date, Location location, List<VersusUser> players, int playerLimit, Sport sport, List<Rating> ratings, String uid) {
         this.title = title;
         this.date = date;
         this.location = location;
@@ -36,9 +40,13 @@ public class Post implements Serializable {
         this.playerLimit = playerLimit;
         this.sport = sport;
         this.ratings = ratings;
+        this.uid = uid;
     }
-    public Post(String title, Timestamp date, Location location, List<DummyUser> players, int playerLimit, Sport sport) {
-        this(title, date, location, players, playerLimit, sport, new ArrayList<>());
+    public Post(String title, Timestamp date, Location location, List<VersusUser> players, int playerLimit, Sport sport, String uid) {
+        this(title, date, location, players, playerLimit, sport, new ArrayList<>(), uid);
+    }
+    public Post(String title, Timestamp date, Location location, List<VersusUser> players, int playerLimit, Sport sport) {
+        this(title, date, location, players, playerLimit, sport, new ArrayList<>(), "");
     }
 
     public Post(){
@@ -74,7 +82,7 @@ public class Post implements Serializable {
     /**
      * @return the users who joined the post
      */
-    public List<DummyUser> getPlayers() {
+    public List<VersusUser> getPlayers() {
         return players;
     }
 
@@ -143,15 +151,32 @@ public class Post implements Serializable {
         this.title = title;
     }
 
+    public void setDate(Timestamp date) {
+        this.date = date;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public void setPlayers(List<VersusUser> players) {
+        this.players = players;
+    }
+
+    public void setPlayerLimit(int playerLimit) {
+        this.playerLimit = playerLimit;
+    }
+
     public void setSport(Sport sport) {
         this.sport = sport;
     }
 
-    public void setPlayerLimit(int playerCount) {
-        this.playerLimit = playerCount;
+    public String getUid() {
+        return uid;
     }
 
-    public void setDate(Timestamp ts) {
-        this.date = ts;
+    public void setUid(String uid) {
+        this.uid = uid;
     }
+
 }

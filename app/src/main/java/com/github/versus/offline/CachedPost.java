@@ -10,6 +10,8 @@ import com.github.versus.posts.Post;
 import com.github.versus.posts.Timestamp;
 import com.github.versus.sports.Sport;
 import com.github.versus.user.DummyUser;
+import com.github.versus.user.User;
+import com.github.versus.user.VersusUser;
 
 import java.time.Month;
 import java.util.ArrayList;
@@ -123,11 +125,11 @@ public final class CachedPost {
     public Post revert(){
         Timestamp timestamp= new Timestamp(year,Month.valueOf(month),day,hour,minutes, Timestamp.Meridiem.valueOf(meridiem));
         Location location = new Location(locationName,latitude,longitude);
-        List<DummyUser> postCreator= new ArrayList<>();
+        List<VersusUser> postCreator= new ArrayList<>();
         if(uid!=null) {
-            postCreator.add(new DummyUser(uid));
+            postCreator.add(new VersusUser.Builder(uid).build());
         }
-        return new  Post(title, timestamp, location,postCreator,  limit, Sport.valueOf(sport));
+        return new  Post(title, timestamp, location,postCreator,  limit, Sport.valueOf(sport), "");
     }
 
     /**

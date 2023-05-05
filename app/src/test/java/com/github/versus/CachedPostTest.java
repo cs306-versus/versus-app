@@ -13,6 +13,7 @@ import com.github.versus.posts.Post;
 import com.github.versus.posts.Timestamp;
 import com.github.versus.sports.Sport;
 import com.github.versus.user.DummyUser;
+import com.github.versus.user.VersusUser;
 
 import org.junit.Test;
 
@@ -96,7 +97,7 @@ public class CachedPostTest {
 
     @Test
     public void matchPreservesUserId(){
-        DummyUser user = new DummyUser("i play football");
+        VersusUser user = new VersusUser.Builder("uid").build();
         Post post = SimpleTestPost.postWith("Invalid post",
                 new Timestamp(Calendar.getInstance().get(Calendar.YEAR), Month.JANUARY, 1, 8, 1, Timestamp.Meridiem.PM),
                 new Location("Lausanne",10,10),10, Sport.SOCCER, user);
@@ -114,7 +115,7 @@ public class CachedPostTest {
 
     @Test
     public void revertPreservesUserId(){
-        DummyUser user = new DummyUser("i play football");
+        VersusUser user = new VersusUser.Builder("uid").build();
         Post post = SimpleTestPost.postWith("Invalid post",
                 new Timestamp(Calendar.getInstance().get(Calendar.YEAR), Month.JANUARY, 1, 8, 1, Timestamp.Meridiem.PM),
                 new Location("Lausanne",10,10),10, Sport.SOCCER, user);
