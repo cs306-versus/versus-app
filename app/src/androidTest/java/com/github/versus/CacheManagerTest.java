@@ -26,6 +26,7 @@ import org.junit.runner.RunWith;
 import java.time.Month;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
@@ -202,9 +203,8 @@ public class CacheManagerTest {
                 new Location("Lausanne",10,10),10, Sport.SOCCER, users);
 
         manager.insertAll(post1,post2).get();
-        Set<Post> retrieved= manager.fetchAllByIds(CachedPost.computeID(post1),CachedPost.computeID(post2))
-                                .get().stream()
-                                .collect(Collectors.toSet());
+        Set<Post> retrieved= new HashSet<>(manager.fetchAllByIds(CachedPost.computeID(post1),
+                                            CachedPost.computeID(post2)).get());
         assertTrue(retrieved.contains(post1) && retrieved.contains(post2) && retrieved.size()==2);
     }
 
@@ -216,11 +216,86 @@ public class CacheManagerTest {
 
     @Test
     public void NoSportNoCache() throws ExecutionException, InterruptedException {
-        Post post= SimpleTestPost.postWith("I don't play soccer, i prefer rowing",
+        Post post= SimpleTestPost.postWith("I don't play soccer, i prefer sleeping",
                 new Timestamp(Calendar.getInstance().get(Calendar.YEAR),
                         Month.values()[0], 1, 8, 1, Timestamp.Meridiem.PM)
                 ,new Location("Lausanne", 10, 10),10, null,users);
         assertFalse(manager.insert(post).get());
+    }
+    @Test
+    public void fetchByTimestampYieldsCorrectPost() throws ExecutionException, InterruptedException {
+        Timestamp ts=  new Timestamp(Calendar.getInstance().get(Calendar.YEAR),
+                Month.JANUARY, 1, 8, 1, Timestamp.Meridiem.PM);
+
+        Post post =  SimpleTestPost.postWith("Correct post!", ts,
+                new Location("Lausanne",10,10),10, Sport.SOCCER, users);
+
+        Post trap =  SimpleTestPost.postWith("That's a trap!",
+                new Timestamp(Calendar.getInstance().get(Calendar.YEAR),
+                        Month.values()[0], 1, 8, 1, Timestamp.Meridiem.AM),
+                new Location("Lausanne",10,10),10, Sport.SOCCER, users);
+        manager.insertAll(post,trap).get();
+        List<Post> fetched= manager.fetchByTimestamp(ts).get();
+        assertTrue(fetched.size()==1 && fetched.contains(post) );
+
+    }
+
+    @Test
+    public void fetchByTimestampYieldsCorrectMultiplePosts() throws ExecutionException, InterruptedException {
+        Timestamp ts=  new Timestamp(Calendar.getInstance().get(Calendar.YEAR),
+                Month.JANUARY, 1, 8, 1, Timestamp.Meridiem.PM);
+
+        Post post1 =  SimpleTestPost.postWith("Correct post #1!", ts,
+                new Location("Lausanne",10,10),10, Sport.BOXING, users);
+
+        Post post2 =  SimpleTestPost.postWith("Correct post #2!", ts,
+                new Location("Lausanne",10,10),10, Sport.BOXING, users);
+        Post trap =  SimpleTestPost.postWith("That's a trap!",
+                new Timestamp(Calendar.getInstance().get(Calendar.YEAR),
+                        Month.values()[0], 1, 8, 1, Timestamp.Meridiem.AM),
+                new Location("Lausanne",10,10),10, Sport.BOXING, users);
+        manager.insertAll(post1,post2,trap).get();
+        Set<Post> fetched= new HashSet<>(manager.fetchByTimestamp(ts).get());
+        assertTrue(fetched.size()==2 && fetched.containsAll(Arrays.asList(post1,post2)));
+
+    }
+
+    @Test
+    public void fetchBySportYieldsCorrectPost() throws ExecutionException, InterruptedException {
+
+        Post post =  SimpleTestPost.postWith("Correct post!",  new Timestamp(Calendar.getInstance().get(Calendar.YEAR),
+                        Month.JANUARY, 1, 8, 1, Timestamp.Meridiem.PM),
+                new Location("Lausanne",10,10),10, Sport.BOXING, users);
+
+        Post trap =  SimpleTestPost.postWith("That's a trap!",
+                new Timestamp(Calendar.getInstance().get(Calendar.YEAR),
+                        Month.values()[0], 1, 8, 1, Timestamp.Meridiem.PM),
+                new Location("Lausanne",10,10),10, Sport.SOCCER, users);
+        manager.insertAll(post,trap).get();
+        List<Post> fetched= manager.fetchBySport(Sport.BOXING).get();
+        assertTrue(fetched.size()==1 && fetched.contains(post) );
+
+    }
+
+    @Test
+    public void fetchBySportYieldsCorrectMultiplePosts() throws ExecutionException, InterruptedException {
+
+        Post post1 =  SimpleTestPost.postWith("Correct post! #1",  new Timestamp(Calendar.getInstance().get(Calendar.YEAR),
+                        Month.JANUARY, 1, 8, 1, Timestamp.Meridiem.PM),
+                new Location("Lausanne",10,10),10, Sport.BOXING, users);
+
+        Post post2 =  SimpleTestPost.postWith("Correct post! #2",  new Timestamp(Calendar.getInstance().get(Calendar.YEAR),
+                        Month.JANUARY, 1, 8, 1, Timestamp.Meridiem.PM),
+                new Location("Lausanne",10,10),10, Sport.BOXING, users);
+
+        Post trap =  SimpleTestPost.postWith("That's a trap!",
+                new Timestamp(Calendar.getInstance().get(Calendar.YEAR),
+                        Month.values()[0], 1, 8, 1, Timestamp.Meridiem.PM),
+                new Location("Lausanne",10,10),10, Sport.SOCCER, users);
+        manager.insertAll(post1,post2,trap).get();
+        Set<Post> fetched= new HashSet<>(manager.fetchBySport(Sport.BOXING).get());
+        assertTrue(fetched.size()==2 && fetched.containsAll(Arrays.asList(post1,post2)));
+
     }
 
 }

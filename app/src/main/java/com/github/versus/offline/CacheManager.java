@@ -6,6 +6,7 @@ import androidx.room.Room;
 
 import com.github.versus.db.DataBaseManager;
 import com.github.versus.posts.Post;
+import com.github.versus.posts.Timestamp;
 import com.github.versus.sports.Sport;
 
 import java.util.List;
@@ -130,7 +131,19 @@ public final class CacheManager implements DataBaseManager<Post> {
                         .handle((r,e)-> e==null ? r:null);
     }
 
+    public Future<List<Post>> fetchBySport(Sport sport){
+        return CompletableFuture.supplyAsync(()->
+                        dao.fetchBySport(SportConverter.convertSport(sport))
+                                .stream().map(CachedPost::revert).collect(Collectors.toList()))
+                .handle((r,e)-> e==null ? r:null);
+    }
 
+    public Future<List<Post>> fetchByTimestamp(Timestamp timestamp){
+        return CompletableFuture.supplyAsync(()->
+                        dao.fetchByTimeStamp(TimeStampConverter.convertTimeStamp(timestamp))
+                                .stream().map(CachedPost::revert).collect(Collectors.toList()))
+                .handle((r,e)-> e==null ? r:null);
+    }
 
     /**
      *Erases the cache

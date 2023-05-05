@@ -29,4 +29,9 @@ public interface  PostDAO  {
     @Query("DELETE FROM CachedPost WHERE id LIKE :id")
     void deleteById(String id);
 
+    @Query("SELECT * FROM CachedPost WHERE sport LIKE :activity")
+    List<CachedPost> fetchBySport(String activity);
+    @Query("SELECT * FROM CachedPost WHERE timestamp LIKE :schedule")
+    List<CachedPost> fetchByTimeStamp(String schedule);
+
 }
