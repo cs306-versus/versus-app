@@ -37,9 +37,6 @@
             android:name=".UserChatActivity"
             android:exported="false" />
         <activity
-            android:name=".ChatsActivity"
-            android:exported="false" />
-        <activity
             android:name=".EntryActivity"
             android:exported="true">
             <intent-filter>
