@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log
+import android.view.MenuItem
 import android.widget.EditText;
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -88,11 +89,20 @@ class UserChatActivity : AppCompatActivity(){
           val toolbar = findViewById<Toolbar>(R.id.toolbar)
           setSupportActionBar(toolbar)
           supportActionBar?.title = name
-        
-      }
+          supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+            toolbar.setNavigationOnClickListener {
+            // start MainActivity
+            val intent = Intent(this, ChatsFragment::class.java)
+            startActivity(intent)
+        }
 
-
+    }
 
 }
+
+
+
+
+
 
