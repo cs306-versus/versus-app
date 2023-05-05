@@ -4,6 +4,8 @@ import static org.junit.Assert.assertTrue;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
+import com.github.versus.chats.Chat;
+import com.github.versus.chats.Message;
 import com.github.versus.db.FsChatManager;
 import com.github.versus.db.FsPostManager;
 import com.github.versus.db.FsScheduleManager;
@@ -24,8 +26,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeoutException;
 
-import chats.Chat;
-import chats.Message;
+
 
 @RunWith(AndroidJUnit4.class)
 
