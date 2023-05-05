@@ -4,11 +4,12 @@ package com.github.versus.offline;
 import com.github.versus.posts.Timestamp;
 
 import java.time.Month;
+import java.util.Locale;
 
 public class TimeStampConverter {
 
     public static String convertTimeStamp(Timestamp ts){
-        return  String.format("%04d-%02d-%02d %02d:%02d:%02d %s", ts.getYear(),
+        return  String.format(Locale.ENGLISH,"%04d-%02d-%02d %02d:%02d:%02d %s", ts.getYear(),
                 ts.getMonth().getValue(), ts.getDay(), ts.getHour(), ts.getMinutes(),
                 ts.getSeconds(), ts.getMeridiem().name());
     }
