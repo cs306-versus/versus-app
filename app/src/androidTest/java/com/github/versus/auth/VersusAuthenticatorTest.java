@@ -14,7 +14,7 @@ import org.junit.runner.RunWith;
 
 import java.util.Optional;
 
-import static com.github.versus.utils.auth.EmulatorUserProvider.* ;
+import static com.github.versus.utils.auth.EmulatorUserProvider.*;
 
 @RunWith(AndroidJUnit4.class)
 public class VersusAuthenticatorTest {
@@ -22,12 +22,12 @@ public class VersusAuthenticatorTest {
     private final VersusAuthenticator auth = VersusAuthenticator.getInstance(FirebaseEmulator.FIREBASE_AUTH);
 
     @Test
-    public void createSuccessfulMailAccount(){
+    public void createSuccessfulMailAccount() {
         // Request an account creation
         Task<AuthResult> task = auth.createAccountWithMail(freeMail(), validPassword());
 
         // spin and wait for the task to complete
-        while(!(task.isComplete() || task.isCanceled()));
+        while (!(task.isComplete() || task.isCanceled())) ;
 
         // Generate the error message & execute the test
         Optional.ofNullable(task.getException())
@@ -37,12 +37,12 @@ public class VersusAuthenticatorTest {
     }
 
     @Test
-    public void signInSuccessfulMailAccount(){
+    public void signInSuccessfulMailAccount() {
         // Request an account creation
         Task<AuthResult> task = auth.signInWithMail(validMail(), validPassword());
 
         // spin and wait for the task to complete
-        while(!(task.isComplete() || task.isCanceled()));
+        while (!(task.isComplete() || task.isCanceled())) ;
 
         // Generate the error message & execute the test
         Optional.ofNullable(task.getException())
@@ -52,7 +52,7 @@ public class VersusAuthenticatorTest {
     }
 
     @Test
-    public void testSignOut(){
+    public void testSignOut() {
         auth.signOut();
         assertNull(auth.currentUser());
     }

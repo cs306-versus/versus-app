@@ -31,22 +31,22 @@ public class AuthActivityTest {
     public ActivityScenarioRule<AuthActivity> scenario = new ActivityScenarioRule<>(AuthActivity.class);
 
     @Before
-    public void setUp(){
+    public void setUp() {
         ctx = ApplicationProvider.getApplicationContext();
     }
 
     @Test
-    public void checkVisibleAuthFragment(){
+    public void checkVisibleAuthFragment() {
         onView(withId(R.id.frag_auth_layout)).check(matches(isDisplayed()));
     }
 
     @Test
-    public void checkOnActivityResult(){
+    public void checkOnActivityResult() {
         Instrumentation.ActivityResult result = new Instrumentation.ActivityResult(0, null);
-        try{
+        try {
             Intents.init();
             intending(hasComponent(AuthActivity.class.getName())).respondWith(result);
-            scenario.getScenario().onActivity(a -> a.startActivityForResult(new Intent(ctx,AuthActivity.class), 0));
+            scenario.getScenario().onActivity(a -> a.startActivityForResult(new Intent(ctx, AuthActivity.class), 0));
         } finally {
             Intents.release();
         }

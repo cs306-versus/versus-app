@@ -28,7 +28,7 @@ public class BaseAuthFragmentTest {
     private Exception triggered;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         // Mock an instance of BaseAuthFragment
         frag = mock(BaseAuthFragment.class);
         // Register Button for the tests
@@ -42,7 +42,7 @@ public class BaseAuthFragmentTest {
     }
 
     @Test
-    public void testHandleSuccessfulConnection(){
+    public void testHandleSuccessfulConnection() {
         // Mock the completion the execution of the Task
         when(result.isComplete()).thenReturn(true);
         when(result.isSuccessful()).thenReturn(true);
@@ -52,7 +52,7 @@ public class BaseAuthFragmentTest {
     }
 
     @Test
-    public void testHandleFailedConnection(){
+    public void testHandleFailedConnection() {
         // Mock the completion the execution of the Task
         when(result.isComplete()).thenReturn(true);
         when(result.isSuccessful()).thenReturn(false);
@@ -61,7 +61,7 @@ public class BaseAuthFragmentTest {
     }
 
     @Test
-    public void testHandleCancelledConnection(){
+    public void testHandleCancelledConnection() {
         // Mock the completion the execution of the Task
         when(result.isCanceled()).thenReturn(true);
         when(result.isSuccessful()).thenReturn(false);
@@ -71,11 +71,11 @@ public class BaseAuthFragmentTest {
 
     // TODO HR : Add tests here
 
-    private void performClickAndCheck(){
+    private void performClickAndCheck() {
         try {
             assertTrue(button.performClick());
-        } catch (Exception ex){
-            if(triggered != ex) fail(ex.getMessage());
+        } catch (Exception ex) {
+            if (triggered != ex) fail(ex.getMessage());
             return;
         }
         //fail("An Exception should have been thrown at this point");

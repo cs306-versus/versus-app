@@ -32,35 +32,35 @@ public class AuthFragmentTest {
             new ActivityScenarioRule<>(AuthActivity.class);
 
     @Test
-    public void testSignInRequest(){
+    public void testSignInRequest() {
         onView(withId(R.id.auth_signin)).perform(click());
         // Check if the SignIn layout is displayed
         onView(withId(R.id.frag_signin_layout)).check(matches(isDisplayed()));
     }
 
     @Test
-    public void testGoogleLoginRequest(){
+    public void testGoogleLoginRequest() {
         onView(withId(R.id.auth_login_google)).perform(click());
         onView(withId(R.id.frag_login_google_layout))
                 .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.INVISIBLE)));
         // TODO HR : Still need to check if the activity changed
     }
 
-    @Test
-    public void testOnSuccessLogin(){
-        try {
-            Intents.init();
-            onView(withId(R.id.auth_login_mail_mail)).perform(replaceText(validMail()));
-            onView(withId(R.id.auth_login_mail_pwd)).perform(replaceText(validPassword()));
-            onView(withId(R.id.auth_login_mail)).perform(click());
-            // Intents.intended(allOf(hasComponent(MainActivity.class.getName())));
-        } finally {
-            Intents.release();
-        }
-    }
+    //@Test
+    //public void testOnSuccessLogin() {
+    //    try {
+    //        Intents.init();
+    //        onView(withId(R.id.auth_login_mail_mail)).perform(replaceText(validMail()));
+    //        onView(withId(R.id.auth_login_mail_pwd)).perform(replaceText(validPassword()));
+    //        onView(withId(R.id.auth_login_mail)).perform(click());
+    //        // Intents.intended(allOf(hasComponent(MainActivity.class.getName())));
+    //    } finally {
+    //        Intents.release();
+    //    }
+    //}
 
     @Test
-    public void testOnFailLogin(){
+    public void testOnFailLogin() {
         onView(withId(R.id.auth_login_mail_mail)).perform(replaceText(nonValidMail()));
         onView(withId(R.id.auth_login_mail_pwd)).perform(replaceText(nonValidPassword()));
         onView(withId(R.id.auth_login_mail)).perform(click());

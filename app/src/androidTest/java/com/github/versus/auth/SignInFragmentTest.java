@@ -18,6 +18,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import com.github.versus.utils.*;
+
 import static com.github.versus.utils.auth.EmulatorUserProvider.*;
 
 @RunWith(AndroidJUnit4.class)
@@ -27,17 +28,17 @@ public class SignInFragmentTest {
     public ActivityScenarioRule<AuthActivity> scenario = new ActivityScenarioRule<>(AuthActivity.class);
 
     @Before
-    public void setUp(){
+    public void setUp() {
         onView(withId(R.id.auth_signin)).perform(click());
     }
 
     @Test
-    public void testOnSuccessSignIn(){
+    public void testOnSuccessSignIn() {
         onView(withId(R.id.auth_signin_mail)).perform(replaceText(freeMail()));
         onView(withId(R.id.auth_signin_pwd)).perform(replaceText(validPassword()));
         onView(withId(R.id.auth_signin_button)).perform(click());
         // Spin & Check if the currentUser has changed
-        while(isNull(FirebaseEmulator.FIREBASE_AUTH.getCurrentUser()));
+        while (isNull(FirebaseEmulator.FIREBASE_AUTH.getCurrentUser())) ;
         // TODO HR : This is not the best check, we should check the screen or catch the intent
     }
 
