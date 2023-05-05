@@ -19,7 +19,7 @@ import static com.github.versus.utils.auth.EmulatorUserProvider.* ;
 @RunWith(AndroidJUnit4.class)
 public class VersusAuthenticatorTest {
 
-    private VersusAuthenticator auth = VersusAuthenticator.getInstance(FirebaseEmulator.FIREBASE_AUTH);
+    private final VersusAuthenticator auth = VersusAuthenticator.getInstance(FirebaseEmulator.FIREBASE_AUTH);
 
     @Test
     public void createSuccessfulMailAccount(){
