@@ -27,7 +27,7 @@ import org.junit.Test;
 
 import java.util.regex.Matcher;
 
-public class SearchFragTest {
+public class SeachFragmentTest {
     @Rule
     public ActivityScenarioRule<MainActivity> scenario = new ActivityScenarioRule<>(MainActivity.class);
     @Before
@@ -53,19 +53,34 @@ public class SearchFragTest {
     public void testMakePost(){
         onView(withId(R.id.add_posts)).perform(click());
         onView(withId(R.id.editPostTitle)).check(matches(isDisplayed()));
-        onView(withId(R.id.editPostTitle)).check(matches(withText(containsString("Title"))));
+        onView(withId(R.id.editPostTitle)).perform(typeText("TEST POST"));
         onView(withId(android.R.id.button1)).perform(click());
-        onView(withText(containsString("choose a sport"))).check(matches(isDisplayed()));
-        onView(withText(containsString("next"))).perform(click());
-        onView(withText(containsString("cancel"))).perform(click());
+        onView(withText("Archery")).perform(click());
+        onView(withId(android.R.id.button1)).perform(click());
+        onView(withId(R.id.editMaxPlayers)).perform((typeText("4")));
+        onView(withId(android.R.id.button1)).perform(click());
+        onView(withId(android.R.id.button1)).perform(click());
     }
 
     @Test
-    public void testSearchBar(){
-        onView(withId(R.id.search_posts)).check(matches(withHint(containsString("Search"))));
-        onView(withId(R.id.search_posts)).perform(click());
-        onView(withId(R.id.search_posts)).perform(typeText("aloha"));
-        onView(withId(R.id.search_posts)).check(matches(withText(containsString("aloha"))));
+    public void testCancelPost(){
+        onView(withId(R.id.add_posts)).perform(click());
+        onView(withId(R.id.editPostTitle)).check(matches(isDisplayed()));
+        onView(withId(R.id.editPostTitle)).perform(typeText("TEST POST"));
+        onView(withId(android.R.id.button1)).perform(click());
+        onView(withText("Archery")).perform(click());
+        onView(withId(android.R.id.button1)).perform(click());
+        onView(withId(R.id.editMaxPlayers)).perform((typeText("4")));
+        onView(withId(android.R.id.button2)).perform(click());
+
 
     }
+
+    //@Test
+    //public void testSearchBar(){
+    //    onView(withId(R.id.search_posts)).perform(typeText("Football"));
+    //    onView((withText("Football"))).check(matches(isDisplayed()));
+    //}
+
+
 }

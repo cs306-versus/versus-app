@@ -2,14 +2,12 @@ package com.github.versus;
 
 import static org.junit.Assert.assertEquals;
 
-import android.view.ViewGroup;
-
 import com.github.versus.announcements.AnnouncementAdapter;
 import com.github.versus.posts.Location;
 import com.github.versus.posts.Post;
 import com.github.versus.posts.Timestamp;
 import com.github.versus.sports.Sport;
-import com.github.versus.user.DummyUser;
+import com.github.versus.user.VersusUser;
 
 import org.junit.Test;
 
@@ -42,7 +40,7 @@ public class AnnouncementAdapterTest {
         }
 
         @Override
-        public List<DummyUser> getPlayers() {
+        public List<VersusUser> getPlayers() {
             return null;
         }
 
@@ -59,22 +57,22 @@ public class AnnouncementAdapterTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void createAdapterNullPosts(){
-        AnnouncementAdapter aa = new AnnouncementAdapter(null);
+        AnnouncementAdapter aa = new AnnouncementAdapter(null, null, null);
     }
 
     @Test
     public void createAdapterPostsLength(){
-        assertEquals(0, new AnnouncementAdapter(new ArrayList<>()).getItemCount());
+        assertEquals(0, new AnnouncementAdapter(new ArrayList<>(), null, null).getItemCount());
         ArrayList<Post> a = new ArrayList();
         a.add(new Post());
-        assertEquals(1, new AnnouncementAdapter(a).getItemCount());
+        assertEquals(1, new AnnouncementAdapter(a, null, null).getItemCount());
     }
     @Test(expected = NullPointerException.class)
     public void onCreateViewHolderNull(){
         ArrayList<Post> a = new ArrayList<>();
 
         a.add(validPost);
-      new AnnouncementAdapter(a).onCreateViewHolder(null, 0);
+      new AnnouncementAdapter(a, null, null).onCreateViewHolder(null, 0);
     }
 
 }

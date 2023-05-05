@@ -23,10 +23,14 @@ import com.github.versus.announcements.CreatePostTitleDialogFragment;
 import com.github.versus.announcements.MaxPlayerDialogFragment;
 import com.github.versus.announcements.PostDatePickerDialog;
 import com.github.versus.db.FsPostManager;
+import com.github.versus.db.FsUserManager;
 import com.github.versus.posts.Location;
 import com.github.versus.posts.Post;
 import com.github.versus.posts.Timestamp;
 import com.github.versus.sports.Sport;
+import com.github.versus.user.User;
+import com.github.versus.user.VersusUser;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.time.Month;
@@ -44,6 +48,7 @@ public class SearchFragment extends Fragment implements
 
     protected RecyclerView recyclerView;
     protected Post newPost;
+    protected VersusUser user = new VersusUser.Builder("fake").build();
 
     protected EditText searchBar;
     protected CreatePostTitleDialogFragment cpdf;
@@ -57,6 +62,8 @@ public class SearchFragment extends Fragment implements
 
     protected AnnouncementAdapter aa;
     protected FsPostManager pm;
+    protected Boolean isCalledSportsFrag=false;
+    public String SearchTextSportsFrag="";
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -71,39 +78,51 @@ public class SearchFragment extends Fragment implements
                 createPost();
             }
         });
+        FsUserManager db = null;
+        if(FirebaseFirestore.getInstance() != null && FirebaseAuth.getInstance() != null && FirebaseAuth.getInstance().getUid() != null) {
+            db = new FsUserManager(FirebaseFirestore.getInstance());
+            ((CompletableFuture<User>)db.fetch(FirebaseAuth.getInstance().getUid()))
+                    .thenAccept(this::setUser);
+            user = new VersusUser.Builder(FirebaseAuth.getInstance().getUid()).build();
+        }
 
-        aa = new AnnouncementAdapter(displayPosts);
         loadPosts();
-        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
-        llm.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(llm);
-        recyclerView.setAdapter(aa);
+
+
 
         return rootView;
     }
-
+    private void setUser(User user){
+        this.user = (VersusUser) user;
+    }
     protected void assignViews(View rootView){
         recyclerView = rootView.findViewById(R.id.recyclerView);
         recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
+        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        pm = new FsPostManager(FirebaseFirestore.getInstance());
+
+        aa = new AnnouncementAdapter(displayPosts, user, pm);
+        recyclerView.setLayoutManager(llm);
+        recyclerView.setAdapter(aa);
         cpdf = new CreatePostTitleDialogFragment();
         cpsdf = new ChoosePostSportDialogFragment();
         mpdf = new MaxPlayerDialogFragment();
         pdpd = new PostDatePickerDialog();
-        pm = new FsPostManager(FirebaseFirestore.getInstance());
         searchBar = rootView.findViewById(R.id.search_posts);
+        if(isCalledSportsFrag){ searchBar.setText(SearchTextSportsFrag);
+        isCalledSportsFrag=false;
+
+        }
         searchBar.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 filterPosts();
             }
             @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
+            public void afterTextChanged(Editable editable) {}
         });
     }
 
@@ -128,7 +147,7 @@ public class SearchFragment extends Fragment implements
     public void onCancel() {
         Timestamp ts =  new Timestamp(2023, Month.APRIL, 4, 5, 1, Timestamp.Meridiem.AM);
         Location unil = new Location("UNIL", 42, 42);
-        newPost = new Post("Casual Soccer", ts, unil, new ArrayList<>(), 24, Sport.SOCCER);
+        newPost = new Post("Casual Soccer", ts, unil, new ArrayList<>(), 24, Sport.SOCCER, "");
     }
 
     @Override
@@ -155,10 +174,10 @@ public class SearchFragment extends Fragment implements
         }
         else {
             displayPosts.addAll(
-              posts.stream().filter(post -> {
-                  return post.getSport().name().toLowerCase().contains(filter.toLowerCase())
-                          || post.getTitle().toLowerCase().contains(filter.toLowerCase());
-              }).collect(Collectors.toList())
+                    posts.stream().filter(post -> {
+                        return post.getSport().name().toLowerCase().contains(filter.toLowerCase())
+                                || post.getTitle().toLowerCase().contains(filter.toLowerCase());
+                    }).collect(Collectors.toList())
             );
         }
 
@@ -179,7 +198,18 @@ public class SearchFragment extends Fragment implements
     @Override
     public void onPickPostDate(Timestamp ts) {
         newPost.setDate(ts);
+        ArrayList<VersusUser> users = new ArrayList<>();
+        users.add(user);
+        newPost.setPlayers(users);
         pm.insert(newPost);
         loadPosts();
+    }
+    /*
+    * This method   takes as input a String that will be used to filter the posts , this method is only called
+    * from the TopGamesFragment
+    * */
+    public void setSearchBarTextFromTradingSportsFrag(String text){
+         isCalledSportsFrag=true;
+         SearchTextSportsFrag=text;
     }
 }

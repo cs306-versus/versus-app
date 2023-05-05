@@ -15,7 +15,13 @@
             android:title="Schedule" />
         <item
             android:id="@+id/nav_user_profil"
+            android:icon="@drawable/profil"
             android:title="Profil" />
+        <item
+            android:id="@+id/nav_trending_sports"
+            android:icon="@drawable/trending"
+            android:title="Trending Sports" />
+
         <item
             android:id="@+id/nav_chats"
             android:title="Chats" />
