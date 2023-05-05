@@ -55,8 +55,7 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new UserInfoFragment()).commit();
                 break;
             case R.id.nav_chats:
-                Intent intent = new Intent(this, ChatsActivity.class);
-                startActivity(intent);
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new ChatsFragment()).commit();
                 break;
 
         }

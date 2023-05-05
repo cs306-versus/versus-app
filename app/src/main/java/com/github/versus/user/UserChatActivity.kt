@@ -88,6 +88,7 @@ class UserChatActivity : AppCompatActivity(){
           val toolbar = findViewById<Toolbar>(R.id.toolbar)
           setSupportActionBar(toolbar)
           supportActionBar?.title = name
+        
       }
 
 
