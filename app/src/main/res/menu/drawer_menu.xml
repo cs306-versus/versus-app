@@ -24,6 +24,7 @@
 
         <item
             android:id="@+id/nav_chats"
+            android:icon="@drawable/chat_icon"
             android:title="Chats" />
 
     </group>
