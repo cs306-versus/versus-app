@@ -51,7 +51,7 @@ public final class CacheManager implements DataBaseManager<Post> {
     @Override
     public Future<Boolean> insert(Post post) {
         CachedPost cached= CachedPost.match(post);
-        if(cached.isEmpty){
+        if(cached==null){
             return CompletableFuture.completedFuture(Boolean.FALSE);
         }
         return CompletableFuture.runAsync((()->dao.insertAll(cached))).
@@ -96,7 +96,7 @@ public final class CacheManager implements DataBaseManager<Post> {
         CachedPost match[]= new CachedPost[posts.length];
         for (int i = 0; i < posts.length; i++) {
             match[i]= CachedPost.match(posts[i]);
-            if(match[i].isEmpty){
+            if(match[i]==null){
                 return CompletableFuture.completedFuture(Boolean.FALSE);
             }
         }
@@ -124,35 +124,13 @@ public final class CacheManager implements DataBaseManager<Post> {
      */
     public Future<List<Post>> getAllPosts(){
         return CompletableFuture.supplyAsync(()-> dao.getAll().stream()
-                        .map(cachedPost -> cachedPost.revert()).collect(Collectors.toList()))
+                        .map(CachedPost::revert).collect(Collectors.toList()))
 
 
                         .handle((r,e)-> e==null ? r:null);
     }
 
-    /**
-     * randomly selects posts from cache
-     * @return
-     * A Completable future resulting in the fetched post
-     */
-    public Future<List<Post>> randomSelect(){
-        return CompletableFuture.supplyAsync(()->dao.randomSelect().stream()
-                        .map(cachedPost ->cachedPost.revert()).collect(Collectors.toList()))
-                        .handle((r,e)-> e==null? r:null);
-    }
 
-
-    /**
-     * fetches all the posts with a given sport
-     * not yet available since the representation of sport is changing
-     * @param sport
-     * @return
-     *  A Completable future resulting in the fetched post
-     */
-    public Future<Post> loadBySport(Sport sport){
-        return CompletableFuture.supplyAsync(()->dao.loadBySport(sport.name()).revert())
-                .handle((r,e)-> e==null? r:null);
-    }
 
     /**
      *Erases the cache

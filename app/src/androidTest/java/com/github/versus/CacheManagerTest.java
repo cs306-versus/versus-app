@@ -24,8 +24,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.time.Month;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.stream.Collectors;
@@ -36,6 +38,51 @@ public class CacheManagerTest {
     public ActivityScenarioRule<MainActivity> testRule = new ActivityScenarioRule<>(MainActivity.class);
 
     private CacheManager manager;
+    private static List<VersusUser> users = buildTestUsers();
+    private static List<VersusUser> buildTestUsers() {
+        List<Sport> preferredSports1= Arrays.asList(Sport.MARTIALARTS,Sport.CLIMBING,Sport.CRICKET,
+                Sport.JUDO,Sport.GOLF, Sport.SURFING,Sport.WRESTLING);
+        List<Sport> preferredSports2= Arrays.asList(Sport.BOXING);
+        List<Sport> preferredSports3= Arrays.asList(Sport.FOOTBALL,Sport.BASKETBALL);
+
+        VersusUser.Builder builder ;
+        builder= new VersusUser.Builder("007");
+        builder.setFirstName("James");
+        builder.setLastName("Bond");
+        builder.setUserName("NotInfiltrated");
+        builder.setMail("notfakemail@gmail.com");
+        builder.setPhone("0000077777");
+        builder.setRating(5);
+        builder.setCity("London");
+        builder.setZipCode(700);
+        builder.setPreferredSports(preferredSports1);
+        VersusUser JamesBond=   builder.build();
+
+        builder = new VersusUser.Builder("1");
+        builder.setFirstName("Mohammad");
+        builder.setLastName("Ali");
+        builder.setUserName("TheGoat");
+        builder.setMail("IamTheDancingMaster@gmail.com");
+        builder.setPhone("0000000001");
+        builder.setRating(5);
+        builder.setCity("Ring");
+        builder.setZipCode(1);
+        builder.setPreferredSports(preferredSports2);
+        VersusUser MohammedAli= builder.build();
+
+        builder = new VersusUser.Builder("999");
+        builder.setFirstName("Regular");
+        builder.setLastName("Guy");
+        builder.setUserName("BasicGuy");
+        builder.setMail("ILoveBallSports@gmail.com");
+        builder.setPhone("999999999");
+        builder.setRating(3);
+        builder.setCity("FootballClub");
+        builder.setZipCode(99);
+        builder.setPreferredSports(preferredSports3);
+        VersusUser RegularGuy= builder.build();
+        return Arrays.asList(JamesBond,MohammedAli,RegularGuy);
+    }
 
     @Before
     public void createDb() {
@@ -52,14 +99,20 @@ public class CacheManagerTest {
 
     @Test
     public void insertOfValidPostIsSuccessful() throws Exception {
-       SimpleTestPost post= new SimpleTestPost();
+        Post post = SimpleTestPost.postWith("Valid",
+                new Timestamp(Calendar.getInstance().get(Calendar.YEAR), Month.JANUARY, 1, 8, 1, Timestamp.Meridiem.PM),
+                new Location("Lausanne",10,10),10, Sport.SOCCER, users.get(0));
        Future<Boolean> inserted= manager.insert(post);
        assertTrue(inserted.get());
     }
     @Test
     public void insertAllOfValidPostsIsSuccessful() throws Exception {
-        Post post1= new SimpleTestPost();
-        Post post2= new SimpleTestPost("Another Valid one");
+        Post post1= SimpleTestPost.postWith("Valid",
+                new Timestamp(Calendar.getInstance().get(Calendar.YEAR), Month.JANUARY, 1, 8, 1, Timestamp.Meridiem.PM),
+                new Location("Lausanne",10,10),10, Sport.SOCCER, users.get(0));
+        Post post2=  SimpleTestPost.postWith("Another Valid one",
+                new Timestamp(Calendar.getInstance().get(Calendar.YEAR), Month.JANUARY, 1, 8, 1, Timestamp.Meridiem.PM),
+                new Location("Lausanne",10,10),10, Sport.SOCCER, users);
         Future<Boolean> inserted= manager.insertAll(post1,post2);
         assertTrue(inserted.get());
     }
@@ -72,12 +125,15 @@ public class CacheManagerTest {
 
     @Test
     public void insertAllOfInvalidPostsIsUnsuccessful() throws ExecutionException, InterruptedException {
-        assertFalse(manager.insertAll(null,null).get());
+        assertFalse(manager.insertAll(null,new SimpleTestPost()).get());
     }
 
     @Test
     public void insertAllOfInvalidAndValidPostsIsUnsuccessful() throws ExecutionException, InterruptedException {
-        assertFalse(manager.insertAll(null,new SimpleTestPost()).get());
+        Post valid=  SimpleTestPost.postWith("Nothing to see here",
+                new Timestamp(Calendar.getInstance().get(Calendar.YEAR), Month.JANUARY, 1, 8, 1, Timestamp.Meridiem.PM),
+                new Location("Lausanne",10,10),10, Sport.SOCCER, users);
+        assertFalse(manager.insertAll(null,valid).get());
     }
     @Test
     public void CacheManagerIsUnique() {
@@ -87,7 +143,9 @@ public class CacheManagerTest {
 
     @Test
     public void fetchRetrievesTheRightPost() throws ExecutionException, InterruptedException {
-        SimpleTestPost post =  new SimpleTestPost("to fetch");
+        Post post =  SimpleTestPost.postWith("fetch me harder",
+                new Timestamp(Calendar.getInstance().get(Calendar.YEAR), Month.JANUARY, 1, 8, 1, Timestamp.Meridiem.PM),
+                new Location("Lausanne",10,10),10, Sport.SOCCER, users);
 
         manager.insert(post).get();
 
@@ -97,7 +155,9 @@ public class CacheManagerTest {
 
     @Test
     public void deleteWorksWithValidPost() throws ExecutionException, InterruptedException {
-        SimpleTestPost post =  new SimpleTestPost("To Be Deleted");
+        Post post =  SimpleTestPost.postWith("delete me",
+                new Timestamp(Calendar.getInstance().get(Calendar.YEAR), Month.JANUARY, 1, 8, 1, Timestamp.Meridiem.PM),
+                new Location("Lausanne",10,10),10, Sport.SOCCER, users);
         manager.insert(post).get();
         boolean result= manager.delete(CachedPost.computeID(post)).get();
         assertTrue(result);
@@ -109,21 +169,9 @@ public class CacheManagerTest {
 
     @Test
     public void fetchUnavailablePost() throws ExecutionException, InterruptedException {
-        assertTrue(manager.fetch(CachedPost.EMPTY_ID).get()==null);
+        assertTrue(manager.fetch(CachedPost.INVALID_ID).get()==null);
     }
 
-    @Test
-    public void randomSelectEmptyCache() throws ExecutionException, InterruptedException {
-        assertTrue(manager.randomSelect().get().isEmpty());
-    }
-
-    @Test
-    public void randomSelectRetrievesPosts() throws ExecutionException, InterruptedException {
-        SimpleTestPost post =  new SimpleTestPost("only one to select");
-        manager.insert(post).get();
-        Post retrieved = manager.randomSelect().get().get(0);
-        assertTrue(post.equals(retrieved));
-    }
 
     @Test
     public void databaseISOpen() {
@@ -137,78 +185,42 @@ public class CacheManagerTest {
 
     @Test
     public void getAllPostsRetrievesPostsCorrectly() throws ExecutionException, InterruptedException {
-        SimpleTestPost post =  new SimpleTestPost("to fetch");
+        Post post =  SimpleTestPost.postWith("fetch me in public",
+                new Timestamp(Calendar.getInstance().get(Calendar.YEAR), Month.JANUARY, 1, 8, 1, Timestamp.Meridiem.PM),
+                new Location("Lausanne",10,10),10, Sport.SOCCER, users);
         manager.insert(post).get();
         assertTrue(post.equals(manager.getAllPosts().get().get(0)));
     }
 
     @Test
     public void fetchAllByIdsRetrievesCorrectPost() throws ExecutionException, InterruptedException {
-        Post post1 =  new SimpleTestPost("to fetch");
-        Post post2= new SimpleTestPost("Valid");
+        Post post1 =  SimpleTestPost.postWith("fetch me before",
+                new Timestamp(Calendar.getInstance().get(Calendar.YEAR), Month.JANUARY, 1, 8, 1, Timestamp.Meridiem.PM),
+                new Location("Lausanne",10,10),10, Sport.SOCCER, users);
+        Post post2 =  SimpleTestPost.postWith("fetch me after",
+                new Timestamp(Calendar.getInstance().get(Calendar.YEAR), Month.JANUARY, 1, 8, 1, Timestamp.Meridiem.PM),
+                new Location("Lausanne",10,10),10, Sport.SOCCER, users);
+
         manager.insertAll(post1,post2).get();
-        List<String> retrieved= manager.fetchAllByIds(CachedPost.computeID(post1),CachedPost.computeID(post2))
-                                .get().stream().map(p -> p.getTitle())
-                                .collect(Collectors.toList());
-        assertTrue(retrieved.contains(post1.getTitle())&&retrieved.contains(post2.getTitle()));
+        Set<Post> retrieved= manager.fetchAllByIds(CachedPost.computeID(post1),CachedPost.computeID(post2))
+                                .get().stream()
+                                .collect(Collectors.toSet());
+        assertTrue(retrieved.contains(post1) && retrieved.contains(post2) && retrieved.size()==2);
     }
 
     @Test
     public void fetchAllByIdsUnavailablePosts() throws ExecutionException, InterruptedException {
-        assertTrue(manager.fetchAllByIds(CachedPost.EMPTY_ID).get().isEmpty());
+        assertTrue(manager.fetchAllByIds(CachedPost.INVALID_ID).get().isEmpty());
     }
 
-    @Test
-    public void sportsAreCachedCorrectly() throws ExecutionException, InterruptedException {
-        Post post= SimpleTestPost.postWith("I don't play soccer, i prefer rowing",
-        new Timestamp(Calendar.getInstance().get(Calendar.YEAR),
-                Month.values()[0], 1, 8, 1, Timestamp.Meridiem.PM)
-                ,new Location("Lausanne", 10, 10),10, Sport.CLIMBING);
-
-        String key= CachedPost.computeID(post);
-        manager.insert(post).get();
-        Post fetched =manager.fetch(key).get();
-        assertTrue(fetched.getSport()==post.getSport());
-    }
 
     @Test
     public void NoSportNoCache() throws ExecutionException, InterruptedException {
         Post post= SimpleTestPost.postWith("I don't play soccer, i prefer rowing",
                 new Timestamp(Calendar.getInstance().get(Calendar.YEAR),
                         Month.values()[0], 1, 8, 1, Timestamp.Meridiem.PM)
-                ,new Location("Lausanne", 10, 10),10, null);
+                ,new Location("Lausanne", 10, 10),10, null,users);
         assertFalse(manager.insert(post).get());
-    }
-
-    @Test
-    public  void userPresentUIDCachedCorrectly() throws ExecutionException, InterruptedException {
-        VersusUser user = new VersusUser.Builder("uid").build();
-        Post post = SimpleTestPost.postWith("Looking for football team",
-                new Timestamp(Calendar.getInstance().get(Calendar.YEAR), Month.JANUARY, 1, 8, 1, Timestamp.Meridiem.PM),
-                new Location("Lausanne",10,10),10, Sport.SOCCER, user);
-        manager.insert(post).get();
-        manager.fetch(CachedPost.computeID(post)).get();
-        assertTrue(manager.fetch(CachedPost.computeID(post)).get().getPlayers().get(0).equals(user));
-    }
-
-    @Test
-    public  void databaseDoesNotIntroduceInconsistencies() throws ExecutionException, InterruptedException {
-        Post post = SimpleTestPost.postWith("looking for football team  but im not playing",
-                new Timestamp(Calendar.getInstance().get(Calendar.YEAR), Month.JANUARY, 1, 8, 1, Timestamp.Meridiem.PM),
-                new Location("Lausanne",10,10),10, Sport.SOCCER);
-        manager.insert(post).get();
-        manager.fetch(CachedPost.computeID(post)).get();
-        assertTrue(manager.fetch(CachedPost.computeID(post)).get().getPlayers().isEmpty());
-    }
-
-    @Test
-    public void loadBySportsGivesCorrectResult() throws ExecutionException, InterruptedException {
-        Post post = SimpleTestPost.postWith("looking for football team  but im not playing",
-                new Timestamp(Calendar.getInstance().get(Calendar.YEAR), Month.JANUARY, 1, 8, 1, Timestamp.Meridiem.PM),
-                new Location("Lausanne",10,10),10, Sport.SOCCER);
-        manager.insert(post).get();
-        assertTrue(manager.loadBySport(Sport.SOCCER).get().getTitle().equals(post.getTitle()));
-
     }
 
 }

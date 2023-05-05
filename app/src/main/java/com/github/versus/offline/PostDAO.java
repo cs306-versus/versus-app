@@ -23,16 +23,8 @@ public interface  PostDAO  {
     List<CachedPost> loadAllByIds(String ids[]);
 
 
-    @Query("SELECT * FROM CachedPost ORDER BY RANDOM() LIMIT 1")
-    List<CachedPost> randomSelect();
-
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(CachedPost... rows);
-
-
-    @Query("SELECT * FROM CachedPost WHERE sport LIKE :sport ")
-    CachedPost loadBySport(String sport);
 
     @Query("DELETE FROM CachedPost WHERE id LIKE :id")
     void deleteById(String id);

@@ -27,82 +27,29 @@ public final class CachedPost {
 
     @PrimaryKey(autoGenerate = false)
     @NonNull
-    public  String id;
+    public String id;
+
     @ColumnInfo(name = "title")
     public  String title;
-
     @ColumnInfo(name = "limit")
     public  int limit;
-
-    @ColumnInfo(name = "locationName")
-    public  String locationName;
-
-    @ColumnInfo(name = "latitude")
-    public  double latitude;
-
-    @ColumnInfo(name = "longitude")
-    public  double longitude;
-
-    @ColumnInfo(name = "year")
-    public  int year;
-    @ColumnInfo(name = "month")
-    public  String month;
-
-    @ColumnInfo(name = "day")
-    public  int day;
-
-    @ColumnInfo(name = "hour")
-    public  int hour;
-
-    @ColumnInfo(name = "minutes")
-    public  int minutes;
-
-    @ColumnInfo(name = "seconds")
-    public  int seconds;
-
-    @ColumnInfo(name = "meridiem")
-    public  String  meridiem;
-
-    @ColumnInfo(name = "empty")
-    public  boolean  isEmpty;
 
     @ColumnInfo(name = "sport")
     public String sport;
 
     @ColumnInfo(name = "userID")
     public String uid;
-    public static final String EMPTY_ID = "Empty";
-    private CachedPost(Post post){
 
-        id= computeID(post);
-        title= post.getTitle();
-        limit= post.getPlayerLimit();
-        Location location= post.getLocation();
-        locationName= location.getName();
-        latitude= location.getLatitude();
-        longitude= location.getLongitude();
-        Timestamp timestamp= post.getDate();
-        year=  timestamp.getYear();
-        month= timestamp.getMonth().name();
-        day= timestamp.getDay();
-        hour= timestamp.getHour();
-        minutes= timestamp.getMinutes();
-        seconds= timestamp.getSeconds();
-        meridiem= timestamp.getMeridiem().name();
-        sport= post.getSport().name();
-        uid= post.getPlayers().size()==0?null:post.getPlayers().get(0).getUID();
-        isEmpty= false;
+    @ColumnInfo(name= "location")
+    public String location;
 
-    }
+    @ColumnInfo(name= "timestamp")
+    public String timestamp;
 
+    @ColumnInfo(name= "players")
+    public String players;
 
-    /**
-     * Creates an empty cached post
-     */
-    public CachedPost(){
-        isEmpty= true;
-        id= EMPTY_ID;
-    }
+    public  static final String INVALID_ID= "INVALID";
 
     /**
      * Creates a cached post that matches the given parameter post
@@ -111,9 +58,18 @@ public final class CachedPost {
      */
     public static CachedPost match(Post post){
         if(postIsInvalid(post)) {
-            return new CachedPost();
+            return null;
         }
-        return new CachedPost(post);
+        CachedPost data= new CachedPost();
+        data.id= computeID(post);
+        data.title= post.getTitle();
+        data.uid= post.getUid();
+        data.limit= post.getPlayerLimit();
+        data.location= LocationConverter.convertLocation(post.getLocation());
+        data.timestamp= TimeStampConverter.convertTimeStamp(post.getDate());
+        data.sport= SportConverter.convertSport(post.getSport());
+        data.players= UserConverter.convertListOfUsers(post.getPlayers());
+        return data;
     }
 
     /**
@@ -123,13 +79,10 @@ public final class CachedPost {
      */
 
     public Post revert(){
-        Timestamp timestamp= new Timestamp(year,Month.valueOf(month),day,hour,minutes, Timestamp.Meridiem.valueOf(meridiem));
-        Location location = new Location(locationName,latitude,longitude);
-        List<VersusUser> postCreator= new ArrayList<>();
-        if(uid!=null) {
-            postCreator.add(new VersusUser.Builder(uid).build());
-        }
-        return new  Post(title, timestamp, location,postCreator,  limit, Sport.valueOf(sport), "");
+        Timestamp timestamp= TimeStampConverter.convertBackToTimeStamp(this.timestamp);
+        Location location = LocationConverter.convertBackLocation(this.location);
+        List<VersusUser> players= UserConverter.convertBackListOfUsers(this.players);
+        return new Post(title, timestamp, location,players, limit, Sport.valueOf(sport), this.uid);
     }
 
     /**
@@ -140,7 +93,7 @@ public final class CachedPost {
      */
     public static String computeID(Post post){
         if(postIsInvalid(post)){
-            return EMPTY_ID;
+            return INVALID_ID;
         }
         return String.valueOf(post.getTitle().hashCode());
     }
@@ -152,7 +105,10 @@ public final class CachedPost {
      * true iff the post is valid
      */
     public static boolean postIsInvalid(Post post){
-        return post==null||post.getTitle()==null||post.getLocation()==null||post.getDate()==null || post.getSport()==null;
+        return post==null||post.getTitle()==null||post.getLocation()==null
+                ||post.getDate()==null || post.getSport()==null
+                || post.getPlayers()==null || post.getPlayers().isEmpty()
+                || post.getUid()==null ;
     }
 
 }

@@ -16,11 +16,11 @@ import java.util.List;
 public class ListUserConverterTest {
     private static String strUsers= buildTestString();
 
-    private static List<User> users = buildTestUsers();
+    private static List<VersusUser> users = buildTestUsers();
 
-    private static List<User> reverted= UserConverter.convertBackListOfUsers(strUsers);
+    private static List<VersusUser> reverted= UserConverter.convertBackListOfUsers(strUsers);
 
-    private static List<User> buildTestUsers() {
+    private static List<VersusUser> buildTestUsers() {
         List<Sport> preferredSports1= Arrays.asList(Sport.MARTIALARTS,Sport.CLIMBING,Sport.CRICKET,
                                                     Sport.JUDO,Sport.GOLF, Sport.SURFING,Sport.WRESTLING);
         List<Sport> preferredSports2= Arrays.asList(Sport.BOXING);
@@ -37,7 +37,7 @@ public class ListUserConverterTest {
         builder.setCity("London");
         builder.setZipCode(700);
         builder.setPreferredSports(preferredSports1);
-        User JamesBond=   builder.build();
+        VersusUser JamesBond=   builder.build();
 
         builder = new VersusUser.Builder("1");
         builder.setFirstName("Mohammad");
@@ -49,7 +49,7 @@ public class ListUserConverterTest {
         builder.setCity("Ring");
         builder.setZipCode(1);
         builder.setPreferredSports(preferredSports2);
-        User MohammedAli= builder.build();
+        VersusUser MohammedAli= builder.build();
 
         builder = new VersusUser.Builder("999");
         builder.setFirstName("Regular");
@@ -61,7 +61,7 @@ public class ListUserConverterTest {
         builder.setCity("FootballClub");
         builder.setZipCode(99);
         builder.setPreferredSports(preferredSports3);
-        User RegularGuy= builder.build();
+        VersusUser RegularGuy= builder.build();
         return Arrays.asList(JamesBond,MohammedAli,RegularGuy);
     }
     private static String buildTestString(){

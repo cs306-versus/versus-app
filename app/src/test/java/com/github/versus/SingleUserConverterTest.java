@@ -16,11 +16,11 @@ import java.util.List;
 public class SingleUserConverterTest {
    private static String strUser= buildTestString();
 
-   private static User user = buildTestUser();
+   private static VersusUser user = buildTestUser();
 
-   private static User reverted= UserConverter.convertBackUser(strUser);
+   private static VersusUser reverted= UserConverter.convertBackUser(strUser);
 
-   private static User buildTestUser() {
+   private static VersusUser buildTestUser() {
         List<Sport> preferredSports= Arrays.asList(Sport.BOXING,Sport.CLIMBING,Sport.CRICKET,
                 Sport.BASKETBALL,Sport.FOOTBALL);
         VersusUser.Builder builder = new VersusUser.Builder("007");

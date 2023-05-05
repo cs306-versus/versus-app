@@ -17,7 +17,7 @@ public class UserConverter {
      * @return
      * The string encoding of a user
      */
-    public static String convertUser(User user) {
+    public static String convertUser(VersusUser user) {
         return String.format(Locale.ENGLISH,"%s|%s|%s|%s|%s|%s|%d|%s|%d|%s",
                 user.getUID(), user.getFirstName(), user.getLastName(),
                 user.getUserName(), user.getMail(), user.getPhone(),
@@ -32,7 +32,7 @@ public class UserConverter {
      * @return
      * The User matching the string
      */
-    public static User convertBackUser(String userString) {
+    public static VersusUser convertBackUser(String userString) {
         String[] tokens = userString.split("\\|");
         String uid = tokens[0];
         String firstName = tokens[1];
@@ -63,7 +63,7 @@ public class UserConverter {
      * @return
      * The string encoding of the list of users
      */
-    public static String convertListOfUsers(List<User> userList) {
+    public static String convertListOfUsers(List<VersusUser> userList) {
         return userList.stream()
                 .map(UserConverter::convertUser)
                 .collect(Collectors.joining("[u]"));
@@ -75,12 +75,11 @@ public class UserConverter {
      * @return
      * The list of users matching the string
      */
-    public static List<User> convertBackListOfUsers(String usersString) {
+    public static List<VersusUser> convertBackListOfUsers(String usersString) {
         String[] userStrings = usersString.split("\\[u\\]");
-        List<User> userList = new ArrayList<>();
+        List<VersusUser> userList = new ArrayList<>();
         for (String userString : userStrings) {
-            User user = convertBackUser(userString);
-            userList.add(user);
+            userList.add(convertBackUser(userString));
         }
         return userList;
     }
