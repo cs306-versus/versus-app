@@ -57,7 +57,7 @@ public abstract class BaseAuthFragment extends Fragment {
         handleSuccessfulConnection(result);
         // Switch to the MainActivity
         new FsUserManager(FirebaseFirestore.getInstance()).fetch(result.getUser().getUid());
-        startActivity(new Intent(getContext(), MainActivity.class));
+        startActivity(new Intent(getActivity(), MainActivity.class));
     }
 
     /**

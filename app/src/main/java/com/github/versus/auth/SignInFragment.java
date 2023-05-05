@@ -65,21 +65,15 @@ public class SignInFragment extends BaseAuthFragment {
     @Override
     protected void handleSuccessfulConnection(AuthResult result) {
         // TODO : Implement the successful result here
-        Toast.makeText(getActivity(), "handleSuccessfulConnection",
-                Toast.LENGTH_SHORT).show();
     }
 
     @Override
     protected void handleFailedConnection(Exception exception) {
         // TODO : Implement the successful result here
-        Toast.makeText(getActivity(), R.string.failure,
-                Toast.LENGTH_SHORT).show();
     }
 
     @Override
     protected void handleCancelledConnection() {
         // TODO : Implement the successful result here
-        Toast.makeText(getActivity(), "handleCancelledConnection",
-                Toast.LENGTH_SHORT).show();
     }
 }
