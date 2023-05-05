@@ -93,7 +93,7 @@ class UserChatActivity : AppCompatActivity(){
 
             toolbar.setNavigationOnClickListener {
             // start MainActivity
-            val intent = Intent(this, ChatsFragment::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
 
