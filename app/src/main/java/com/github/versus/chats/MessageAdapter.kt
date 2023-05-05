@@ -18,17 +18,17 @@ class MessageAdapter(val context: Context, val messageList: ArrayList<Message>) 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         if(viewType == 1){
-            val view : View = LayoutInflater.from(context).inflate(R.layout.send_layout, parent, false)
+            val view : View = LayoutInflater.from(context).inflate(R.layout.receive_layout, parent, false)
             return ReceiveViewHolder(view)
         }else{
-            val view : View = LayoutInflater.from(context).inflate(R.layout.receive_layout, parent, false)
+            val view : View = LayoutInflater.from(context).inflate(R.layout.send_layout, parent, false)
             return SentViewHolder(view)
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-        val currenMessage = messageList[position]
-        if(FirebaseAuth.getInstance().currentUser?.uid.equals(currenMessage.sender.uid)){
+        val currentMessage = messageList[position]
+        if(FirebaseAuth.getInstance().currentUser?.uid.equals(currentMessage.sender.uid)){
             return ITEM_SENT
         }
         return ITEM_RECEIVE
@@ -44,12 +44,12 @@ class MessageAdapter(val context: Context, val messageList: ArrayList<Message>) 
 
         if(holder.javaClass == SentViewHolder::class.java){
             val viewHolder = holder as SentViewHolder
-            holder.sentMessage.text = currentMessage.body
+             viewHolder.sentMessage.text = currentMessage.body
 
 
         }else{
             val viewHolder = holder as ReceiveViewHolder
-            holder.receiveMessage.text = currentMessage.body
+            viewHolder.receiveMessage.text = currentMessage.body
         }
     }
 

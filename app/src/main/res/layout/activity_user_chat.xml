@@ -7,43 +7,54 @@
     tools:context=".UserChatActivity"
     tools:ignore="MissingDefaultResource">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:titleTextColor="@android:color/white"
+        tools:ignore="MissingConstraints" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chatRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/linearLayout"
+        android:layout_below="@+id/toolbar"
         android:layout_alignParentTop="true"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="-50dp"
-        tools:layout_editor_absoluteY="0dp" />
+        tools:layout_editor_absoluteX="16dp" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:orientation="horizontal"
         android:weightSum="100"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="610dp">
+        android:layout_alignParentBottom="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="5dp"
+        >
+
 
         <EditText
             android:id="@+id/messageBox"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_marginLeft="10dp"
-            android:layout_weight="90"
+            android:paddingLeft="10dp"
+            android:layout_weight="80"
             android:background="@drawable/message_box_background"
-            android:hint="  type a message" />
+            android:hint="type a message" />
 
         <ImageView
             android:id="@+id/sendButton"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_weight="10"
-            android:src="@drawable/sendIcon" />
+            android:layout_weight="20"
+            android:src="@drawable/send_icon" />
 
 
     </LinearLayout>

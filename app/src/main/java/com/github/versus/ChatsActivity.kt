@@ -40,10 +40,13 @@ class ChatsActivity : AppCompatActivity() {
 
         userRecyclerView.adapter = adapter
 
-        userList.add(VersusUser.Builder("gchasdvhs").setFirstName("Abdess").setLastName("Derouich").build())
-        userList.add(VersusUser.Builder("nibbisbvfd").setFirstName("Aymane").setLastName("Lamyaghri").build())
+        userList.add(VersusUser.Builder("asdfghjklö").setFirstName("Abdess").setLastName("Derouich").build())
+        userList.add(VersusUser.Builder("qwertzuiop").setFirstName("Aymane").setLastName("Lamyaghri").build())
+        userList.add(VersusUser.Builder("stevzdbpg ").setFirstName("Adam").setLastName("Mernissi").build())
+        userList.add(VersusUser.Builder("hehehehe").setFirstName("De Bruyne").setLastName("hamada").build())
+        userList.add(VersusUser.Builder("nibbisbvfd").setFirstName("Gustavo").setLastName("Peperoni").build())
 
-/*
+/*      code to use once complete link to user database is made
         // Add a listener to the "user" collection
         mDbRef.addSnapshotListener { snapshot: QuerySnapshot?, error: FirebaseFirestoreException? ->
             if (error != null) {

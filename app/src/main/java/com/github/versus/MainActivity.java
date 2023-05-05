@@ -54,6 +54,10 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
             case R.id.nav_user_profil:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new UserInfoFragment()).commit();
                 break;
+            case R.id.nav_chats:
+                Intent intent = new Intent(this, ChatsActivity.class);
+                startActivity(intent);
+                break;
 
         }
         drawer.closeDrawer(GravityCompat.START);

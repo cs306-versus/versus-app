@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.github.versus.R
 import com.github.versus.UserChatActivity
+import com.google.firebase.auth.FirebaseAuth
 
 class UserAdapter(val context : Context, val userList : ArrayList<VersusUser>):
         RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
@@ -33,7 +34,9 @@ class UserAdapter(val context : Context, val userList : ArrayList<VersusUser>):
         holder.textName.text = fullName
         holder.itemView.setOnClickListener{
             val intent = Intent(context, UserChatActivity::class.java)
-            intent.putExtra("name", currentUser.firstName)
+            intent.putExtra("UserToChatName", fullName)
+            intent.putExtra("uid", currentUser.uid)
+
 
             context.startActivity(intent)
         }
