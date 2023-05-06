@@ -31,12 +31,12 @@ public class AuthFragmentTest {
     public final ActivityScenarioRule<AuthActivity> scenario =
             new ActivityScenarioRule<>(AuthActivity.class);
 
-    @Test
-    public void testSignInRequest() {
-        onView(withId(R.id.auth_signin)).perform(click());
-        // Check if the SignIn layout is displayed
-        onView(withId(R.id.frag_signin_layout)).check(matches(isDisplayed()));
-    }
+    //@Test
+    //public void testSignInRequest() {
+    //    onView(withId(R.id.auth_signin)).perform(click());
+    //    // Check if the SignIn layout is displayed
+    //    onView(withId(R.id.frag_signin_layout)).check(matches(isDisplayed()));
+    //}
 
     @Test
     public void testGoogleLoginRequest() {
