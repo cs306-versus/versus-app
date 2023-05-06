@@ -31,14 +31,7 @@ public class SeachFragmentTest {
 
     @Rule
     public ActivityScenarioRule<MainActivity> scenario = new ActivityScenarioRule<>(MainActivity.class);
-    @Before
-    public void setUp() {
-        Intents.init();
-    }
-    @After
-    public void tearDown() {
-        Intents.release();
-    }
+    
     @Before
     public void navigateToFrag(){
         onView(withId(R.id.drawer_layout)).check(matches(DrawerMatchers.isClosed(GravityCompat.START))).perform(DrawerActions.open());
