@@ -29,22 +29,17 @@ import org.junit.Test;
 import java.util.regex.Matcher;
 
 public class SearchFriendFragmentTest {
+
     @Rule
     public ActivityScenarioRule<MainActivity> scenario = new ActivityScenarioRule<>(MainActivity.class);
-    @Before
-    public void setUp() {
-        Intents.init();
-    }
-    @After
-    public void tearDown() {
-        Intents.release();
-    }
+    
     @Before
     public void navigateToFrag(){
         onView(withId(R.id.drawer_layout)).check(matches(DrawerMatchers.isClosed(GravityCompat.START))).perform(DrawerActions.open());
         onView(withId(R.id.drawer_layout)).check(matches(DrawerMatchers.isOpen(GravityCompat.START)));
         onView(withId(R.id.friend_search)).perform(click());
     }
+    
     @Test
     public void testScrollRecyclerView(){
         onView(withId(R.id.user_recyclerView)).perform(click());
