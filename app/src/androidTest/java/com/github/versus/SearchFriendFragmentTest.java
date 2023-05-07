@@ -2,9 +2,7 @@ package com.github.versus;
 
 import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.action.ViewActions.scrollTo;
-import static androidx.test.espresso.action.ViewActions.typeText;
+import static androidx.test.espresso.action.ViewActions.*;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withHint;
@@ -47,14 +45,13 @@ public class SearchFriendFragmentTest {
 
     @Test
     public void testPressProfile(){
-        onView(withId(R.id.search_users)).perform(typeText("arnie"));
-
+        onView(withId(R.id.search_users)).perform(typeText("arnie"), closeSoftKeyboard());
         onView(withId(R.id.view_profile)).perform(click());
     }
 
     @Test
     public void testSearchBar(){
-        onView(withId(R.id.search_users)).perform(typeText("John"));
+        onView(withId(R.id.search_users)).perform(typeText("John"), closeSoftKeyboard());
         onView((withText("John"))).check(matches(isDisplayed()));
     }
 
