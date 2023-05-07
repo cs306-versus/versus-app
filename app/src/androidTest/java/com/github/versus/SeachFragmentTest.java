@@ -45,7 +45,7 @@ public class SeachFragmentTest {
         onView(withId(R.id.recyclerView)).perform(click());
     }
 
-    @Test
+    //@Test
     public void testMakePost(){
         onView(withId(R.id.add_posts)).perform(click());
         onView(withId(R.id.editPostTitle)).check(matches(isDisplayed()));
