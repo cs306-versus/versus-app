@@ -31,11 +31,13 @@ import org.junit.runner.RunWith;
  * Test class for the OptionGetPlaces feature.
  * Tests the behavior of the Get Places operation, including edge cases like no radius input or no places within the specified radius.
  */
-//@RunWith(AndroidJUnit4.class)
+@RunWith(AndroidJUnit4.class)
 public class OptionGetPlacesTest {
+
     // Declare activity rule and permission rule
     @Rule
     public ActivityScenarioRule<MainActivity> activityRule = new ActivityScenarioRule<>(MainActivity.class);
+    
     @Rule
     public GrantPermissionRule grantPermissionRule = GrantPermissionRule.grant(android.Manifest.permission.ACCESS_FINE_LOCATION);
 
@@ -43,7 +45,7 @@ public class OptionGetPlacesTest {
      * Sets up the testing environment before each test.
      * Initializes the Intents framework and opens the drawer layout.
      */
-    //@Before
+    @Before
     public void setUp() {
         // Open the drawer_layout
         onView(withId(R.id.drawer_layout)).check(matches(DrawerMatchers.isClosed(GravityCompat.START))).perform(DrawerActions.open());
@@ -51,8 +53,8 @@ public class OptionGetPlacesTest {
         onView(withId(R.id.nav_location)).perform(click());
     }
 
-    //@Test
-    public void testDrawingPathWithPlaceSelected() throws InterruptedException {
+    @Test
+    public void testDrawingPathWithPlaceSelected() {
         String placeName = "GooglePlex Football";
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
         // Find the menu item by its ID and perform a click
@@ -62,13 +64,11 @@ public class OptionGetPlacesTest {
         onView(withText(placeName)).perform(click());
         onView(withText("Draw Path")).perform(click());
     }
-    //@Test
-    public void testDrawingPathWithoutPlaceSelected() throws InterruptedException {
-        String placeName = "GooglePlex Football";
+    
+    @Test
+    public void testDrawingPathWithoutPlaceSelected() {
         onView(withText("Draw Path")).perform(click());
     }
-
-
 
     /**
      * Test for canceling the get places operation.
@@ -76,9 +76,8 @@ public class OptionGetPlacesTest {
      *
      * @throws InterruptedException if the test is interrupted
      */
-    //@Test
-    public void testCancel() throws InterruptedException {
-        String placeName = "GooglePlex Football";
+    @Test
+    public void testCancel() {
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
         // Find the menu item by its ID and perform a click
         onView(withText("Get Place")).perform(click());
@@ -93,8 +92,8 @@ public class OptionGetPlacesTest {
      *
      * @throws InterruptedException if the test is interrupted
      */
-    //@Test
-    public void testClickOnLocation() throws InterruptedException {
+    @Test
+    public void testClickOnLocation() {
         String placeName = "GooglePlex Football";
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
         // Find the menu item by its ID and perform a click
@@ -119,8 +118,8 @@ public class OptionGetPlacesTest {
      *
      * @throws InterruptedException if the test is interrupted
      */
-    //@Test
-    public void testIfNoPlacesWithinRadius() throws InterruptedException {
+    @Test
+    public void testIfNoPlacesWithinRadius() {
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
         // Find the menu item by its ID and perform a click
         onView(withText("Get Place")).perform(click());
