@@ -54,7 +54,7 @@ import org.junit.runner.RunWith;
 
 import com.github.versus.auth.AuthActivity;
 
-//@RunWith(AndroidJUnit4.class)
+@RunWith(AndroidJUnit4.class)
 public class ScheduleTest {
 
     @Rule
@@ -74,34 +74,34 @@ public class ScheduleTest {
         onView(withId(R.id.Tuesday_button)).perform(click());
     }
 
-    //@Test
+    @Test
     public void testingNextWeeks1(){
         for(int i = 0; i < 60; i++)
             onView(withId(R.id.arrow_11)).perform(click());
     }
 
-    //@Test
+    @Test
     public void testingNextWeeks2(){
         for(int i = 0; i < 60; i++)
             onView(withId(R.id.arrow_image_2)).perform(click());
     }
 
-    //@Test
+    @Test
     public void testing1(){
         onView(withId(R.id.Monday_button)).perform(click());
     }
 
-    //@Test
+    @Test
     public void testing2(){
         onView(withId(R.id.Wednesday_button)).perform(click());
     }
 
-    //@Test
+    @Test
     public void testing3(){
          onView(withId(R.id.Thursday_button)).perform(click());
     }
 
-    //@Test
+    @Test
     public void testing6(){
         onView(withId(R.id.Sunday_button)).perform(click());
     }
