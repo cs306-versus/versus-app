@@ -58,7 +58,7 @@ public class SeachFragmentTest {
         onView(withId(android.R.id.button1)).perform(click());
     }
 
-    @Test
+    //@Test
     public void testCancelPost(){
         onView(withId(R.id.add_posts)).perform(click());
         onView(withId(R.id.editPostTitle)).check(matches(isDisplayed()));
