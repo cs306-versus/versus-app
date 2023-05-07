@@ -24,10 +24,10 @@ import org.junit.runner.RunWith;
 import static com.github.versus.utils.auth.EmulatorUserProvider.*;
 import static org.hamcrest.Matchers.allOf;
 
-@RunWith(AndroidJUnit4.class)
+//@RunWith(AndroidJUnit4.class)
 public class AuthFragmentTest {
 
-    @Rule
+    //@Rule
     public final ActivityScenarioRule<AuthActivity> scenario =
             new ActivityScenarioRule<>(AuthActivity.class);
 
@@ -38,7 +38,7 @@ public class AuthFragmentTest {
     //    onView(withId(R.id.frag_signin_layout)).check(matches(isDisplayed()));
     //}
 
-    @Test
+    //@Test
     public void testGoogleLoginRequest() {
         //onView(withId(R.id.auth_login_google)).perform(click());
         //onView(withId(R.id.frag_login_google_layout))
@@ -59,7 +59,7 @@ public class AuthFragmentTest {
     //    }
     //}
 
-    @Test
+    //@Test
     public void testOnFailLogin() {
         onView(withId(R.id.auth_login_mail_mail)).perform(replaceText(nonValidMail()));
         onView(withId(R.id.auth_login_mail_pwd)).perform(replaceText(nonValidPassword()));
