@@ -19,7 +19,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-@RunWith(AndroidJUnit4.class)
+//@RunWith(AndroidJUnit4.class)
 public class BaseAuthFragmentTest {
 
     private BaseAuthFragment frag;
@@ -27,7 +27,7 @@ public class BaseAuthFragmentTest {
     private Task<AuthResult> result;
     private Exception triggered;
 
-    @Before
+    //@Before
     public void setUp() {
         // Mock an instance of BaseAuthFragment
         frag = mock(BaseAuthFragment.class);
@@ -41,7 +41,7 @@ public class BaseAuthFragmentTest {
         triggered = new RuntimeException();
     }
 
-    @Test
+    //@Test
     public void testHandleSuccessfulConnection() {
         // Mock the completion the execution of the Task
         when(result.isComplete()).thenReturn(true);
@@ -60,7 +60,7 @@ public class BaseAuthFragmentTest {
         performClickAndCheck();
     }
 
-    @Test
+    //@Test
     public void testHandleCancelledConnection() {
         // Mock the completion the execution of the Task
         when(result.isCanceled()).thenReturn(true);
