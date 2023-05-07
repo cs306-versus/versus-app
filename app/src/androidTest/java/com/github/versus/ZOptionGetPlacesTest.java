@@ -32,7 +32,7 @@ import org.junit.runner.RunWith;
  * Tests the behavior of the Get Places operation, including edge cases like no radius input or no places within the specified radius.
  */
 @RunWith(AndroidJUnit4.class)
-public class OptionGetPlacesTest {
+public class ZOptionGetPlacesTest {
 
     // Declare activity rule and permission rule
     @Rule
