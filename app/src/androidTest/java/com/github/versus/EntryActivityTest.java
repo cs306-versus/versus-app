@@ -5,6 +5,10 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
 
 import com.github.versus.auth.AuthActivity;
+import com.github.versus.auth.Authenticator;
+import com.github.versus.auth.VersusAuthenticator;
+import com.github.versus.user.User;
+import com.github.versus.user.VersusUser;
 import com.github.versus.utils.FirebaseEmulator;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -17,26 +21,19 @@ import org.junit.runner.RunWith;
 
 import static androidx.test.espresso.intent.Intents.intended;
 import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
-import static com.github.versus.utils.auth.EmulatorUserProvider.validMail;
-import static com.github.versus.utils.auth.EmulatorUserProvider.validPassword;
-import static org.junit.Assert.assertTrue;
 
 import android.content.Intent;
+
+import java.io.Serializable;
 
 @RunWith(AndroidJUnit4.class)
 public class EntryActivityTest {
 
     public ActivityTestRule<EntryActivity> rule;
 
-    private FirebaseAuth auth;
-
     @Before public void setUpEmulator() {
         Intents.init();
         rule = new ActivityTestRule<>(EntryActivity.class);
-        auth = FirebaseEmulator.FIREBASE_AUTH;
-        // Sign out
-        auth.signOut();
-        rule.launchActivity(new Intent());
     }
 
     @After public void tearDown(){
@@ -45,21 +42,66 @@ public class EntryActivityTest {
 
     @Test
     public void switchToMainActivity(){
-        // Sign out
-        auth.signOut();
-        // Login to a test account
-        Task<AuthResult> task = auth.signInWithEmailAndPassword(validMail(), validPassword());
-        while(!(task.isComplete() || task.isCanceled())); // Spin and wait for login
-        assertTrue(task.isSuccessful()); // Confirm login
-        // Verify Intent
+        Intent intent = new Intent();
+        intent.putExtra(EntryActivity.AUTH_INTENT, new UserAuthenticator());
+        // Launch the activity
+        rule.launchActivity(intent);
         intended(hasComponent(MainActivity.class.getName()));
     }
 
     @Test
     public void switchToAuthActivity(){
-        // Sign out
-        auth.signOut();
+        Intent intent = new Intent();
+        intent.putExtra(EntryActivity.AUTH_INTENT, new NoUserAuthenticator());
+        // Launch the activity
+        rule.launchActivity(intent);
         intended(hasComponent(AuthActivity.class.getName()));
+    }
+
+    private static class NoUserAuthenticator implements Authenticator, Serializable {
+
+        @Override
+        public Task<AuthResult> createAccountWithMail(String mail, String password) {
+            return null;
+        }
+
+        @Override
+        public Task<AuthResult> signInWithMail(String mail, String password) {
+            return null;
+        }
+
+        @Override
+        public User currentUser() {
+            return null;
+        }
+
+        @Override
+        public void signOut() {
+
+        }
+    }
+
+    private static class UserAuthenticator implements Authenticator, Serializable {
+
+        @Override
+        public Task<AuthResult> createAccountWithMail(String mail, String password) {
+            return null;
+        }
+
+        @Override
+        public Task<AuthResult> signInWithMail(String mail, String password) {
+            return null;
+        }
+
+        @Override
+        public User currentUser() {
+            return new VersusUser();
+        }
+
+        @Override
+        public void signOut() {
+
+        }
     }
 
 }

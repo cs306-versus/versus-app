@@ -5,6 +5,7 @@ import static java.util.Objects.isNull;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.WindowCompat;
 
@@ -23,6 +24,12 @@ import com.google.firebase.auth.FirebaseAuth;
  * the user to log in by starting the {@link AuthActivity}.
  */
 public final class EntryActivity extends AppCompatActivity {
+
+    /**
+     * Key to add an authenticator server to an Intent
+     */
+    @VisibleForTesting
+    public static final String AUTH_INTENT = "auth-server";
 
     private Authenticator auth;
 
@@ -55,7 +62,10 @@ public final class EntryActivity extends AppCompatActivity {
      * Initialize the authentication
      */
     private void initAuthentication() {
-        auth = VersusAuthenticator.getInstance(FirebaseAuth.getInstance());
+        Intent intent = getIntent();
+        auth = intent.hasExtra(AUTH_INTENT)
+                ? (Authenticator) intent.getSerializableExtra(AUTH_INTENT)
+                : VersusAuthenticator.getInstance(FirebaseAuth.getInstance());
     }
 
 }
