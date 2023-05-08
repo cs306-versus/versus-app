@@ -3,10 +3,8 @@ package com.github.versus;
 import static java.util.Objects.isNull;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.WindowCompat;
 
@@ -26,11 +24,6 @@ import com.google.firebase.auth.FirebaseAuth;
  */
 public final class EntryActivity extends AppCompatActivity {
 
-    /**
-     * Key to add an authenticator server to an Intent
-     */
-    public static final String AUTH_INTENT = "auth-server";
-
     private Authenticator auth;
 
     @Override
@@ -44,23 +37,17 @@ public final class EntryActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        auth.signOut();
+        // Fetch the current user
         User user = auth.currentUser();
-        yieldActivity(user);
-    }
-
-    /**
-     * ???
-     *
-     * @param user
-     */
-    private void yieldActivity(@Nullable User user) {
+        // Pick the target activity to start
         Class<?> activity = isNull(user)
                 ? AuthActivity.class
                 : MainActivity.class;
-
+        // Prepare the Intent to start the activity
         Intent intent = new Intent(this, activity);
+        // Launch th e targeted activity
         startActivity(intent);
+        // Kill this activity as it's not needed
         finish();
     }
 
@@ -68,11 +55,7 @@ public final class EntryActivity extends AppCompatActivity {
      * Initialize the authentication
      */
     private void initAuthentication() {
-        // HR : For testing purposes, we check if the intent contains an authenticator
-        Intent intent = getIntent();
-        auth = intent.hasExtra(AUTH_INTENT)
-                ? (Authenticator) intent.getSerializableExtra(AUTH_INTENT)
-                : VersusAuthenticator.getInstance(FirebaseAuth.getInstance());
+        auth = VersusAuthenticator.getInstance(FirebaseAuth.getInstance());
     }
 
 }
