@@ -39,76 +39,75 @@ import java.util.stream.Collectors;
 @RunWith(AndroidJUnit4.class)
 public class FsPostManagerTests {
 
-        @Test
-        public void CorrectFsPostInsert_fetch() throws ExecutionException, InterruptedException, TimeoutException
-        {
-            // Creating FsPostm instance
-            FirebaseFirestore db = FirebaseFirestore.getInstance();
-            FsPostManager postm = new FsPostManager(db);
+    @Test
+    public void CorrectFsPostInsert_fetch() throws ExecutionException, InterruptedException, TimeoutException {
+        // Creating FsPostm instance
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FsPostManager postm = new FsPostManager(db);
 
-            // Creating a test post
-            Post post = new Post( "_test_", new Timestamp(2023, Month.AUGUST, 18, 11, 15, Timestamp.Meridiem.AM) ,
-                    new Location("tirane", 0, 0), new ArrayList<>(), 15, Sport.SOCCER, new ArrayList<>(), "_test_");
+        // Creating a test post
+        Post post = new Post("_test_", new Timestamp(2023, Month.AUGUST, 18, 11, 15, Timestamp.Meridiem.AM),
+                new Location("tirane", 0, 0), new ArrayList<>(), 15, Sport.SOCCER, new ArrayList<>(), "_test_");
 
-            //inserting the post
-            Future<Boolean> insertResult = postm.insert(post);
+        //inserting the post
+        Future<Boolean> insertResult = postm.insert(post);
 
-            // Wait for the insert operation to complete
-            boolean insertSuccess = insertResult.get();
+        // Wait for the insert operation to complete
+        boolean insertSuccess = insertResult.get();
 
-            // Verify that the insert operation succeeded
-            assertTrue(insertSuccess);
+        // Verify that the insert operation succeeded
+        assertTrue(insertSuccess);
 
-            // Verify that the post was inserted into Firestore
-            //by fetching it and then comparing
-            Post p = postm.fetch("_test_").get();
-            assertTrue(post.equals(p));
+        // Verify that the post was inserted into Firestore
+        //by fetching it and then comparing
+        Post p = postm.fetch("_test_").get();
+        assertTrue(post.equals(p));
 
-            // Clean up the test data
-            boolean deletionSuccess = postm.delete("_test_").get();
-            assertTrue(deletionSuccess);
-        }
+        // Clean up the test data
+        boolean deletionSuccess = postm.delete("_test_").get();
+        assertTrue(deletionSuccess);
+    }
 
-        @Test
-        public void NullGetResultOnAbsentPost() throws ExecutionException, InterruptedException, TimeoutException
-        {
-            // Creating FsPostm instance
-            FirebaseFirestore db = FirebaseFirestore.getInstance();
-            FsPostManager postm = new FsPostManager(db);
+    @Test
+    public void NullGetResultOnAbsentPost() throws ExecutionException, InterruptedException, TimeoutException {
+        // Creating FsPostm instance
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FsPostManager postm = new FsPostManager(db);
 
-            // delete the test post if it's there
-            boolean deletionSuccess = postm.delete("_test_").get();
-            assertTrue(deletionSuccess);
+        // delete the test post if it's there
+        boolean deletionSuccess = postm.delete("_test_").get();
+        assertTrue(deletionSuccess);
 
-            // Verify that the post was inserted into Firestore
-            //by fetching it and then comparing
-            Post p = postm.fetch("_test_").get();
-            assertNull(p);
-        }
+        // Verify that the post was inserted into Firestore
+        //by fetching it and then comparing
+        Post p = postm.fetch("_test_").get();
+        assertNull(p);
+    }
 
 
-        @Test
-        public void CorrectFetchAllPostsFromTestCollection() throws ExecutionException, InterruptedException {
-            // Creating FsPostm instance
-            FirebaseFirestore db = FirebaseFirestore.getInstance();
-            FsPostManager postm = new FsPostManager(db);
-            List<Post> l = postm.fetchAll("test_posts").get();
-            //creating test posts
+    @Test
+    public void CorrectFetchAllPostsFromTestCollection() throws ExecutionException, InterruptedException {
+        // Creating FsPostm instance
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FsPostManager postm = new FsPostManager(db);
+        List<Post> l = postm.fetchAll("test_posts").get();
+        //creating test posts
 
-            Post postTest = new Post( "_test_", new Timestamp(2023, Month.AUGUST, 18, 10, 15, Timestamp.Meridiem.AM) ,
-                    new Location("tirane", 0, 0), new ArrayList<>(), 15, Sport.FOOTBALL, new ArrayList<>(), "");
-            Post postTest1 = new Post( "_test_1", new Timestamp(2023, Month.AUGUST, 18, 10, 15, Timestamp.Meridiem.AM) ,
-                    new Location("tirane", 0, 0), new ArrayList<>(), 15, Sport.FOOTBALL, new ArrayList<>(), "");
-            Post postTest2 = new Post( "_test_2", new Timestamp(2023, Month.AUGUST, 18, 10, 15, Timestamp.Meridiem.AM) ,
-                    new Location("tirane", 0, 0), new ArrayList<>(), 15, Sport.FOOTBALL, new ArrayList<>(), "");
-            Set<Post> refSet = new HashSet<>();
-            refSet.add(postTest);
-            refSet.add(postTest1);
-            refSet.add(postTest2);
+        Post postTest = new Post("_test_", new Timestamp(2023, Month.AUGUST, 18, 10, 15, Timestamp.Meridiem.AM),
+                new Location("tirane", 0, 0), new ArrayList<>(), 15, Sport.FOOTBALL, new ArrayList<>(), "");
+        Post postTest1 = new Post("_test_1", new Timestamp(2023, Month.AUGUST, 18, 10, 15, Timestamp.Meridiem.AM),
+                new Location("tirane", 0, 0), new ArrayList<>(), 15, Sport.FOOTBALL, new ArrayList<>(), "");
+        Post postTest2 = new Post("_test_2", new Timestamp(2023, Month.AUGUST, 18, 10, 15, Timestamp.Meridiem.AM),
+                new Location("tirane", 0, 0), new ArrayList<>(), 15, Sport.FOOTBALL, new ArrayList<>(), "");
+        Set<Post> refSet = new HashSet<>();
+        refSet.add(postTest);
+        refSet.add(postTest1);
+        refSet.add(postTest2);
 
-            Set<Post> resultPosts = new HashSet<>(l);
-            assertEquals(resultPosts, refSet);
-        }
+        Set<Post> resultPosts = new HashSet<>(l);
+        assertEquals(resultPosts, refSet);
+    }
+
     @Test
     public void CorrectJoinOnPresentPost() throws ExecutionException, InterruptedException {
         // Creating FsPostm instance
@@ -117,7 +116,7 @@ public class FsPostManagerTests {
 
         // Creating a test post
         String postName = "_test_1";
-        Post post = new Post( postName, new Timestamp(2023, Month.AUGUST, 18, 11, 15, Timestamp.Meridiem.AM) ,
+        Post post = new Post(postName, new Timestamp(2023, Month.AUGUST, 18, 11, 15, Timestamp.Meridiem.AM),
                 new Location("tirane", 0, 0), new ArrayList<>(), 15, Sport.FOOTBALL, new ArrayList<>(), "");
 
         //inserting the post
@@ -155,8 +154,8 @@ public class FsPostManagerTests {
         // Creating a test post
         Location testLocation = new Location("tirane", 0, 0);
         String testPostName = "_test_";
-        Post post = new Post( testPostName, new Timestamp(2023, Month.AUGUST, 18, 11, 15, Timestamp.Meridiem.AM) ,
-               testLocation, new ArrayList<>(), 15, Sport.SOCCER, new ArrayList<>(), "");
+        Post post = new Post(testPostName, new Timestamp(2023, Month.AUGUST, 18, 11, 15, Timestamp.Meridiem.AM),
+                testLocation, new ArrayList<>(), 15, Sport.SOCCER, new ArrayList<>(), "");
 
         //inserting the post
         Future<Boolean> insertResult = postm.insert(post);
@@ -178,8 +177,4 @@ public class FsPostManagerTests {
     }
 
 
-
-
-
-
-    }
+}

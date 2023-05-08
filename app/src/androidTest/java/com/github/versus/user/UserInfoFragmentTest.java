@@ -37,25 +37,25 @@ public class UserInfoFragmentTest {
     UserInfoFragment frag;
 
     //@Before
-    public void setUpFragment(){
+    public void setUpFragment() {
         Task<AuthResult> task = FirebaseAuth.getInstance().signInWithEmailAndPassword("test@versus.ch", "123456789");
-        while(!task.isComplete() && !task.isCanceled());
+        while (!task.isComplete() && !task.isCanceled()) ;
         frag = setUp();
         // Wait for async
-        for (int i = 0; i < 40_000_000; i++);
+        for (int i = 0; i < 40_000_000; i++) ;
         onView(withId(R.id.drawer_layout)).check(matches(DrawerMatchers.isClosed(GravityCompat.START))).perform(DrawerActions.open());
         onView(withId(R.id.drawer_layout)).check(matches(DrawerMatchers.isOpen(GravityCompat.START)));
         onView(withId(R.id.nav_user_profil)).perform(click());
     }
 
     //@Test
-    public void checkWithNull(){
+    public void checkWithNull() {
         //frag.updateUI(null);
         //onView(withId(R.id.info_uid)).check(matches(withText(containsString("EPPOpGluoEQe6OsYZJ96mvZ1Ytu2"))));
     }
 
     //@Test
-    public void checkWithUser(){
+    public void checkWithUser() {
         VersusUser.Builder builder = new VersusUser.Builder("aywxdctfvgb");
         builder.setFirstName("John")
                 .setLastName("Doe")
