@@ -92,6 +92,15 @@ public class FsPostManager implements DataBaseManager<Post> {
         return future;
     }
 
+
+    public void update(String id, Post edits){
+        db.collection("posts").document(id).update("title", edits.getTitle());
+        db.collection("posts").document(id).update("date", edits.getDate());
+        db.collection("posts").document(id).update("location", edits.getLocation());
+        db.collection("posts").document(id).update("playerLimit", edits.getPlayerLimit());
+        db.collection("posts").document(id).update("sport", edits.getSport());
+    }
+
     /**
      *
      * @param collectionName : name of the collection from which we want to fetch elements
@@ -105,7 +114,7 @@ public class FsPostManager implements DataBaseManager<Post> {
         //accessing the collection
         CollectionReference postsRef = db.collection(collectionName);
         //task that gets all documents
-        Task<QuerySnapshot> task = postsRef.get();
+        Task<QuerySnapshot> task = postsRef.orderBy("date", Query.Direction.DESCENDING).get();
 
         // Wrap the Task in a CompletableFuture that returns the posts
         CompletableFuture<List<Post>> future = new CompletableFuture<>();

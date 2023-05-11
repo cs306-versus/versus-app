@@ -52,25 +52,38 @@ public class AnnouncementAdapter extends RecyclerView.Adapter<AnnouncementAdapte
     public void onBindViewHolder(@NonNull AnnouncementAdapter.ViewHolder viewHolder, int position) {
         Post currentPost = posts.get(position);
         setViewText(viewHolder, currentPost);
-        boolean joined = currentPost.getPlayers().stream().map(user -> user.getUID()).collect(Collectors.toList()).contains(user.getUID());
-        if(joined){
-            viewHolder.getJoinButton().setText("Joined");
-            viewHolder.getJoinButton().setEnabled(false);
+        boolean owner = true;
+        if(owner){
+            viewHolder.getJoinButton().setText("Edit Post");
+            viewHolder.getJoinButton().setOnClickListener(
+                    new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    }
+            );
         } else {
-            if(currentPost.getPlayers().size() < currentPost.getPlayerLimit()){
-            viewHolder.getJoinButton().setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    fpm.joinPost(user,currentPost.getUid());
-                    viewHolder.getJoinButton().setText("Joined");
-                    viewHolder.getJoinButton().setEnabled(false);
-                    currentPost.getPlayers().add(user);
-                    notifyDataSetChanged();
-                }
-            });
-            } else {
-                viewHolder.getJoinButton().setText("Full");
+            boolean joined = currentPost.getPlayers().stream().map(user -> user.getUID()).collect(Collectors.toList()).contains(user.getUID());
+            if (joined) {
+                viewHolder.getJoinButton().setText("Leave");
                 viewHolder.getJoinButton().setEnabled(false);
+            } else {
+                if (currentPost.getPlayers().size() < currentPost.getPlayerLimit()) {
+                    viewHolder.getJoinButton().setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            fpm.joinPost(user, currentPost.getUid());
+                            viewHolder.getJoinButton().setText("Joined");
+                            viewHolder.getJoinButton().setEnabled(false);
+                            currentPost.getPlayers().add(user);
+                            notifyDataSetChanged();
+                        }
+                    });
+                } else {
+                    viewHolder.getJoinButton().setText("Full");
+                    viewHolder.getJoinButton().setEnabled(false);
+                }
             }
         }
     }
