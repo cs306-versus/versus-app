@@ -46,107 +46,28 @@ public class OptionChooseRadiusTest {
      */
     @Before
     public void setUp() {
-        Intents.init();
         // Open the drawer_layout
         onView(withId(R.id.drawer_layout)).check(matches(DrawerMatchers.isClosed(GravityCompat.START))).perform(DrawerActions.open());
         onView(withId(R.id.drawer_layout)).check(matches(DrawerMatchers.isOpen(GravityCompat.START)));
         onView(withId(R.id.nav_location)).perform(click());
     }
 
-    /**
-     * Cleans up the testing environment after each test.
-     * Releases the Intents framework.
-     */
-    @After
-    public void tearDown() {
-        Intents.release();
-    }
-
     @Test
     public void testChoosingRadius() throws InterruptedException {
-        long waitingTime = 10000;
-        ElapsedTimeIdlingResource idlingResourceFirst = new ElapsedTimeIdlingResource(waitingTime);
-        IdlingRegistry.getInstance().register(idlingResourceFirst);
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
         // Find the menu item by its ID and perform a click
         onView(withText("Choose radius")).perform(click());
-
-        onView(withId(R.id.edit_text_radius3)).perform(typeText("1500"));
-        closeSoftKeyboard();
+        onView(withId(R.id.edit_text_radius3)).perform(typeText("1500"), closeSoftKeyboard());
         onView(withText("Enter")).inRoot(isDialog()).perform(click());
-
-        IdlingRegistry.getInstance().unregister(idlingResourceFirst);
     }
+    
     @Test
     public void testCancelingRadius() throws InterruptedException {
-        long waitingTime = 10000;
-        ElapsedTimeIdlingResource idlingResourceFirst = new ElapsedTimeIdlingResource(waitingTime);
-        IdlingRegistry.getInstance().register(idlingResourceFirst);
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
         // Find the menu item by its ID and perform a click
         onView(withText("Choose radius")).perform(click());
-
-        onView(withId(R.id.edit_text_radius3)).perform(typeText("1500"));
-        closeSoftKeyboard();
+        onView(withId(R.id.edit_text_radius3)).perform(typeText("1500"), closeSoftKeyboard());
         onView(withText("Cancel")).inRoot(isDialog()).perform(click());
-
-        IdlingRegistry.getInstance().unregister(idlingResourceFirst);
     }
 
-    /**
-     * ElapsedTimeIdlingResource is an implementation of the IdlingResource interface.
-     * It is used to wait for a specified amount of time before allowing the test to continue.
-     * This can be useful when testing UI components that require a certain time to load or update.
-     */
-    public class ElapsedTimeIdlingResource implements IdlingResource {
-        private final long startTime;
-        private final long waitingTime;
-        private ResourceCallback resourceCallback;
-
-        /**
-         * Constructs an ElapsedTimeIdlingResource with a specified waiting time.
-         *
-         * @param waitingTime The amount of time to wait, in milliseconds, before allowing the test to continue.
-         */
-        public ElapsedTimeIdlingResource(long waitingTime) {
-            this.startTime = System.currentTimeMillis();
-            this.waitingTime = waitingTime;
-        }
-
-        /**
-         * Returns the name of the ElapsedTimeIdlingResource.
-         *
-         * @return A String containing the name of the ElapsedTimeIdlingResource.
-         */
-        @Override
-        public String getName() {
-            return ElapsedTimeIdlingResource.class.getName() + ":" + waitingTime;
-        }
-
-        /**
-         * Checks whether the specified waiting time has elapsed.
-         *
-         * @return true if the waiting time has elapsed, false otherwise.
-         */
-        @Override
-        public boolean isIdleNow() {
-            long elapsed = System.currentTimeMillis() - startTime;
-            boolean idle = (elapsed >= waitingTime);
-            if (idle && resourceCallback != null) {
-                resourceCallback.onTransitionToIdle();
-            }
-            return idle;
-        }
-
-        /**
-         * Registers a ResourceCallback to be notified when the resource transitions to the idle state.
-         *
-         * @param resourceCallback The ResourceCallback to be registered.
-         */
-        @Override
-        public void registerIdleTransitionCallback(ResourceCallback resourceCallback) {
-            this.resourceCallback = resourceCallback;
-        }
-    }
 }
-

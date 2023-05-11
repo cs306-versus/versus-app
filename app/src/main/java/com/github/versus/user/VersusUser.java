@@ -4,8 +4,10 @@ package com.github.versus.user;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.github.versus.sports.Sport;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -16,7 +18,8 @@ import java.util.Objects;
  * @author Hamza REMMAL (hamza.remmal@epfl.ch)
  * @since SPRINT 2
  */
-public final class VersusUser implements User {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public final class VersusUser implements User, Serializable {
 
     private final String uid;
     private final String firstName;
@@ -26,14 +29,14 @@ public final class VersusUser implements User {
     private final String phone;
     private final int rating;
     private final String city;
-    private final int zipCode;
+    private final int zip;
     private final List<Sport> preferredSports;
 
 
     public VersusUser(){
         city = null;
         preferredSports = null;
-        zipCode = -1;
+        zip = -1;
         rating = 0;
         phone = "";
         mail = "";
@@ -51,7 +54,7 @@ public final class VersusUser implements User {
         this.phone = builder.phone;
         this.rating = builder.rating;
         this.city = builder.city;
-        this.zipCode = builder.zipCode;
+        this.zip = builder.zipCode;
         this.preferredSports = List.copyOf(builder.preferredSports);
     }
 
@@ -97,7 +100,7 @@ public final class VersusUser implements User {
 
     @Override
     public int getZipCode() {
-        return zipCode;
+        return zip;
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.github.versus.user;
 
 import com.github.versus.sports.Sport;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
