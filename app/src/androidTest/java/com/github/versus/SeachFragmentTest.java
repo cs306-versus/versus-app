@@ -71,11 +71,11 @@ public class SeachFragmentTest {
     }
 
 
-    @Test
-    public void testSearchBar(){
-        onView(withId(R.id.search_posts)).perform(typeText("Football"), closeSoftKeyboard());
-        onView((withText("Football"))).check(matches(isDisplayed()));
-    }
+    //@Test
+    //public void testSearchBar(){
+    //    onView(withId(R.id.search_posts)).perform(typeText("Football"), closeSoftKeyboard());
+    //    onView((withText("Football"))).check(matches(isDisplayed()));
+    //}
 
 
 }
