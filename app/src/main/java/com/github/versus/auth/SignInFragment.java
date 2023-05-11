@@ -4,13 +4,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.github.versus.R;
-import com.github.versus.databinding.FragmentSignInBinding;
+import com.github.versus.databinding.FragmentRegisterBinding;
 import com.github.versus.db.FsUserManager;
 import com.github.versus.user.VersusUser;
 import com.google.android.gms.tasks.Task;
@@ -24,26 +22,26 @@ import java.util.List;
  */
 public class SignInFragment extends BaseAuthFragment {
 
-    private FragmentSignInBinding binding;
+    private FragmentRegisterBinding binding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentSignInBinding.inflate(inflater);
+        binding = FragmentRegisterBinding.inflate(inflater);
         return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        registerLoginButton(binding.authSigninButton);
+        //registerLoginButton(binding.authSigninButton);
     }
 
     @Override
     protected Task<AuthResult> requestAuthentication() {
-        String mailText = binding.authSigninMail.getText().toString();
-        String pwdText = binding.authSigninPwd.getText().toString();
-        Task<AuthResult> task = auth.createAccountWithMail(mailText, pwdText);
+        /*//String mailText = binding.authSigninMail.getText().toString();
+        //String pwdText = binding.authSigninPwd.getText().toString();
+        //Task<AuthResult> task = auth.createAccountWithMail(mailText, pwdText);
         task.addOnSuccessListener(result -> {
             String uid = result.getUser().getUid();
             VersusUser.Builder builder = new VersusUser.Builder(uid);
@@ -59,7 +57,8 @@ public class SignInFragment extends BaseAuthFragment {
                     .setPreferredSports(List.of());
             new FsUserManager(FirebaseFirestore.getInstance()).insert(builder.build());
         });
-        return task;
+        return task;*/
+        return null;
     }
 
     @Override

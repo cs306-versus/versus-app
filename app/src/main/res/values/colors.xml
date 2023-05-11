@@ -52,4 +52,12 @@
 
        	<!-- main_chat colors -->
 
+    <color name="_bg__register_layout_ek2_color">#FFFFFF</color>
+    <color name="auth_ellipse_5_color">#C7F4D4</color>
+    <color name="auth_ellipse_4_color">#CEE8F0</color>
+    <color name="auth_ellipse_6_color">#F2F3D1</color>
+    <color name="create_your_account_color">#335CC5</color>
+    <color name="rectangle_40_color">#ffffff</color>
+    <color name="first_name_color">#000000</color>
+
 </resources>
