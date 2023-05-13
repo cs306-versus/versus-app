@@ -10,6 +10,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -49,14 +50,23 @@ public class LocationPickerDialog extends DialogFragment {
 
         // AUTOCOMPLETE_REQUEST_CODE could be any integer you like
         public static int AUTOCOMPLETE_REQUEST_CODE = 12345;
+        private String API_KEY ;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         locationListener = (LocationListener) getParentFragment();
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         // Initialize Places API
+        try {
+            API_KEY = getContext().getPackageManager().getApplicationInfo(getContext().getPackageName(), PackageManager.GET_META_DATA).metaData.getString("com.google.android.geo.API_KEY");
+            Places.initialize(getActivity().getApplicationContext(), API_KEY);
+
+
+        } catch (PackageManager.NameNotFoundException e) {
+            throw new RuntimeException(e);
+        }
         if (!Places.isInitialized()) {
-            Places.initialize(getActivity().getApplicationContext(), "AIzaSyB2XIYQdv6UZ0zT2sh67XJWMIcOhj5qEKI");
+            Places.initialize(getActivity().getApplicationContext(), API_KEY);
         }
         builder.setTitle("Choose a location")
                 .setPositiveButton("Choose", new DialogInterface.OnClickListener() {

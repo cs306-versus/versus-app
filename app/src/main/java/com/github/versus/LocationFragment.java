@@ -147,7 +147,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         try {
             API_KEY = getContext().getPackageManager().getApplicationInfo(getContext().getPackageName(), PackageManager.GET_META_DATA).metaData.getString("com.google.android.geo.API_KEY");
             Places.initialize(getActivity().getApplicationContext(), API_KEY);
-            System.out.println(API_KEY);
+
 
         } catch (PackageManager.NameNotFoundException e) {
             throw new RuntimeException(e);
