@@ -114,7 +114,7 @@ public class SearchFragment extends Fragment implements LocationPickerDialog.Loc
             if (resultCode == RESULT_OK) {
                 Place place = Autocomplete.getPlaceFromIntent(data);
                 // Do something with the place here
-               onLocationPositiveClick(place);
+                onLocationPositiveClick(place);
             } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
                 Status status = Autocomplete.getStatusFromIntent(data);
                 Log.i(TAG, status.getStatusMessage());
@@ -147,7 +147,7 @@ public class SearchFragment extends Fragment implements LocationPickerDialog.Loc
         locationPickerDialog=new LocationPickerDialog();
         searchBar = rootView.findViewById(R.id.search_posts);
         if(isCalledSportsFrag){ searchBar.setText(SearchTextSportsFrag);
-        isCalledSportsFrag=false;
+            isCalledSportsFrag=false;
 
         }
         searchBar.addTextChangedListener(new TextWatcher() {
@@ -251,11 +251,11 @@ public class SearchFragment extends Fragment implements LocationPickerDialog.Loc
 
     }
     /*
-    * This method   takes as input a String that will be used to filter the posts , this method is only called
-    * from the TopGamesFragment
-    * */
+     * This method   takes as input a String that will be used to filter the posts , this method is only called
+     * from the TopGamesFragment
+     * */
     public void setSearchBarTextFromTradingSportsFrag(String text){
-         isCalledSportsFrag=true;
-         SearchTextSportsFrag=text;
+        isCalledSportsFrag=true;
+        SearchTextSportsFrag=text;
     }
 }

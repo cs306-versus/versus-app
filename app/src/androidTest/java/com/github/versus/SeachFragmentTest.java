@@ -98,6 +98,7 @@ public class SeachFragmentTest {
             searchBox.setText("unilego.");
             Thread.sleep(2000);
             device.pressEnter();
+            device.pressEnter();
         } catch (UiObjectNotFoundException e) {
             fail("Could not find the Autocomplete widget");
         } catch (InterruptedException e) {
