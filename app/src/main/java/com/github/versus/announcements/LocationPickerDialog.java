@@ -69,7 +69,7 @@ public class LocationPickerDialog extends DialogFragment {
 
                     }
                 })
-                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         locationListener.onCancel();
                     }
