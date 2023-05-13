@@ -49,7 +49,7 @@ public class ChoosePostSportDialogFragment extends DialogFragment {
                         sport = Sport.values()[i];
                     }
                 })
-                .setPositiveButton("next", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Next", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         tl.onSportPositiveClick(sport);
                     }

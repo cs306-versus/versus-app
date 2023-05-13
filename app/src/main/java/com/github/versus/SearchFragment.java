@@ -1,9 +1,15 @@
 package com.github.versus;
 
+import static android.app.Activity.RESULT_CANCELED;
+import static android.app.Activity.RESULT_OK;
+import static android.content.ContentValues.TAG;
+
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +26,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.github.versus.announcements.AnnouncementAdapter;
 import com.github.versus.announcements.ChoosePostSportDialogFragment;
 import com.github.versus.announcements.CreatePostTitleDialogFragment;
+import com.github.versus.announcements.LocationPickerDialog;
 import com.github.versus.announcements.MaxPlayerDialogFragment;
 import com.github.versus.announcements.PostDatePickerDialog;
 import com.github.versus.db.FsPostManager;
@@ -30,6 +37,10 @@ import com.github.versus.posts.Timestamp;
 import com.github.versus.sports.Sport;
 import com.github.versus.user.User;
 import com.github.versus.user.VersusUser;
+import com.google.android.gms.common.api.Status;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.widget.Autocomplete;
+import com.google.android.libraries.places.widget.AutocompleteActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -39,7 +50,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
-public class SearchFragment extends Fragment implements
+public class SearchFragment extends Fragment implements LocationPickerDialog.LocationListener,
         CreatePostTitleDialogFragment.TitleListener,
         ChoosePostSportDialogFragment.SportListener,
         MaxPlayerDialogFragment.MaxPlayerListener,
@@ -55,6 +66,9 @@ public class SearchFragment extends Fragment implements
     protected ChoosePostSportDialogFragment cpsdf;
     protected MaxPlayerDialogFragment mpdf;
     protected PostDatePickerDialog pdpd;
+    protected LocationPickerDialog locationPickerDialog;
+
+
 
     protected List<Post> posts = new ArrayList<>();
     protected List<Post> displayPosts = new ArrayList<>();
@@ -68,6 +82,7 @@ public class SearchFragment extends Fragment implements
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         onCancel();
+        System.out.println(getActivity()+"LELOLE");
         View rootView = inflater.inflate(R.layout.fragment_research,container,false);
         assignViews(rootView);
 
@@ -92,6 +107,29 @@ public class SearchFragment extends Fragment implements
 
         return rootView;
     }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == LocationPickerDialog.AUTOCOMPLETE_REQUEST_CODE) {
+            System.out.println("Hello1");
+            if (resultCode == RESULT_OK) {
+                System.out.println("Hello12");
+                Place place = Autocomplete.getPlaceFromIntent(data);
+                // Do something with the place here
+               onLocationPositiveClick(place);
+            } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
+                System.out.println("Hello13");
+                Status status = Autocomplete.getStatusFromIntent(data);
+                Log.i(TAG, status.getStatusMessage());
+            } else if (resultCode == RESULT_CANCELED) {
+                // The user canceled the operation.
+                System.out.println("Hello14");
+            }
+        }
+
+    }
+
+
     private void setUser(User user){
         this.user = (VersusUser) user;
     }
@@ -109,6 +147,7 @@ public class SearchFragment extends Fragment implements
         cpsdf = new ChoosePostSportDialogFragment();
         mpdf = new MaxPlayerDialogFragment();
         pdpd = new PostDatePickerDialog();
+        locationPickerDialog=new LocationPickerDialog();
         searchBar = rootView.findViewById(R.id.search_posts);
         if(isCalledSportsFrag){ searchBar.setText(SearchTextSportsFrag);
         isCalledSportsFrag=false;
@@ -155,6 +194,18 @@ public class SearchFragment extends Fragment implements
         newPost.setSport(sport);
         mpdf.show(getChildFragmentManager(), "1");
     }
+    @Override
+    public void onLocationPositiveClick(Place place) {
+        Location location = new Location(place.getName(), place.getLatLng().latitude, place.getLatLng().longitude);
+        newPost.setLocation(location);
+
+        ArrayList<VersusUser> users = new ArrayList<>();
+        users.add(user);
+        newPost.setPlayers(users);
+        pm.insert(newPost);
+        loadPosts();
+    }
+
 
     protected void loadPosts(){
         CompletableFuture<List<Post>> postsFuture = (CompletableFuture<List<Post>>) pm.fetchAll("posts");
@@ -193,16 +244,15 @@ public class SearchFragment extends Fragment implements
     public void onMaxPlayerPositiveClick(int playerCount) {
         newPost.setPlayerLimit(playerCount);
         pdpd.show(getChildFragmentManager(), "1");
+
     }
 
     @Override
     public void onPickPostDate(Timestamp ts) {
         newPost.setDate(ts);
-        ArrayList<VersusUser> users = new ArrayList<>();
-        users.add(user);
-        newPost.setPlayers(users);
-        pm.insert(newPost);
-        loadPosts();
+        locationPickerDialog.show(getChildFragmentManager(), "1");
+
+
     }
     /*
     * This method   takes as input a String that will be used to filter the posts , this method is only called

@@ -121,7 +121,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     private DataBaseManager dummyLocationManager;
 
     private List<CustomPlace> customPlaces;
-    private String API_KEY;
+    public static  String API_KEY;
     private Button drawPathButton;
     private LatLng   bc = new LatLng(46.51906462963576, 6.561923350291548);
     private LatLng selectedPlace ;
