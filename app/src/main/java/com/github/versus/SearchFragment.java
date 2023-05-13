@@ -111,19 +111,16 @@ public class SearchFragment extends Fragment implements LocationPickerDialog.Loc
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == LocationPickerDialog.AUTOCOMPLETE_REQUEST_CODE) {
-            System.out.println("Hello1");
             if (resultCode == RESULT_OK) {
-                System.out.println("Hello12");
                 Place place = Autocomplete.getPlaceFromIntent(data);
                 // Do something with the place here
                onLocationPositiveClick(place);
             } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
-                System.out.println("Hello13");
                 Status status = Autocomplete.getStatusFromIntent(data);
                 Log.i(TAG, status.getStatusMessage());
             } else if (resultCode == RESULT_CANCELED) {
                 // The user canceled the operation.
-                System.out.println("Hello14");
+
             }
         }
 
@@ -198,7 +195,6 @@ public class SearchFragment extends Fragment implements LocationPickerDialog.Loc
     public void onLocationPositiveClick(Place place) {
         Location location = new Location(place.getName(), place.getLatLng().latitude, place.getLatLng().longitude);
         newPost.setLocation(location);
-
         ArrayList<VersusUser> users = new ArrayList<>();
         users.add(user);
         newPost.setPlayers(users);
