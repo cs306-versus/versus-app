@@ -75,6 +75,12 @@ public class SeachFragmentTest {
         onView(withId(R.id.editMaxPlayers)).perform(typeText("4"), closeSoftKeyboard());
         onView(withId(android.R.id.button2)).perform(click());
     }
+
+    //@Test
+    //public void testSearchBar(){
+    //    onView(withId(R.id.search_posts)).perform(typeText("Football"), closeSoftKeyboard());
+    //    onView((withText("Football"))).check(matches(isDisplayed()));
+    //}
     @Test
     public void testCreatePostWithLocation() throws InterruptedException {
         onView(withId(R.id.add_posts)).perform(click());
@@ -119,13 +125,6 @@ public class SeachFragmentTest {
         onView(withText("Cancel")).perform(click());
 
     }
-
-
-    //@Test
-    //public void testSearchBar(){
-    //    onView(withId(R.id.search_posts)).perform(typeText("Football"), closeSoftKeyboard());
-    //    onView((withText("Football"))).check(matches(isDisplayed()));
-    //}
 
 
 }
