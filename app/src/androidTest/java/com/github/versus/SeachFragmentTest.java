@@ -69,6 +69,7 @@ public class SeachFragmentTest {
         onView(withId(android.R.id.button1)).perform(click());
         onView(withId(R.id.editMaxPlayers)).perform(typeText("4"), closeSoftKeyboard());
         onView(withId(android.R.id.button2)).perform(click());*/
+        
     }
 
 
