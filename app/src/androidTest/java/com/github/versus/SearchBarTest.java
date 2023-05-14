@@ -52,6 +52,7 @@ public class SearchBarTest {
             // Find the menu item by its ID and perform a click
             onView(withText("Search")).perform(click());
 
+
         }
 
     }
