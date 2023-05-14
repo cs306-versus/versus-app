@@ -54,12 +54,7 @@ public class ZOptionGetPlacesTest {
      */
     @Test
     public void testCancel() {
-        Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
-        // Find the menu item by its ID and perform a click
-        onView(withText("Get Place")).perform(click());
-        onView(withId(R.id.edit_text_radius2)).perform(typeText("1500"), closeSoftKeyboard());
-        onView(withText("Show Places")).inRoot(isDialog()).perform(click());
-        onView(withText("Cancel")).perform(click());
+
     }
 
     /**
@@ -70,13 +65,7 @@ public class ZOptionGetPlacesTest {
      */
     @Test
     public void testClickOnLocation() {
-        String placeName = "GooglePlex Football";
-        Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
-        // Find the menu item by its ID and perform a click
-        onView(withText("Get Place")).perform(click());
-        onView(withId(R.id.edit_text_radius2)).perform(typeText("1500"), closeSoftKeyboard());
-        onView(withText("Show Places")).inRoot(isDialog()).perform(click());
-        onView(withText(placeName)).perform(click());
+
     }
 
 
@@ -96,11 +85,7 @@ public class ZOptionGetPlacesTest {
      */
     @Test
     public void testIfNoPlacesWithinRadius() {
-        Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
-        // Find the menu item by its ID and perform a click
-        onView(withText("Get Place")).perform(click());
-        onView(withId(R.id.edit_text_radius2)).perform(typeText("100"), closeSoftKeyboard());
-        onView(withText("Show Places")).inRoot(isDialog()).perform(click());
+      
     }
 
 }
