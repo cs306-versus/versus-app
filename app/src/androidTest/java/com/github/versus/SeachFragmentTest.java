@@ -106,6 +106,7 @@ public class SeachFragmentTest {
         SystemClock.sleep(3000);
         onView(withId(android.R.id.button1)).check(matches(isDisplayed()));
         onView(withId(android.R.id.button1)).perform(click());
+
     }
     @Test
     public void testCreatePostWithLocationCanceled() {
