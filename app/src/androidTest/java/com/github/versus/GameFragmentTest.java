@@ -67,6 +67,8 @@ public class GameFragmentTest {
         //Getting back two weeks before where there is a game in the database
         onView(withId(R.id.arrow_11)).perform(click());
         onView(withId(R.id.arrow_11)).perform(click());
+        onView(withId(R.id.arrow_11)).perform(click());
+        onView(withId(R.id.arrow_11)).perform(click());
         onView(withId(R.id.Tuesday_button)).perform(click());
         try {
             Thread.sleep(10000); // wait for 1 second
