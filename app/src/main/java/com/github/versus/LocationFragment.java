@@ -122,7 +122,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     private FusedLocationProviderClient fusedLocationProviderClient;
     private EditText editTextRadius;
     private float radius;
-    private Marker lastClickedMarker;
+    //private Marker lastClickedMarker;
     private Circle lastDrawnCircle;
     private DataBaseManager dummyLocationManager;
 
@@ -135,6 +135,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     // Threshold distance to consider a field as nearby (in meters)
     private double thresholdDistanceInput=1000;
     private  AutocompleteSupportFragment autocompleteFragment;
+    private Marker blinkingMarker ;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -202,6 +203,12 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                 if (map != null && selectedPlace != null) {
                     map.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedPlace, DEFAULT_ZOOM));
                     autocompleteFragment.getView().setVisibility(View.GONE);
+                    if (blinkingMarker != null) {
+                        blinkingMarker.remove();
+                    }
+
+                    blinkingMarker = map.addMarker(new MarkerOptions().position(selectedPlace).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).title("Clicked Location"));
+                    addBlinkingMarker(selectedPlace,place.getName(), place.getName());
                 }
             }
 
@@ -373,12 +380,12 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
 
         // Remove the last clicked marker if it exists
-        if (lastClickedMarker != null) {
-            lastClickedMarker.remove();
+        if (blinkingMarker != null) {
+            blinkingMarker.remove();
         }
 
         // Add a new marker to the map at the clicked position
-        lastClickedMarker = map.addMarker(new MarkerOptions().position(clickedPosition).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).title("Clicked Location"));
+        blinkingMarker = map.addMarker(new MarkerOptions().position(clickedPosition).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).title("Clicked Location"));
 
         // Iterate through the custom places and find the ones within the threshold distance
         List<CustomPlace> nearbyFields = customPlaces.stream().filter(place -> haversineDistance(clickedPosition, place.latLng) <= thresholdDistanceInput).collect(Collectors.toList());
@@ -771,10 +778,13 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
      * @param snippet  The snippet of the marker.
      */
     private void addBlinkingMarker(LatLng position, String title, String snippet) {
-        Marker mainMarker = map.addMarker(new MarkerOptions().position(position).title(title).snippet(snippet));
 
         MarkerOptions blinkingMarkerOptions = new MarkerOptions().position(position).title(title).snippet(snippet).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).alpha(0.5f).visible(false);
-        Marker blinkingMarker = map.addMarker(blinkingMarkerOptions);
+        if (blinkingMarker != null) {
+            //Clearing the map from previous circles
+            blinkingMarker.remove();
+        }
+         blinkingMarker = map.addMarker(blinkingMarkerOptions);
 
         applyBlinkingAnimation(blinkingMarker);
     }
