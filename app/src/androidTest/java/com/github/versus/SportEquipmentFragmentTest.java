@@ -2,6 +2,7 @@ package com.github.versus;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
@@ -98,11 +99,14 @@ public class SportEquipmentFragmentTest {
             // handle the exception
         }
         onView(withId(R.id.back_to_posts_container)).perform(click());
-        onView(withId(R.id.search_for_post)).perform(click());
-        
+        onView(withId(R.id.search_for_post)).perform(typeText("Boxing"), closeSoftKeyboard());
 
-        onView(withId(R.id.search_for_post)).perform(replaceText("Boxing"));
 
+        try {
+            Thread.sleep(2000); // wait for 10 seconds
+        } catch (InterruptedException e) {
+            // handle the exception
+        }
 
 
     } }
