@@ -99,6 +99,7 @@ public class SportEquipmentFragmentTest {
         }
         onView(withId(R.id.back_to_posts_container)).perform(click());
         onView(withId(R.id.search_for_post)).perform(click());
+        
 
         onView(withId(R.id.search_for_post)).perform(replaceText("Boxing"));
 
