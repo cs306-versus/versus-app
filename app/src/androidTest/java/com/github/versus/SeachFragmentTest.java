@@ -22,7 +22,6 @@ import androidx.test.espresso.contrib.DrawerActions;
 import androidx.test.espresso.contrib.DrawerMatchers;
 import androidx.test.espresso.intent.Intents;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
-import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.uiautomator.UiDevice;
 import androidx.test.uiautomator.UiObject;
 import androidx.test.uiautomator.UiObjectNotFoundException;
@@ -46,7 +45,7 @@ public class SeachFragmentTest {
         onView(withId(R.id.drawer_layout)).check(matches(DrawerMatchers.isOpen(GravityCompat.START)));
         onView(withId(R.id.nav_search)).perform(click());
     }
-    
+
     @Test
     public void testScrollRecyclerView(){
         onView(withId(R.id.recyclerView)).perform(click());
@@ -76,7 +75,6 @@ public class SeachFragmentTest {
         onView(withId(R.id.editMaxPlayers)).perform(typeText("4"), closeSoftKeyboard());
         onView(withId(android.R.id.button2)).perform(click());
     }
-
     @Test
     public void testCreatePostWithLocation() throws InterruptedException {
         onView(withId(R.id.add_posts)).perform(click());
@@ -123,12 +121,11 @@ public class SeachFragmentTest {
     }
 
 
-    /*@Test
-    public void testSearchBar(){
-        onView(withId(R.id.search_posts)).perform(typeText("Football"), closeSoftKeyboard());
-        onView((withText("Football"))).check(matches(isDisplayed()));
-    }*/
-
+    //@Test
+    //public void testSearchBar(){
+    //    onView(withId(R.id.search_posts)).perform(typeText("Football"), closeSoftKeyboard());
+    //    onView((withText("Football"))).check(matches(isDisplayed()));
+    //}
 
 
 }
