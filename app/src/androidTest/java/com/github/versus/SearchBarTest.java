@@ -8,6 +8,13 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.RootMatchers.isDialog;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
+
+import static org.junit.Assert.fail;
+
+import android.content.Context;
+import android.util.DisplayMetrics;
+import android.view.WindowManager;
 
 import androidx.core.view.GravityCompat;
 import androidx.test.core.app.ApplicationProvider;
@@ -15,8 +22,13 @@ import androidx.test.espresso.Espresso;
 import androidx.test.espresso.contrib.DrawerActions;
 import androidx.test.espresso.contrib.DrawerMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.GrantPermissionRule;
 import androidx.test.runner.AndroidJUnit4;
+import androidx.test.uiautomator.UiDevice;
+import androidx.test.uiautomator.UiObject;
+import androidx.test.uiautomator.UiObjectNotFoundException;
+import androidx.test.uiautomator.UiSelector;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -46,13 +58,51 @@ public class SearchBarTest {
         }
 
         @Test
-        public void testSearchBar() {
+        public void testSearchBar() throws InterruptedException {
 
             Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
             // Find the menu item by its ID and perform a click
             onView(withText("Search")).perform(click());
+            /*DisplayMetrics displayMetrics = new DisplayMetrics();
+            WindowManager windowManager = (WindowManager) ApplicationProvider.getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
+            windowManager.getDefaultDisplay().getRealMetrics(displayMetrics);
+
+            // Calculate the center coordinates
+            int centerX = displayMetrics.widthPixels / 2;
+            int centerY = 300;
+            System.out.println(displayMetrics.widthPixels+"  HEHEHEHEH  " +displayMetrics.heightPixels);
+
+            // Simulate a map click event at the center of the screen
+            Thread.sleep(2000);
+            simulateMapClick(centerX, centerY);
+            */
+            UiDevice device = UiDevice.getInstance(getInstrumentation());
+            UiObject searchBox = device.findObject(new UiSelector().text("Search"));
+
+            try {
+                // Type the text and press enter
+                searchBox.setText("unilego.");
+                Thread.sleep(2000);
+                device.pressEnter();
+                device.pressEnter();
+            } catch (UiObjectNotFoundException e) {
+                fail("Could not find the Autocomplete widget");
+            }
+
 
 
         }
+
+    /**
+     * Simulates a map click at the given screen coordinates.
+     *
+     * @param x int representing the x-coordinate of the screen location to click
+     * @param y int representing the y-coordinate of the screen location to click
+     */
+    private void simulateMapClick(int x, int y) {
+        UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
+        device.click(x, y);
+    }
+
 
     }

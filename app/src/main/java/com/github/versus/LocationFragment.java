@@ -137,6 +137,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     private  AutocompleteSupportFragment autocompleteFragment;
     private Marker blinkingMarker ;
     private Marker visibleMarker;
+    private  PolylineOptions polylineOptions;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -816,11 +817,16 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
             //Clearing the map from previous circles
             lastDrawnCircle.remove();
         }
-        PolylineOptions polylineOptions = new PolylineOptions();
+
+        polylineOptions = new PolylineOptions();
         polylineOptions.addAll(points);
         polylineOptions.width(10);
         polylineOptions.color(Color.BLUE);
         map.addPolyline(polylineOptions);
+
+
+
+
     }
     private class FetchDirectionsTask extends AsyncTask<Void, Void, List<LatLng>> {
         private LatLng origin;
@@ -909,6 +915,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         @Override
         protected void onPostExecute(List<LatLng> result) {
             if (result != null) {
+
                 drawPath(map, result);
                 showToast("Distance: " + distanceText);
             } else {
