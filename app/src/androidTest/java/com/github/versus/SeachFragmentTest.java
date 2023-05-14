@@ -15,6 +15,8 @@ import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentat
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.fail;
 
+import android.os.SystemClock;
+
 import androidx.core.view.GravityCompat;
 import androidx.core.widget.TextViewCompat;
 import androidx.test.espresso.ViewAction;
@@ -95,15 +97,13 @@ public class SeachFragmentTest {
         try {
             // Type the text and press enter
             searchBox.setText("unilego.");
-            Thread.sleep(2000);
+            SystemClock.sleep(3000);
             device.pressEnter();
             device.pressEnter();
         } catch (UiObjectNotFoundException e) {
             fail("Could not find the Autocomplete widget");
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
         }
-
+        SystemClock.sleep(3000);
         onView(withId(android.R.id.button1)).check(matches(isDisplayed()));
         onView(withId(android.R.id.button1)).perform(click());
     }
