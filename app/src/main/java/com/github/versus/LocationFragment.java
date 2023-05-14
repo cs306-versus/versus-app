@@ -136,6 +136,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     private double thresholdDistanceInput=1000;
     private  AutocompleteSupportFragment autocompleteFragment;
     private Marker blinkingMarker ;
+    private Marker visibleMarker;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -206,7 +207,11 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                     if (blinkingMarker != null) {
                         blinkingMarker.remove();
                     }
+                    if (visibleMarker != null) {
+                        visibleMarker.remove();
+                    }
 
+                    visibleMarker = map.addMarker(new MarkerOptions().title(place.getName()).position(selectedPlace).snippet(place.getAddress()));
                     blinkingMarker = map.addMarker(new MarkerOptions().position(selectedPlace).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).title("Clicked Location"));
                     addBlinkingMarker(selectedPlace,place.getName(), place.getName());
                 }
@@ -257,10 +262,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
 
         // Add markers for EPFL and Satellite
-        epfl = new LatLng(46.520536, 6.568318);
 
-        epflMarker = new MarkerOptions().position(epfl).title("EPFL");
-        map.addMarker(epflMarker);
         google = new LatLng(37.42, -122.084);
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(google, 15));
 
@@ -342,12 +344,30 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
             openPlacesDialog();
 
         } else if (item.getItemId() == R.id.option_choose_location) {
+            if (lastDrawnCircle != null) {
+                lastDrawnCircle.remove();
+            }
+            if (visibleMarker != null) {
+                visibleMarker.remove();
+            }
             enableCustomLocationSelection();
         }
          else if (item.getItemId() == R.id.option_choose_radius) {
+            if (lastDrawnCircle != null) {
+                lastDrawnCircle.remove();
+            }
+            if (visibleMarker != null) {
+               visibleMarker.remove();
+            }
         chooseDefaultRadius();
     }
         else if (item.getItemId() == R.id.search_bar) {
+            if (lastDrawnCircle != null) {
+               lastDrawnCircle.remove();
+            }
+            if (visibleMarker != null) {
+                visibleMarker.remove();
+            }
             autocompleteFragment.getView().setVisibility(View.VISIBLE);
         }
 
@@ -658,7 +678,10 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 selectedPlace= likelyPlaceLatLngs[position];
                 posSelectedPlace =position;
-                Marker marker = map.addMarker(new MarkerOptions().title(likelyPlaceNames[position]).position(selectedPlace).snippet(likelyPlaceAddresses[position]));
+                if (visibleMarker != null) {
+                    visibleMarker.remove();
+                }
+                visibleMarker = map.addMarker(new MarkerOptions().title(likelyPlaceNames[position]).position(selectedPlace).snippet(likelyPlaceAddresses[position]));
 
                 addBlinkingMarker(selectedPlace, likelyPlaceNames[position], likelyPlaceAddresses[position]);
                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedPlace, DEFAULT_ZOOM));
