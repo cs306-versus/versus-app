@@ -26,6 +26,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -45,6 +46,7 @@ import com.android.volley.toolbox.Volley;
 import com.github.versus.db.DataBaseManager;
 import com.github.versus.db.DummyLocationManager;
 import com.github.versus.user.CustomPlace;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -62,7 +64,10 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 import com.google.maps.android.PolyUtil;
 
 import org.json.JSONArray;
@@ -77,6 +82,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
@@ -135,6 +141,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         //call setHasOptionsMenu(true) to notify the fragment
         // that it has options menu items that need to be created
 
+
         setHasOptionsMenu(true);
 
         // Retrieve location and camera position from saved instance state.
@@ -175,6 +182,32 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
             }
         });
+
+
+        AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
+                getChildFragmentManager().findFragmentById(R.id.autocomplete_location_search);
+
+        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG));
+
+        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(Place place) {
+                // Here you can handle the selected place
+                Log.i(TAG, "Place: " + place.getName() + ", " + place.getId());
+                selectedPlace = place.getLatLng();  // Update the selected place
+                // Move the camera to the selected place
+                if (map != null && selectedPlace != null) {
+                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedPlace, DEFAULT_ZOOM));
+                }
+            }
+
+            @Override
+            public void onError(Status status) {
+                // Handle the error
+                Log.i(TAG, "An error occurred: " + status);
+            }
+        });
+
 
 
         return view;

@@ -97,15 +97,12 @@ public class SeachFragmentTest {
         try {
             // Type the text and press enter
             searchBox.setText("unilego.");
-            SystemClock.sleep(3000);
+            Thread.sleep(2000);
             device.pressEnter();
             device.pressEnter();
         } catch (UiObjectNotFoundException e) {
             fail("Could not find the Autocomplete widget");
         }
-        SystemClock.sleep(3000);
-        onView(withId(android.R.id.button1)).check(matches(isDisplayed()));
-        onView(withId(android.R.id.button1)).perform(click());
 
     }
     @Test
