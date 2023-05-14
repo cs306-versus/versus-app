@@ -134,6 +134,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     private int posSelectedPlace;
     // Threshold distance to consider a field as nearby (in meters)
     private double thresholdDistanceInput=1000;
+    private  AutocompleteSupportFragment autocompleteFragment;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -184,8 +185,10 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         });
 
 
-        AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
+
+         autocompleteFragment = (AutocompleteSupportFragment)
                 getChildFragmentManager().findFragmentById(R.id.autocomplete_location_search);
+        autocompleteFragment.getView().setVisibility(View.GONE);
 
         autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG));
 
@@ -198,6 +201,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                 // Move the camera to the selected place
                 if (map != null && selectedPlace != null) {
                     map.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedPlace, DEFAULT_ZOOM));
+                    autocompleteFragment.getView().setVisibility(View.GONE);
                 }
             }
 
@@ -336,6 +340,9 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
          else if (item.getItemId() == R.id.option_choose_radius) {
         chooseDefaultRadius();
     }
+        else if (item.getItemId() == R.id.search_bar) {
+            autocompleteFragment.getView().setVisibility(View.VISIBLE);
+        }
 
 
         return true;
@@ -418,6 +425,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
                             if (lastKnownLocation != null) {
                                 localPos = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
+
                                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(localPos, DEFAULT_ZOOM));
                             }
                         } else {

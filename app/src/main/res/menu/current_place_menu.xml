@@ -13,6 +13,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/search_bar"
+        android:title="Search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+
+        />
+    <item
         android:id="@+id/option_get_place"
         android:title="Get Place"
         android:layout_width="wrap_content"
@@ -37,6 +45,8 @@
         android:layout_centerHorizontal="true"
 
         />
+
+
 
 
 
