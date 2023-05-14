@@ -621,7 +621,6 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
         dialog.show();
 
-
     }
 
     /**
