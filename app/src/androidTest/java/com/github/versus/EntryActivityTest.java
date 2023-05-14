@@ -1,69 +1,107 @@
 package com.github.versus;
 
-import static org.junit.Assert.assertThat;
-
-import android.content.Intent;
-
-import androidx.test.core.app.ActivityScenario;
 import androidx.test.espresso.intent.Intents;
-import androidx.test.espresso.intent.matcher.IntentMatchers;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.rule.ActivityTestRule;
 
 import com.github.versus.auth.AuthActivity;
 import com.github.versus.auth.Authenticator;
+import com.github.versus.auth.VersusAuthenticator;
 import com.github.versus.user.User;
+import com.github.versus.user.VersusUser;
+import com.github.versus.utils.FirebaseEmulator;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
-import org.hamcrest.Matcher;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
-import static com.github.versus.utils.VersusComponentName.of;
+import static androidx.test.espresso.intent.Intents.intended;
+import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 
-import static org.mockito.Mockito.*;
+import android.content.Intent;
+
+import java.io.Serializable;
 
 @RunWith(AndroidJUnit4.class)
 public class EntryActivityTest {
 
-    // HR : NOTE THAT WE CANNOT MOCK STATIC METHODS ON ANDROID
-    // HR : AS A WORK AROUND, WE START THE ACTIVITY WITH AN INTENT
+    public ActivityTestRule<EntryActivity> rule;
 
-    private Authenticator auth;
-    private Intent intent;
+    @Before public void setUpEmulator() {
+        Intents.init();
+        rule = new ActivityTestRule<>(EntryActivity.class);
+    }
 
-    @Before
-    public void setup(){
-        auth = mock(Authenticator.class, withSettings().serializable());
-        intent = new Intent(getApplicationContext(), EntryActivity.class);
-        intent.putExtra(EntryActivity.AUTH_INTENT, auth);
+    @After public void tearDown(){
+        Intents.release();
     }
 
     @Test
-    public void authIfNoUserConnected(){
-        when(auth.currentUser()).thenReturn(null);
-        Intents.init();
-        try(ActivityScenario<EntryActivity> scenario = ActivityScenario.launch(intent)){
-            Intent s_intent = Intents.getIntents().get(1);
-            Matcher<Intent> matcher = IntentMatchers.hasComponent(of(AuthActivity.class));
-            assertThat(s_intent, matcher);
-        } finally {
-            Intents.release();
-        }
+    public void switchToMainActivity(){
+        Intent intent = new Intent();
+        intent.putExtra(EntryActivity.AUTH_INTENT, new UserAuthenticator());
+        // Launch the activity
+        rule.launchActivity(intent);
+        intended(hasComponent(MainActivity.class.getName()));
     }
 
     @Test
-    public void startAppIfUserConnected(){
-        when(auth.currentUser()).thenReturn(mock(User.class, withSettings().serializable()));
-        Intents.init();
-        try(ActivityScenario<EntryActivity> scenario = ActivityScenario.launch(intent)){
-            Intent s_intent = Intents.getIntents().get(1);
-            Matcher<Intent> matcher = IntentMatchers.hasComponent(of(MainActivity.class));
-            assertThat(s_intent, matcher);
-        } finally {
-            Intents.release();
+    public void switchToAuthActivity(){
+        Intent intent = new Intent();
+        intent.putExtra(EntryActivity.AUTH_INTENT, new NoUserAuthenticator());
+        // Launch the activity
+        rule.launchActivity(intent);
+        intended(hasComponent(AuthActivity.class.getName()));
+    }
+
+    private static class NoUserAuthenticator implements Authenticator, Serializable {
+
+        @Override
+        public Task<AuthResult> createAccountWithMail(String mail, String password) {
+            return null;
+        }
+
+        @Override
+        public Task<AuthResult> signInWithMail(String mail, String password) {
+            return null;
+        }
+
+        @Override
+        public User currentUser() {
+            return null;
+        }
+
+        @Override
+        public void signOut() {
+
         }
     }
 
+    private static class UserAuthenticator implements Authenticator, Serializable {
+
+        @Override
+        public Task<AuthResult> createAccountWithMail(String mail, String password) {
+            return null;
+        }
+
+        @Override
+        public Task<AuthResult> signInWithMail(String mail, String password) {
+            return null;
+        }
+
+        @Override
+        public User currentUser() {
+            return new VersusUser();
+        }
+
+        @Override
+        public void signOut() {
+
+        }
+    }
 
 }
