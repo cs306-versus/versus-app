@@ -95,7 +95,6 @@ public class SearchBarTest {
             // If we couldn't find the search bar, fail the test
             fail("Could not find the Autocomplete widget");
         }
-
         // Sleep for another 2 seconds to give time for the search to complete
         Thread.sleep(2000);
 
