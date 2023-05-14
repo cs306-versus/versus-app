@@ -66,7 +66,7 @@ public class SportEquipmentFragmentTest {
      * Switch the view to the Schedule
      */
     @Before public void testScheduleButtons2(){
-        
+
         onView(withId(R.id.drawer_layout)).check(matches(DrawerMatchers.isClosed(GravityCompat.START))).perform(DrawerActions.open());
         onView(withId(R.id.drawer_layout)).check(matches(DrawerMatchers.isOpen(GravityCompat.START)));
         onView(withId(R.id.nav_sport_equipments)).perform(click());
@@ -82,10 +82,25 @@ public class SportEquipmentFragmentTest {
         onView(withId(R.id.the_real_left_arrow)).perform(click());
         onView(withId(R.id.the_real_left_arrow)).perform(click());
         onView(withId(R.id.the_real_left_arrow)).perform(click());
-        onView(withId(R.id.search_for_post)).perform(click());
-        onView(withId(R.id.search_for_post)).perform(replaceText("Boxing"));
+        ViewInteraction rectangleView2 = onView(withId(R.id.contact_person));
+        rectangleView2.perform(ViewActions.scrollTo());
+        try {
+            Thread.sleep(2000); // wait for 10 seconds
+        } catch (InterruptedException e) {
+            // handle the exception
+        }
         onView(withId(R.id.contact_person)).perform(click());
+        ViewInteraction rectangleView3 = onView(withId(R.id.back_to_posts_container));
+        rectangleView3.perform(ViewActions.scrollTo());
+        try {
+            Thread.sleep(2000); // wait for 10 seconds
+        } catch (InterruptedException e) {
+            // handle the exception
+        }
         onView(withId(R.id.back_to_posts_container)).perform(click());
+        onView(withId(R.id.search_for_post)).perform(click());
+
+        onView(withId(R.id.search_for_post)).perform(replaceText("Boxing"));
 
 
 
