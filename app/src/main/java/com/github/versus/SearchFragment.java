@@ -82,7 +82,6 @@ public class SearchFragment extends Fragment implements LocationPickerDialog.Loc
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         onCancel();
-        System.out.println(getActivity()+"LELOLE");
         View rootView = inflater.inflate(R.layout.fragment_research,container,false);
         assignViews(rootView);
 
@@ -107,6 +106,18 @@ public class SearchFragment extends Fragment implements LocationPickerDialog.Loc
 
         return rootView;
     }
+
+    /**
+     * This method handles the result from the LocationPickerDialog.
+     * It's called when the dialog finishes and returns a result.
+     * If the result is OK, the method retrieves the selected place and invokes onLocationPositiveClick.
+     * If there's an error, the method logs the error status. If the operation was cancelled, no action is taken.
+     *
+     * @param requestCode The integer request code originally supplied to startActivityForResult(),
+     *                    allowing you to identify who this result came from.
+     * @param resultCode The integer result code returned by the child activity through its setResult().
+     * @param data An Intent, which can return result data to the caller (various data can be attached to Intent "extras").
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -120,11 +131,11 @@ public class SearchFragment extends Fragment implements LocationPickerDialog.Loc
                 Log.i(TAG, status.getStatusMessage());
             } else if (resultCode == RESULT_CANCELED) {
                 // The user canceled the operation.
-
             }
         }
-
     }
+
+
 
 
     private void setUser(User user){
@@ -191,14 +202,33 @@ public class SearchFragment extends Fragment implements LocationPickerDialog.Loc
         newPost.setSport(sport);
         mpdf.show(getChildFragmentManager(), "1");
     }
+    /**
+     * Handles the location selection event.
+     * This method will be called when a location is selected from the LocationPickerDialog.
+     * It creates a new location, sets it for the new post, assigns the current user to the post,
+     * inserts the new post into the database, and finally loads the posts.
+     *
+     * @param place The selected location.
+     */
     @Override
     public void onLocationPositiveClick(Place place) {
+        // Create a new location from the selected place
         Location location = new Location(place.getName(), place.getLatLng().latitude, place.getLatLng().longitude);
+
+        // Set the location for the new post
         newPost.setLocation(location);
+
+        // Create a list of users and add the current user to it
         ArrayList<VersusUser> users = new ArrayList<>();
         users.add(user);
+
+        // Set the players for the new post
         newPost.setPlayers(users);
+
+        // Insert the new post into the database
         pm.insert(newPost);
+
+        // Load the posts
         loadPosts();
     }
 
