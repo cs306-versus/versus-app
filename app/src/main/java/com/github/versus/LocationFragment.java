@@ -60,6 +60,7 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -137,7 +138,8 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     private  AutocompleteSupportFragment autocompleteFragment;
     private Marker blinkingMarker ;
     private Marker visibleMarker;
-    private  PolylineOptions polylineOptions;
+    private Polyline lastDrawnLine;
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -189,22 +191,32 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
 
 
-         autocompleteFragment = (AutocompleteSupportFragment)
+        // Get the AutocompleteSupportFragment from the FragmentManager using its ID
+        autocompleteFragment = (AutocompleteSupportFragment)
                 getChildFragmentManager().findFragmentById(R.id.autocomplete_location_search);
+
+        // Set the visibility of the autocompleteFragment's view to GONE, meaning it will not be visible, nor take up any space
         autocompleteFragment.getView().setVisibility(View.GONE);
 
+        // Set the fields that should be included for the place (location) selected in the search bar
         autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG));
 
+        // Set a listener that gets triggered when a place is selected from the search suggestions
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(Place place) {
-                // Here you can handle the selected place
+                // Log the details of the selected place
                 Log.i(TAG, "Place: " + place.getName() + ", " + place.getId());
-                selectedPlace = place.getLatLng();  // Update the selected place
-                // Move the camera to the selected place
+
+                // Store the LatLng of the selected place
+                selectedPlace = place.getLatLng();
+
+                // If the map is not null and a place has been selected, move the camera to the selected place and hide the autocompleteFragment's view
                 if (map != null && selectedPlace != null) {
                     map.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedPlace, DEFAULT_ZOOM));
                     autocompleteFragment.getView().setVisibility(View.GONE);
+
+                    // Remove the previous markers if they exist
                     if (blinkingMarker != null) {
                         blinkingMarker.remove();
                     }
@@ -212,19 +224,21 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                         visibleMarker.remove();
                     }
 
+                    // Add a new marker at the selected place
                     visibleMarker = map.addMarker(new MarkerOptions().title(place.getName()).position(selectedPlace).snippet(place.getAddress()));
                     blinkingMarker = map.addMarker(new MarkerOptions().position(selectedPlace).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).title("Clicked Location"));
-                    addBlinkingMarker(selectedPlace,place.getName(), place.getName());
+
+                    // Add a blinking marker at the selected place
+                    addBlinkingMarker(selectedPlace, place.getName(), place.getName());
                 }
             }
 
             @Override
             public void onError(Status status) {
-                // Handle the error
+                // Log if there is any error while selecting a place
                 Log.i(TAG, "An error occurred: " + status);
             }
         });
-
 
 
 
@@ -818,11 +832,17 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
             lastDrawnCircle.remove();
         }
 
-        polylineOptions = new PolylineOptions();
+        if (lastDrawnLine != null) {
+            //Clearing the map from previous circles
+            lastDrawnLine.remove();
+        }
+
+
+        PolylineOptions polylineOptions = new PolylineOptions();
         polylineOptions.addAll(points);
         polylineOptions.width(10);
         polylineOptions.color(Color.BLUE);
-        map.addPolyline(polylineOptions);
+        lastDrawnLine = map.addPolyline(polylineOptions);
 
 
 

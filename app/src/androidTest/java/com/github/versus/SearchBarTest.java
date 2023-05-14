@@ -57,56 +57,50 @@ public class SearchBarTest {
             onView(withId(R.id.nav_location)).perform(click());
         }
 
-        @Test
-        public void testSearchBar() throws InterruptedException {
-
-            Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
-            // Find the menu item by its ID and perform a click
-            onView(withText("Search")).perform(click());
-           /* DisplayMetrics displayMetrics = new DisplayMetrics();
-            WindowManager windowManager = (WindowManager) ApplicationProvider.getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
-            windowManager.getDefaultDisplay().getRealMetrics(displayMetrics);
-
-            // Calculate the center coordinates
-            int centerX = displayMetrics.widthPixels / 2;
-            int centerY = 300;
-            //System.out.println(displayMetrics.widthPixels+"  HEHEHEHEH  " +displayMetrics.heightPixels);
-
-            // Simulate a map click event at the center of the screen
-            Thread.sleep(2000);
-            simulateMapClick(centerX, centerY);
-            perform(typeText("1500"), closeSoftKeyboard());*/
-
-            UiDevice device = UiDevice.getInstance(getInstrumentation());
-            UiObject searchBox = device.findObject(new UiSelector().text("Search"));
-
-            try {
-                // Type the text and press enter
-                searchBox.click();
-                searchBox.setText("Unil sport");
-                Thread.sleep(2000);
-                device.pressEnter();
-                device.pressEnter();
-            } catch (UiObjectNotFoundException e) {
-                fail("Could not find the Autocomplete widget");
-            }
-            Thread.sleep(2000);
-            onView(withText("Draw Path")).perform(click());
-
-
-
-        }
 
     /**
-     * Simulates a map click at the given screen coordinates.
+     * This test is to validate the functionality of the search bar in the application.
      *
-     * @param x int representing the x-coordinate of the screen location to click
-     * @param y int representing the y-coordinate of the screen location to click
+     * @throws InterruptedException if the thread sleep is interrupted
      */
-    private void simulateMapClick(int x, int y) {
-        UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
-        device.click(x, y);
+    @Test
+    public void testSearchBar() throws InterruptedException {
+        // Open the options menu in the action bar
+        Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
+
+        // Find the menu item "Search" by its text and perform a click. This should open the search bar.
+        onView(withText("Search")).perform(click());
+
+        // Get the instance of the device on which the test is running
+        UiDevice device = UiDevice.getInstance(getInstrumentation());
+
+        // Find the search bar (UiObject) by its hint text "Search"
+        UiObject searchBox = device.findObject(new UiSelector().text("Search"));
+
+        try {
+            // Click on the search bar to focus it, then type "Unil sport" into the search bar
+            searchBox.click();
+            searchBox.setText("Unil sport");
+
+            // Sleep for 2 seconds to give time for potential network operations (like autocomplete suggestions)
+            Thread.sleep(2000);
+
+            // Simulate pressing the enter key twice. This might be necessary if the first press only closes the keyboard.
+            device.pressEnter();
+            device.pressEnter();
+        } catch (UiObjectNotFoundException e) {
+            // If we couldn't find the search bar, fail the test
+            fail("Could not find the Autocomplete widget");
+        }
+
+        // Sleep for another 2 seconds to give time for the search to complete
+        Thread.sleep(2000);
+
+        // Find the "Draw Path" button by its text and perform a click. This should start the path drawing operation.
+        onView(withText("Draw Path")).perform(click());
     }
 
 
-    }
+
+
+}
