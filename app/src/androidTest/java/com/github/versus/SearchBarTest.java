@@ -63,31 +63,35 @@ public class SearchBarTest {
             Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
             // Find the menu item by its ID and perform a click
             onView(withText("Search")).perform(click());
-            /*DisplayMetrics displayMetrics = new DisplayMetrics();
+           /* DisplayMetrics displayMetrics = new DisplayMetrics();
             WindowManager windowManager = (WindowManager) ApplicationProvider.getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
             windowManager.getDefaultDisplay().getRealMetrics(displayMetrics);
 
             // Calculate the center coordinates
             int centerX = displayMetrics.widthPixels / 2;
             int centerY = 300;
-            System.out.println(displayMetrics.widthPixels+"  HEHEHEHEH  " +displayMetrics.heightPixels);
+            //System.out.println(displayMetrics.widthPixels+"  HEHEHEHEH  " +displayMetrics.heightPixels);
 
             // Simulate a map click event at the center of the screen
             Thread.sleep(2000);
             simulateMapClick(centerX, centerY);
-            */
+            perform(typeText("1500"), closeSoftKeyboard());*/
+
             UiDevice device = UiDevice.getInstance(getInstrumentation());
             UiObject searchBox = device.findObject(new UiSelector().text("Search"));
 
             try {
                 // Type the text and press enter
-                searchBox.setText("unilego.");
+                searchBox.click();
+                searchBox.setText("Unil sport");
                 Thread.sleep(2000);
                 device.pressEnter();
                 device.pressEnter();
             } catch (UiObjectNotFoundException e) {
                 fail("Could not find the Autocomplete widget");
             }
+            Thread.sleep(2000);
+            onView(withText("Draw Path")).perform(click());
 
 
 
