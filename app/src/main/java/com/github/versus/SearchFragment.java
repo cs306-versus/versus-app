@@ -195,11 +195,8 @@ public class SearchFragment extends Fragment implements LocationPickerDialog.Loc
     public void onLocationPositiveClick(Place place) {
         Location location = new Location(place.getName(), place.getLatLng().latitude, place.getLatLng().longitude);
         newPost.setLocation(location);
-        ArrayList<VersusUser> users = new ArrayList<>();
-        users.add(user);
-        newPost.setPlayers(users);
-        pm.insert(newPost);
-        loadPosts();
+        pdpd.show(getChildFragmentManager(), "1");
+
     }
 
 
@@ -239,14 +236,20 @@ public class SearchFragment extends Fragment implements LocationPickerDialog.Loc
     @Override
     public void onMaxPlayerPositiveClick(int playerCount) {
         newPost.setPlayerLimit(playerCount);
-        pdpd.show(getChildFragmentManager(), "1");
+        locationPickerDialog.show(getChildFragmentManager(), "1");
+
 
     }
 
     @Override
     public void onPickPostDate(Timestamp ts) {
         newPost.setDate(ts);
-        locationPickerDialog.show(getChildFragmentManager(), "1");
+        ArrayList<VersusUser> users = new ArrayList<>();
+        users.add(user);
+        newPost.setPlayers(users);
+        pm.insert(newPost);
+        loadPosts();
+
 
 
     }
