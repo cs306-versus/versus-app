@@ -119,6 +119,7 @@ public class SeachFragmentTest {
         onView(withId(android.R.id.button1)).perform(click());
         onView(withId(android.R.id.button1)).perform(click());
         onView(withText("Cancel")).perform(click());
+
     }
 
 
