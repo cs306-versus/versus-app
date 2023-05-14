@@ -259,6 +259,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         } catch (ExecutionException e) {
             throw new RuntimeException(e);
         } catch (InterruptedException e) {
+
             throw new RuntimeException(e);
         }
         //  map.moveCamera(CameraUpdateFactory.newLatLng(epfl));
