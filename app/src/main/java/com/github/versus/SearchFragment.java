@@ -178,6 +178,7 @@ public class SearchFragment extends Fragment implements LocationPickerDialog.Loc
         cpdf.show(getChildFragmentManager(), "1");
     }
 
+
     @Override
     public void onDestroyView(){
         super.onDestroyView();
