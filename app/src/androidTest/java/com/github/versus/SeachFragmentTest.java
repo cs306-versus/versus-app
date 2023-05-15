@@ -81,7 +81,7 @@ public class SeachFragmentTest {
     //    onView(withId(R.id.search_posts)).perform(typeText("Football"), closeSoftKeyboard());
     //    onView((withText("Football"))).check(matches(isDisplayed()));
     //}
-   /*@Test
+   @Test
     public void testCreatePostWithLocation() throws InterruptedException {
         onView(withId(R.id.add_posts)).perform(click());
         onView(withId(R.id.editPostTitle)).check(matches(isDisplayed()));
@@ -111,7 +111,7 @@ public class SeachFragmentTest {
         Thread.sleep(2000);
         onView(withId(R.id.add_posts)).perform(click());
 
-    }*/
+    }
     /*@Test
     public void testCreatePostWithLocationCanceled() {
         onView(withId(R.id.add_posts)).perform(click());
