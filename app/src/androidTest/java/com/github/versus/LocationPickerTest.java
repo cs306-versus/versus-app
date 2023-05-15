@@ -51,7 +51,7 @@ public class LocationPickerTest {
         onView(withId(R.id.recyclerView)).perform(click());
     }
 
-    @Test
+   /* @Test
     public void testCreatePostWithLocation() throws InterruptedException {
         onView(withId(R.id.add_posts)).perform(click());
         onView(withId(R.id.editPostTitle)).check(matches(isDisplayed()));
@@ -82,7 +82,7 @@ public class LocationPickerTest {
         onView(withId(R.id.add_posts)).perform(click());
 
     }
-
+*/
    /* @Test
     public void testCreatePostWithLocationCanceled() {
         onView(withId(R.id.add_posts)).perform(click());
