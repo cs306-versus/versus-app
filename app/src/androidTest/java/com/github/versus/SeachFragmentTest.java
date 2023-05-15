@@ -15,8 +15,6 @@ import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentat
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.fail;
 
-import android.os.SystemClock;
-
 import androidx.core.view.GravityCompat;
 import androidx.core.widget.TextViewCompat;
 import androidx.test.espresso.ViewAction;
@@ -24,7 +22,6 @@ import androidx.test.espresso.contrib.DrawerActions;
 import androidx.test.espresso.contrib.DrawerMatchers;
 import androidx.test.espresso.intent.Intents;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
-import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.uiautomator.UiDevice;
 import androidx.test.uiautomator.UiObject;
 import androidx.test.uiautomator.UiObjectNotFoundException;
@@ -48,13 +45,13 @@ public class SeachFragmentTest {
         onView(withId(R.id.drawer_layout)).check(matches(DrawerMatchers.isOpen(GravityCompat.START)));
         onView(withId(R.id.nav_search)).perform(click());
     }
-    
+
     @Test
     public void testScrollRecyclerView(){
         onView(withId(R.id.recyclerView)).perform(click());
     }
 
-  /*  @Test
+    @Test
     public void testMakePost(){
         onView(withId(R.id.add_posts)).perform(click());
         onView(withId(R.id.editPostTitle)).check(matches(isDisplayed()));
@@ -65,8 +62,8 @@ public class SeachFragmentTest {
         onView(withId(R.id.editMaxPlayers)).perform(typeText("4"), closeSoftKeyboard());
         onView(withId(android.R.id.button1)).perform(click());
         onView(withId(android.R.id.button1)).perform(click());
-    }*/
-/*
+    }
+
     @Test
     public void testCancelPost(){
         onView(withId(R.id.add_posts)).perform(click());
@@ -77,8 +74,13 @@ public class SeachFragmentTest {
         onView(withId(android.R.id.button1)).perform(click());
         onView(withId(R.id.editMaxPlayers)).perform(typeText("4"), closeSoftKeyboard());
         onView(withId(android.R.id.button2)).perform(click());
-    }*/
+    }
 
+    //@Test
+    //public void testSearchBar(){
+    //    onView(withId(R.id.search_posts)).perform(typeText("Football"), closeSoftKeyboard());
+    //    onView((withText("Football"))).check(matches(isDisplayed()));
+    //}
     @Test
     public void testCreatePostWithLocation() throws InterruptedException {
         onView(withId(R.id.add_posts)).perform(click());
@@ -89,7 +91,7 @@ public class SeachFragmentTest {
         onView(withId(android.R.id.button1)).perform(click());
         onView(withId(R.id.editMaxPlayers)).perform(typeText("4"), closeSoftKeyboard());
         onView(withId(android.R.id.button1)).perform(click());
-       // onView(withId(android.R.id.button1)).perform(click());
+        onView(withId(android.R.id.button1)).perform(click());
         onView(withText("Choose")).perform(click());
         UiDevice device = UiDevice.getInstance(getInstrumentation());
         UiObject searchBox = device.findObject(new UiSelector().text("Search"));
@@ -102,7 +104,11 @@ public class SeachFragmentTest {
             device.pressEnter();
         } catch (UiObjectNotFoundException e) {
             fail("Could not find the Autocomplete widget");
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
+        Thread.sleep(2000);
+        onView(withId(R.id.add_posts)).perform(click());
 
     }
     @Test
@@ -115,17 +121,10 @@ public class SeachFragmentTest {
         onView(withId(android.R.id.button1)).perform(click());
         onView(withId(R.id.editMaxPlayers)).perform(typeText("4"), closeSoftKeyboard());
         onView(withId(android.R.id.button1)).perform(click());
-       // onView(withId(android.R.id.button1)).perform(click());
+        onView(withId(android.R.id.button1)).perform(click());
         onView(withText("Cancel")).perform(click());
+
     }
-
-
-
-    /*@Test
-    public void testSearchBar(){
-        onView(withId(R.id.search_posts)).perform(typeText("Football"), closeSoftKeyboard());
-        onView((withText("Football"))).check(matches(isDisplayed()));
-    }*/
 
 
 
