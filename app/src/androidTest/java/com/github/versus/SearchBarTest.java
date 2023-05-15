@@ -41,6 +41,7 @@ import org.junit.runner.RunWith;
 public class SearchBarTest {
 
 
+
     // Declare activity rule and permission rule
         @Rule
         public ActivityScenarioRule<MainActivity> activityRule = new ActivityScenarioRule<>(MainActivity.class);
