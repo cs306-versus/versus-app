@@ -15,7 +15,7 @@
             android:title="Schedule" />
         <item
             android:id="@+id/nav_user_profil"
-            android:icon="@drawable/ic_location"
+            android:icon="@drawable/profiil"
             android:title="Profile" />
         <item
             android:id="@+id/friend_search"
@@ -32,7 +32,7 @@
             android:title="Chats" />
         <item
             android:id="@+id/nav_sport_equipments"
-            android:icon="@drawable/chat_icon"
+            android:icon="@drawable/cart"
             android:title="Sports Equipments" />
 
     </group>

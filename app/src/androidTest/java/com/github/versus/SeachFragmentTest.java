@@ -34,19 +34,19 @@ public class SeachFragmentTest {
     public ActivityScenarioRule<MainActivity> scenario = new ActivityScenarioRule<>(MainActivity.class);
 
     @Before
-    public void navigateToFrag(){
+    public void navigateToFrag() {
         onView(withId(R.id.drawer_layout)).check(matches(DrawerMatchers.isClosed(GravityCompat.START))).perform(DrawerActions.open());
         onView(withId(R.id.drawer_layout)).check(matches(DrawerMatchers.isOpen(GravityCompat.START)));
         onView(withId(R.id.nav_search)).perform(click());
     }
 
     @Test
-    public void testScrollRecyclerView(){
+    public void testScrollRecyclerView() {
         onView(withId(R.id.recyclerView)).perform(click());
     }
 
     @Test
-    public void testMakePost(){
+    public void testMakePost() {
         onView(withId(R.id.add_posts)).perform(click());
         onView(withId(R.id.editPostTitle)).check(matches(isDisplayed()));
         onView(withId(R.id.editPostTitle)).perform(typeText("TEST POST"), closeSoftKeyboard());
@@ -59,7 +59,7 @@ public class SeachFragmentTest {
     }
 
     @Test
-    public void testCancelPost(){
+    public void testCancelPost() {
         onView(withId(R.id.add_posts)).perform(click());
         onView(withId(R.id.editPostTitle)).check(matches(isDisplayed()));
         onView(withId(R.id.editPostTitle)).perform(typeText("TEST POST"), closeSoftKeyboard());

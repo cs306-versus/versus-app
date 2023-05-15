@@ -25,19 +25,33 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ContactInfoFragment extends Fragment {
-   private User user ;
-   private int actualPos;
+
+    //User that should be contacted
+    private User user;
+
+    //Position of the post that was displayed
+    private int actualPos;
+
+    //Displayed posts
     private List<SportEquipmentPost> displayedSportEquipmentPostList;
+
+    //all the available posts
     private List<SportEquipmentPost> sportEquipmentPostList;
+
+    //String that was displayed  in the filtering box
     private String contenue_EditText;
-   public ContactInfoFragment(String contenue_EditText,int actualPos, List<SportEquipmentPost> displayedSportEquipmentPostList, List<SportEquipmentPost> sportEquipmentPostList
-    ,User user){
-       this.displayedSportEquipmentPostList=displayedSportEquipmentPostList;
-       this.actualPos=actualPos;
-       this.sportEquipmentPostList=sportEquipmentPostList;
-       this.user=user;
-       this.contenue_EditText=contenue_EditText;
-   }
+
+    /**
+     * Constructor of the ContactInfoFragment that takes all the state of previous SportEquipmentFragment and save it to display it after the user gets back to the previous fragment
+     */
+    public ContactInfoFragment(String contenue_EditText, int actualPos, List<SportEquipmentPost> displayedSportEquipmentPostList, List<SportEquipmentPost> sportEquipmentPostList
+            , User user) {
+        this.displayedSportEquipmentPostList = displayedSportEquipmentPostList;
+        this.actualPos = actualPos;
+        this.sportEquipmentPostList = sportEquipmentPostList;
+        this.user = user;
+        this.contenue_EditText = contenue_EditText;
+    }
 
     /**
      * The onCreateView method inflates the view from the fragment_trendingsports.xml layout file.
@@ -54,32 +68,35 @@ public class ContactInfoFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.info_contact_fragment, container, false);
-          TextView userPhoneNumber= view.findViewById(R.id.phone_number);
-        TextView userMail= view.findViewById(R.id.my_email);
+        //Setting the phone number
+        TextView userPhoneNumber = view.findViewById(R.id.phone_number);
+        //Setting the email of the user to contact
+        TextView userMail = view.findViewById(R.id.my_email);
         userPhoneNumber.setText(user.getPhone());
         userMail.setText(user.getMail());
-      View container_of_post_back = view.findViewById(R.id.back_to_posts_container);
-      container_of_post_back.setOnClickListener(  new View.OnClickListener() {
+        //Extracting the back to posts button
+        View container_of_post_back = view.findViewById(R.id.back_to_posts_container);
+        //Setting the listener on the back to posts button
+        container_of_post_back.setOnClickListener(new View.OnClickListener() {
 
 
-          @Override
-          public void onClick(View v) {
-              FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-              FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-              SportsEquipmentsFragment frag= new SportsEquipmentsFragment(contenue_EditText,actualPos, displayedSportEquipmentPostList, sportEquipmentPostList);
-
-              fragmentTransaction.replace(
-              R.id.fragment_container, frag);
-              fragmentTransaction.addToBackStack(null);
-              fragmentTransaction.commit();
-          }
-      }
-      );
+                                                      @Override
+                                                      public void onClick(View v) {
+                                                          //Preparing the transaction and commiting it to restore the previous fragment at its previous state
+                                                          FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+                                                          FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                                          SportsEquipmentsFragment frag = new SportsEquipmentsFragment(contenue_EditText, actualPos, displayedSportEquipmentPostList, sportEquipmentPostList);
+                                                          //Replace the current fragment with the previous one
+                                                          fragmentTransaction.replace(
+                                                                  R.id.fragment_container, frag);
+                                                          fragmentTransaction.addToBackStack(null);
+                                                          fragmentTransaction.commit();
+                                                      }
+                                                  }
+        );
 
         return view;
     }
-
-
 
 
     /**
@@ -92,7 +109,6 @@ public class ContactInfoFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
     }
-
 
 
 }
