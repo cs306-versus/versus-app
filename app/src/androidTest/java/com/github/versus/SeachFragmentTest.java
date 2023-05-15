@@ -96,6 +96,7 @@ public class SeachFragmentTest {
         UiDevice device = UiDevice.getInstance(getInstrumentation());
         UiObject searchBox = device.findObject(new UiSelector().text("Search"));
 
+
         try {
             // Type the text and press enter
             searchBox.setText("unilego.");
