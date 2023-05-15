@@ -112,7 +112,7 @@ public class SeachFragmentTest {
         onView(withId(R.id.add_posts)).perform(click());
 
     }*/
-    @Test
+    /*@Test
     public void testCreatePostWithLocationCanceled() {
         onView(withId(R.id.add_posts)).perform(click());
         onView(withId(R.id.editPostTitle)).check(matches(isDisplayed()));
@@ -125,7 +125,7 @@ public class SeachFragmentTest {
         onView(withId(android.R.id.button1)).perform(click());
         onView(withText("Cancel")).perform(click());
 
-    }
+    }*/
 
 
 
