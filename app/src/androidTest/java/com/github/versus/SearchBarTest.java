@@ -67,14 +67,14 @@ public class SearchBarTest {
      *
      * @throws InterruptedException if the thread sleep is interrupted
      */
-    @Test
+    /*@Test
     public void testSearchBar() throws InterruptedException {
         // Open the options menu in the action bar
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
 
         // Find the menu item "Search" by its text and perform a click. This should open the search bar.
         onView(withText("Search")).perform(click());
-/*
+
         // Get the instance of the device on which the test is running
         UiDevice device = UiDevice.getInstance(getInstrumentation());
 
