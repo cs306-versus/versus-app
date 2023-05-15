@@ -1,22 +1,41 @@
+
 package com.github.versus;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
+import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.matcher.ViewMatchers.withHint;
+import static androidx.test.espresso.matcher.RootMatchers.isDialog;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 
 import static org.junit.Assert.fail;
 
+import android.content.Context;
+import android.util.DisplayMetrics;
+import android.view.WindowManager;
+
 import androidx.core.view.GravityCompat;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.espresso.Espresso;
 import androidx.test.espresso.contrib.DrawerActions;
 import androidx.test.espresso.contrib.DrawerMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
+import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.rule.GrantPermissionRule;
+import androidx.test.runner.AndroidJUnit4;
+import androidx.test.uiautomator.UiDevice;
+import androidx.test.uiautomator.UiObject;
+import androidx.test.uiautomator.UiObjectNotFoundException;
+import androidx.test.uiautomator.UiSelector;
 
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 public class zLocationPickerTest {
 
@@ -35,7 +54,7 @@ public class zLocationPickerTest {
         onView(withId(R.id.recyclerView)).perform(click());
     }
 
-   /* @Test
+    @Test
     public void testCreatePostWithLocation() throws InterruptedException {
         onView(withId(R.id.add_posts)).perform(click());
         onView(withId(R.id.editPostTitle)).check(matches(isDisplayed()));
@@ -66,7 +85,7 @@ public class zLocationPickerTest {
         onView(withId(R.id.add_posts)).perform(click());
 
     }
-*/
+
    /* @Test
     public void testCreatePostWithLocationCanceled() {
         onView(withId(R.id.add_posts)).perform(click());
