@@ -1,3 +1,4 @@
+
 package com.github.versus;
 
 import static androidx.test.espresso.Espresso.onView;
@@ -41,25 +42,24 @@ import org.junit.runner.RunWith;
 public class SearchBarTest {
 
 
-
     // Declare activity rule and permission rule
-        @Rule
-        public ActivityScenarioRule<MainActivity> activityRule = new ActivityScenarioRule<>(MainActivity.class);
+    @Rule
+    public ActivityScenarioRule<MainActivity> activityRule = new ActivityScenarioRule<>(MainActivity.class);
 
-        @Rule
-        public GrantPermissionRule grantPermissionRule = GrantPermissionRule.grant(android.Manifest.permission.ACCESS_FINE_LOCATION);
+    @Rule
+    public GrantPermissionRule grantPermissionRule = GrantPermissionRule.grant(android.Manifest.permission.ACCESS_FINE_LOCATION);
 
-        /**
-         * Sets up the testing environment before each test.
-         * Initializes the Intents framework and opens the drawer layout.
-         */
-        @Before
-        public void setUp() {
-            // Open the drawer_layout
-            onView(withId(R.id.drawer_layout)).check(matches(DrawerMatchers.isClosed(GravityCompat.START))).perform(DrawerActions.open());
-            onView(withId(R.id.drawer_layout)).check(matches(DrawerMatchers.isOpen(GravityCompat.START)));
-            onView(withId(R.id.nav_location)).perform(click());
-        }
+    /**
+     * Sets up the testing environment before each test.
+     * Initializes the Intents framework and opens the drawer layout.
+     */
+    @Before
+    public void setUp() {
+        // Open the drawer_layout
+        onView(withId(R.id.drawer_layout)).check(matches(DrawerMatchers.isClosed(GravityCompat.START))).perform(DrawerActions.open());
+        onView(withId(R.id.drawer_layout)).check(matches(DrawerMatchers.isOpen(GravityCompat.START)));
+        onView(withId(R.id.nav_location)).perform(click());
+    }
 
 
     /**
@@ -67,7 +67,7 @@ public class SearchBarTest {
      *
      * @throws InterruptedException if the thread sleep is interrupted
      */
-    /*@Test
+    @Test
     public void testSearchBar() throws InterruptedException {
         // Open the options menu in the action bar
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
@@ -76,7 +76,7 @@ public class SearchBarTest {
         onView(withText("Search")).perform(click());
 
         // Get the instance of the device on which the test is running
-        UiDevice device = UiDevice.getInstance(getInstrumentation());
+       /* UiDevice device = UiDevice.getInstance(getInstrumentation());
 
         // Find the search bar (UiObject) by its hint text "Search"
         UiObject searchBox = device.findObject(new UiSelector().text("Search"));
@@ -102,6 +102,7 @@ public class SearchBarTest {
         // Find the "Draw Path" button by its text and perform a click. This should start the path drawing operation.
         onView(withText("Draw Path")).perform(click());*/
     }
+}
 
 
 
