@@ -11,7 +11,8 @@ public interface WeatherApiService {
      Call<WeatherResponse> getWeatherTimeline(
             @Path("latitude") String latitude,
             @Path("longitude") String longitude,
-            @Path("date1") String date,
+            @Path("date1") String date_hour,
             @Query("key") String apiKey
+
     );
 }
