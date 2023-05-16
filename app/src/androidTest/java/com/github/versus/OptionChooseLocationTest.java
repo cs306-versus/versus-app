@@ -83,6 +83,7 @@ public class OptionChooseLocationTest {
 
         // Simulate a map click event at the center of the screen
         simulateMapClick(centerX, centerY);
+        Thread.sleep(2000);
         onView(withText(placeName)).perform(click());
     }
 
@@ -105,7 +106,7 @@ public class OptionChooseLocationTest {
         
         // Simulate a map click event at the center of the screen
         simulateMapClick(centerX, centerY);
-        
+        Thread.sleep(2000);
         onView(withText(placeName)).perform(click());
         onView(withText("Draw Path")).perform(click());
     }
