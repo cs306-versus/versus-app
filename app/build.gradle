@@ -90,7 +90,7 @@ dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
-
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
 
     // Caching with Room Database dependencies
     def room_version = "2.5.0"
