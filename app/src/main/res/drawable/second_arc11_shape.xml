@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- _bg__frame_2_ek2 from your XD file. -->
+<!-- second_arc11 from your XD file. -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
 	android:shape="rectangle" >
-
-	<solid android:color="@color/_bg__frame_2_ek2_color" />
+	<corners android:topLeftRadius="122dp" />
+	<solid android:color="#FFFFFF" />
 </shape>
 
