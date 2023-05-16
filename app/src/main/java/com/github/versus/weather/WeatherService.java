@@ -1,11 +1,13 @@
 package com.github.versus.weather;
 
+import com.github.versus.offline.NetworkManager;
 import com.github.versus.posts.Location;
 import com.github.versus.posts.Timestamp;
 
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -52,6 +54,10 @@ public final class WeatherService {
             error_map.put(e.getClass().getSimpleName(),e.getMessage());
             return error_map;
         }
+    }
+
+    public static CompletableFuture<Map<String,String>> getWeatherAsynchronously(Location location, Timestamp timestamp){
+        return CompletableFuture.supplyAsync(()->getWeather(location,timestamp));
     }
 
     private WeatherService(){}
