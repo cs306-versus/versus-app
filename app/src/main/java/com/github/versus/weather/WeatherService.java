@@ -37,9 +37,10 @@ public final class WeatherService {
             Response<WeatherResponse> response = call.execute();
             if (response.isSuccessful()) {
                 WeatherResponse weather = response.body();
-                fetched_weather.put("description",weather.getDescription());
+                fetched_weather.put("description",weather.getDays().get(0).getDescription());
                 double tempF = weather.getDays().get(0).getTemp();
                 fetched_weather.put("temperature", String.valueOf(toCelsius(tempF)));
+                fetched_weather.put("day_time", weather.getDays().get(0).getDatetime());
                 return new HashMap<>(fetched_weather);
                 }
             else {
