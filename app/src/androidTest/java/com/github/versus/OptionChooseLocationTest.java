@@ -35,7 +35,7 @@ import org.junit.runner.RunWith;
  * Test class for the OptionChooseLocation feature.
  * Tests the behavior of clicking on the map to choose a location.
  */
-//@RunWith(AndroidJUnit4.class)
+@RunWith(AndroidJUnit4.class)
 public class OptionChooseLocationTest {
 
     // Declare activity rule and permission rule
