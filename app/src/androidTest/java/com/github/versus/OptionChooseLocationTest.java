@@ -62,7 +62,9 @@ public class OptionChooseLocationTest {
      * Ensures that clicking on the map results in the expected behavior.
      *
      * @throws InterruptedException if the test is interrupted
-     *//@Test
+     */
+
+    @Test
     public void testClick() throws InterruptedException {
         String placeName = "GooglePlex Football";
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
