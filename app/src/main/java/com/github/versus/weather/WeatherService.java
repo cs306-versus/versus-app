@@ -1,6 +1,5 @@
 package com.github.versus.weather;
 
-import com.github.versus.offline.NetworkManager;
 import com.github.versus.posts.Location;
 import com.github.versus.posts.Timestamp;
 
