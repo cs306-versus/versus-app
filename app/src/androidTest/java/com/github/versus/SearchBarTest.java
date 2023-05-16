@@ -76,7 +76,7 @@ public class SearchBarTest {
         onView(withText("Search")).perform(click());
 
         // Get the instance of the device on which the test is running
-       /* UiDevice device = UiDevice.getInstance(getInstrumentation());
+        UiDevice device = UiDevice.getInstance(getInstrumentation());
 
         // Find the search bar (UiObject) by its hint text "Search"
         UiObject searchBox = device.findObject(new UiSelector().text("Search"));
@@ -100,7 +100,7 @@ public class SearchBarTest {
         Thread.sleep(2000);
 
         // Find the "Draw Path" button by its text and perform a click. This should start the path drawing operation.
-        onView(withText("Draw Path")).perform(click());*/
+        onView(withText("Draw Path")).perform(click());
     }
 }
 

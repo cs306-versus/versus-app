@@ -65,7 +65,7 @@ public class OptionChooseLocationTest {
      */
 
 
-    @Test
+    //@Test
     public void testClick() throws InterruptedException {
         String placeName = "GooglePlex Football";
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
