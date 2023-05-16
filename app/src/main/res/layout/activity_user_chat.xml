@@ -19,7 +19,7 @@
         android:id="@+id/chatRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/linearLayout"
+        android:layout_above="@+id/chat_message_linear_layout"
         android:layout_below="@+id/toolbar"
         android:layout_alignParentTop="true"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
@@ -27,7 +27,7 @@
         tools:layout_editor_absoluteX="16dp" />
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/chat_message_linear_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -44,16 +44,16 @@
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_marginLeft="10dp"
-            android:paddingLeft="10dp"
-            android:layout_weight="80"
+            android:paddingLeft="20dp"
+            android:layout_weight="90"
             android:background="@drawable/message_box_background"
-            android:hint="type a message" />
+            android:hint="Message ..." />
 
         <ImageView
             android:id="@+id/sendButton"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_weight="20"
+            android:layout_weight="10"
             android:src="@drawable/send_icon" />
 
 

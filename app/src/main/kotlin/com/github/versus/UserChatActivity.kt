@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.util.Log
 import android.view.MenuItem
+import android.view.WindowManager
 import android.widget.EditText;
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -34,6 +35,7 @@ class UserChatActivity : AppCompatActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         setContentView(R.layout.activity_user_chat);
 
 
