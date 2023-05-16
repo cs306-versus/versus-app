@@ -114,6 +114,7 @@ public class OptionChooseLocationTest {
         onView(withText("Draw Path")).perform(click());
     }
 
+
     /**
      * Simulates a map click at the given screen coordinates.
      *
