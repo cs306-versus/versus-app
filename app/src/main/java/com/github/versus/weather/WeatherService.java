@@ -27,47 +27,47 @@ public final class WeatherService {
 
     public static Map<String,String> getWeather(Location location, Timestamp timestamp){
 
-        String latitude= String.valueOf(location.getLatitude());
-        String longitude= String.valueOf(location.getLongitude());
         Call<WeatherResponse> call= weatherApiService
-                .getWeatherTimeline(latitude,longitude, formatDate(timestamp),API_KEY);
+                .getWeatherTimeline(String.valueOf(location.getLatitude()),
+                                    String.valueOf(location.getLongitude()),
+                                    formatDate(timestamp),
+                                    API_KEY);
         try {
-            Response<WeatherResponse> response = call.execute();
-            if (response.isSuccessful()) {
+            Response<WeatherResponse> weather_response = call.execute();
+            if (weather_response.isSuccessful()) {
                 Map<String,String> fetched_weather= new HashMap<>();
-                DayWeather weather= response.body().getDays().get(0);
-                fetched_weather.put("description",weather.getDescription());
-                fetched_weather.put("day_time", weather.getDatetime());
+                DayWeather day_weather= weather_response.body().getDays().get(0);
+                fetched_weather.put("description",day_weather.getDescription());
+                fetched_weather.put("day", day_weather.getDatetime());
+                fetched_weather.put("tempmax",String.valueOf(toCelsius(day_weather.getTempmax())));
+                fetched_weather.put("tempmin",String.valueOf(toCelsius(day_weather.getTempmin())));
                 int hour_index= timestamp.getMeridiem() == Timestamp.Meridiem.AM?
                                 timestamp.getHour(): timestamp.getHour()+12;
-                HourWeather hour= weather.getHours().get(hour_index) ;
-                fetched_weather.put("datetime",hour.getDatetime());
-                fetched_weather.put("conditions", hour.getConditions());
-                fetched_weather.put("temperature", String.valueOf(toCelsius(hour.getTemp())));
-                fetched_weather.put("feelslike", String.valueOf(toCelsius(hour.getFeelslike())));
-                fetched_weather.put("humidity", String.valueOf(hour.getHumidity()));
-                fetched_weather.put("cloudcover",String.valueOf(hour.getCloudcover()));
-                fetched_weather.put("precip",String.valueOf(hour.getPrecip()));
-                fetched_weather.put("precipprob",String.valueOf(hour.getPrecipprob()));
-                fetched_weather.put("snow",String.valueOf(hour.getSnow()));
-                fetched_weather.put("snowdepth",String.valueOf(hour.getSnowdepth()));
-                fetched_weather.put("pressure", String.valueOf(hour.getPressure()));
-                fetched_weather.put("visibility", String.valueOf(hour.getVisibility()));
-                fetched_weather.put("windgust", String.valueOf(hour.getWindgust()));
-                fetched_weather.put("windspeed", String.valueOf(hour.getWindspeed()));
-                fetched_weather.put("winddir",String.valueOf(hour.getWinddir()));
-                fetched_weather.put("severerisk", String.valueOf(hour.getSevererisk()));
-                fetched_weather.put("solarradiation",String.valueOf(hour.getSolarradiation()));
-                fetched_weather.put("uvindex",String.valueOf(hour.getUvindex()));
-
-
-
+                HourWeather hour_weather= day_weather.getHours().get(hour_index) ;
+                fetched_weather.put("time",hour_weather.getDatetime());
+                fetched_weather.put("conditions", hour_weather.getConditions());
+                fetched_weather.put("temperature", String.valueOf(toCelsius(hour_weather.getTemp())));
+                fetched_weather.put("feelslike", String.valueOf(toCelsius(hour_weather.getFeelslike())));
+                fetched_weather.put("humidity", String.valueOf(hour_weather.getHumidity()));
+                fetched_weather.put("cloudcover",String.valueOf(hour_weather.getCloudcover()));
+                fetched_weather.put("precip",String.valueOf(hour_weather.getPrecip()));
+                fetched_weather.put("precipprob",String.valueOf(hour_weather.getPrecipprob()));
+                fetched_weather.put("snow",String.valueOf(hour_weather.getSnow()));
+                fetched_weather.put("snowdepth",String.valueOf(hour_weather.getSnowdepth()));
+                fetched_weather.put("pressure", String.valueOf(hour_weather.getPressure()));
+                fetched_weather.put("visibility", String.valueOf(hour_weather.getVisibility()));
+                fetched_weather.put("windgust", String.valueOf(hour_weather.getWindgust()));
+                fetched_weather.put("windspeed", String.valueOf(hour_weather.getWindspeed()));
+                fetched_weather.put("winddir",String.valueOf(hour_weather.getWinddir()));
+                fetched_weather.put("severerisk", String.valueOf(hour_weather.getSevererisk()));
+                fetched_weather.put("solarradiation",String.valueOf(hour_weather.getSolarradiation()));
+                fetched_weather.put("uvindex",String.valueOf(hour_weather.getUvindex()));
 
                 return fetched_weather;
                 }
             else {
                 Map<String,String> server_error_map= new HashMap<>();
-                server_error_map.put(response.message(),String.valueOf(response.code()));
+                server_error_map.put(weather_response.message(),String.valueOf(weather_response.code()));
                 return server_error_map;
             }
 

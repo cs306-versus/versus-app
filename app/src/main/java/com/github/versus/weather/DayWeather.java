@@ -6,6 +6,8 @@ public class DayWeather {
     private String datetime;
     private String description;
     private List<HourWeather> hours;
+    private double tempmax;
+    private double tempmin;
 
 
     public String getDatetime() {
@@ -16,5 +18,13 @@ public class DayWeather {
     }
     public List<HourWeather> getHours(){
         return hours;
+    }
+
+    public double getTempmax() {
+        return tempmax;
+    }
+
+    public double getTempmin() {
+        return tempmin;
     }
 }
