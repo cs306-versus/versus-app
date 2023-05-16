@@ -1,5 +1,4 @@
 package com.github.versus.weather;
-
 import java.util.List;
 
 public class DayWeather {
