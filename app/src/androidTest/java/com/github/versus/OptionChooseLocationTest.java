@@ -64,6 +64,7 @@ public class OptionChooseLocationTest {
      * @throws InterruptedException if the test is interrupted
      */
 
+
     @Test
     public void testClick() throws InterruptedException {
         String placeName = "GooglePlex Football";
