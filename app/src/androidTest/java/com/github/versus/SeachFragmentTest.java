@@ -125,6 +125,7 @@ public class SeachFragmentTest {
         onView(withText("Cancel")).perform(click());
 
     }
+}
 
 
 
