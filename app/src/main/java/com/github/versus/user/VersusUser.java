@@ -45,6 +45,18 @@ public final class VersusUser implements User, Serializable {
         firstName = "";
         lastName = "";
     }
+    public VersusUser(String uid, String firstName,String lastName,String userName, String mail, String phone , int rating , String city, int zipCode,List<Sport> preferredSports ){
+        this.uid = uid;
+        this.firstName =firstName;
+        this.lastName = lastName;
+        this.userName = userName;
+        this.mail =mail;
+        this.phone = phone;
+        this.rating =rating;
+        this.city = city;
+        this.zip =zipCode;
+        this.preferredSports = List.copyOf(preferredSports);
+    }
     public VersusUser(Builder builder){
         this.uid = builder.uid;
         this.firstName = builder.firstName;

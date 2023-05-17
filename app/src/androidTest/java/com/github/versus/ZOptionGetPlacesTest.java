@@ -37,7 +37,7 @@ public class ZOptionGetPlacesTest {
     // Declare activity rule and permission rule
     @Rule
     public ActivityScenarioRule<MainActivity> activityRule = new ActivityScenarioRule<>(MainActivity.class);
-    
+
     @Rule
     public GrantPermissionRule grantPermissionRule = GrantPermissionRule.grant(android.Manifest.permission.ACCESS_FINE_LOCATION);
 
@@ -64,7 +64,7 @@ public class ZOptionGetPlacesTest {
         onView(withText(placeName)).perform(click());
         onView(withText("Draw Path")).perform(click());
     }
-    
+
     @Test
     public void testDrawingPathWithoutPlaceSelected() {
         onView(withText("Draw Path")).perform(click());
