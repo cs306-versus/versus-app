@@ -190,6 +190,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         });
 
 
+
         // Get the AutocompleteSupportFragment from the FragmentManager using its ID
         autocompleteFragment = (AutocompleteSupportFragment)
                 getChildFragmentManager().findFragmentById(R.id.autocomplete_location_search);
