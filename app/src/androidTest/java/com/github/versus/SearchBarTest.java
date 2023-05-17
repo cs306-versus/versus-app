@@ -102,6 +102,7 @@ public class SearchBarTest {
         // Find the "Draw Path" button by its text and perform a click. This should start the path drawing operation.
         onView(withText("Draw Path")).perform(click());
     }
+
 }
 
 
