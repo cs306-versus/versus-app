@@ -121,7 +121,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     private DataBaseManager dummyLocationManager;
 
     private List<CustomPlace> customPlaces;
-    private String API_KEY;
+    public static  String API_KEY;
     private Button drawPathButton;
     private LatLng   bc = new LatLng(46.51906462963576, 6.561923350291548);
     private LatLng selectedPlace ;
@@ -147,7 +147,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         try {
             API_KEY = getContext().getPackageManager().getApplicationInfo(getContext().getPackageName(), PackageManager.GET_META_DATA).metaData.getString("com.google.android.geo.API_KEY");
             Places.initialize(getActivity().getApplicationContext(), API_KEY);
-            System.out.println(API_KEY);
+
 
         } catch (PackageManager.NameNotFoundException e) {
             throw new RuntimeException(e);
