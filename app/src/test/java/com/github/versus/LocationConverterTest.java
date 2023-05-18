@@ -27,4 +27,12 @@ public class LocationConverterTest {
                  .convertBackLocation(LocationConverter.convertLocation(location))
                  .equals(location));
      }
+     @Test
+    public void GameFragmentLocationWorks(){
+        String locationString ="CHAVANNES (45.6, 4.4)";
+        Location location= new Location("CHAVANNES", 45.6,4.4);
+        Location result= LocationConverter.GameFragmentLocation(locationString);
+        assertTrue(result.equals(location));
+
+     }
 }
