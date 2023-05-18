@@ -385,7 +385,6 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
             autocompleteFragment.getView().setVisibility(View.VISIBLE);
         }
 
-
         return true;
     }
 
