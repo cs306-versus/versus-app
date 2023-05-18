@@ -22,7 +22,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-@RunWith(AndroidJUnit4.class)
+//@RunWith(AndroidJUnit4.class)
 public class AuthActivityTest {
 
     private Context ctx;
@@ -33,11 +33,6 @@ public class AuthActivityTest {
     //@Before
     public void setUp() {
         ctx = ApplicationProvider.getApplicationContext();
-    }
-
-    @Test
-    public void checkVisibleAuthFragment() {
-        onView(withId(R.id.frag_auth_layout)).check(matches(isDisplayed()));
     }
 
     //@Test

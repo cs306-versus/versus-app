@@ -78,6 +78,12 @@
     <string name="you_can_also_sign_in_using_string">You can also Sign in using</string>
     <string name="google_string">Google</string>
 
+    <string name="versus_string">VERSUS</string>
+    <string name="welcome_to_our_app___string">Welcome to our app !</string>
+    <string name="we_hope_that_you_enjoy_using_it_for_your_games_string">We hope that you enjoy using it for your games</string>
+    <string name="register_string">Register</string>
+    <string name="sign_in_string">Sign In</string>
+
 
     <!-- main_chat strings -->
 
