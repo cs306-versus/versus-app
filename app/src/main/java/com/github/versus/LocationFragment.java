@@ -592,7 +592,6 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         view = LayoutInflater.from(getActivity()).inflate(R.layout.radius_layout, null);
         radiusInput = view.findViewById(R.id.edit_text_radius2);
 
-
         // Get a reference to the EditText view in the layout
 
         radiusInput.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
