@@ -57,7 +57,7 @@
     <color name="input_background">#ECECEC</color>
     <color name="icon_background">#20FFFFFF</color>
     <color name="error">#B00020</color>
-    <color name="received_message_background">#7FBF7F</color>
+    <color name="received_message_background">#7fbf7f</color>
 
 
 
