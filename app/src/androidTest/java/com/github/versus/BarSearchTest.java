@@ -99,7 +99,6 @@ public class BarSearchTest {
         // Sleep for another 2 seconds to give time for the search to complete
         Thread.sleep(2000);
 */
-
     }
     /**
      * ElapsedTimeIdlingResource is an implementation of the IdlingResource interface.
