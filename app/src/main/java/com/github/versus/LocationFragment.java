@@ -446,7 +446,6 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         }
     }
 
-
     /**
      * Gets the current location of the device, and positions the map's camera.
      */
