@@ -419,6 +419,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
             blinkingMarker.remove();
         }
 
+
         // Add a new marker to the map at the clicked position
         blinkingMarker = map.addMarker(new MarkerOptions().position(clickedPosition).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).title("Clicked Location"));
 
