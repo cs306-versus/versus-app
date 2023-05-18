@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * ???
  */
-public class RegisterFragment extends BaseAuthFragment {
+public final class RegisterFragment extends BaseAuthFragment {
 
     private FragmentSignInBinding binding;
 

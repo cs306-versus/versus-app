@@ -2,8 +2,12 @@
 <!-- register_btn_ek1 from your XD file. -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
 	android:shape="rectangle" >
-	<corners android:radius="32dp" />
-	<stroke android:color="#ffffff" android:width="8dp" />
+	<corners
+		android:bottomLeftRadius="32dip"
+		android:bottomRightRadius="0dip"
+		android:topLeftRadius="32dip"
+		android:topRightRadius="0dip" />
+	<stroke android:color="#ffffff" android:width="8px" />
 	<solid android:color="@color/versus_color" />
 </shape>
 

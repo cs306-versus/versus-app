@@ -1,213 +1,105 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frag_auth_layout"
+    android:background="@drawable/background"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_centerHorizontal="true">
 
-    <RelativeLayout
-        android:id="@+id/reference_frame_size"
+    <RelativeLayout android:id="@+id/image"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="14dp"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:background="@drawable/background">
+        android:layout_height="wrap_content">
 
-        <RelativeLayout
-            android:id="@+id/content_container"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+        <View android:id="@+id/image_background"
+            android:background="@drawable/image_background_shape"
+            android:alpha="0.60000002384186"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_width="363dp"
+            android:layout_height="436dp" />
 
-            <RelativeLayout
-                android:id="@+id/page_reference_frame_size_ek1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="0dp"
-                android:layout_marginTop="0dp">
-
-                <View
-                    android:id="@+id/_bg__reference_frame_size_ek2"
-                    android:layout_width="392dp"
-                    android:layout_height="850dp"
-                    android:layout_marginStart="0dp"
-                    android:layout_marginTop="0dp"
-                    android:background="@drawable/background" />
-
-                <ImageView
-                    android:id="@+id/image"
-                    android:layout_width="254dp"
-                    android:layout_height="254dp"
-                    android:layout_marginStart="69dp"
-                    android:layout_marginTop="36dp"
-                    android:contentDescription="image"
-                    android:src="@drawable/image" />
-
-                <View
-                    android:id="@+id/card"
-                    android:layout_width="327dp"
-                    android:layout_height="509dp"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginTop="290dp"
-                    android:background="@drawable/card_shape" />
-
-                <TextView
-                    android:id="@+id/login"
-                    android:layout_width="94dp"
-                    android:layout_height="64dp"
-                    android:layout_gravity="center_horizontal|center"
-                    android:layout_marginStart="49dp"
-                    android:layout_marginTop="298dp"
-                    android:fontFamily="Poppins"
-                    android:gravity="center"
-                    android:text="@string/login_string"
-                    android:textColor="@color/login_color"
-                    android:textSize="29sp" />
-
-                <!-- FIX OFFSET HERE AND CENTER IT -->
-
-                <EditText
-                    android:id="@+id/auth_login_mail_mail"
-                    android:layout_width="246dp"
-                    android:layout_height="29dp"
-                    android:layout_gravity="center_horizontal|center"
-                    android:layout_marginStart="72dp"
-                    android:layout_marginTop="407dp"
-                    android:background="@drawable/mail_input_ek1"
-                    android:drawableStart="@drawable/_3_friends"
-                    android:ems="10"
-                    android:fontFamily="@font/poppins_medium"
-                    android:gravity="center"
-                    android:hint="@string/enter_your_mail_string"
-                    android:inputType="textEmailAddress"
-                    android:textColor="@color/login_color"
-                    android:textColorHint="@color/login_color"
-                    android:textSize="13sp" />
-
-                <!-- FIX OFFSET HERE AND CENTER IT -->
-
-                <EditText
-                    android:id="@+id/auth_login_mail_pwd"
-                    android:layout_width="246dp"
-                    android:layout_height="29dp"
-                    android:layout_gravity="center_horizontal|center"
-                    android:layout_marginStart="73dp"
-                    android:layout_marginTop="490dp"
-                    android:background="@drawable/mail_input_ek2"
-                    android:drawableStart="@drawable/vector_ek12"
-                    android:ems="10"
-                    android:fontFamily="@font/poppins_medium"
-                    android:gravity="center"
-                    android:hint="@string/enter_your_password_string"
-                    android:inputType="textPassword"
-                    android:textColor="@color/login_color"
-                    android:textColorHint="@color/login_color"
-                    android:textSize="13sp" />
-
-                <RelativeLayout
-                    android:id="@+id/pwd_reset"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="181dp"
-                    android:layout_marginTop="563dp">
-
-                    <TextView
-                        android:id="@+id/did_you_forget_your_password__"
-                        android:layout_width="142dp"
-                        android:layout_height="19dp"
-                        android:layout_gravity="center_horizontal|center"
-                        android:layout_marginStart="-4px"
-                        android:layout_marginTop="0dp"
-                        android:fontFamily="Poppins"
-                        android:gravity="center"
-                        android:text="@string/did_you_forget_your_password___string"
-                        android:textColor="@color/did_you_forget_your_password___color"
-                        android:textSize="8sp" />
-
-                    <TextView
-                        android:id="@+id/reset_it"
-                        android:layout_width="38dp"
-                        android:layout_height="19dp"
-                        android:layout_gravity="center_horizontal|center"
-                        android:layout_marginStart="135dp"
-                        android:layout_marginTop="0dp"
-                        android:fontFamily="Poppins"
-                        android:gravity="center"
-                        android:shadowColor="#000000"
-                        android:shadowDx="0"
-                        android:shadowDy="4"
-                        android:shadowRadius="4"
-                        android:text="@string/reset_it_string"
-                        android:textColor="@color/login_color"
-                        android:textSize="8sp" />
-
-                </RelativeLayout>
-
-
-                <Button
-                    android:id="@+id/auth_login_mail"
-                    android:layout_width="181dp"
-                    android:layout_height="54dp"
-                    android:layout_gravity="center_horizontal|center"
-                    android:layout_marginStart="105dp"
-                    android:layout_marginTop="598dp"
-                    android:background="@drawable/rectangle_1_shape"
-                    android:fontFamily="@font/poppins_medium"
-                    android:gravity="center"
-                    android:text="@string/login_ek1_string"
-                    android:textColor="@color/login_ek1_color"
-                    android:textSize="17sp" />
-
-                <ImageView
-                    android:id="@+id/left_line"
-                    android:layout_width="65dp"
-                    android:layout_height="10dp"
-                    android:layout_marginStart="40dp"
-                    android:layout_marginTop="682dp"
-                    android:contentDescription="left_line"
-                    android:src="@drawable/left_line" />
-
-                <TextView
-                    android:id="@+id/you_can_also_sign_in_using"
-                    android:layout_width="180dp"
-                    android:layout_height="28dp"
-                    android:layout_gravity="center_horizontal|center"
-                    android:layout_marginLeft="297.5px"
-                    android:layout_marginTop="672dp"
-                    android:fontFamily="Poppins"
-                    android:gravity="center"
-                    android:text="@string/you_can_also_sign_in_using_string"
-                    android:textColor="@color/did_you_forget_your_password___color"
-                    android:textSize="13sp" />
-
-                <ImageView
-                    android:id="@+id/right_line"
-                    android:layout_width="65dp"
-                    android:layout_height="10dp"
-                    android:layout_marginStart="287dp"
-                    android:layout_marginTop="682dp"
-                    android:contentDescription="right_line"
-                    android:src="@drawable/right_line" />
-
-                <com.google.android.gms.common.SignInButton
-                    android:id="@+id/auth_login_google"
-                    android:layout_width="181dp"
-                    android:layout_height="54dp"
-                    android:layout_gravity="center_horizontal|center"
-                    android:layout_marginStart="105dp"
-                    android:layout_marginTop="727dp"
-                    android:background="@drawable/auth_button"
-                    android:gravity="center" />
-
-                <!-- THIS IS JUST A TMP BUTTON-->
-                <Button
-                    android:id="@+id/auth_signin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="790dp"
-                    android:layout_marginEnd="79dp"
-                    android:layout_marginBottom="253dp"
-                    android:text="@string/auth_signin" />
-
-            </RelativeLayout>
-        </RelativeLayout>
+        <ImageView android:id="@+id/vector"
+            android:src="@drawable/sally_1"
+            android:contentDescription="vector"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="72dp"
+            android:layout_width="363dp"
+            android:layout_height="363dp" />
 
     </RelativeLayout>
+
+    <TextView
+        android:fontFamily="@font/poppins_medium"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:textSize="72sp"
+        android:textColor="@color/versus_color"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="462dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/versus_string"
+        />
+
+    <RelativeLayout android:id="@+id/welcome_text"
+        android:layout_marginTop="566dp"
+        android:layout_marginStart="11dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true">
+
+        <TextView android:id="@+id/welcome_to_our_app__"
+            android:fontFamily="Poor Story"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:textSize="21sp"
+            android:textColor="@color/versus_color"
+            android:layout_marginStart="97dp"
+            android:layout_marginTop="0dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/welcome_to_our_app___string" />
+
+        <TextView android:id="@+id/we_hope_that_you_enjoy_using_it_for_your_games"
+            android:fontFamily="Poor Story"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:textSize="21sp"
+            android:textColor="@color/versus_color"
+            android:layout_marginStart="-10px"
+            android:layout_marginTop="41dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/we_hope_that_you_enjoy_using_it_for_your_games_string" />
+
+    </RelativeLayout>
+
+        <TextView android:id="@+id/register"
+            android:fontFamily="@font/poppins_medium"
+            android:background="@drawable/register_btn_ek1_shape"
+            android:gravity="center"
+            android:textSize="21sp"
+            android:textColor="@color/_bg__authentication_screen_ek2_color"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="727dp"
+            android:layout_width="187dp"
+            android:layout_height="96dp"
+            android:text="@string/register_string"
+            />
+
+        <TextView android:id="@+id/sign_in"
+            android:fontFamily="@font/poppins_medium"
+            android:background="@drawable/signin_btn_ek1_shape"
+            android:gravity="center"
+            android:textSize="21sp"
+            android:textColor="@color/_bg__authentication_screen_ek2_color"
+            android:layout_marginStart="196dp"
+            android:layout_marginTop="727dp"
+            android:layout_width="187dp"
+            android:layout_height="96dp"
+            android:text="@string/sign_in_string"
+            />
+
 </RelativeLayout>
