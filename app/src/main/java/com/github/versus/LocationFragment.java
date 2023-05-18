@@ -402,6 +402,8 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         });
     }
 
+
+
     /**
      * Finds the closest fields to a clicked position on the map.
      * Iterates through the custom places and finds the ones within the threshold distance.
