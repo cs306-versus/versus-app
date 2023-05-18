@@ -15,7 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public final class WeatherService {
     private static final String BASE_URL = "https://weather.visualcrossing.com/";
-    private static final String API_KEY= "H4DNTYBMHPAU7EC3D4KC3W7KW";
+    private static final String API_KEY= "PXK3D8BHEMG9V5DQ9K3DN93DP";
     private static Retrofit retrofit= new Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
@@ -61,12 +61,12 @@ public final class WeatherService {
                 fetched_weather.put("severerisk", String.valueOf(hour_weather.getSevererisk()));
                 fetched_weather.put("solarradiation",String.valueOf(hour_weather.getSolarradiation()));
                 fetched_weather.put("uvindex",String.valueOf(hour_weather.getUvindex()));
-
+                fetched_weather.put("icon", hour_weather.getIcon());
                 return fetched_weather;
                 }
             else {
                 Map<String,String> server_error_map= new HashMap<>();
-                server_error_map.put(weather_response.message(),String.valueOf(weather_response.code()));
+                server_error_map.put("HTTP error",String.valueOf(weather_response.code()));
                 return server_error_map;
             }
 

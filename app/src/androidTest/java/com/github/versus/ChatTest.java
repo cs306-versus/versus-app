@@ -96,7 +96,7 @@ import com.github.versus.auth.AuthActivity;
             //Performing multiple clicks  on the left and right arrow in order to cover all the branches  in the code
 
             // Find the RecyclerView by its id
-            ViewInteraction inter = onView(withId(R.id.recyclerView));
+            ViewInteraction inter = onView(withId(R.id.usersRecyclerView));
 
             // Click on the first item in the RecyclerView
             inter.perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));

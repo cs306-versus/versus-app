@@ -7,7 +7,7 @@ import retrofit2.http.Query;
 
 public interface WeatherApiService {
 
-    @GET("VisualCrossingWebServices/rest/services/timeline/{latitude},{longitude}/{date1}")
+    @GET("VisualCrossingWebServices/rest/services/timeline/{latitude},{longitude}/{date1}/{date1}")
      Call<WeatherResponse> getWeatherTimeline(
             @Path("latitude") String latitude,
             @Path("longitude") String longitude,
