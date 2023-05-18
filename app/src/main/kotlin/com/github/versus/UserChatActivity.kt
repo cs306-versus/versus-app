@@ -106,6 +106,7 @@ class UserChatActivity : AppCompatActivity(){
             startActivity(intent)
         }
 
+        //update the view on keyboard popup
         val decorView = window.decorView
         decorView.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
             private val rect = Rect()
