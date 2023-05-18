@@ -78,15 +78,14 @@ public class PlayerAnnouncementAdapter extends RecyclerView.Adapter<PlayerAnnoun
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView fn;
         private final TextView un;
-        private final TextView city;
         private final Button button;
 
         public ViewHolder(View view) {
             super(view);
-            city = (TextView) view.findViewById(R.id.user_city);
             button = (Button) view.findViewById(R.id.view_profile);
-            fn = (TextView) view.findViewById(R.id.user_fn);
             un = (TextView) view.findViewById(R.id.user_un);
+
+            fn = (TextView) view.findViewById(R.id.user_fn);
         }
 
         public TextView getFirstName() {
