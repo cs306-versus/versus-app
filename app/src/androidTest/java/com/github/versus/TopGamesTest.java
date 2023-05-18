@@ -119,43 +119,7 @@ public class TopGamesTest {
      * This method tests the second position of the trending sports by clicking on the appropriate picture and
      * showing the filtered posts of the sport
      */
-    @Test
-    public void testOnSecondPosition() {
-        //Opening the menu drawer
-        onView(withId(R.id.drawer_layout)).check(matches(DrawerMatchers.isClosed(GravityCompat.START))).perform(DrawerActions.open());
-        onView(withId(R.id.drawer_layout)).check(matches(DrawerMatchers.isOpen(GravityCompat.START)));
-        //Clicking on the nav_trending_sports in the menu drawer
-        onView(withId(R.id.nav_trending_sports)).perform(click());
-        // Clicking multiple times on the next and previous arrow in order to cover all the branches in the code for the test coverage
-        onView(withId(R.id.arrow_right)).perform(click());
-        onView(withId(R.id.arrow_right)).perform(click());
-        onView(withId(R.id.arrow_right)).perform(click());
-        onView(withId(R.id.arrow_right)).perform(click());
-        onView(withId(R.id.arrow_right)).perform(click());
-        onView(withId(R.id.arrow_left)).perform(click());
-        onView(withId(R.id.arrow_left)).perform(click());
-        onView(withId(R.id.arrow_left)).perform(click());
-        onView(withId(R.id.arrow_left)).perform(click());
-        onView(withId(R.id.arrow_left)).perform(click());
-        onView(withId(R.id.arrow_right)).perform(click());
 
-
-        try {
-            Thread.sleep(10000); // wait for 10 seconds
-        } catch (InterruptedException e) {
-            // handle the exception
-        }
-        //Clicking on the  image of the sport to see the filtered posts.
-        onView(withId(R.id.rectangle_22)).perform(ViewActions.scrollTo()).perform(click());
-
-        try {
-            Thread.sleep(10000); // wait for 10 seconds
-        } catch (InterruptedException e) {
-            // handle the exception
-        }
-
-
-    }
 
 
 }

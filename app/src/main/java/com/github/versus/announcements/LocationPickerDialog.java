@@ -89,3 +89,4 @@ public class LocationPickerDialog extends DialogFragment {
         super.onAttach(context);
     }
 }
+
