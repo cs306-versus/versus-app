@@ -75,7 +75,7 @@ public class OptionChooseLocationTest {
      */
     @Test
     public void testClick() throws InterruptedException {
-        long waitingTime = 10000;
+        long waitingTime = 6000;
         ElapsedTimeIdlingResource idlingResourceFirst = new ElapsedTimeIdlingResource(waitingTime);
 
         String placeName = "GooglePlex Football";
@@ -92,16 +92,17 @@ public class OptionChooseLocationTest {
         // Calculate the center coordinates
         int centerX = displayMetrics.widthPixels / 2;
         int centerY = displayMetrics.heightPixels / 2;
+*/
 
         // Simulate a map click event at the center of the screen
-        simulateMapClick(centerX, centerY);
+        simulateMapClick(540, 1170);
 
-        long waitingTime2 =10100;
+        long waitingTime2 =5000;
         ElapsedTimeIdlingResource idlingResource2 = new ElapsedTimeIdlingResource(waitingTime2);
         IdlingRegistry.getInstance().register(idlingResource2);
         onView(withText(placeName)).perform(click());
         IdlingRegistry.getInstance().unregister(idlingResource2);
-        IdlingRegistry.getInstance().unregister(idlingResourceFirst);*/
+        IdlingRegistry.getInstance().unregister(idlingResourceFirst);
     }
 
 

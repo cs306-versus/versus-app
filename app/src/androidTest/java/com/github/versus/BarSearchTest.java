@@ -20,6 +20,7 @@ import android.view.WindowManager;
 import androidx.core.view.GravityCompat;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.espresso.Espresso;
+import androidx.test.espresso.IdlingResource;
 import androidx.test.espresso.contrib.DrawerActions;
 import androidx.test.espresso.contrib.DrawerMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
@@ -99,6 +100,61 @@ public class BarSearchTest {
         Thread.sleep(2000);
 */
 
+    }
+    /**
+     * ElapsedTimeIdlingResource is an implementation of the IdlingResource interface.
+     * It is used to wait for a specified amount of time before allowing the test to continue.
+     * This can be useful when testing UI components that require a certain time to load or update.
+     */
+    public class ElapsedTimeIdlingResource implements IdlingResource {
+
+        private final long startTime;
+        private final long waitingTime;
+        private ResourceCallback resourceCallback;
+
+        /**
+         * Constructs an ElapsedTimeIdlingResource with a specified waiting time.
+         *
+         * @param waitingTime The amount of time to wait, in milliseconds, before allowing the test to continue.
+         */
+        public ElapsedTimeIdlingResource(long waitingTime) {
+            this.startTime = System.currentTimeMillis();
+            this.waitingTime = waitingTime;
+        }
+
+        /**
+         * Returns the name of the ElapsedTimeIdlingResource.
+         *
+         * @return A String containing the name of the ElapsedTimeIdlingResource.
+         */
+        @Override
+        public String getName() {
+            return OptionChooseLocationTest.ElapsedTimeIdlingResource.class.getName() + ":" + waitingTime;
+        }
+
+        /**
+         * Checks whether the specified waiting time has elapsed.
+         *
+         * @return true if the waiting time has elapsed, false otherwise.
+         */
+        @Override
+        public boolean isIdleNow() {
+            long elapsed = System.currentTimeMillis() - startTime;
+            boolean idle = (elapsed >= waitingTime);
+            if (idle && resourceCallback != null) {
+                resourceCallback.onTransitionToIdle();
+            }
+            return idle;
+        }
+        /**
+         * Registers a ResourceCallback to be notified when the resource transitions to the idle state.
+         *
+         * @param resourceCallback The ResourceCallback to be registered.
+         */
+        @Override
+        public void registerIdleTransitionCallback(ResourceCallback resourceCallback) {
+            this.resourceCallback = resourceCallback;
+        }
     }
 
 }
