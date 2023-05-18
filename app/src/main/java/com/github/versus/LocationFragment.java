@@ -26,6 +26,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -45,6 +46,7 @@ import com.android.volley.toolbox.Volley;
 import com.github.versus.db.DataBaseManager;
 import com.github.versus.db.DummyLocationManager;
 import com.github.versus.user.CustomPlace;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -58,11 +60,15 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 import com.google.maps.android.PolyUtil;
 
 import org.json.JSONArray;
@@ -77,6 +83,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
@@ -116,7 +123,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     private FusedLocationProviderClient fusedLocationProviderClient;
     private EditText editTextRadius;
     private float radius;
-    private Marker lastClickedMarker;
+    //private Marker lastClickedMarker;
     private Circle lastDrawnCircle;
     private DataBaseManager dummyLocationManager;
 
@@ -128,12 +135,18 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     private int posSelectedPlace;
     // Threshold distance to consider a field as nearby (in meters)
     private double thresholdDistanceInput=1000;
+    private  AutocompleteSupportFragment autocompleteFragment;
+    private Marker blinkingMarker ;
+    private Marker visibleMarker;
+    private Polyline lastDrawnLine;
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_location, container, false);
         //call setHasOptionsMenu(true) to notify the fragment
         // that it has options menu items that need to be created
+
 
         setHasOptionsMenu(true);
 
@@ -176,6 +189,58 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
             }
         });
 
+
+        // Get the AutocompleteSupportFragment from the FragmentManager using its ID
+        autocompleteFragment = (AutocompleteSupportFragment)
+                getChildFragmentManager().findFragmentById(R.id.autocomplete_location_search);
+
+        // Set the visibility of the autocompleteFragment's view to GONE, meaning it will not be visible, nor take up any space
+        autocompleteFragment.getView().setVisibility(View.GONE);
+
+        // Set the fields that should be included for the place (location) selected in the search bar
+        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG));
+
+        // Set a listener that gets triggered when a place is selected from the search suggestions
+        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(Place place) {
+                // Log the details of the selected place
+                Log.i(TAG, "Place: " + place.getName() + ", " + place.getId());
+
+                // Store the LatLng of the selected place
+                selectedPlace = place.getLatLng();
+
+                // If the map is not null and a place has been selected, move the camera to the selected place and hide the autocompleteFragment's view
+                if (map != null && selectedPlace != null) {
+                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedPlace, DEFAULT_ZOOM));
+                    autocompleteFragment.getView().setVisibility(View.GONE);
+
+                    // Remove the previous markers if they exist
+                    if (blinkingMarker != null) {
+                        blinkingMarker.remove();
+                    }
+                    if (visibleMarker != null) {
+                        visibleMarker.remove();
+                    }
+
+                    // Add a new marker at the selected place
+                    visibleMarker = map.addMarker(new MarkerOptions().title(place.getName()).position(selectedPlace).snippet(place.getAddress()));
+                    blinkingMarker = map.addMarker(new MarkerOptions().position(selectedPlace).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).title("Clicked Location"));
+
+                    // Add a blinking marker at the selected place
+                    addBlinkingMarker(selectedPlace, place.getName(), place.getName());
+                }
+            }
+
+            @Override
+            public void onError(Status status) {
+                // Log if there is any error while selecting a place
+                Log.i(TAG, "An error occurred: " + status);
+            }
+        });
+
+
+
         return view;
     }
 
@@ -211,10 +276,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
 
         // Add markers for EPFL and Satellite
-        epfl = new LatLng(46.520536, 6.568318);
 
-        epflMarker = new MarkerOptions().position(epfl).title("EPFL");
-        map.addMarker(epflMarker);
         google = new LatLng(37.42, -122.084);
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(google, 15));
 
@@ -224,6 +286,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         } catch (ExecutionException e) {
             throw new RuntimeException(e);
         } catch (InterruptedException e) {
+
             throw new RuntimeException(e);
         }
         //  map.moveCamera(CameraUpdateFactory.newLatLng(epfl));
@@ -295,11 +358,32 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
             openPlacesDialog();
 
         } else if (item.getItemId() == R.id.option_choose_location) {
+            if (lastDrawnCircle != null) {
+                lastDrawnCircle.remove();
+            }
+            if (visibleMarker != null) {
+                visibleMarker.remove();
+            }
             enableCustomLocationSelection();
         }
-         else if (item.getItemId() == R.id.option_choose_radius) {
-        chooseDefaultRadius();
-    }
+        else if (item.getItemId() == R.id.option_choose_radius) {
+            if (lastDrawnCircle != null) {
+                lastDrawnCircle.remove();
+            }
+            if (visibleMarker != null) {
+                visibleMarker.remove();
+            }
+            chooseDefaultRadius();
+        }
+        else if (item.getItemId() == R.id.search_bar) {
+            if (lastDrawnCircle != null) {
+                lastDrawnCircle.remove();
+            }
+            if (visibleMarker != null) {
+                visibleMarker.remove();
+            }
+            autocompleteFragment.getView().setVisibility(View.VISIBLE);
+        }
 
 
         return true;
@@ -330,12 +414,12 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
 
         // Remove the last clicked marker if it exists
-        if (lastClickedMarker != null) {
-            lastClickedMarker.remove();
+        if (blinkingMarker != null) {
+            blinkingMarker.remove();
         }
 
         // Add a new marker to the map at the clicked position
-        lastClickedMarker = map.addMarker(new MarkerOptions().position(clickedPosition).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).title("Clicked Location"));
+        blinkingMarker = map.addMarker(new MarkerOptions().position(clickedPosition).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).title("Clicked Location"));
 
         // Iterate through the custom places and find the ones within the threshold distance
         List<CustomPlace> nearbyFields = customPlaces.stream().filter(place -> haversineDistance(clickedPosition, place.latLng) <= thresholdDistanceInput).collect(Collectors.toList());
@@ -382,6 +466,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
                             if (lastKnownLocation != null) {
                                 localPos = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
+
                                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(localPos, DEFAULT_ZOOM));
                             }
                         } else {
@@ -535,7 +620,6 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
         dialog.show();
 
-
     }
 
     /**
@@ -607,7 +691,10 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 selectedPlace= likelyPlaceLatLngs[position];
                 posSelectedPlace =position;
-                Marker marker = map.addMarker(new MarkerOptions().title(likelyPlaceNames[position]).position(selectedPlace).snippet(likelyPlaceAddresses[position]));
+                if (visibleMarker != null) {
+                    visibleMarker.remove();
+                }
+                visibleMarker = map.addMarker(new MarkerOptions().title(likelyPlaceNames[position]).position(selectedPlace).snippet(likelyPlaceAddresses[position]));
 
                 addBlinkingMarker(selectedPlace, likelyPlaceNames[position], likelyPlaceAddresses[position]);
                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedPlace, DEFAULT_ZOOM));
@@ -727,10 +814,13 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
      * @param snippet  The snippet of the marker.
      */
     private void addBlinkingMarker(LatLng position, String title, String snippet) {
-        Marker mainMarker = map.addMarker(new MarkerOptions().position(position).title(title).snippet(snippet));
 
         MarkerOptions blinkingMarkerOptions = new MarkerOptions().position(position).title(title).snippet(snippet).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).alpha(0.5f).visible(false);
-        Marker blinkingMarker = map.addMarker(blinkingMarkerOptions);
+        if (blinkingMarker != null) {
+            //Clearing the map from previous circles
+            blinkingMarker.remove();
+        }
+        blinkingMarker = map.addMarker(blinkingMarkerOptions);
 
         applyBlinkingAnimation(blinkingMarker);
     }
@@ -739,11 +829,22 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
             //Clearing the map from previous circles
             lastDrawnCircle.remove();
         }
+
+        if (lastDrawnLine != null) {
+            //Clearing the map from previous circles
+            lastDrawnLine.remove();
+        }
+
+
         PolylineOptions polylineOptions = new PolylineOptions();
         polylineOptions.addAll(points);
         polylineOptions.width(10);
         polylineOptions.color(Color.BLUE);
-        map.addPolyline(polylineOptions);
+        lastDrawnLine = map.addPolyline(polylineOptions);
+
+
+
+
     }
     private class FetchDirectionsTask extends AsyncTask<Void, Void, List<LatLng>> {
         private LatLng origin;
@@ -832,6 +933,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         @Override
         protected void onPostExecute(List<LatLng> result) {
             if (result != null) {
+
                 drawPath(map, result);
                 showToast("Distance: " + distanceText);
             } else {
