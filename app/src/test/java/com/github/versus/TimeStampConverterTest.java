@@ -1,5 +1,6 @@
 package com.github.versus;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import com.github.versus.offline.TimeStampConverter;
@@ -30,5 +31,13 @@ public class TimeStampConverterTest {
                 1, 8, 1, Timestamp.Meridiem.PM);
         assertTrue(TimeStampConverter
                 .convertBackToTimeStamp(TimeStampConverter.convertTimeStamp(ts)).equals(ts));
+    }
+
+    @Test
+    public void GameFragmentTimestampWorks(){
+        String date = "18 April , 2023";
+        Timestamp timestamp= new Timestamp(2023, Month.APRIL,
+                18, 4, 0, Timestamp.Meridiem.PM);
+        assertEquals(timestamp,TimeStampConverter.GameFragmentTimestamp(date));
     }
 }
