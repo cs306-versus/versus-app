@@ -58,9 +58,13 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
             case R.id.nav_trending_sports:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new TrendingGamesFragment()).commit();
                 break;
+            case R.id.nav_sport_equipments:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new SportsEquipmentsFragment()).commit();
+                break;
 
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 }

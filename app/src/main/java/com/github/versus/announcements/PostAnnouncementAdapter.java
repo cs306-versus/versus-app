@@ -1,5 +1,7 @@
 package com.github.versus.announcements;
 
+import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,8 +9,13 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.github.versus.AddFriendFragment;
+import com.github.versus.EditPostFragment;
 import com.github.versus.R;
 import com.github.versus.db.FsPostManager;
 import com.github.versus.posts.Post;
@@ -21,10 +28,12 @@ public class PostAnnouncementAdapter extends RecyclerView.Adapter<PostAnnounceme
     private List<Post> posts;
     private VersusUser user;
     private FsPostManager fpm;
-    public PostAnnouncementAdapter(List<Post> posts, VersusUser currentUser, FsPostManager fpm){
+    private Context context;
+    public PostAnnouncementAdapter(List<Post> posts, VersusUser currentUser, FsPostManager fpm, Context context){
         if(posts == null) {
             throw new IllegalArgumentException("Posts must be non-null!");
         }
+        this.context = context;
         this.posts = posts;
         user = currentUser;
         this.fpm = fpm;
@@ -60,7 +69,12 @@ public class PostAnnouncementAdapter extends RecyclerView.Adapter<PostAnnounceme
                     new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-
+                            FragmentManager manager = ((AppCompatActivity)context).getSupportFragmentManager();
+                            Fragment f = new EditPostFragment(fpm);
+                            Bundle b = new Bundle();
+                            b.putSerializable("post", (Post) currentPost);
+                            f.setArguments(b);
+                            manager.beginTransaction().replace(R.id.fragment_container, f).commit();
                         }
                     }
             );
@@ -69,6 +83,16 @@ public class PostAnnouncementAdapter extends RecyclerView.Adapter<PostAnnounceme
             if (joined) {
                 viewHolder.getJoinButton().setText("Leave");
                 viewHolder.getJoinButton().setEnabled(true);
+                viewHolder.getJoinButton().setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View view){
+                        viewHolder.getJoinButton().setText("Left Post");
+                        viewHolder.getJoinButton().setEnabled(false);
+                        fpm.leavePost(user, currentPost.getUid());
+                        currentPost.getPlayers().remove(user);
+                        notifyDataSetChanged();
+                    }
+                });
             } else {
                 if(currentPost.getPlayers().size() >= currentPost.getPlayerLimit()) {
                     viewHolder.getJoinButton().setText("Full");
@@ -82,7 +106,9 @@ public class PostAnnouncementAdapter extends RecyclerView.Adapter<PostAnnounceme
                                 public void onClick(View view) {
                                     viewHolder.getJoinButton().setText("Joined");
                                     viewHolder.getJoinButton().setEnabled(false);
+                                    currentPost.getPlayers().add(user);
                                     fpm.joinPost(user, currentPost.getUid());
+                                    notifyDataSetChanged();
                                 }
                             }
                     );

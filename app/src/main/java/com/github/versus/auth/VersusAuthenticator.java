@@ -4,6 +4,7 @@ import static java.util.Objects.isNull;
 
 import com.github.versus.db.FsUserManager;
 import com.github.versus.user.User;
+import com.github.versus.user.VersusUser;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -50,10 +51,9 @@ public final class VersusAuthenticator implements Authenticator {
 
     @Override
     public User currentUser() {
-        // TODO HR : Find a way to return the user from a future
-        //FirebaseUser firebase_user = auth.getCurrentUser();
-        //if (isNull(firebase_user))
-            return null;
+        FirebaseUser firebase_user = auth.getCurrentUser();
+        // TODO HR : Still need to build the correct user
+        return isNull(firebase_user) ? null : new VersusUser();
     }
 
     @Override

@@ -20,6 +20,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.FutureTask;
+import java.util.stream.Collectors;
 
 public class FsPostManager implements DataBaseManager<Post> {
 
@@ -222,6 +223,56 @@ public class FsPostManager implements DataBaseManager<Post> {
         return future;
     }
 
+
+    public Future<Boolean> leavePost(User user, String uid){
+        //accessing the collection
+        CollectionReference postsRef = db.collection(POSTCOLLECTION.toString());
+        //finding the announcement with the right id
+        Task<DocumentSnapshot> task = postsRef.document(uid).get();
+
+        // Wrap the Task in a CompletableFuture that returns the status of the post join
+        CompletableFuture<Boolean> future = new CompletableFuture<>();
+
+        //we complete the future with false if the query failed
+        //otherwise we try to update the value of the players field
+        task.addOnSuccessListener(res-> {
+
+            //getting the documents corresponding to the post
+
+
+            List<HashMap> players = (List<HashMap>) res.get("players");
+
+            //getting the player limit
+            long playerLimit = (long)res.get("playerLimit");
+
+
+                //creating a new list corresponding to the old one - the user
+            List<HashMap> newPlayers = new ArrayList<>();
+            for(HashMap player : players){
+                if(!player.get("uid").equals(user.getUID())){
+                    newPlayers.add(player);
+                }
+            }
+
+                System.out.println("REMOVING PLAYERS");
+
+                //updating the field value
+                //if the update task is a success we complete the future with true
+                //otherwise we complete the future with false
+                res.getReference().update("players", newPlayers).addOnSuccessListener(aVoid ->{
+                    future.complete(true);
+                }).addOnFailureListener(e ->{
+                            future.complete(false);
+                        }
+                );
+
+
+        }).addOnFailureListener(e -> {
+            future.complete(false);
+        });
+
+        return future;
+    }
 
     /**
      *method used to filter posts based on the value of a certain attribute

@@ -57,22 +57,22 @@ public class AnnouncementAdapterTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void createAdapterNullPosts(){
-        PostAnnouncementAdapter aa = new PostAnnouncementAdapter(null, null, null);
+        PostAnnouncementAdapter aa = new PostAnnouncementAdapter(null, null, null, null);
     }
 
     @Test
     public void createAdapterPostsLength(){
-        assertEquals(0, new PostAnnouncementAdapter(new ArrayList<>(), null, null).getItemCount());
+        assertEquals(0, new PostAnnouncementAdapter(new ArrayList<>(), null, null, null).getItemCount());
         ArrayList<Post> a = new ArrayList();
         a.add(new Post());
-        assertEquals(1, new PostAnnouncementAdapter(a, null, null).getItemCount());
+        assertEquals(1, new PostAnnouncementAdapter(a, null, null, null).getItemCount());
     }
     @Test(expected = NullPointerException.class)
     public void onCreateViewHolderNull(){
         ArrayList<Post> a = new ArrayList<>();
 
         a.add(validPost);
-      new PostAnnouncementAdapter(a, null, null).onCreateViewHolder(null, 0);
+      new PostAnnouncementAdapter(a, null, null, null).onCreateViewHolder(null, 0);
     }
 
 }
