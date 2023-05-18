@@ -1,5 +1,6 @@
 package com.github.versus;
 
+import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.scrollTo;
@@ -20,6 +21,7 @@ import androidx.core.widget.TextViewCompat;
 import androidx.test.espresso.ViewAction;
 import androidx.test.espresso.contrib.DrawerActions;
 import androidx.test.espresso.contrib.DrawerMatchers;
+import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.espresso.intent.Intents;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.uiautomator.UiDevice;
@@ -76,11 +78,7 @@ public class SeachFragmentTest {
         onView(withId(android.R.id.button2)).perform(click());
     }
 
-    //@Test
-    //public void testSearchBar(){
-    //    onView(withId(R.id.search_posts)).perform(typeText("Football"), closeSoftKeyboard());
-    //    onView((withText("Football"))).check(matches(isDisplayed()));
-    //}
+
     @Test
     public void testCreatePostWithLocation() throws InterruptedException {
         onView(withId(R.id.add_posts)).perform(click());
@@ -125,6 +123,30 @@ public class SeachFragmentTest {
         onView(withText("Cancel")).perform(click());
 
     }
+
+    @Test
+    public void findEditSearch(){
+        boolean success = false;
+        for(int i = 0; i < 50; i ++){
+            onView(withId(R.id.recyclerView)).perform(RecyclerViewActions.scrollToPosition(i));
+            try{
+                onView(withText("Edit Post")).perform(click());
+                success = true;
+                break;
+            }
+            catch(Exception e){
+
+            }
+        }
+        if(success) {
+            onView(withId(R.id.game_players)).perform(click());
+            onView(withId(R.id.game_players)).perform(click());
+            onView(withId(R.id.edit_sport)).perform(click());
+        }
+    }
+
+
+
 }
 
 
