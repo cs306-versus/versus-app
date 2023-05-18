@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -42,6 +43,12 @@ public class GameFragment extends Fragment {
 
         ListView listView = (ListView) view.findViewById(R.id.list_players_view);
 
+        TextView weather_txt=(TextView)view.findViewById (R.id.weather);
+        weather_txt.setText("Is it rainy today?");
+        ImageView weather_icon=(ImageView)view.findViewById(R.id.weathericon);
+        //Get weather
+        // Create enum for types of weather: rainy, sunny , etc
+        weather_icon.setImageResource (R.drawable.rainy);
         // Create an array of items
          TextView title=(TextView)view.findViewById(R.id.title);
         TextView date=(TextView)view.findViewById(R.id.date1);

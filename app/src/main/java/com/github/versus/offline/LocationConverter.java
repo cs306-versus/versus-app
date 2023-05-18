@@ -20,4 +20,21 @@ public class LocationConverter {
         double longitude = Double.parseDouble(values[1]);
         return new Location(name,latitude,longitude);
     }
+    public static Location GameFragmentLocation(String locationString){
+        // Remove any whitespace from the string
+        String cleanedString = locationString.replaceAll("\\s+", "");
+
+        // Extract the name and coordinates from the string
+        int nameEndIndex = cleanedString.indexOf("(");
+        String name = cleanedString.substring(0, nameEndIndex);
+        int coordinatesStartIndex = nameEndIndex + 1;
+        int coordinatesEndIndex = cleanedString.indexOf(")");
+        String coordinatesString = cleanedString.substring(coordinatesStartIndex, coordinatesEndIndex);
+        String[] coordinatesArray = coordinatesString.split(",");
+        double latitude = Double.parseDouble(coordinatesArray[0]);
+        double longitude = Double.parseDouble(coordinatesArray[1]);
+
+        // Create and return a new Location object
+        return new Location(name, latitude, longitude);
+    }
 }
