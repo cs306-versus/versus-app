@@ -66,6 +66,7 @@ public class OptionChooseLocationTest {
         Intents.release();
     }
 
+
     /**
      * Test for simulating a click on the map.
      * Ensures that clicking on the map results in the expected behavior.
