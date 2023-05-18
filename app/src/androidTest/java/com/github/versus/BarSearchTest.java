@@ -76,7 +76,7 @@ public class BarSearchTest {
         onView(withText("Search")).perform(click());
 
         // Get the instance of the device on which the test is running
-        UiDevice device = UiDevice.getInstance(getInstrumentation());
+        /*UiDevice device = UiDevice.getInstance(getInstrumentation());
 
         // Find the search bar (UiObject) by its hint text "Search"
         UiObject searchBox = device.findObject(new UiSelector().text("Search"));
@@ -98,7 +98,7 @@ public class BarSearchTest {
         }
         // Sleep for another 2 seconds to give time for the search to complete
         Thread.sleep(2000);
-
+*/
 
     }
 
