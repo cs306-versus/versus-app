@@ -158,7 +158,6 @@ public class OptionChooseLocationTest {
             }
             return idle;
         }
-
         /**
          * Registers a ResourceCallback to be notified when the resource transitions to the idle state.
          *
