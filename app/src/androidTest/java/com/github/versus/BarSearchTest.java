@@ -20,6 +20,7 @@ import android.view.WindowManager;
 import androidx.core.view.GravityCompat;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.espresso.Espresso;
+import androidx.test.espresso.IdlingRegistry;
 import androidx.test.espresso.IdlingResource;
 import androidx.test.espresso.contrib.DrawerActions;
 import androidx.test.espresso.contrib.DrawerMatchers;
@@ -75,30 +76,34 @@ public class BarSearchTest {
         // Find the menu item "Search" by its text and perform a click. This should open the search bar.
         onView(withText("Search")).perform(click());
 
+        long waitingTime = 6000;
         // Get the instance of the device on which the test is running
-        /*UiDevice device = UiDevice.getInstance(getInstrumentation());
-
-        // Find the search bar (UiObject) by its hint text "Search"
+        ElapsedTimeIdlingResource idlingResourceFirst = new ElapsedTimeIdlingResource(waitingTime);
+        UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         UiObject searchBox = device.findObject(new UiSelector().text("Search"));
-
         try {
             // Click on the search bar to focus it, then type "Unil sport" into the search bar
             searchBox.click();
             searchBox.setText("Unil sport");
 
-            // Sleep for 2 seconds to give time for potential network operations (like autocomplete suggestions)
-            Thread.sleep(2000);
+            IdlingRegistry.getInstance().register(idlingResourceFirst);
 
             // Simulate pressing the enter key twice. This might be necessary if the first press only closes the keyboard.
             device.pressEnter();
             device.pressEnter();
+            IdlingRegistry.getInstance().unregister(idlingResourceFirst);
         } catch (UiObjectNotFoundException e) {
             // If we couldn't find the search bar, fail the test
             fail("Could not find the Autocomplete widget");
         }
         // Sleep for another 2 seconds to give time for the search to complete
-        Thread.sleep(2000);
-*/
+        long waitingTime2 =5000;
+        ElapsedTimeIdlingResource idlingResource2 = new ElapsedTimeIdlingResource(waitingTime2);
+        IdlingRegistry.getInstance().register(idlingResource2);
+
+        IdlingRegistry.getInstance().unregister(idlingResource2);
+
+
     }
     /**
      * ElapsedTimeIdlingResource is an implementation of the IdlingResource interface.
