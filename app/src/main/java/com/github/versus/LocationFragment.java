@@ -438,7 +438,6 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                 likelyPlaceAddresses[i] = nearbyFields.get(i).address;
                 likelyPlaceLatLngs[i] = nearbyFields.get(i).latLng;
             }
-
             // Show the list of nearby fields
             showPlacesList();
         }
