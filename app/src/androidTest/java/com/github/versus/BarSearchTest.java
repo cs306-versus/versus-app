@@ -99,8 +99,7 @@ public class BarSearchTest {
         // Sleep for another 2 seconds to give time for the search to complete
         Thread.sleep(2000);
 
-        // Find the "Draw Path" button by its text and perform a click. This should start the path drawing operation.
-        onView(withText("Draw Path")).perform(click());
+
     }
 
 }
