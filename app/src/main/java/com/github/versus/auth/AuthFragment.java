@@ -28,8 +28,8 @@ public class AuthFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        binding.register.setOnClickListener(v -> switchTo(RegisterFragment.class));
-        binding.signIn.setOnClickListener(v -> switchTo(SignInFragment.class));
+        binding.registerBtn.setOnClickListener(v -> switchTo(RegisterFragment.class));
+        binding.signinBtn.setOnClickListener(v -> switchTo(SignInFragment.class));
     }
 
     private void switchTo(Class<? extends Fragment> clz){
