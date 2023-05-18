@@ -11,6 +11,7 @@ import android.view.WindowManager
 import android.widget.EditText;
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fasterxml.jackson.databind.ObjectMapper
@@ -26,34 +27,49 @@ import java.time.Month
 
 class UserChatActivity : AppCompatActivity(){
 
-    private lateinit var chatRecyclerView : RecyclerView
-    private lateinit var messageBox : EditText
-    private lateinit var sendButton : ImageView
-    private lateinit var messageAdapter: MessageAdapter
     private lateinit var messageList: ArrayList<Message>
+    private lateinit var messageAdapter: MessageAdapter
 
+    //top of the layout
+    private lateinit var textName : TextView
+    private lateinit var infoButton : ImageView
+    private lateinit var backButton : ImageView
+
+    //middle of the layout
+    private lateinit var chatRecyclerView : RecyclerView
+
+    //bottom of the layout
+    private lateinit var messageBox : TextView
+    private lateinit var sendButton : ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState);
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         setContentView(R.layout.activity_user_chat);
 
-
+        //getting info on the user we are currently messaging
         val name = intent.getStringExtra("UserToChatName")
         val receiverUid = intent.getStringExtra("uid")
-
+        //getting info on the current user
         val senderUid = FirebaseAuth.getInstance().currentUser?.uid
 
+        //initializing field
         chatRecyclerView = findViewById(R.id.chatRecyclerView)
-        messageBox = findViewById(R.id.messageBox)
-        sendButton = findViewById(R.id.sendButton)
+        messageBox = findViewById(R.id.inputMessage)
+        //initializing the buttons
+        sendButton = findViewById(R.id.imageSend)
+        infoButton = findViewById(R.id.imageInfo)
+        backButton = findViewById(R.id.imageBack)
+        //-------------------------
         messageList = ArrayList()
+        textName = findViewById(R.id.textName)
         messageAdapter = MessageAdapter(this, messageList)
-
         chatRecyclerView.layoutManager = LinearLayoutManager(this)
         chatRecyclerView.adapter = messageAdapter
 
+        //setting the name of the user we chat with
+        textName.text = name
 
+        //------------------------------------------------------------------------
 /*
       //adding the message to the database
       val chatmanager = FsChatManager(FirebaseFirestore.getInstance())
@@ -80,24 +96,20 @@ class UserChatActivity : AppCompatActivity(){
         messageList.add(Message(u1, u2, "All right see you at 9, usual place", Timestamp(2023, Month.MAY, 14, 7, 30,  Timestamp.Meridiem.AM)))
         messageList.add(Message(u2, u1, "bet", Timestamp(2023, Month.MAY, 14, 7, 30,  Timestamp.Meridiem.AM)))
 
+        //------------------------------------------------------------------------
 
+        //handling the sending of messages on button click
         sendButton.setOnClickListener(){
-            val message = Message(  DummyUser(senderUid), DummyUser(receiverUid) , messageBox.text.toString(), Timestamp(2023, Month.MAY, 14, 9, 30, Timestamp.Meridiem.AM ))
+            val message = Message(  u1, u2 , messageBox.text.toString(), Timestamp(2023, Month.MAY, 14, 9, 30, Timestamp.Meridiem.AM ))
             messageList.add(message)
             messageAdapter.notifyDataSetChanged()
-            messageBox.setText("")
-
+            messageBox.text = ""
         }
-          val toolbar = findViewById<Toolbar>(R.id.toolbar)
-          setSupportActionBar(toolbar)
-          supportActionBar?.title = name
-          supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-            toolbar.setNavigationOnClickListener {
-            // start MainActivity
+        backButton.setOnClickListener(){
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
+
 
     }
 

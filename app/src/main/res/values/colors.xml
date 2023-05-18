@@ -50,6 +50,18 @@
 	<color name="rectangle_34_color">#D9D9D9</color>
 	<color name="rectangle_35_color">#7E7E7E</color>
 
-       	<!-- main_chat colors -->
+    <color name="primary">#1C2E46</color>
+    <color name="primary_dark">#142232</color>
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#757575</color>
+    <color name="input_background">#ECECEC</color>
+    <color name="icon_background">#20FFFFFF</color>
+    <color name="error">#B00020</color>
+    <color name="received_message_background">#090D16</color>
+
+
+
+
+    <!-- main_chat colors -->
 
 </resources>
