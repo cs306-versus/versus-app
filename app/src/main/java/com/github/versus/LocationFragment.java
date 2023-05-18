@@ -575,7 +575,6 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                     dialog.dismiss();
                 }
 
-
             }
         }).setNegativeButton("Cancel", null).create();
         dialog.show();
