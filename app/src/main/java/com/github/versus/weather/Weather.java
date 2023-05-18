@@ -29,7 +29,6 @@ public enum Weather {
                 default:
                     throw  new EnumConstantNotPresentException(Weather.class,icon);
             }
-
         }
         catch(Exception e){
             return weather_unavailable;
