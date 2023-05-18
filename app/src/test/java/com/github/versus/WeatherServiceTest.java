@@ -17,7 +17,8 @@ public class WeatherServiceTest {
     private static final Map<String,String> weather_map =WeatherService.getWeather(location,timestamp);
     @Test
     public void AsynchronousYieldsSameResult() throws ExecutionException, InterruptedException {
-        weather_map.equals(WeatherService.getWeatherAsynchronously(location,timestamp).get());
+
+        Assert.assertTrue(WeatherService.getWeatherAsynchronously(location, timestamp).get().get("day").equals("2023-05-20"));
     }
 
     @Test
@@ -27,7 +28,7 @@ public class WeatherServiceTest {
 
     @Test
     public void correctTimeIsFetched(){
-        Assert.assertTrue(WeatherService.getWeather(location,timestamp).get("time").equals("15:00:00"));
+        Assert.assertEquals("15:00:00", WeatherService.getWeather(location, timestamp).get("time"));
     }
 
     @Test
@@ -38,4 +39,5 @@ public class WeatherServiceTest {
         Assert.assertTrue(fetched.get("day").equals("2022-05-03")
                                    && fetched.get("time").equals("18:00:00"));
     }
+
 }

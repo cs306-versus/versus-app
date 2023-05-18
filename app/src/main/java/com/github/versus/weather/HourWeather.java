@@ -20,6 +20,8 @@ public class HourWeather {
     private double uvindex;
     private double severerisk;
 
+    private String icon;
+
     public String getDatetime() {
         return datetime;
     }
@@ -89,6 +91,8 @@ public class HourWeather {
     public double getUvindex() {
         return uvindex;
     }
+
+    public String getIcon(){return icon;}
 
 
 

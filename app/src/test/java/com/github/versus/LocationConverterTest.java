@@ -29,8 +29,8 @@ public class LocationConverterTest {
      }
      @Test
     public void GameFragmentLocationWorks(){
-        String locationString ="CHAVANNES (200.0, 331.0)";
-        Location location= new Location("CHAVANNES", 200.0,331.0);
+        String locationString ="CHAVANNES (45.6, 4.4)";
+        Location location= new Location("CHAVANNES", 45.6,4.4);
         Location result= LocationConverter.GameFragmentLocation(locationString);
         assertTrue(result.equals(location));
 
