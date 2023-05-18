@@ -104,6 +104,7 @@ public class OptionChooseLocationTest {
         IdlingRegistry.getInstance().unregister(idlingResourceFirst);*/
     }
 
+
     /**
      * Simulates a map click at the given screen coordinates.
      *
