@@ -131,7 +131,7 @@ public class FsPostManager implements DataBaseManager<Post> {
                 //converting the data we get into an actual post object
                 Post post = (new ObjectMapper()).convertValue(doc.getData(), Post.class);
                 post.setUid(doc.getId());
-
+                System.out.println(doc.get("players"));
                 posts.add(post);
             }
             future.complete(posts);

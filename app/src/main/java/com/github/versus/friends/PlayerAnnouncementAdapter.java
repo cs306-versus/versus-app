@@ -33,13 +33,13 @@ public class PlayerAnnouncementAdapter extends RecyclerView.Adapter<PlayerAnnoun
     private Context context;
     private FsPostManager fpm;
     public PlayerAnnouncementAdapter(List<VersusUser> users, FsPostManager fum, Post post){
+        this.fpm = fum;
+        this.post = post;
         if(users == null) {
-            throw new IllegalArgumentException("Users must be non-null!");
+            throw new IllegalArgumentException("User list must be non-null!");
         }
         this.users = users;
-        this.fpm = fum;
-        this.context = context;
-        this.post = post;
+
     }
     @NonNull
     @Override
@@ -82,13 +82,11 @@ public class PlayerAnnouncementAdapter extends RecyclerView.Adapter<PlayerAnnoun
         private final Button button;
 
         public ViewHolder(View view) {
-
             super(view);
-//             Define click listener for the ViewHolder's View
-            fn = (TextView) view.findViewById(R.id.user_fn);
-            un = (TextView) view.findViewById(R.id.user_un);
             city = (TextView) view.findViewById(R.id.user_city);
             button = (Button) view.findViewById(R.id.view_profile);
+            fn = (TextView) view.findViewById(R.id.user_fn);
+            un = (TextView) view.findViewById(R.id.user_un);
         }
 
         public TextView getFirstName() {
