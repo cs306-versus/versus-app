@@ -110,7 +110,6 @@ public class BarSearchTest {
      * This can be useful when testing UI components that require a certain time to load or update.
      */
     public class ElapsedTimeIdlingResource implements IdlingResource {
-
         private final long startTime;
         private final long waitingTime;
         private ResourceCallback resourceCallback;
