@@ -85,7 +85,6 @@ public class BarSearchTest {
             // Click on the search bar to focus it, then type "Unil sport" into the search bar
             searchBox.click();
             searchBox.setText("Unil sport");
-
             IdlingRegistry.getInstance().register(idlingResourceFirst);
 
             // Simulate pressing the enter key twice. This might be necessary if the first press only closes the keyboard.
