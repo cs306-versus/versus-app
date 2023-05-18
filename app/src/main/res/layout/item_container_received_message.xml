@@ -7,17 +7,16 @@
 
    <TextView
        android:id="@+id/textMessage_chatReceived"
-       android:layout_width="0dp"
+       android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:layout_marginStart="4dp"
        android:layout_marginLeft="4dp"
        android:background="@drawable/background_received_message"
        android:padding="12dp"
        android:textColor="@color/white"
-       android:textSize="13sp"
+       android:textSize="20sp"
        app:layout_constraintStart_toStartOf="parent"
        app:layout_constraintTop_toTopOf="parent"
-       app:layout_constraintWidth_percent="0.75"
        />
     
     <TextView
