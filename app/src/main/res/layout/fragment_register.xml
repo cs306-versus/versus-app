@@ -60,11 +60,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <View
+        <EditText
             android:id="@+id/rectangle_40"
             android:background="@drawable/auth_register_field_shape"
             android:layout_marginStart="0dp"
             android:layout_marginTop="11dp"
+            android:padding="9dp"
             android:layout_width="294dp"
             android:layout_height="40dp" />
 
@@ -98,11 +99,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <View
+        <EditText
             android:id="@+id/rectangle_40_ek1"
             android:background="@drawable/auth_register_field_shape"
             android:layout_marginStart="0dp"
             android:layout_marginTop="11dp"
+            android:padding="9dp"
             android:layout_width="294dp"
             android:layout_height="40dp" />
 
@@ -136,11 +138,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <View
+        <EditText
             android:id="@+id/rectangle_40_ek2"
             android:background="@drawable/auth_register_field_shape"
             android:layout_marginStart="0dp"
             android:layout_marginTop="11dp"
+            android:padding="9dp"
             android:layout_width="294dp"
             android:layout_height="40dp" />
 
@@ -175,11 +178,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <View
+        <EditText
             android:id="@+id/rectangle_40_ek3"
             android:background="@drawable/auth_register_field_shape"
             android:layout_marginStart="0dp"
             android:layout_marginTop="11dp"
+            android:padding="9dp"
             android:layout_width="294dp"
             android:layout_height="40dp" />
 
@@ -213,11 +217,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <View
+        <EditText
             android:id="@+id/rectangle_40_ek4"
             android:background="@drawable/auth_register_field_shape"
             android:layout_marginStart="0dp"
             android:layout_marginTop="11dp"
+            android:padding="9dp"
             android:layout_width="294dp"
             android:layout_height="40dp" />
 
@@ -251,10 +256,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <View
+        <EditText
             android:id="@+id/rectangle_40_ek5"
             android:background="@drawable/auth_register_field_shape"
             android:layout_marginStart="0dp"
+            android:padding="9dp"
             android:layout_marginTop="11dp"
             android:layout_width="294dp"
             android:layout_height="40dp" />
@@ -287,6 +293,7 @@
         android:background="@drawable/rectangle_1_shape"
         android:layout_marginTop="719dp"
         android:layout_marginStart="105dp"
+        android:focusable="true"
         android:layout_width="181dp"
         android:layout_height="54dp">
 
