@@ -85,7 +85,7 @@ public class OptionChooseLocationTest {
         onView(withText("Choose location")).perform(click());
 
         // Get screen dimensions
-        DisplayMetrics displayMetrics = new DisplayMetrics();
+        /*DisplayMetrics displayMetrics = new DisplayMetrics();
         WindowManager windowManager = (WindowManager) ApplicationProvider.getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
         windowManager.getDefaultDisplay().getRealMetrics(displayMetrics);
 
@@ -101,7 +101,7 @@ public class OptionChooseLocationTest {
         IdlingRegistry.getInstance().register(idlingResource2);
         onView(withText(placeName)).perform(click());
         IdlingRegistry.getInstance().unregister(idlingResource2);
-        IdlingRegistry.getInstance().unregister(idlingResourceFirst);
+        IdlingRegistry.getInstance().unregister(idlingResourceFirst);*/
     }
 
     /**
