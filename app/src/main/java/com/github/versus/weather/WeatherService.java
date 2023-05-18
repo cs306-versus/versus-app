@@ -15,7 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public final class WeatherService {
     private static final String BASE_URL = "https://weather.visualcrossing.com/";
-    private static final String API_KEY= "H4DNTYBMHPAU7EC3D4KC3W7KW";
+    private static final String API_KEY= "Y8QEGKP8ASQWLATHV8UBM4DJB";;
     private static Retrofit retrofit= new Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
