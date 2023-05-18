@@ -599,6 +599,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
         // Create a dialog to display the EditText view
         AlertDialog dialog = new AlertDialog.Builder(getActivity()).setTitle("Enter radius").setView(view).setPositiveButton("Show Places", new DialogInterface.OnClickListener() {
+
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // Get the radius entered by the user
