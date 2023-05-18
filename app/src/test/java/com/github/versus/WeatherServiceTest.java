@@ -2,12 +2,14 @@ package com.github.versus;
 
 import com.github.versus.posts.Location;
 import com.github.versus.posts.Timestamp;
+import com.github.versus.weather.Weather;
 import com.github.versus.weather.WeatherService;
 
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.time.Month;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
@@ -38,6 +40,11 @@ public class WeatherServiceTest {
         java.util.Map<String, String> fetched= WeatherService.getWeather(location,timestamp);
         Assert.assertTrue(fetched.get("day").equals("2022-05-03")
                                    && fetched.get("time").equals("18:00:00"));
+    }
+
+    @Test
+    public void weatherReturnUnavailableWhenIconIsWrong(){
+        Assert.assertTrue(Weather.extractWeather(new HashMap<>())==Weather.weather_unavailable);
     }
 
 }
