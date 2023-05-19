@@ -387,7 +387,6 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
         return true;
     }
-
     /**
      * Enables custom location selection by setting a map click listener.
      * When the map is clicked, it calls the findClosestFields method to find the closest fields to the clicked position.
