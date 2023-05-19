@@ -109,6 +109,7 @@ public class SeachFragmentTest {
 //        onView(withId(R.id.add_posts)).perform(click());
 //
 //    }
+
     @Test
     public void testCreatePostWithLocationCanceled() {
         onView(withId(R.id.add_posts)).perform(click());
