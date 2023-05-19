@@ -48,7 +48,7 @@ public final class VersusUser implements User, Serializable {
         lastName = "";
         friends = null;
     }
-    public VersusUser(String uid, String firstName,String lastName,String userName, String mail, String phone , int rating , String city, int zipCode,List<Sport> preferredSports ){
+    public VersusUser(String uid, String firstName,String lastName,String userName, String mail, String phone , int rating , String city, int zipCode,List<Sport> preferredSports, List<String> friends ){
         this.uid = uid;
         this.firstName =firstName;
         this.lastName = lastName;
@@ -59,7 +59,7 @@ public final class VersusUser implements User, Serializable {
         this.city = city;
         this.zip =zipCode;
         this.preferredSports = List.copyOf(preferredSports);
-        this.friends = List.copyOf()
+        this.friends = List.copyOf(friends);
     }
     public VersusUser(Builder builder){
         this.uid = builder.uid;
@@ -72,6 +72,8 @@ public final class VersusUser implements User, Serializable {
         this.city = builder.city;
         this.zip = builder.zipCode;
         this.preferredSports = List.copyOf(builder.preferredSports);
+        this.friends = List.copyOf(builder.friends);
+
     }
 
     @Override
@@ -159,6 +161,7 @@ public final class VersusUser implements User, Serializable {
         private int zipCode;
         private List<Sport> preferredSports = new ArrayList<>();
 
+        private  List<String> friends = new ArrayList<>();
         /**
          * ???
          * @param uid
@@ -254,6 +257,16 @@ public final class VersusUser implements User, Serializable {
          */
         public Builder setPreferredSports(List<Sport> sports){
             this.preferredSports = sports;
+            return this;
+        }
+
+        public Builder setFriends(List<String> friends){
+            this.friends = friends;
+            return this;
+        }
+
+        public Builder addFriend(String friendUID){
+            friends.add(friendUID);
             return this;
         }
 
