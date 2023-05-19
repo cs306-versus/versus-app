@@ -26,7 +26,7 @@ class ChatsFragment : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.main_chat, container, false)
+        val view = inflater.inflate(R.layout.chat_users_layout, container, false)
 
         mAuth = FirebaseAuth.getInstance()
         mDbRef = FirebaseFirestore.getInstance().collection("user")
@@ -34,7 +34,7 @@ class ChatsFragment : Fragment() {
         userList = ArrayList()
         adapter = UserAdapter(requireContext(), userList)
 
-        userRecyclerView = view.findViewById(R.id.recyclerView)
+        userRecyclerView = view.findViewById(R.id.usersRecyclerView)
 
         userRecyclerView.layoutManager = LinearLayoutManager(requireContext())
 

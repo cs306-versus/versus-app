@@ -61,12 +61,12 @@ public final class WeatherService {
                 fetched_weather.put("severerisk", String.valueOf(hour_weather.getSevererisk()));
                 fetched_weather.put("solarradiation",String.valueOf(hour_weather.getSolarradiation()));
                 fetched_weather.put("uvindex",String.valueOf(hour_weather.getUvindex()));
-
+                fetched_weather.put("icon", hour_weather.getIcon());
                 return fetched_weather;
                 }
             else {
                 Map<String,String> server_error_map= new HashMap<>();
-                server_error_map.put(weather_response.message(),String.valueOf(weather_response.code()));
+                server_error_map.put("HTTP error",String.valueOf(weather_response.code()));
                 return server_error_map;
             }
 
