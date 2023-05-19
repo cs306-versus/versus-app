@@ -66,6 +66,7 @@ public class SeachFragmentTest {
         onView(withId(android.R.id.button1)).perform(click());
     }
 
+
     @Test
     public void testCancelPost() {
         onView(withId(R.id.add_posts)).perform(click());
