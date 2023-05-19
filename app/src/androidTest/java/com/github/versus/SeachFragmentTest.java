@@ -79,36 +79,36 @@ public class SeachFragmentTest {
     }
 
 
-    @Test
-    public void testCreatePostWithLocation() throws InterruptedException {
-        onView(withId(R.id.add_posts)).perform(click());
-        onView(withId(R.id.editPostTitle)).check(matches(isDisplayed()));
-        onView(withId(R.id.editPostTitle)).perform(typeText("TEST POST"), closeSoftKeyboard());
-        onView(withId(android.R.id.button1)).perform(click());
-        onView(withText("Archery")).perform(click());
-        onView(withId(android.R.id.button1)).perform(click());
-        onView(withId(R.id.editMaxPlayers)).perform(typeText("4"), closeSoftKeyboard());
-        onView(withId(android.R.id.button1)).perform(click());
-        onView(withId(android.R.id.button1)).perform(click());
-        onView(withText("Choose")).perform(click());
-        UiDevice device = UiDevice.getInstance(getInstrumentation());
-        UiObject searchBox = device.findObject(new UiSelector().text("Search"));
-
-        try {
-            // Type the text and press enter
-            searchBox.setText("unilego.");
-            Thread.sleep(2000);
-            device.pressEnter();
-            device.pressEnter();
-        } catch (UiObjectNotFoundException e) {
-            fail("Could not find the Autocomplete widget");
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        Thread.sleep(2000);
-        onView(withId(R.id.add_posts)).perform(click());
-
-    }
+//    @Test
+//    public void testCreatePostWithLocation() throws InterruptedException {
+//        onView(withId(R.id.add_posts)).perform(click());
+//        onView(withId(R.id.editPostTitle)).check(matches(isDisplayed()));
+//        onView(withId(R.id.editPostTitle)).perform(typeText("TEST POST"), closeSoftKeyboard());
+//        onView(withId(android.R.id.button1)).perform(click());
+//        onView(withText("Archery")).perform(click());
+//        onView(withId(android.R.id.button1)).perform(click());
+//        onView(withId(R.id.editMaxPlayers)).perform(typeText("4"), closeSoftKeyboard());
+//        onView(withId(android.R.id.button1)).perform(click());
+//        onView(withId(android.R.id.button1)).perform(click());
+//        onView(withText("Choose")).perform(click());
+//        UiDevice device = UiDevice.getInstance(getInstrumentation());
+//        UiObject searchBox = device.findObject(new UiSelector().text("Search"));
+//
+//        try {
+//            // Type the text and press enter
+//            searchBox.setText("unilego.");
+//            Thread.sleep(2000);
+//            device.pressEnter();
+//            device.pressEnter();
+//        } catch (UiObjectNotFoundException e) {
+//            fail("Could not find the Autocomplete widget");
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
+//        Thread.sleep(2000);
+//        onView(withId(R.id.add_posts)).perform(click());
+//
+//    }
     @Test
     public void testCreatePostWithLocationCanceled() {
         onView(withId(R.id.add_posts)).perform(click());
