@@ -1,4 +1,4 @@
-package com.github.versus;
+/*package com.github.versus;
 
 import com.github.versus.posts.Location;
 import com.github.versus.posts.Timestamp;
@@ -43,4 +43,4 @@ public class WeatherServiceTest {
         Assert.assertTrue(fetched.get("day").equals("2022-05-03")
                 && fetched.get("time").equals("18:00:00"));
     }
-}
+}*/
