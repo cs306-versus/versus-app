@@ -1,4 +1,4 @@
-<RelativeLayout android:id="@+id/content_container"
+<RelativeLayout android:id="@+id/register_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/background"
@@ -139,7 +139,7 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/rectangle_40_ek2"
+            android:id="@+id/email_address"
             android:background="@drawable/auth_register_field_shape"
             android:layout_marginStart="0dp"
             android:layout_marginTop="11dp"
@@ -156,7 +156,6 @@
             android:layout_height="21dp" />
 
         <TextView
-            android:id="@+id/email_address"
             android:fontFamily="@font/poppins_medium"
             android:layout_gravity="center_horizontal|center"
             android:gravity="center"
@@ -218,7 +217,7 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/rectangle_40_ek4"
+            android:id="@+id/password"
             android:background="@drawable/auth_register_field_shape"
             android:layout_marginStart="0dp"
             android:layout_marginTop="11dp"
@@ -235,7 +234,6 @@
             android:layout_height="21dp" />
 
         <TextView
-            android:id="@+id/password"
             android:fontFamily="@font/poppins_medium"
             android:layout_gravity="center_horizontal|center"
             android:gravity="center"
@@ -289,26 +287,19 @@
             />
     </RelativeLayout>
 
-    <RelativeLayout android:id="@+id/register_btn"
+    <Button
+        android:id="@+id/register_btn"
+        android:fontFamily="@font/poppins_medium"
         android:background="@drawable/rectangle_1_shape"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textSize="21sp"
         android:layout_marginTop="719dp"
         android:layout_marginStart="105dp"
-        android:focusable="true"
+        android:textColor="@color/white"
         android:layout_width="181dp"
-        android:layout_height="54dp">
+        android:layout_height="54dp"
+        android:text="@string/register" />
 
-        <TextView
-            android:id="@+id/register"
-            android:fontFamily="@font/poppins_medium"
-            android:layout_centerInParent="true"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:textSize="21sp"
-            android:textColor="@color/white"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/register" />
-
-    </RelativeLayout>
 
 </RelativeLayout>

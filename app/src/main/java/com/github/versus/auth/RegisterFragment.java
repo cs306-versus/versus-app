@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -34,13 +35,14 @@ public final class RegisterFragment extends BaseAuthFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        registerLoginButton(binding.register);
+        registerLoginButton(binding.registerBtn);
     }
 
     @Override
     protected Task<AuthResult> requestAuthentication() {
         String mailText = binding.emailAddress.getText().toString();
         String pwdText = binding.password.getText().toString();
+        Toast.makeText(getContext(), mailText + pwdText, Toast.LENGTH_SHORT);
         Task<AuthResult> task = auth.createAccountWithMail(mailText, pwdText);
         task.addOnSuccessListener(result -> {
             String uid = result.getUser().getUid();
