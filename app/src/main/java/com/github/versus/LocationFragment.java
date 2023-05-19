@@ -220,8 +220,8 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                     // Remove the previous markers if they exist
 
                     // Add a new marker at the selected place
-                    //visibleMarker = map.addMarker(new MarkerOptions().title(place.getName()).position(selectedPlace).snippet(place.getAddress()));
-                    //blinkingMarker = map.addMarker(new MarkerOptions().position(selectedPlace).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).title("Clicked Location"));
+                    map.addMarker(new MarkerOptions().title(place.getName()).position(selectedPlace).snippet(place.getAddress()));
+                    map.addMarker(new MarkerOptions().position(selectedPlace).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).title("Clicked Location"));
 
                     // Add a blinking marker at the selected place
                     addBlinkingMarker(selectedPlace, place.getName(), place.getName());
