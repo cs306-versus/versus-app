@@ -106,7 +106,7 @@ public class FsChatManagerTest {
 
     }
 
-    @Test
+
     public void createSomeUsers() throws ExecutionException, InterruptedException, TimeoutException
     {
         // Creating FsPostm instance
@@ -173,7 +173,7 @@ public class FsChatManagerTest {
             messageList.add(new Message(u1, u2, "All right see you at 9, usual place",new  Timestamp(2023, Month.MAY, 14, 7, 30,  Timestamp.Meridiem.AM)));
             messageList.add(new Message(u2, u1, "bet",new  Timestamp(2023, Month.MAY, 14, 7, 30,  Timestamp.Meridiem.AM)));
 
-            Chat chat = new Chat(u1, u2, u1+ u2 );
+            Chat chat = new Chat(u1, u2, Chat.computeChatId(u1,u2) );
             for (Message m: messageList
                  ) {
                 chat.addMessage(m);

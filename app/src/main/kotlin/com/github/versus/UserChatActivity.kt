@@ -14,9 +14,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.github.versus.chats.Chat
 import com.github.versus.chats.Message
 import com.github.versus.chats.MessageAdapter
+import com.github.versus.db.FsChatManager
 import com.github.versus.posts.Timestamp
 import com.github.versus.user.DummyUser
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import java.time.Month
 
 class UserChatActivity : AppCompatActivity(){
@@ -35,6 +37,10 @@ class UserChatActivity : AppCompatActivity(){
     //bottom of the layout
     private lateinit var messageBox : TextView
     private lateinit var sendButton : ImageView
+
+    // id of the chat
+    private lateinit var chatId : String
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState);
@@ -64,31 +70,25 @@ class UserChatActivity : AppCompatActivity(){
         textName.text = name
 
         //------------------------------------------------------------------------
-/*
+
+        //setting the chatId
+        val u1 = senderUid
+        val u2 =  receiverUid
       //adding the message to the database
+
+
+
       val chatmanager = FsChatManager(FirebaseFirestore.getInstance())
-    /*  chatId = ""
-      when {
+
+        when {
           receiverUid == null && senderUid == null -> println("receiverUid is null")
           receiverUid == null -> println("First string is null")
           senderUid == null -> println("Second string is null")
           receiverUid <= senderUid -> chatId = receiverUid+"-"+senderUid
           receiverUid > senderUid -> chatId = senderUid+"-"+receiverUid
       }
-     */
- */
-        val u1 = senderUid
-        val u2 =  receiverUid
-
-       // val chat = Chat(DummyUser(senderUid), DummyUser(receiverUid), "idddd")
 
 
-       // messageList.add(Message(u1, u2, "Yo boii what's up", Timestamp(2023, Month.MAY, 14, 7, 30,  Timestamp.Meridiem.AM)))
-       // messageList.add(Message(u2, u1, "hey man", Timestamp(2023, Month.MAY, 14, 7, 30,  Timestamp.Meridiem.AM)))
-       // messageList.add(Message(u1, u2, "game tomorrow, you down ?", Timestamp(2023, Month.MAY, 14, 7, 30,  Timestamp.Meridiem.AM)))
-       // messageList.add(Message(u2, u1, "of couuuuurse man you know me ", Timestamp(2023, Month.MAY, 14, 7, 30,  Timestamp.Meridiem.AM)))
-       // messageList.add(Message(u1, u2, "All right see you at 9, usual place", Timestamp(2023, Month.MAY, 14, 7, 30,  Timestamp.Meridiem.AM)))
-       // messageList.add(Message(u2, u1, "bet", Timestamp(2023, Month.MAY, 14, 7, 30,  Timestamp.Meridiem.AM)))
 
         //------------------------------------------------------------------------
 

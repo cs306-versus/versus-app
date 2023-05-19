@@ -16,6 +16,10 @@ public class Chat {
     private String user2;
     private List<Message> messages;
 
+    public static String computeChatId(String u1, String u2){
+        return u1.compareTo(u2) >= 0 ? u1+u2 : u2 + u1 ;
+    }
+
     /**
      * main constructor of a Chat class
      * @param user1  first user contributing to the chat
