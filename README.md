@@ -1,5 +1,7 @@
-# Versus
-<div align="center">
+<div align=center>
+    <img src="versus-logo.png">
+</div>
+<div align=center>
     <a href="https://cirrus-ci.com/github/cs306-versus/versus-app"><img src="https://api.cirrus-ci.com/github/cs306-versus/versus-app.svg"/></a>
     <a href="https://github.com/cs306-versus/versus-app/actions/workflows/publish_doc.yml"><img src="https://github.com/cs306-versus/versus-app/actions/workflows/publish_doc.yml/badge.svg?branch=master"/></a>
     <a href="https://codeclimate.com/github/cs306-versus/versus-app/maintainability"><img src="https://api.codeclimate.com/v1/badges/b5faf1701dd0bafea7c2/maintainability"/></a>
