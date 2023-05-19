@@ -1,0 +1,364 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent" android:layout_height="wrap_content" >
+    <!--
+    /*
+     *	This content is generated from the API File Info.
+     *	(Alt+Shift+Ctrl+I).
+     *
+     *	@desc
+     *	@file 		frame_2
+     *	@date 		Wednesday 10th of May 2023 06:35:25 PM
+     *	@title 		Page 1
+     *	@author
+     *	@keywords
+     *	@generator 	Export Kit v1.3.figma
+     *
+     */
+    -->
+    <ScrollView android:id="@+id/frame_2"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" >
+
+        <RelativeLayout android:id="@+id/content_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+
+
+            <RelativeLayout android:id="@+id/page_frame_2_ek1"
+                android:layout_marginTop="0dp"
+                android:layout_marginStart="0dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                >
+
+
+                <View   android:id="@+id/bg__frame_2_ek2"
+                    android:background="@drawable/_bg__frame_2_ek2_shape"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_width="414dp"
+                    android:layout_height="896dp" />
+
+
+                <RelativeLayout android:id="@+id/menuu"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginStart="353dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <ImageView android:id="@+id/vivi3"
+                        android:src="@drawable/vivi3"
+                        android:contentDescription="vivi3"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="0dp"
+                        android:layout_width="34dp"
+                        android:layout_height="5dp" />
+
+                    <ImageView android:id="@+id/vivi2"
+                        android:src="@drawable/vivi2"
+                        android:contentDescription="vivi2"
+                        android:layout_marginStart="0dp"
+                        android:layout_marginTop="11dp"
+                        android:layout_width="44dp"
+                        android:layout_height="5dp" />
+
+                    <ImageView android:id="@+id/vivi1"
+                        android:src="@drawable/vivi1"
+                        android:contentDescription="vivi1"
+                        android:layout_marginStart="18dp"
+                        android:layout_marginTop="22dp"
+                        android:layout_width="26dp"
+                        android:layout_height="5dp" />
+
+                </RelativeLayout>
+                <ImageView android:id="@+id/right_one1"
+                    android:src="@drawable/right_one"
+                    android:contentDescription="right_one"
+                    android:layout_marginStart="115dp"
+                    android:layout_marginTop="817dp"
+                    android:layout_width="35.13dp"
+                    android:layout_height="0dp" />
+                <TextView android:id="@+id/search"
+                    android:fontFamily="Inter"
+                    android:textStyle="bold"
+                    android:textSize="33sp"
+                    android:textColor="@color/search_color"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="99dp"
+                    android:layout_width="250.5dp"
+                    android:layout_height="143.5dp"
+                    android:text="Buy your Sports Equipments"
+                    />
+
+                <View   android:id="@+id/first_arc"
+                    android:background="@drawable/first_arc_shape"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="220dp"
+                    android:layout_width="414dp"
+                    android:layout_height="676dp" />
+
+                <View   android:id="@+id/second_arc"
+                    android:background="@drawable/second_arc_shape"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="268dp"
+                    android:layout_width="1080dp"
+                    android:layout_height="2340dp" />
+
+                <TextView android:id="@+id/see_related_posts"
+                    android:fontFamily="Comic Neue"
+                    android:textStyle="bold"
+                    android:textSize="36sp"
+                    android:textColor="@color/search_color"
+                    android:layout_marginLeft="17dp"
+                    android:layout_marginTop="682dp"
+                    android:layout_width="377dp"
+                    android:layout_height="171dp"
+                    android:text="empty"
+                    />
+
+
+                <ImageView   android:id="@+id/the_real_left_arrow"
+                    android:background="@drawable/arrow_1"
+                    android:layout_marginStart="55dp"
+                    android:layout_marginTop="825dp"
+                    android:clickable="true"
+                    android:layout_width="35.13dp"
+                    android:layout_height="28dp" />
+
+                <ImageView   android:id="@+id/the_real_right_arrow"
+                    android:background="@drawable/arrow_2"
+                    android:layout_marginStart="308dp"
+                    android:layout_marginTop="825dp"
+                    android:clickable="true"
+                    android:layout_width="35.13dp"
+                    android:layout_height="28dp" />
+
+                <TextView android:id="@+id/the1"
+                    android:fontFamily="Comic Neue"
+                    android:textStyle="bold"
+                    android:textSize="36sp"
+                    android:textColor="@color/search_color"
+                    android:layout_marginLeft="123dp"
+                    android:layout_marginTop="817dp"
+                    android:layout_width="57dp"
+                    android:layout_height="60dp"
+                    android:text="1"
+                    />
+
+
+
+                <TextView android:id="@+id/the2"
+                    android:fontFamily="Comic Neue"
+                    android:textStyle="bold"
+                    android:textSize="36sp"
+                    android:textColor="@color/search_color"
+                    android:layout_marginLeft="169dp"
+                    android:layout_marginTop="817dp"
+                    android:layout_width="57dp"
+                    android:layout_height="60dp"
+                    android:text="2"
+                    />
+
+
+
+                <TextView android:id="@+id/the3"
+                    android:fontFamily="Comic Neue"
+                    android:textStyle="bold"
+                    android:textSize="36sp"
+                    android:textColor="@color/search_color"
+                    android:layout_marginLeft="215dp"
+                    android:layout_marginTop="817dp"
+                    android:layout_width="57dp"
+                    android:layout_height="60dp"
+                    android:text="3"
+                    />
+
+
+
+
+                <ImageView android:id="@+id/left_one"
+                    android:src="@drawable/left_one"
+                    android:contentDescription="left_one"
+                    android:layout_marginStart="100dp"
+                    android:layout_marginTop="400dp"
+                    android:layout_width="35.13dp"
+                    android:layout_height="0dp" />
+                <TextView android:id="@+id/dots"
+                    android:fontFamily="Comic Neue"
+                    android:textStyle="bold"
+                    android:textSize="36sp"
+                    android:textColor="@color/search_color"
+                    android:layout_marginLeft="261dp"
+                    android:layout_marginTop="817dp"
+                    android:layout_width="57dp"
+                    android:layout_height="60dp"
+                    android:text=".."
+                    />
+
+
+
+                <View   android:id="@+id/container_of_post"
+                    android:background="@drawable/container_of_post_shape"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginTop="344dp"
+                    android:layout_width="302dp"
+                    android:layout_height="456dp" />
+
+                <View   android:id="@+id/contact_person"
+                    android:background="@drawable/contact_person_shape"
+                    android:layout_marginStart="76dp"
+                    android:layout_marginTop="753dp"
+                    android:clickable="true"
+                    android:layout_width="59dp"
+                    android:layout_height="32dp" />
+                <View   android:id="@+id/filter_from_sport"
+                    android:background="@drawable/filter_from_sport_shape"
+                    android:layout_marginStart="136dp"
+                    android:layout_marginTop="295dp"
+                    android:layout_width="150dp"
+                    android:layout_height="40dp" />
+                <EditText
+                    android:id="@+id/search_for_post"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="165dp"
+                    android:layout_marginTop="290dp"
+                    android:ems="10"
+                    android:hint="Search"
+                    android:inputType="textPersonName"
+                  />
+
+
+                <ImageView android:id="@+id/picture_of_item"
+                    android:src="@drawable/picture_of_item"
+                    android:contentDescription="picture_of_item"
+                    android:layout_marginStart="88dp"
+                    android:layout_marginTop="375dp"
+                    android:layout_width="217dp"
+                    android:layout_height="174dp" />
+
+
+                <RelativeLayout android:id="@+id/workout_sport_item"
+                    android:layout_marginTop="616dp"
+                    android:layout_marginStart="73dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <ImageView android:id="@+id/body3"
+                        android:src="@drawable/body3"
+                        android:contentDescription="body3"
+                        android:layout_marginStart="15.17dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_width="3.5dp"
+                        android:layout_height="4dp" />
+
+                    <ImageView android:id="@+id/body2"
+                        android:src="@drawable/body2"
+                        android:contentDescription="body2"
+                        android:layout_marginStart="5.83dp"
+                        android:layout_marginTop="9.33dp"
+                        android:layout_width="16.33dp"
+                        android:layout_height="6.67dp" />
+
+                    <ImageView android:id="@+id/body1"
+                        android:src="@drawable/body1"
+                        android:contentDescription="body1"
+                        android:layout_marginStart="7.58dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="12.25dp"
+                        android:layout_height="18dp" />
+
+
+                </RelativeLayout>
+
+                <TextView android:id="@+id/object_short_descrption"
+                    android:fontFamily="Inter"
+                    android:textSize="14sp"
+                    android:textColor="#3A8FBE"
+                    android:layout_marginLeft="165dp"
+                    android:layout_marginTop="581dp"
+                    android:layout_width="135dp"
+                    android:layout_height="50dp"
+                    android:text="Nike Soccer Ball"
+                    />
+
+                <TextView android:id="@+id/contact"
+                    android:fontFamily="Inter"
+                    android:textSize="13sp"
+                    android:textColor="#3A8FBE"
+                    android:layout_marginLeft="82dp"
+                    android:layout_marginTop="758dp"
+                    android:layout_width="124.5dp"
+                    android:layout_height="49.5dp"
+                    android:text="contact"
+                    />
+
+                <TextView android:id="@+id/sport_of_item"
+                    android:fontFamily="Inter"
+                    android:textSize="14sp"
+                    android:textColor="#3A8FBE"
+                    android:layout_marginLeft="165dp"
+                    android:layout_marginTop="624dp"
+                    android:layout_width="135dp"
+                    android:layout_height="50dp"
+                    android:text="Soccer"
+                    />
+
+                <TextView android:id="@+id/price_of_item"
+                    android:fontFamily="Inter"
+                    android:textSize="14sp"
+                    android:textColor="#3A8FBE"
+                    android:layout_marginLeft="165dp"
+                    android:layout_marginTop="671dp"
+                    android:layout_width="135dp"
+                    android:layout_height="50dp"
+                    android:text="32 CHF"
+                    />
+
+                <TextView android:id="@+id/description_of_item"
+                    android:fontFamily="Inter"
+                    android:textSize="14sp"
+                    android:textColor="#3A8FBE"
+                    android:layout_marginLeft="75dp"
+                    android:layout_marginTop="714dp"
+                    android:layout_width="135dp"
+                    android:layout_height="50dp"
+                    android:text="Description"
+                    />
+
+                <ImageView android:id="@+id/the_172529_price_usd_tag_icon_1"
+                    android:src="@drawable/_172529_price_usd_tag_icon_1"
+                    android:contentDescription="_172529_price_usd_tag_icon_1"
+                    android:layout_marginStart="78dp"
+                    android:layout_marginTop="669dp"
+                    android:layout_width="20dp"
+                    android:layout_height="22dp" />
+
+                <TextView android:id="@+id/the_description"
+                    android:fontFamily="Inter"
+                    android:textSize="11sp"
+                    android:textColor="#000000"
+                    android:layout_marginLeft="165dp"
+                    android:layout_marginTop="718dp"
+                    android:layout_width="154.5dp"
+                    android:layout_height="77.5dp"
+                    android:text="it is a very nice ball nike x96 from the limited collection string"
+                    />
+
+                <ImageView android:id="@+id/the_2672706_object_target_essential_app_ux_icon__1__1"
+                    android:src="@drawable/_2672706_object_target_essential_app_ux_icon__1__1"
+                    android:contentDescription="_2672706_object_target_essential_app_ux_icon__1__1"
+                    android:layout_marginStart="76dp"
+                    android:layout_marginTop="581dp"
+                    android:layout_width="21dp"
+                    android:layout_height="24dp" />
+
+
+            </RelativeLayout>
+        </RelativeLayout>
+
+    </ScrollView>
+</ScrollView>

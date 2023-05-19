@@ -16,11 +16,12 @@ class UserAdapter(val context : Context, val userList : ArrayList<VersusUser>):
 
 
     class UserViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
-        val textName = itemView.findViewById<TextView>(R.id.txt_name)
+        val textName = itemView.findViewById<TextView>(R.id.textName)
+        //val textEmail = itemView.findViewById<TextView>(R.id.textEmail)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
-        val view : View = LayoutInflater.from(context).inflate(R.layout.user_layout, parent, false)
+        val view : View = LayoutInflater.from(context).inflate(R.layout.item_container_user, parent, false)
         return UserViewHolder(view)
     }
 
@@ -29,17 +30,17 @@ class UserAdapter(val context : Context, val userList : ArrayList<VersusUser>):
     }
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
-        val currentUser = userList[position]
-        val fullName = currentUser.firstName +" "+ currentUser.lastName
+        val userTemp = userList[position]
+        val fullName = userTemp.firstName +" "+ userTemp.lastName
         holder.textName.text = fullName
+        //holder.textEmail.text = userTemp.mail
         holder.itemView.setOnClickListener{
             val intent = Intent(context, UserChatActivity::class.java)
             intent.putExtra("UserToChatName", fullName)
-            intent.putExtra("uid", currentUser.uid)
-
-
+            intent.putExtra("uid", userTemp.uid)
             context.startActivity(intent)
         }
+
 
 
     }

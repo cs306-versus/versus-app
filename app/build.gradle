@@ -55,7 +55,7 @@ dependencies {
     }
 
     implementation 'androidx.appcompat:appcompat:1.6.1'
-
+    implementation 'com.makeramen:roundedimageview:2.3.0'
     dokkaPlugin 'org.jetbrains.dokka:android-documentation-plugin:1.8.10'
     implementation 'com.google.android.material:material:1.8.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
@@ -90,6 +90,8 @@ dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
 
     // Caching with Room Database dependencies

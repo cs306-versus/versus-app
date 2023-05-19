@@ -1,6 +1,7 @@
 package com.github.versus;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
@@ -9,6 +10,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.github.versus.user.UserInfoFragment;
 import com.google.android.material.navigation.NavigationView;
@@ -58,9 +62,13 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
             case R.id.nav_trending_sports:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new TrendingGamesFragment()).commit();
                 break;
+            case R.id.nav_sport_equipments:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new SportsEquipmentsFragment()).commit();
+                break;
 
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 }

@@ -20,4 +20,16 @@ public class LocationConverter {
         double longitude = Double.parseDouble(values[1]);
         return new Location(name,latitude,longitude);
     }
+    public static Location GameFragmentLocation(String locationString){
+        String cleanedString = locationString.replaceAll("\\s+", "");
+        int nameEndIndex = cleanedString.indexOf("(");
+        String name = cleanedString.substring(0, nameEndIndex);
+        int coordinatesStartIndex = nameEndIndex + 1;
+        int coordinatesEndIndex = cleanedString.indexOf(")");
+        String coordinatesString = cleanedString.substring(coordinatesStartIndex, coordinatesEndIndex);
+        String[] coordinatesArray = coordinatesString.split(",");
+        double latitude = Double.parseDouble(coordinatesArray[0]);
+        double longitude = Double.parseDouble(coordinatesArray[1]);
+        return new Location(name, latitude, longitude);
+    }
 }

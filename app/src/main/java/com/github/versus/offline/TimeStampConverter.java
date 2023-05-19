@@ -23,6 +23,21 @@ public class TimeStampConverter {
         //TODO tell the team that timestamp always have seconds set to zero
         int seconds = Integer.parseInt(components[1].substring(6, 8));
         Timestamp.Meridiem meridiem = Timestamp.Meridiem.valueOf(components[2].toUpperCase());
+
     return new Timestamp(year,month,day,hour,minute,meridiem);
     }
+
+    public static Timestamp GameFragmentTimestamp(String dateString){
+        String[] parts = dateString.split(" ");
+        String dayString = parts[0];
+        String monthString = parts[1].trim().toUpperCase();
+        String yearString = parts[3];
+
+        Month month = Month.valueOf(monthString);
+        int day = Integer.parseInt(dayString);
+        int year = Integer.parseInt(yearString);
+        // TODO : change when the game fragment will have hours
+        return new Timestamp(year,month,day,4,0, Timestamp.Meridiem.PM);
+    }
+
 }
