@@ -1,3 +1,4 @@
+
 package com.github.versus;
 
 import com.github.versus.posts.Location;

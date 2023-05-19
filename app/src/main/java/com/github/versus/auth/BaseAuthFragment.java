@@ -36,7 +36,7 @@ public abstract class BaseAuthFragment extends Fragment {
      *
      * @param button
      */
-    protected final void registerLoginButton(Button button) {
+    protected final void registerLoginButton(View button) {
         button.setOnClickListener(this::tryToLogin);
     }
 

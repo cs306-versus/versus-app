@@ -136,9 +136,10 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     // Threshold distance to consider a field as nearby (in meters)
     private double thresholdDistanceInput=1000;
     private  AutocompleteSupportFragment autocompleteFragment;
-    private Marker blinkingMarker ;
-    private Marker visibleMarker;
+    //private Marker blinkingMarker ;
+   // private Marker visibleMarker;
     private Polyline lastDrawnLine;
+    private double distanceValue;
 
 
     @Override
@@ -181,6 +182,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                 if(selectedPlace != null){
                     FetchDirectionsTask fetchDirectionsTask = new FetchDirectionsTask(localPos, selectedPlace);
                     fetchDirectionsTask.execute();
+                    calculateDistance(localPos,selectedPlace);
                 }
                 else {
                     showToast("No selected place !");
@@ -188,7 +190,6 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
             }
         });
-
 
 
         // Get the AutocompleteSupportFragment from the FragmentManager using its ID
@@ -217,16 +218,10 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                     autocompleteFragment.getView().setVisibility(View.GONE);
 
                     // Remove the previous markers if they exist
-                    if (blinkingMarker != null) {
-                        blinkingMarker.remove();
-                    }
-                    if (visibleMarker != null) {
-                        visibleMarker.remove();
-                    }
 
                     // Add a new marker at the selected place
-                    visibleMarker = map.addMarker(new MarkerOptions().title(place.getName()).position(selectedPlace).snippet(place.getAddress()));
-                    blinkingMarker = map.addMarker(new MarkerOptions().position(selectedPlace).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).title("Clicked Location"));
+                    map.addMarker(new MarkerOptions().title(place.getName()).position(selectedPlace).snippet(place.getAddress()));
+                    map.addMarker(new MarkerOptions().position(selectedPlace).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).title("Clicked Location"));
 
                     // Add a blinking marker at the selected place
                     addBlinkingMarker(selectedPlace, place.getName(), place.getName());
@@ -362,34 +357,26 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
             if (lastDrawnCircle != null) {
                 lastDrawnCircle.remove();
             }
-            if (visibleMarker != null) {
-                visibleMarker.remove();
-            }
+
             enableCustomLocationSelection();
         }
-         else if (item.getItemId() == R.id.option_choose_radius) {
+        else if (item.getItemId() == R.id.option_choose_radius) {
             if (lastDrawnCircle != null) {
                 lastDrawnCircle.remove();
             }
-            if (visibleMarker != null) {
-               visibleMarker.remove();
-            }
-        chooseDefaultRadius();
-    }
+
+            chooseDefaultRadius();
+        }
         else if (item.getItemId() == R.id.search_bar) {
             if (lastDrawnCircle != null) {
-               lastDrawnCircle.remove();
+                lastDrawnCircle.remove();
             }
-            if (visibleMarker != null) {
-                visibleMarker.remove();
-            }
+
             autocompleteFragment.getView().setVisibility(View.VISIBLE);
         }
 
-
         return true;
     }
-
     /**
      * Enables custom location selection by setting a map click listener.
      * When the map is clicked, it calls the findClosestFields method to find the closest fields to the clicked position.
@@ -404,6 +391,8 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         });
     }
 
+
+
     /**
      * Finds the closest fields to a clicked position on the map.
      * Iterates through the custom places and finds the ones within the threshold distance.
@@ -415,12 +404,11 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
 
         // Remove the last clicked marker if it exists
-        if (blinkingMarker != null) {
-            blinkingMarker.remove();
-        }
+
+
 
         // Add a new marker to the map at the clicked position
-        blinkingMarker = map.addMarker(new MarkerOptions().position(clickedPosition).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).title("Clicked Location"));
+        map.addMarker(new MarkerOptions().position(clickedPosition).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).title("Clicked Location"));
 
         // Iterate through the custom places and find the ones within the threshold distance
         List<CustomPlace> nearbyFields = customPlaces.stream().filter(place -> haversineDistance(clickedPosition, place.latLng) <= thresholdDistanceInput).collect(Collectors.toList());
@@ -437,7 +425,6 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                 likelyPlaceAddresses[i] = nearbyFields.get(i).address;
                 likelyPlaceLatLngs[i] = nearbyFields.get(i).latLng;
             }
-
             // Show the list of nearby fields
             showPlacesList();
         }
@@ -445,7 +432,6 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
             showToast("No locations found within the selected radius");
         }
     }
-
 
     /**
      * Gets the current location of the device, and positions the map's camera.
@@ -455,6 +441,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
          * Get the best and most recent location of the device, which may be null in rare
          * cases when a location is not available.
          */
+
         try {
             if (locationPermissionGranted) {
                 Task<Location> locationResult = fusedLocationProviderClient.getLastLocation();
@@ -575,7 +562,6 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                     dialog.dismiss();
                 }
 
-
             }
         }).setNegativeButton("Cancel", null).create();
         dialog.show();
@@ -593,7 +579,6 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         view = LayoutInflater.from(getActivity()).inflate(R.layout.radius_layout, null);
         radiusInput = view.findViewById(R.id.edit_text_radius2);
 
-
         // Get a reference to the EditText view in the layout
 
         radiusInput.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
@@ -601,6 +586,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
         // Create a dialog to display the EditText view
         AlertDialog dialog = new AlertDialog.Builder(getActivity()).setTitle("Enter radius").setView(view).setPositiveButton("Show Places", new DialogInterface.OnClickListener() {
+
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // Get the radius entered by the user
@@ -692,10 +678,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 selectedPlace= likelyPlaceLatLngs[position];
                 posSelectedPlace =position;
-                if (visibleMarker != null) {
-                    visibleMarker.remove();
-                }
-                visibleMarker = map.addMarker(new MarkerOptions().title(likelyPlaceNames[position]).position(selectedPlace).snippet(likelyPlaceAddresses[position]));
+                 map.addMarker(new MarkerOptions().title(likelyPlaceNames[position]).position(selectedPlace).snippet(likelyPlaceAddresses[position]));
 
                 addBlinkingMarker(selectedPlace, likelyPlaceNames[position], likelyPlaceAddresses[position]);
                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedPlace, DEFAULT_ZOOM));
@@ -766,6 +749,16 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         double c = 2 * atan2(sqrt(a), sqrt(1 - a));
         return earthRadius * c * 1000; // Distance in meters
     }
+    /**
+     * Calculates the haversine distance between two LatLng points in meters.
+     *
+     * @param currentPos The first LatLng point.
+     * @param selectedPos The second LatLng point.
+     * @return The haversine distance between the two points in meters.
+     */
+    private double calculateDistance(LatLng currentPos, LatLng selectedPos) {
+        return   distanceValue;
+    }
 
     /**
      * Applies a blinking animation to a given marker on the map.
@@ -817,13 +810,9 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     private void addBlinkingMarker(LatLng position, String title, String snippet) {
 
         MarkerOptions blinkingMarkerOptions = new MarkerOptions().position(position).title(title).snippet(snippet).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).alpha(0.5f).visible(false);
-        if (blinkingMarker != null) {
-            //Clearing the map from previous circles
-            blinkingMarker.remove();
-        }
-         blinkingMarker = map.addMarker(blinkingMarkerOptions);
 
-        applyBlinkingAnimation(blinkingMarker);
+
+        applyBlinkingAnimation(map.addMarker(blinkingMarkerOptions));
     }
     private void drawPath(GoogleMap map, List<LatLng> points) {
         if (lastDrawnCircle != null) {
@@ -851,7 +840,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         private LatLng origin;
         private LatLng destination;
         private String errorMessage;
-        private double distanceValue;
+
         private String distanceText;
 
         public FetchDirectionsTask(LatLng origin, LatLng destination) {
@@ -943,6 +932,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                 } else {
                     showToast("Failed to fetch directions");
                 }
+
             }
         }
     }
