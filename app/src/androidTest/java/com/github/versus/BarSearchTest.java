@@ -136,6 +136,7 @@ public class BarSearchTest {
         device.click(x, y);
     }
 
+
     /**
      * ElapsedTimeIdlingResource is an implementation of the IdlingResource interface.
      * It is used to wait for a specified amount of time before allowing the test to continue.
