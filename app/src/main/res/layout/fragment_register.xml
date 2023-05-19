@@ -287,19 +287,28 @@
             />
     </RelativeLayout>
 
-    <Button
-        android:id="@+id/register_btn"
-        android:fontFamily="@font/poppins_medium"
-        android:background="@drawable/rectangle_1_shape"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:textSize="21sp"
+    <RelativeLayout android:id="@+id/register_btn"
+        android:background="@drawable/rectangle_3_shape"
         android:layout_marginTop="719dp"
         android:layout_marginStart="105dp"
-        android:textColor="@color/white"
+        android:focusable="true"
+        android:clickable="true"
         android:layout_width="181dp"
-        android:layout_height="54dp"
-        android:text="@string/register" />
+        android:layout_height="54dp">
+
+        <TextView
+            android:id="@+id/register"
+            android:fontFamily="@font/poppins_medium"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textSize="21sp"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/register" />
+
+    </RelativeLayout>
 
 
 </RelativeLayout>
