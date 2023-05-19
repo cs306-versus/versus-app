@@ -1,5 +1,6 @@
 package com.github.versus;
 
+
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 import static android.content.ContentValues.TAG;
@@ -23,7 +24,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.github.versus.announcements.AnnouncementAdapter;
+import com.github.versus.announcements.PostAnnouncementAdapter;
 import com.github.versus.announcements.ChoosePostSportDialogFragment;
 import com.github.versus.announcements.CreatePostTitleDialogFragment;
 import com.github.versus.announcements.LocationPickerDialog;
@@ -74,7 +75,7 @@ public class SearchFragment extends Fragment implements LocationPickerDialog.Loc
     protected List<Post> displayPosts = new ArrayList<>();
     protected String filter = "";
 
-    protected AnnouncementAdapter aa;
+    protected PostAnnouncementAdapter aa;
     protected FsPostManager pm;
     protected Boolean isCalledSportsFrag=false;
     public String SearchTextSportsFrag="";
@@ -148,7 +149,7 @@ public class SearchFragment extends Fragment implements LocationPickerDialog.Loc
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         pm = new FsPostManager(FirebaseFirestore.getInstance());
 
-        aa = new AnnouncementAdapter(displayPosts, user, pm);
+        aa = new PostAnnouncementAdapter(displayPosts, user, pm, getContext());
         recyclerView.setLayoutManager(llm);
         recyclerView.setAdapter(aa);
         cpdf = new CreatePostTitleDialogFragment();
@@ -174,7 +175,6 @@ public class SearchFragment extends Fragment implements LocationPickerDialog.Loc
     }
 
     public void createPost(){
-
         cpdf.show(getChildFragmentManager(), "1");
     }
 
