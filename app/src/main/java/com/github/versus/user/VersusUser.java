@@ -32,6 +32,8 @@ public final class VersusUser implements User, Serializable {
     private final int zip;
     private final List<Sport> preferredSports;
 
+    private final List<String> friends;
+
 
     public VersusUser(){
         city = null;
@@ -44,6 +46,7 @@ public final class VersusUser implements User, Serializable {
         uid = "";
         firstName = "";
         lastName = "";
+        friends = null;
     }
     public VersusUser(String uid, String firstName,String lastName,String userName, String mail, String phone , int rating , String city, int zipCode,List<Sport> preferredSports ){
         this.uid = uid;
@@ -56,6 +59,7 @@ public final class VersusUser implements User, Serializable {
         this.city = city;
         this.zip =zipCode;
         this.preferredSports = List.copyOf(preferredSports);
+        this.friends = List.copyOf()
     }
     public VersusUser(Builder builder){
         this.uid = builder.uid;
