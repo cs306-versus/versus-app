@@ -42,7 +42,6 @@ public final class RegisterFragment extends BaseAuthFragment {
     protected Task<AuthResult> requestAuthentication() {
         String mailText = binding.emailAddress.getText().toString();
         String pwdText = binding.password.getText().toString();
-        Toast.makeText(getContext(), mailText + pwdText, Toast.LENGTH_SHORT);
         Task<AuthResult> task = auth.createAccountWithMail(mailText, pwdText);
         task.addOnSuccessListener(result -> {
             String uid = result.getUser().getUid();
