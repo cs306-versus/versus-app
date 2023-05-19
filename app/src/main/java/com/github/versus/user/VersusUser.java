@@ -62,17 +62,9 @@ public final class VersusUser implements User, Serializable {
         this.friends = List.copyOf(friends);
     }
     public VersusUser(Builder builder){
-        this.uid = builder.uid;
-        this.firstName = builder.firstName;
-        this.lastName = builder.lastName;
-        this.userName = builder.userName;
-        this.mail = builder.mail;
-        this.phone = builder.phone;
-        this.rating = builder.rating;
-        this.city = builder.city;
-        this.zip = builder.zipCode;
-        this.preferredSports = List.copyOf(builder.preferredSports);
-        this.friends = List.copyOf(builder.friends);
+        this(builder.uid, builder.firstName, builder.lastName, builder.userName,
+                builder.mail, builder.phone, builder.rating, builder.city, builder.zipCode,
+                builder.preferredSports, builder.friends);
 
     }
 
@@ -126,6 +118,9 @@ public final class VersusUser implements User, Serializable {
         return preferredSports;
     }
 
+    public List<String> getFriends() {
+        return friends;
+    }
     @Override
     public int hashCode() {
         return Objects.hashCode(uid);
@@ -134,6 +129,11 @@ public final class VersusUser implements User, Serializable {
     @Override
     public boolean equals(@Nullable Object obj) {
         return (obj instanceof VersusUser) && uid.equals(((VersusUser) obj).uid);
+    }
+
+    public static String computeUID(String mail){
+        String uid =  Integer.toHexString(mail.hashCode()).toUpperCase();
+        return uid;
     }
 
     @NonNull

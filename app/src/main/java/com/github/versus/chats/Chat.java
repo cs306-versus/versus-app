@@ -12,8 +12,8 @@ import java.util.Map;
 public class Chat {
 
     private String chatId;
-    private DummyUser user1;
-    private DummyUser user2;
+    private String user1;
+    private String user2;
     private List<Message> messages;
 
     /**
@@ -22,7 +22,7 @@ public class Chat {
      * @param user2 second user contributing to the chat
      * @param chatId the unique id used to identify the chat
      */
-    public Chat(DummyUser user1, DummyUser user2, String chatId) {
+    public Chat(String user1, String user2, String chatId) {
         this.chatId = chatId;
         this.user1 = user1;
         this.user2 = user2;
@@ -36,14 +36,14 @@ public class Chat {
      *
      * @return first user contributing to the chat
      */
-    public DummyUser getUser1() {
+    public String getUser1UID() {
         return user1;
     }
     /**
      *
      * @return second user contributing to the chat
      */
-    public DummyUser getUser2() {
+    public String getUser2UID() {
         return user2;
     }
     /**
@@ -75,8 +75,8 @@ public class Chat {
      */
     public Map<String, Object>getAllAttributes(){
         Map<String, Object> res =  new HashMap<String, Object>();
-        res.put("user1", getUser1());
-        res.put("user2", getUser2());
+        res.put("user1", getUser1UID());
+        res.put("user2", getUser2UID());
         res.put("messages", getMessages());
         res.put("chatId", getChatId());
         return res;
@@ -93,8 +93,8 @@ public class Chat {
 
         Chat other = (Chat) obj;
         return this.getChatId().equals(other.getChatId()) &&
-                this.getUser1().getUID().equals(other.getUser1().getUID())&&
-                this.getUser2().getUID().equals(other.getUser2().getUID())&&
+                this.getUser1UID().equals(other.getUser1UID())&&
+                this.getUser2UID().equals(other.getUser2UID())&&
                 this.getMessages().equals(other.getMessages());
     }
 }

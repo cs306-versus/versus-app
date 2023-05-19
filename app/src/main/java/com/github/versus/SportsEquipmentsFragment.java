@@ -63,7 +63,7 @@ public class SportsEquipmentsFragment extends Fragment {
         displayedsportEquipmentPostList = new ArrayList<>();
         this.contenue = "";
         //Adding dummy Posts waiting to connect to database
-        VersusUser userofPosts = new VersusUser("1", "Aymane", "Lamyaghri", "thelam", "aymane.lamyaghri@epfl.ch", "078437822", 5, "Kenitra", 14000, List.of());
+        VersusUser userofPosts = new VersusUser("1", "Aymane", "Lamyaghri", "thelam", "aymane.lamyaghri@epfl.ch", "078437822", 5, "Kenitra", 14000, List.of(),  List.of());
 
         displayedsportEquipmentPostList.add(new SportEquipmentPost("Nike Soccer Ball",
                 Sport.SOCCER,

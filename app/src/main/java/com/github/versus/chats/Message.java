@@ -9,8 +9,8 @@ import com.github.versus.user.User;
  */
 public class Message {
 
-    private final DummyUser sender;
-    private final DummyUser recipient;
+    private final String sender;
+    private final String recipient;
     private final String body;
     private final Timestamp timestamp;
 
@@ -21,7 +21,7 @@ public class Message {
      * @param body body of the messsage
      * @param timestamp time of the messsage
      */
-    public Message(DummyUser sender, DummyUser recipient, String body, Timestamp timestamp) {
+    public Message(String sender, String recipient, String body, Timestamp timestamp) {
         this.sender = sender;
         this.recipient = recipient;
         this.body = body;
@@ -35,14 +35,14 @@ public class Message {
      *
      * @return the sender of the message
      */
-    public User getSender() {
+    public String getSender() {
         return sender;
     }
     /**
      *
      * @return the recipient of the message
      */
-    public User getRecipient() {
+    public String getRecipient() {
         return recipient;
     }
 
@@ -82,8 +82,8 @@ public class Message {
         }
 
         Message other = (Message) obj;
-        return this.getSender().getUID().equals(other.getSender().getUID())&&
-                this.getRecipient().getUID().equals(other.getRecipient().getUID())&&
+        return this.getSender().equals(other.getSender())&&
+                this.getRecipient().equals(other.getRecipient())&&
                 this.getBody().equals(other.getBody())&&
                 this.getTimestamp().equals(other.getTimestamp());
     }

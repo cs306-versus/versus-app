@@ -27,7 +27,7 @@ class MessageAdapter(val context: Context, val messageList: ArrayList<Message>) 
 
     override fun getItemViewType(position: Int): Int {
         val currentMessage = messageList[position]
-        if(FirebaseAuth.getInstance().currentUser?.uid.equals(currentMessage.sender.uid)){
+        if(FirebaseAuth.getInstance().currentUser?.uid.equals(currentMessage.sender)){
             return ITEM_SENT
         }
         return ITEM_RECEIVE

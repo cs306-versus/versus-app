@@ -9,12 +9,14 @@ import com.github.versus.chats.Message;
 import com.github.versus.db.FsChatManager;
 import com.github.versus.db.FsPostManager;
 import com.github.versus.db.FsScheduleManager;
+import com.github.versus.db.FsUserManager;
 import com.github.versus.posts.Location;
 import com.github.versus.posts.Post;
 import com.github.versus.posts.Timestamp;
 import com.github.versus.schedule.Schedule;
 import com.github.versus.sports.Sport;
 import com.github.versus.user.DummyUser;
+import com.github.versus.user.VersusUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.junit.Test;
@@ -22,10 +24,11 @@ import org.junit.runner.RunWith;
 
 import java.time.Month;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeoutException;
-
+import java.util.stream.Collectors;
 
 
 @RunWith(AndroidJUnit4.class)
@@ -40,7 +43,7 @@ public class FsChatManagerTest {
         FsChatManager chatm = new FsChatManager(db);
 
         // Creating a test post
-        Chat chat = new Chat(new DummyUser("abdess"), new DummyUser("aymane"), "hehe" );
+        Chat chat = new Chat("abdess", "aymane", "hehe" );
 
         //inserting the chat
         Future<Boolean> insertResult = chatm.insert(chat);
@@ -69,9 +72,8 @@ public class FsChatManagerTest {
         FsChatManager chatm = new FsChatManager(db);
 
         // Creating a test chat
-        DummyUser u1 = new DummyUser("p1");
-        DummyUser u2 = new DummyUser("p2");
-        Chat chat = new Chat(u1, u2, testChatId );
+
+        Chat chat = new Chat("p1", "p2", testChatId );
 
         //inserting the chat
         Future<Boolean> insertResult = chatm.insert(chat);
@@ -82,7 +84,7 @@ public class FsChatManagerTest {
 
         // creating a new message and adding it
 
-        Message testMessage = new Message(u1, u2, "heyy",  new Timestamp(2023, Month.AUGUST, 18, 11, 15, Timestamp.Meridiem.AM));
+        Message testMessage = new Message("p1", "p2", "heyy",  new Timestamp(2023, Month.AUGUST, 18, 11, 15, Timestamp.Meridiem.AM));
         boolean additionSuccess = chatm.addMessageToChat(testChatId, testMessage).get();
 
         // Verify that the addition operation succeeded
@@ -103,6 +105,83 @@ public class FsChatManagerTest {
         assertTrue(deletionSuccess);
 
     }
+
+    @Test
+    public void createSomeUsers() throws ExecutionException, InterruptedException, TimeoutException
+    {
+        // Creating FsPostm instance
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        List<VersusUser> userList = new ArrayList<>();
+        List<String> mails = new ArrayList<>();
+        mails.add("jane.doe@versus.ch");
+        mails.add("adam.mernissi@versus.ch");
+        mails.add("aymane.lamyaghri@versus.ch");
+        mails.add("mehdi.ziazi@versus.ch");
+        mails.add("hamza.remmal@versus.ch");
+        mails.add("alex.muller@versus.ch");
+        List<String> firstNames = new ArrayList<>();
+        firstNames.add("Jane");
+        firstNames.add("Adam");
+        firstNames.add("Aymane");
+        firstNames.add("Mehdi");
+        firstNames.add("Hamza");
+        firstNames.add("Alex");
+
+        List<String> lastNames = new ArrayList<>();
+        lastNames.add("doe");
+        lastNames.add("Adam");
+        lastNames.add("Aymane");
+        lastNames.add("Ziazi");
+        lastNames.add("Remmal");
+        lastNames.add("Muller");
+
+        List<String> uids = new ArrayList<>();
+        for (String mail: mails
+             ) {
+            String hash = VersusUser.computeUID(mail);
+            uids.add(hash);
+        }
+
+        for (int i = 0; i < mails.size() ; i++) {
+            int finalI = i;
+            userList.add(
+                    new VersusUser.Builder(uids.get(i)).setUserName(firstNames.get(i)+"_"+lastNames.get(i)).setFirstName(firstNames.get(i)).setLastName(lastNames.get(i)).setMail(mails.get(i))
+                            .setPhone("+417864847892").setRating(2000).setCity("Lausanne").setFriends(
+                                    uids.stream().filter(e -> e != uids.get(finalI)).collect(Collectors.toList())
+                            ).build()
+            );
+        }
+
+        FsUserManager userManager = new FsUserManager(db);
+        for (VersusUser user: userList
+             ) {
+            assertTrue( userManager.insert(user).get());
+        }
+
+        FsChatManager chatManager = new FsChatManager(db);
+        for (String friend: userList.get(0).getFriends()
+        ) {
+            List<Message> messageList = new ArrayList<>();
+            // jane doe chats
+            String u1 = uids.get(0);
+            String u2 = friend;
+            messageList.add(new Message(u1, u2, "Yo boii what's up", new Timestamp(2023, Month.MAY, 14, 7, 30,  Timestamp.Meridiem.AM)));
+            messageList.add(new Message(u2, u1, "hey man",new Timestamp(2023, Month.MAY, 14, 7, 30,  Timestamp.Meridiem.AM)));
+            messageList.add(new Message(u1, u2, "game tomorrow, you down ?", new Timestamp(2023, Month.MAY, 14, 7, 30,  Timestamp.Meridiem.AM)));
+            messageList.add(new Message(u2, u1, "of couuuuurse man you know me ", new Timestamp(2023, Month.MAY, 14, 7, 30,  Timestamp.Meridiem.AM)));
+            messageList.add(new Message(u1, u2, "All right see you at 9, usual place",new  Timestamp(2023, Month.MAY, 14, 7, 30,  Timestamp.Meridiem.AM)));
+            messageList.add(new Message(u2, u1, "bet",new  Timestamp(2023, Month.MAY, 14, 7, 30,  Timestamp.Meridiem.AM)));
+
+            Chat chat = new Chat(u1, u2, u1+ u2 );
+            for (Message m: messageList
+                 ) {
+                chat.addMessage(m);
+            }
+            assertTrue(chatManager.insert(chat).get());
+        }
+    }
+
 
 
 

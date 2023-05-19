@@ -77,18 +77,18 @@ class UserChatActivity : AppCompatActivity(){
       }
      */
  */
-        val u1 = DummyUser(senderUid)
-        val u2 =  DummyUser(receiverUid)
+        val u1 = senderUid
+        val u2 =  receiverUid
 
-        val chat = Chat(DummyUser(senderUid), DummyUser(receiverUid), "idddd")
+       // val chat = Chat(DummyUser(senderUid), DummyUser(receiverUid), "idddd")
 
 
-        messageList.add(Message(u1, u2, "Yo boii what's up", Timestamp(2023, Month.MAY, 14, 7, 30,  Timestamp.Meridiem.AM)))
-        messageList.add(Message(u2, u1, "hey man", Timestamp(2023, Month.MAY, 14, 7, 30,  Timestamp.Meridiem.AM)))
-        messageList.add(Message(u1, u2, "game tomorrow, you down ?", Timestamp(2023, Month.MAY, 14, 7, 30,  Timestamp.Meridiem.AM)))
-        messageList.add(Message(u2, u1, "of couuuuurse man you know me ", Timestamp(2023, Month.MAY, 14, 7, 30,  Timestamp.Meridiem.AM)))
-        messageList.add(Message(u1, u2, "All right see you at 9, usual place", Timestamp(2023, Month.MAY, 14, 7, 30,  Timestamp.Meridiem.AM)))
-        messageList.add(Message(u2, u1, "bet", Timestamp(2023, Month.MAY, 14, 7, 30,  Timestamp.Meridiem.AM)))
+       // messageList.add(Message(u1, u2, "Yo boii what's up", Timestamp(2023, Month.MAY, 14, 7, 30,  Timestamp.Meridiem.AM)))
+       // messageList.add(Message(u2, u1, "hey man", Timestamp(2023, Month.MAY, 14, 7, 30,  Timestamp.Meridiem.AM)))
+       // messageList.add(Message(u1, u2, "game tomorrow, you down ?", Timestamp(2023, Month.MAY, 14, 7, 30,  Timestamp.Meridiem.AM)))
+       // messageList.add(Message(u2, u1, "of couuuuurse man you know me ", Timestamp(2023, Month.MAY, 14, 7, 30,  Timestamp.Meridiem.AM)))
+       // messageList.add(Message(u1, u2, "All right see you at 9, usual place", Timestamp(2023, Month.MAY, 14, 7, 30,  Timestamp.Meridiem.AM)))
+       // messageList.add(Message(u2, u1, "bet", Timestamp(2023, Month.MAY, 14, 7, 30,  Timestamp.Meridiem.AM)))
 
         //------------------------------------------------------------------------
 
