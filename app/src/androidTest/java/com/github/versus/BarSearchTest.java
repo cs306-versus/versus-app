@@ -122,7 +122,6 @@ public class BarSearchTest {
 
         IdlingRegistry.getInstance().unregister(idlingResourceFirst);
 
-
     }
 
 
