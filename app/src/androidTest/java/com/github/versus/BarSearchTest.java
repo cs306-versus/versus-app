@@ -103,6 +103,7 @@ public class BarSearchTest {
         IdlingRegistry.getInstance().unregister(idlingResource2);
 
 
+
     }
     /**
      * ElapsedTimeIdlingResource is an implementation of the IdlingResource interface.
