@@ -44,6 +44,7 @@ public final class EntryActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        auth.signOut();
         // Fetch the current user
         User user = auth.currentUser();
         // Pick the target activity to start
