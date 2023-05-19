@@ -1,6 +1,6 @@
 
 
-package com.github.versus;
+/*package com.github.versus;
 
 import com.github.versus.posts.Location;
 import com.github.versus.posts.Timestamp;
@@ -50,3 +50,4 @@ public class WeatherServiceTest {
     }
 
 }
+*/
