@@ -942,6 +942,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                 } else {
                     showToast("Failed to fetch directions");
                 }
+
             }
         }
     }
