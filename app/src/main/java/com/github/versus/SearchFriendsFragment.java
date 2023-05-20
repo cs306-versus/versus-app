@@ -31,7 +31,7 @@ public class SearchFriendsFragment extends Fragment{
 
 
     protected RecyclerView recyclerView;
-    protected VersusUser user = new VersusUser.Builder("fake").build();
+    protected VersusUser user = new VersusUser.VersusBuilder("fake").build();
 
     protected EditText searchBar;
 
@@ -49,7 +49,7 @@ public class SearchFriendsFragment extends Fragment{
 
         FsUserManager db = null;
         if(FirebaseAuth.getInstance() != null && FirebaseFirestore.getInstance() != null && FirebaseAuth.getInstance().getUid() != null) {
-            user = new VersusUser.Builder(FirebaseAuth.getInstance().getUid()).build();
+            user = new VersusUser.VersusBuilder(FirebaseAuth.getInstance().getUid()).build();
             db = new FsUserManager(FirebaseFirestore.getInstance());
             ((CompletableFuture<User>)db.fetch(FirebaseAuth.getInstance().getUid())).thenAccept(this::setUser);
         }

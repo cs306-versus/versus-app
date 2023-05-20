@@ -32,7 +32,7 @@ public final class VersusUserTest {
 
     @Before
     public void buildUser(){
-        VersusUser.Builder builder = new VersusUser.Builder(UID);
+        VersusUser.VersusBuilder builder = new VersusUser.VersusBuilder(UID);
         builder.setFirstName(FIRST_NAME)
                 .setLastName(LAST_NAME)
                 .setUserName(USERNAME)
@@ -102,7 +102,7 @@ public final class VersusUserTest {
 
     @Test
     public void testWithSameUID(){
-        VersusUser.Builder builder = new VersusUser.Builder(UID);
+        VersusUser.VersusBuilder builder = new VersusUser.VersusBuilder(UID);
         assertEquals(user, builder.build());
     }
 

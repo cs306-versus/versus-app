@@ -19,7 +19,7 @@ public interface Authenticator extends Serializable {
      * @param password
      * @return
      */
-    Task<AuthResult> createAccountWithMail(String mail, String password);
+    Task<AuthResult> createAccountWithMail(String mail, String password, User.Builder builder);
 
     /**
      * ???

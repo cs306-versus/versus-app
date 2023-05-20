@@ -61,7 +61,7 @@ public class EntryActivityTest {
     private static class NoUserAuthenticator implements Authenticator, Serializable {
 
         @Override
-        public Task<AuthResult> createAccountWithMail(String mail, String password) {
+        public Task<AuthResult> createAccountWithMail(String mail, String password, User.Builder user) {
             return null;
         }
 
@@ -84,7 +84,7 @@ public class EntryActivityTest {
     private static class UserAuthenticator implements Authenticator, Serializable {
 
         @Override
-        public Task<AuthResult> createAccountWithMail(String mail, String password) {
+        public Task<AuthResult> createAccountWithMail(String mail, String password, User.Builder user) {
             return null;
         }
 

@@ -12,7 +12,12 @@ import com.github.versus.R;
 
 import java.util.Optional;
 
-public class AuthActivity extends AppCompatActivity {
+/**
+ * Main Activity for the authentication process
+ *
+ * @author Hamza REMMAL (hamza.remmal@epfl.ch)
+ */
+public final class AuthActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,4 +31,5 @@ public class AuthActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
     }
+
 }

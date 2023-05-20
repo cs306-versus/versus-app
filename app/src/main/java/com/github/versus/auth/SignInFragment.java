@@ -1,6 +1,8 @@
 package com.github.versus.auth;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,14 +17,25 @@ import androidx.fragment.app.FragmentTransaction;
 import com.github.versus.R;
 import com.github.versus.databinding.SigninFragmentBinding;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+
+import com.github.versus.MainActivity;
 
 /**
  * ???
  */
-public class SignInFragment extends BaseAuthFragment {
+public final class SignInFragment extends Fragment {
 
     private SigninFragmentBinding binding;
+
+    /** Instance of the authenticator we use */
+    private Authenticator auth;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        this.auth = VersusAuthenticator.getInstance(FirebaseAuth.getInstance());
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -34,9 +47,7 @@ public class SignInFragment extends BaseAuthFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        binding.authSignin.setOnClickListener(this::signInRequest);
-        registerLoginButton(binding.authLoginMail);
+        binding.authLoginMail.setOnClickListener(this::loginWithPWD);
         binding.authLoginGoogle.setOnClickListener(this::loginWithGoogleRequest);
     }
 
@@ -46,46 +57,35 @@ public class SignInFragment extends BaseAuthFragment {
      * @param view
      */
     private void loginWithGoogleRequest(View view) {
-        switchTo(GoogleAuthFragment.class);
-    }
-
-    /**
-     * ???
-     *
-     * @param view
-     */
-    private void signInRequest(View view) {
-        switchTo(SignInFragment.class);
-    }
-
-    private void switchTo(Class<? extends Fragment> clz){
         FragmentManager manager = getParentFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.fragmentContainerView, clz, null);
+        transaction.replace(R.id.fragmentContainerView, GoogleAuthFragment.class, null);
         transaction.commit();
     }
 
-    @Override
-    protected Task<AuthResult> requestAuthentication() {
-        String mailText = binding.authLoginMailMail.getText().toString();
-        String pwdText = binding.authLoginMailPwd.getText().toString();
-        return auth.signInWithMail(mailText, pwdText);
+    private void loginWithPWD(View view){
+        String mail = binding.authLoginMailMail.getText().toString();
+        // TODO HR : Handle if the mail doesn't follow the pattern
+        String pwd = binding.authLoginMailPwd.getText().toString();
+        // TODO HR : Handle if the pwd is empty
+        Task<?> task = auth.signInWithMail(mail, pwd);
+        // HR : if the connection was successful, move to the MainActivity
+        task.addOnSuccessListener(res -> {
+            startActivity(new Intent(getContext(), MainActivity.class));
+            getActivity().finish();
+        });
+        // HR : if the connection failed
+        task.addOnFailureListener(ex -> {
+            Toast.makeText(getActivity(),
+                    "Connection failed",
+                    Toast.LENGTH_SHORT).show();
+        });
+        // HR : if the connection was cancelled
+        task.addOnCanceledListener(() -> {
+            Toast.makeText(getActivity(),
+                    "Connection was cancelled for some reason",
+                    Toast.LENGTH_SHORT).show();
+        });
     }
 
-    @Override
-    protected void handleSuccessfulConnection(AuthResult result) {
-
-    }
-
-    @Override
-    protected void handleFailedConnection(Exception exception) {
-        Toast.makeText(getContext(), "handleFailedConnection",
-                Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    protected void handleCancelledConnection() {
-        Toast.makeText(getContext(), "handleCancelledConnection",
-                Toast.LENGTH_SHORT).show();
-    }
 }

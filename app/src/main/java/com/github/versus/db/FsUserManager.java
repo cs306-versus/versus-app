@@ -1,7 +1,5 @@
 package com.github.versus.db;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.versus.posts.Post;
 import com.github.versus.user.User;
 import com.github.versus.user.VersusUser;
 import com.google.android.gms.tasks.Task;
@@ -95,7 +93,7 @@ public class FsUserManager implements DataBaseManager<User> {
             for (DocumentSnapshot doc: docs
             ) {
                 //converting the data we get into an actual post object
-                VersusUser.Builder builder = build(doc);
+                VersusUser.VersusBuilder builder = build(doc);
                 //.setZipCode(content.get(ZIP_CODE_FIELD, int.class))
                 //.setPreferredSports(new ArrayList<>());
                 users.add(builder.build());
@@ -108,8 +106,8 @@ public class FsUserManager implements DataBaseManager<User> {
         return future;
     }
 
-    private VersusUser.Builder build(DocumentSnapshot doc){
-        VersusUser.Builder builder = new VersusUser.Builder(doc.getId());
+    private VersusUser.VersusBuilder build(DocumentSnapshot doc){
+        VersusUser.VersusBuilder builder = new VersusUser.VersusBuilder(doc.getId());
         return builder.setFirstName(doc.get(FIRST_NAME_FIELD, String.class))
                 .setLastName(doc.get(LAST_NAME_FIELD, String.class))
                 .setUserName(doc.get(USERNAME_FIELD, String.class))
@@ -127,7 +125,7 @@ public class FsUserManager implements DataBaseManager<User> {
         CompletableFuture<User> future = new CompletableFuture<>();
         Task<DocumentSnapshot> doc = collection.document(uid).get();
         doc.addOnSuccessListener(content -> {
-            VersusUser.Builder builder = build(content);
+            VersusUser.VersusBuilder builder = build(content);
             future.complete(builder.build());
         })
         .addOnFailureListener(failure -> {

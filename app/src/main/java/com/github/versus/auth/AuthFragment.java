@@ -15,7 +15,14 @@ import android.view.ViewGroup;
 import com.github.versus.R;
 import com.github.versus.databinding.FragmentAuthBinding;
 
-public class AuthFragment extends Fragment {
+/**
+ * Entry point of the authentication process
+ * It welcomes the user and request from it to either
+ * login or register
+ *
+ * @author Hamza REMMAL (hamza.remmal@epfl.ch)
+ */
+public final class AuthFragment extends Fragment {
 
     private FragmentAuthBinding binding;
 
@@ -38,4 +45,5 @@ public class AuthFragment extends Fragment {
         transaction.replace(R.id.fragmentContainerView, clz, null);
         transaction.commit();
     }
+
 }

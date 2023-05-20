@@ -14,7 +14,6 @@ import com.github.versus.posts.Location;
 import com.github.versus.posts.Post;
 import com.github.versus.posts.Timestamp;
 import com.github.versus.sports.Sport;
-import com.github.versus.user.DummyUser;
 import com.github.versus.user.VersusUser;
 
 import org.junit.After;
@@ -31,7 +30,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
-import java.util.stream.Collectors;
 
 @RunWith(AndroidJUnit4.class)
 public class CacheManagerTest {
@@ -46,8 +44,8 @@ public class CacheManagerTest {
         List<Sport> preferredSports2= Arrays.asList(Sport.BOXING);
         List<Sport> preferredSports3= Arrays.asList(Sport.FOOTBALL,Sport.BASKETBALL);
 
-        VersusUser.Builder builder ;
-        builder= new VersusUser.Builder("007");
+        VersusUser.VersusBuilder builder ;
+        builder= new VersusUser.VersusBuilder("007");
         builder.setFirstName("James");
         builder.setLastName("Bond");
         builder.setUserName("NotInfiltrated");
@@ -59,7 +57,7 @@ public class CacheManagerTest {
         builder.setPreferredSports(preferredSports1);
         VersusUser JamesBond=   builder.build();
 
-        builder = new VersusUser.Builder("1");
+        builder = new VersusUser.VersusBuilder("1");
         builder.setFirstName("Mohammad");
         builder.setLastName("Ali");
         builder.setUserName("TheGoat");
@@ -71,7 +69,7 @@ public class CacheManagerTest {
         builder.setPreferredSports(preferredSports2);
         VersusUser MohammedAli= builder.build();
 
-        builder = new VersusUser.Builder("999");
+        builder = new VersusUser.VersusBuilder("999");
         builder.setFirstName("Regular");
         builder.setLastName("Guy");
         builder.setUserName("BasicGuy");
