@@ -107,6 +107,7 @@ public class FsChatManagerTest {
     }
 
 
+    @Test
     public void createSomeUsers() throws ExecutionException, InterruptedException, TimeoutException
     {
         // Creating FsPostm instance
@@ -145,11 +146,11 @@ public class FsChatManagerTest {
 
         for (int i = 0; i < mails.size() ; i++) {
             int finalI = i;
+            List<String> friends = uids.stream().filter(e -> e != uids.get(finalI)).collect(Collectors.toList());
+            friends.forEach(e -> System.out.println(e));
             userList.add(
                     new VersusUser.Builder(uids.get(i)).setUserName(firstNames.get(i)+"_"+lastNames.get(i)).setFirstName(firstNames.get(i)).setLastName(lastNames.get(i)).setMail(mails.get(i))
-                            .setPhone("+417864847892").setRating(2000).setCity("Lausanne").setFriends(
-                                    uids.stream().filter(e -> e != uids.get(finalI)).collect(Collectors.toList())
-                            ).build()
+                            .setPhone("+417864847892").setRating(2000).setCity("Lausanne").setFriends(friends).build()
             );
         }
 

@@ -1,6 +1,7 @@
 package com.github.versus
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -51,13 +52,15 @@ class ChatsFragment : Fragment() {
         val fman = FsUserManager(FirebaseFirestore.getInstance())
         val future = fman.fetch(currUserUID) as CompletableFuture<VersusUser>
         future.thenAccept { currUser ->
-
-            val friendsUID = currUser.friends
+            Log.d("Tag", "The value is: ${currUser.uid}")
+            val friendsUID = arrayListOf("F22E14416")
             friendsUID.forEach { uid ->
+                Log.d("Tag", "The friends is: ${uid}")
                 val userFuture = fman.fetch(uid) as CompletableFuture<VersusUser>
                 userFuture.thenAccept{
                     friend ->
                         userList.add(friend)
+                        adapter.notifyDataSetChanged()
                 }
             }
         }

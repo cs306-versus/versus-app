@@ -29,15 +29,6 @@ public class FsUserManager implements DataBaseManager<User> {
     private static final String USERS_COLLECTION_ID = "users";
 
     // ===================================== USERS FIELDS =========================================
-    private static final String FIRST_NAME_FIELD  = "first-name";
-    private static final String LAST_NAME_FIELD   = "last-name";
-    private static final String USERNAME_FIELD    = "username";
-    private static final String MAIL_FIELD        = "mail";
-    private static final String PHONE_FIELD       = "phone";
-    private static final String RATING_FIELD      = "rating";
-    private static final String CITY_FIELD        = "city";
-    private static final String ZIP_CODE_FIELD    = "zip";
-    private static final String PREF_SPORTS_FIELD = "preferred-sports";
     // ============================================================================================
 
     private final FirebaseFirestore db;
@@ -56,16 +47,6 @@ public class FsUserManager implements DataBaseManager<User> {
         DocumentReference doc = collection.document(user.getUID());
         Map<String, Object> fields = new HashMap<>();
 
-        // Add All fields
-        fields.put(FIRST_NAME_FIELD, user.getFirstName());
-        fields.put(LAST_NAME_FIELD, user.getLastName());
-        fields.put(USERNAME_FIELD, user.getUserName());
-        fields.put(MAIL_FIELD, user.getMail());
-        fields.put(PHONE_FIELD, user.getPhone());
-        fields.put(RATING_FIELD, user.getRating());
-        fields.put(CITY_FIELD, user.getCity());
-        fields.put(ZIP_CODE_FIELD, user.getZipCode());
-        fields.put(PREF_SPORTS_FIELD, user.getPreferredSports());
 
         // Update actual DB
         CompletableFuture<Boolean> future = new CompletableFuture<>();

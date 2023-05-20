@@ -9,7 +9,9 @@ import com.github.versus.sports.Sport;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -120,6 +122,26 @@ public final class VersusUser implements User, Serializable {
 
     public List<String> getFriends() {
         return friends;
+    }
+
+
+    public Map<String, Object> getAllAttributes(){
+        Map<String, Object> fields = new HashMap<>();
+
+        // Add All fields
+        fields.put("firstName", getFirstName());
+        fields.put("lastName", getLastName());
+        fields.put("uid", getUID());
+        fields.put("userName", getUserName());
+        fields.put("mail", getMail());
+        fields.put("phone", getPhone());
+        fields.put("rating", getRating());
+        fields.put("city", getCity());
+        fields.put("zipCode", getZipCode());
+        fields.put("preferredSports", getPreferredSports());
+        fields.put("friends", getFriends());
+
+        return fields;
     }
     @Override
     public int hashCode() {
