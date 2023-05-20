@@ -50,16 +50,15 @@ class ChatsFragment : Fragment() {
 
         val currUserUID = VersusUser.computeUID("jane.doe@versus.ch")
         val fman = FsUserManager(FirebaseFirestore.getInstance())
-        val future = fman.fetch(currUserUID) as CompletableFuture<VersusUser>
-        future.thenAccept { currUser ->
-            Log.d("Tag", "The value is: ${currUser.uid}")
-            val friendsUID = arrayListOf("F22E14416")
-            friendsUID.forEach { uid ->
+        val future = fman.fetch(currUserUID) as CompletableFuture<User>
+        future.thenAccept { currUser  ->
+            val currUserV = currUser as VersusUser
+            currUserV.friends.forEach { uid ->
                 Log.d("Tag", "The friends is: ${uid}")
-                val userFuture = fman.fetch(uid) as CompletableFuture<VersusUser>
+                val userFuture = fman.fetch(uid) as CompletableFuture<User>
                 userFuture.thenAccept{
                     friend ->
-                        userList.add(friend)
+                        userList.add(friend as VersusUser)
                         adapter.notifyDataSetChanged()
                 }
             }

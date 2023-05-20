@@ -30,9 +30,9 @@ public class FsUserManager implements DataBaseManager<User> {
     private static final String USERS_COLLECTION_ID = "users";
 
     // ===================================== USERS FIELDS =========================================
-    private static final String FIRST_NAME_FIELD  = "first-name";
-    private static final String LAST_NAME_FIELD   = "last-name";
-    private static final String USERNAME_FIELD    = "username";
+    private static final String FIRST_NAME_FIELD  = "firstName";
+    private static final String LAST_NAME_FIELD   = "lastName";
+    private static final String USERNAME_FIELD    = "userName";
     private static final String UID_FIELD    = "uid";
 
     private static final String MAIL_FIELD        = "mail";
@@ -40,7 +40,7 @@ public class FsUserManager implements DataBaseManager<User> {
     private static final String RATING_FIELD      = "rating";
     private static final String CITY_FIELD        = "city";
     private static final String ZIP_CODE_FIELD    = "zip";
-    private static final String PREF_SPORTS_FIELD = "preferred-sports";
+    private static final String PREF_SPORTS_FIELD = "preferredSports";
     private static final String FRIENDS_FIELD = "friends";
 
     // ============================================================================================
@@ -91,8 +91,6 @@ public class FsUserManager implements DataBaseManager<User> {
             ) {
                 //converting the data we get into an actual post object
                 VersusUser.Builder builder = build(doc);
-                //.setZipCode(content.get(ZIP_CODE_FIELD, int.class))
-                //.setPreferredSports(new ArrayList<>());
                 users.add(builder.build());
             }
             future.complete(users);

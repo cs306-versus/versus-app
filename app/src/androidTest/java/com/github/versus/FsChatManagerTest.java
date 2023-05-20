@@ -150,7 +150,7 @@ public class FsChatManagerTest {
             friends.forEach(e -> System.out.println(e));
             userList.add(
                     new VersusUser.Builder(uids.get(i)).setUserName(firstNames.get(i)+"_"+lastNames.get(i)).setFirstName(firstNames.get(i)).setLastName(lastNames.get(i)).setMail(mails.get(i))
-                            .setPhone("+417864847892").setRating(2000).setCity("Lausanne").setFriends(friends).build()
+                            .setPhone("+417864847892").setRating(2000).setCity("Lausanne").setPreferredSports(List.of(Sport.FOOTBALL)).setFriends(friends).build()
             );
         }
 
