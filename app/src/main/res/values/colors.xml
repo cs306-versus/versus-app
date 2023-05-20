@@ -45,7 +45,7 @@
 
     	<!-- main_chat colors -->
 
-
+    <color name="main_app_color">#1D4EB5</color>
 	<color name="_bg__main_chat_ek2_color">#FFFFFF</color>
 	<color name="private_color">#212529</color>
 	<color name="dec_13_color">#ADB5BD</color>

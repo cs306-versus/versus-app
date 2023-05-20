@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- frame_2 styles -->
 
@@ -6,6 +5,19 @@
 		<item name="colorPrimary">@color/colorPrimary</item>
 		<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
 		<item name="colorAccent">@color/colorAccent</item>
+	</style>
+
+	<!-- Custom AlertDialog style -->
+	<style name="CustomAlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+		<!-- Customize your theme here. -->
+		<item name="colorAccent">@color/colorAccent</item>
+		<item name="android:textColorPrimary">@color/colorPrimary</item>
 
 	</style>
+
+	<style name="CustomScrollBar" >
+		<item name="android:scrollbarThumbVertical">@color/main_app_color</item>
+	</style>
+
+
 </resources>
