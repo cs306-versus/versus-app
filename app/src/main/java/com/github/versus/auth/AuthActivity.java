@@ -24,7 +24,7 @@ public final class AuthActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
         Optional.ofNullable(getSupportActionBar()).ifPresent(ActionBar::hide);
-        setContentView(R.layout.activity_auth);
+        setContentView(R.layout.auth_activity);
     }
 
     @Override

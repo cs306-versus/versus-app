@@ -13,7 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.github.versus.MainActivity;
-import com.github.versus.databinding.FragmentRegisterBinding;
+import com.github.versus.databinding.AuthFragmentRegisterBinding;
 import com.github.versus.user.VersusUser;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -26,7 +26,7 @@ import java.util.List;
  */
 public final class RegisterFragment extends Fragment {
 
-    private FragmentRegisterBinding binding;
+    private AuthFragmentRegisterBinding binding;
     /** Instance of the authenticator we use */
     private Authenticator auth;
 
@@ -39,7 +39,7 @@ public final class RegisterFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentRegisterBinding.inflate(inflater);
+        binding = AuthFragmentRegisterBinding.inflate(inflater);
         return binding.getRoot();
     }
 

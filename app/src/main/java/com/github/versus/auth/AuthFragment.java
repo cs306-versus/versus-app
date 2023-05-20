@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.versus.R;
-import com.github.versus.databinding.FragmentAuthBinding;
+import com.github.versus.databinding.AuthFragmentBinding;
 
 /**
  * Entry point of the authentication process
@@ -24,12 +24,12 @@ import com.github.versus.databinding.FragmentAuthBinding;
  */
 public final class AuthFragment extends Fragment {
 
-    private FragmentAuthBinding binding;
+    private AuthFragmentBinding binding;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentAuthBinding.inflate(inflater);
+        binding = AuthFragmentBinding.inflate(inflater);
         return binding.getRoot();
     }
 

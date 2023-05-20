@@ -15,7 +15,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.github.versus.R;
-import com.github.versus.databinding.SigninFragmentBinding;
+import com.github.versus.databinding.AuthFragmentSigninBinding;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -26,7 +26,7 @@ import com.github.versus.MainActivity;
  */
 public final class SignInFragment extends Fragment {
 
-    private SigninFragmentBinding binding;
+    private AuthFragmentSigninBinding binding;
 
     /** Instance of the authenticator we use */
     private Authenticator auth;
@@ -40,7 +40,7 @@ public final class SignInFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = SigninFragmentBinding.inflate(inflater, container, false);
+        binding = AuthFragmentSigninBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
