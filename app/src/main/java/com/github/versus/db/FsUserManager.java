@@ -2,6 +2,7 @@ package com.github.versus.db;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.versus.posts.Post;
+import com.github.versus.sports.Sport;
 import com.github.versus.user.User;
 import com.github.versus.user.VersusUser;
 import com.google.android.gms.tasks.Task;
@@ -29,6 +30,19 @@ public class FsUserManager implements DataBaseManager<User> {
     private static final String USERS_COLLECTION_ID = "users";
 
     // ===================================== USERS FIELDS =========================================
+    private static final String FIRST_NAME_FIELD  = "first-name";
+    private static final String LAST_NAME_FIELD   = "last-name";
+    private static final String USERNAME_FIELD    = "username";
+    private static final String UID_FIELD    = "uid";
+
+    private static final String MAIL_FIELD        = "mail";
+    private static final String PHONE_FIELD       = "phone";
+    private static final String RATING_FIELD      = "rating";
+    private static final String CITY_FIELD        = "city";
+    private static final String ZIP_CODE_FIELD    = "zip";
+    private static final String PREF_SPORTS_FIELD = "preferred-sports";
+    private static final String FRIENDS_FIELD = "friends";
+
     // ============================================================================================
 
     private final FirebaseFirestore db;
@@ -45,7 +59,7 @@ public class FsUserManager implements DataBaseManager<User> {
     public Future<Boolean> insert(User user) {
         CollectionReference collection = db.collection(USERS_COLLECTION_ID);
         DocumentReference doc = collection.document(user.getUID());
-        Map<String, Object> fields = new HashMap<>();
+        Map<String, Object> fields = ((VersusUser)user).getAllAttributes();
 
 
         // Update actual DB
@@ -96,9 +110,9 @@ public class FsUserManager implements DataBaseManager<User> {
                 .setUserName(doc.get(USERNAME_FIELD, String.class))
                 .setMail(doc.get(MAIL_FIELD, String.class))
                 .setPhone(doc.get(PHONE_FIELD, String.class))
-                // TODO HR : Fix the issue here,
-                //  cannot deserialize field as was done before
-                //.setRating(content.get(RATING_FIELD, int.class))
+                .setRating(doc.get(RATING_FIELD, int.class))
+                .setFriends((List<String>)doc.get(FRIENDS_FIELD))
+                .setPreferredSports((List<Sport>)doc.get(PREF_SPORTS_FIELD))
                 .setCity(doc.get(CITY_FIELD, String.class));
     }
 
