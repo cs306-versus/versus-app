@@ -33,7 +33,7 @@ public class RegisterFragmentTest {
 
     @Test
     public void testVisibility(){
-        onView(withId(R.id.register_layout)).check(matches(isDisplayed()));
+        onView(withId(R.id.auth_fragment_register)).check(matches(isDisplayed()));
     }
 
     // TODO HR : Add missing tests

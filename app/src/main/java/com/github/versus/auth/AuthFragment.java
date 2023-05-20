@@ -42,7 +42,7 @@ public final class AuthFragment extends Fragment {
     private void switchTo(Class<? extends Fragment> clz){
         FragmentManager manager = getParentFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.fragmentContainerView, clz, null);
+        transaction.replace(R.id.auth_fragment_container, clz, null);
         transaction.commit();
     }
 

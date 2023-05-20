@@ -2,7 +2,6 @@ package com.github.versus.auth;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,8 +46,8 @@ public final class SignInFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        binding.authLoginMail.setOnClickListener(this::loginWithPWD);
-        binding.authLoginGoogle.setOnClickListener(this::loginWithGoogleRequest);
+        binding.signin.setOnClickListener(this::loginWithPWD);
+        binding.googleSignin.setOnClickListener(this::loginWithGoogleRequest);
     }
 
     /**
@@ -59,14 +58,14 @@ public final class SignInFragment extends Fragment {
     private void loginWithGoogleRequest(View view) {
         FragmentManager manager = getParentFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.fragmentContainerView, GoogleAuthFragment.class, null);
+        transaction.replace(R.id.auth_fragment_container, GoogleAuthFragment.class, null);
         transaction.commit();
     }
 
     private void loginWithPWD(View view){
-        String mail = binding.authLoginMailMail.getText().toString();
+        String mail = binding.mail.getText().toString();
         // TODO HR : Handle if the mail doesn't follow the pattern
-        String pwd = binding.authLoginMailPwd.getText().toString();
+        String pwd = binding.pwd.getText().toString();
         // TODO HR : Handle if the pwd is empty
         Task<?> task = auth.signInWithMail(mail, pwd);
         // HR : if the connection was successful, move to the MainActivity

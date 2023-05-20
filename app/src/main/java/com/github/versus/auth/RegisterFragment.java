@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -51,15 +50,15 @@ public final class RegisterFragment extends Fragment {
 
     private void createAccount(View view) {
         // HR : fetch the mail
-        String mail = binding.emailAddress.getText().toString();
+        String mail = binding.mail.getText().toString();
         // HR : Fetch the pwd
-        String pwd = binding.password.getText().toString();
+        String pwd = binding.pwd.getText().toString();
         VersusUser.VersusBuilder builder = new VersusUser.VersusBuilder(null);
         // TODO HR : Link this when the UI is ready (see issue #58 in versus-app)
         builder.setFirstName(binding.firstName.getText().toString())
                 .setLastName(binding.lastName.getText().toString())
                 .setUserName("johndoe")
-                .setPhone(binding.phoneNumber.getText().toString())
+                .setPhone(binding.phone.getText().toString())
                 .setMail(mail)
                 .setRating(3)
                 .setZipCode(0)

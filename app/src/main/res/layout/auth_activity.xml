@@ -7,7 +7,7 @@
     tools:context=".auth.AuthActivity">
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentContainerView"
+        android:id="@+id/auth_fragment_container"
         android:name="com.github.versus.auth.AuthFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

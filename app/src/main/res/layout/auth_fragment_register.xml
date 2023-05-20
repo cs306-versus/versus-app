@@ -1,18 +1,18 @@
-<RelativeLayout android:id="@+id/register_layout"
+<RelativeLayout android:id="@+id/auth_fragment_register"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <View android:id="@+id/register_card"
+    <View
         android:background="@drawable/auth_card_shape"
         android:layout_marginStart="32dp"
         android:layout_marginTop="106dp"
         android:layout_width="327dp"
         android:layout_height="693dp" />
 
-    <ImageView android:id="@+id/saly_1"
+    <ImageView
         android:src="@drawable/saly_1"
         android:layout_marginStart="229dp"
         android:layout_marginTop="0dp"
@@ -26,7 +26,6 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/create_your_account"
             android:fontFamily="@font/poppins_medium"
             android:layout_gravity="center_horizontal|center"
             android:gravity="center"
@@ -40,7 +39,6 @@
             android:text="@string/create_your_account" />
 
         <TextView
-            android:id="@+id/please_enter_info_to_create_account"
             android:fontFamily="@font/poppins_medium"
             android:layout_gravity="center_horizontal|center"
             android:gravity="center"
@@ -54,14 +52,14 @@
 
     </RelativeLayout>
 
-    <RelativeLayout android:id="@+id/firstnamefield"
+    <RelativeLayout
         android:layout_marginTop="209dp"
         android:layout_marginStart="50dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/rectangle_40"
+            android:id="@+id/firstName"
             android:background="@drawable/auth_register_field_shape"
             android:layout_marginStart="0dp"
             android:layout_marginTop="11dp"
@@ -70,7 +68,6 @@
             android:layout_height="40dp" />
 
         <View
-            android:id="@+id/rectangle_41"
             android:background="@drawable/auth_rectangle_41_shape"
             android:layout_marginStart="28dp"
             android:layout_marginTop="0dp"
@@ -78,7 +75,6 @@
             android:layout_height="22dp" />
 
         <TextView
-            android:id="@+id/first_name"
             android:fontFamily="@font/poppins_medium"
             android:layout_gravity="center_horizontal|center"
             android:gravity="center"
@@ -93,14 +89,14 @@
 
     </RelativeLayout>
 
-    <RelativeLayout android:id="@+id/lastnamefield"
+    <RelativeLayout
         android:layout_marginTop="281dp"
         android:layout_marginStart="50dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/rectangle_40_ek1"
+            android:id="@+id/lastName"
             android:background="@drawable/auth_register_field_shape"
             android:layout_marginStart="0dp"
             android:layout_marginTop="11dp"
@@ -109,7 +105,6 @@
             android:layout_height="40dp" />
 
         <View
-            android:id="@+id/rectangle_41_ek1"
             android:background="@drawable/auth_rectangle_41_ek1_shape"
             android:layout_marginStart="28dp"
             android:layout_marginTop="0dp"
@@ -117,7 +112,6 @@
             android:layout_height="22dp" />
 
         <TextView
-            android:id="@+id/last_name"
             android:fontFamily="@font/poppins_medium"
             android:layout_gravity="center_horizontal|center"
             android:gravity="center"
@@ -132,14 +126,14 @@
 
     </RelativeLayout>
 
-    <RelativeLayout android:id="@+id/email_field"
+    <RelativeLayout
         android:layout_marginTop="353dp"
         android:layout_marginStart="50dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/email_address"
+            android:id="@+id/mail"
             android:background="@drawable/auth_register_field_shape"
             android:layout_marginStart="0dp"
             android:layout_marginTop="11dp"
@@ -148,7 +142,6 @@
             android:layout_height="40dp" />
 
         <View
-            android:id="@+id/rectangle_41_ek2"
             android:background="@drawable/auth_rectangle_41_ek2_shape"
             android:layout_marginStart="28dp"
             android:layout_marginTop="0dp"
@@ -171,14 +164,14 @@
 
     </RelativeLayout>
 
-    <RelativeLayout android:id="@+id/phonefield"
+    <RelativeLayout
         android:layout_marginTop="425dp"
         android:layout_marginStart="50dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/rectangle_40_ek3"
+            android:id="@+id/phone"
             android:background="@drawable/auth_register_field_shape"
             android:layout_marginStart="0dp"
             android:layout_marginTop="11dp"
@@ -187,7 +180,6 @@
             android:layout_height="40dp" />
 
         <View
-            android:id="@+id/rectangle_41_ek3"
             android:background="@drawable/auth_rectangle_41_ek3_shape"
             android:layout_marginStart="28dp"
             android:layout_marginTop="0dp"
@@ -195,7 +187,6 @@
             android:layout_height="21dp" />
 
         <TextView
-            android:id="@+id/phone_number"
             android:fontFamily="@font/poppins_medium"
             android:layout_gravity="center_horizontal|center"
             android:gravity="center"
@@ -210,14 +201,14 @@
 
     </RelativeLayout>
 
-    <RelativeLayout android:id="@+id/passwordfield"
+    <RelativeLayout
         android:layout_marginTop="536dp"
         android:layout_marginStart="50dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/password"
+            android:id="@+id/pwd"
             android:background="@drawable/auth_register_field_shape"
             android:layout_marginStart="0dp"
             android:layout_marginTop="11dp"
@@ -226,7 +217,6 @@
             android:layout_height="40dp" />
 
         <View
-            android:id="@+id/rectangle_41_ek4"
             android:background="@drawable/auth_rectangle_41_ek4_shape"
             android:layout_marginStart="28dp"
             android:layout_marginTop="0dp"
@@ -248,14 +238,14 @@
 
     </RelativeLayout>
 
-    <RelativeLayout android:id="@+id/confirmpasswordfield"
+    <RelativeLayout
         android:layout_marginTop="608dp"
         android:layout_marginStart="50dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/rectangle_40_ek5"
+            android:id="@+id/confirm_pwd"
             android:background="@drawable/auth_register_field_shape"
             android:layout_marginStart="0dp"
             android:padding="9dp"
@@ -264,7 +254,6 @@
             android:layout_height="40dp" />
 
         <View
-            android:id="@+id/rectangle_41_ek5"
             android:background="@drawable/auth_rectangle_41_ek5_shape"
             android:layout_marginStart="28dp"
             android:layout_marginTop="0dp"
@@ -272,7 +261,6 @@
             android:layout_height="21dp" />
 
         <TextView
-            android:id="@+id/confirm_password"
             android:fontFamily="@font/poppins_medium"
             android:layout_gravity="center_horizontal|center"
             android:gravity="center"
@@ -297,7 +285,6 @@
         android:layout_height="54dp">
 
         <TextView
-            android:id="@+id/register"
             android:fontFamily="@font/poppins_medium"
             android:layout_centerInParent="true"
             android:layout_gravity="center"

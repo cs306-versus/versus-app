@@ -1,4 +1,4 @@
-<RelativeLayout android:id="@+id/auth_frag"
+<RelativeLayout android:id="@+id/auth_fragment"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/background"
@@ -6,22 +6,20 @@
     android:layout_height="match_parent"
     android:layout_centerHorizontal="true">
 
-    <RelativeLayout android:id="@+id/image"
+    <RelativeLayout
         android:layout_marginTop="12dp"
         android:layout_marginStart="14dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <View android:id="@+id/image_background"
-            android:background="@drawable/image_background_shape"
+        <View android:background="@drawable/image_background_shape"
             android:alpha="0.60000002384186"
             android:layout_marginStart="0dp"
             android:layout_marginTop="0dp"
             android:layout_width="363dp"
             android:layout_height="436dp" />
 
-        <ImageView android:id="@+id/vector"
-            android:src="@drawable/sally_1"
+        <ImageView android:src="@drawable/sally_1"
             android:contentDescription="vector"
             android:layout_marginStart="0dp"
             android:layout_marginTop="72dp"
@@ -50,7 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true">
 
-        <TextView android:id="@+id/welcome_to_our_app__"
+        <TextView
             android:fontFamily="Poor Story"
             android:layout_gravity="center_horizontal"
             android:gravity="center"
@@ -62,7 +60,7 @@
             android:layout_height="wrap_content"
             android:text="@string/welcome_to_our_app___string" />
 
-        <TextView android:id="@+id/we_hope_that_you_enjoy_using_it_for_your_games"
+        <TextView
             android:fontFamily="Poor Story"
             android:layout_gravity="center_horizontal"
             android:gravity="center"
