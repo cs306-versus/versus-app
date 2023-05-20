@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.github.versus.MainActivity;
+import com.github.versus.R;
 import com.github.versus.databinding.AuthFragmentRegisterBinding;
 import com.github.versus.user.VersusUser;
 import com.google.android.gms.tasks.Task;
@@ -53,6 +54,10 @@ public final class RegisterFragment extends Fragment {
         String mail = binding.mail.getText().toString();
         // HR : Fetch the pwd
         String pwd = binding.pwd.getText().toString();
+        String pwd_confirmation = binding.confirmPwd.getText().toString();
+        if (!pwd.equals(pwd_confirmation)) {
+            binding.pwd.getBackground().setState(new int[]{R.attr.pwd_state});
+        }
         VersusUser.VersusBuilder builder = new VersusUser.VersusBuilder(null);
         // TODO HR : Link this when the UI is ready (see issue #58 in versus-app)
         builder.setFirstName(binding.firstName.getText().toString())
