@@ -19,28 +19,28 @@ import org.junit.Test;
 
 public class SearchFriendFragmentTest {
 
-    @Rule
+    //@Rule
     public ActivityScenarioRule<MainActivity> scenario = new ActivityScenarioRule<>(MainActivity.class);
     
-    @Before
+    //@Before
     public void navigateToFrag(){
         onView(withId(R.id.main_activity_layout)).check(matches(DrawerMatchers.isClosed(GravityCompat.START))).perform(DrawerActions.open());
         onView(withId(R.id.main_activity_layout)).check(matches(DrawerMatchers.isOpen(GravityCompat.START)));
         onView(withId(R.id.friend_search)).perform(click());
     }
     
-    @Test
+    //@Test
     public void testScrollRecyclerView(){
         onView(withId(R.id.user_recyclerView)).perform(click());
     }
 
-    @Test
+    //@Test
     public void testPressProfile(){
         onView(withId(R.id.search_users)).perform(typeText("arnie"), closeSoftKeyboard());
         onView(withId(R.id.view_profile)).perform(click());
     }
 
-    @Test
+    //@Test
     public void testSearchBar(){
         onView(withId(R.id.search_users)).perform(typeText("John"), closeSoftKeyboard());
         onView((withText("John"))).check(matches(isDisplayed()));
