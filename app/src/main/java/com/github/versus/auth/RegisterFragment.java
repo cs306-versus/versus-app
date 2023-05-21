@@ -50,25 +50,26 @@ public final class RegisterFragment extends Fragment {
     }
 
     private void createAccount(View view) {
-        // HR : fetch the mail
-        String mail = binding.mail.getText().toString();
-        // HR : Fetch the pwd
-        String pwd = binding.pwd.getText().toString();
+        String mail = binding.mail.getText().toString(); // HR : fetch the mail
+        String pwd = binding.pwd.getText().toString(); // HR : Fetch the pwd
         String pwd_confirmation = binding.confirmPwd.getText().toString();
+        String phone = binding.phone.getText().toString();
+        String firstName = binding.firstName.getText().toString();
+        String lastName = binding.lastName.getText().toString();
         if (!pwd.equals(pwd_confirmation)) {
             binding.pwd.getBackground().setState(new int[]{R.attr.pwd_state});
         }
         VersusUser.VersusBuilder builder = new VersusUser.VersusBuilder(null);
         // TODO HR : Link this when the UI is ready (see issue #58 in versus-app)
-        builder.setFirstName(binding.firstName.getText().toString())
-                .setLastName(binding.lastName.getText().toString())
-                .setUserName("johndoe")
-                .setPhone(binding.phone.getText().toString())
+        builder.setFirstName(firstName)
+                .setLastName(lastName)
+                .setUserName(String.format("%s-%s", firstName, lastName).toLowerCase()) // TODO HR : Do we keep the username ?
+                .setPhone(phone)
                 .setMail(mail)
                 .setRating(3)
-                .setZipCode(0)
-                .setCity("Lausanne")
-                .setPreferredSports(List.of());
+                .setZipCode(0) // TODO HR : This is still hardcoded
+                .setCity("Lausanne") // TODO HR : This is still hardcoded
+                .setPreferredSports(List.of()); // TODO HR : This is still hardcoded
 
         // Request from firebase
         Task<AuthResult> task = auth.createAccountWithMail(mail, pwd, builder);
