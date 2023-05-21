@@ -29,26 +29,38 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Dialog Fragment for specifying the maximum player count.
+ */
 public class MaxPlayerDialogFragment extends DialogFragment {
 
+    /**
+     * Interface for listening to user actions within the dialog.
+     */
     public interface MaxPlayerListener extends CancelCreate {
-        public void onMaxPlayerPositiveClick(int playerCount);
+        /**
+         * Callback for when the user submits a maximum player count.
+         *
+         * @param playerCount The selected maximum player count.
+         */
+        void onMaxPlayerPositiveClick(int playerCount);
     }
 
-    int maxPlayerCount = 2;
+    private int maxPlayerCount = 2;  // Default max player count
+    private MaxPlayerListener tl;  // Listener for user actions
 
-    MaxPlayerListener tl;
-
+    /**
+     * Callback for when the dialog is first created.
+     */
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        // Use the Builder class for convenient dialog construction
-        Activity a = getActivity();
-        Fragment f = getParentFragment();
-        tl = (MaxPlayerListener) f;
+        Fragment fragment = getParentFragment();
+        tl = (MaxPlayerListener) fragment;
         LayoutInflater inflater = requireActivity().getLayoutInflater();
-        Builder builder = new Builder(a);
+        Builder builder = new Builder(getActivity());
         FsPostManager fpm = new FsPostManager(FirebaseFirestore.getInstance());
         View innerView = inflater.inflate(R.layout.create_post_max_players, null);
+
         builder.setView(innerView).setPositiveButton("Next", new OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 EditText et = ((EditText) innerView.findViewById(R.id.editMaxPlayers));
@@ -61,7 +73,7 @@ public class MaxPlayerDialogFragment extends DialogFragment {
                 tl.onCancel();
             }
         });
-        // Create the AlertDialog object and return it
+
         AlertDialog dialog = builder.create();
 
         dialog.setOnShowListener(new DialogInterface.OnShowListener() {
@@ -72,15 +84,20 @@ public class MaxPlayerDialogFragment extends DialogFragment {
             }
         });
 
-
         return dialog;
     }
 
+    /**
+     * Callback for when the fragment is first attached to its context.
+     */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
     }
 
+    /**
+     * Callback for when the fragment starts.
+     */
     @Override
     public void onStart() {
         super.onStart();
@@ -88,20 +105,12 @@ public class MaxPlayerDialogFragment extends DialogFragment {
         if (dialog != null) {
             Window window = dialog.getWindow();
             if (window != null) {
-                // Apply rounded corners
                 window.setBackgroundDrawableResource(R.drawable.custom_dialog_background);
-
-                // Post a runnable to resize the dialog
                 window.getDecorView().post(() -> {
-                    // Get current screen size
                     DisplayMetrics displayMetrics = new DisplayMetrics();
                     getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-
-                    // Define how much width and height you want to set
-                    int dialogWindowWidth = (int) (displayMetrics.widthPixels * 0.85); // 85% of screen width
-                    int dialogWindowHeight = (int) (displayMetrics.heightPixels * 0.25); // 85% of screen height
-
-                    // Set size
+                    int dialogWindowWidth = (int) (displayMetrics.widthPixels * 0.85);
+                    int dialogWindowHeight = (int) (displayMetrics.heightPixels * 0.25);
                     WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
                     layoutParams.copyFrom(window.getAttributes());
                     layoutParams.width = dialogWindowWidth;

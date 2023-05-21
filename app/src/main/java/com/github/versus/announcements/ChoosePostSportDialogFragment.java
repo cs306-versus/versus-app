@@ -34,14 +34,29 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * A custom dialog fragment used for selecting a sport type when creating a new post.
+ * This dialog allows users to select a sport from a list of available sports, and to cancel the post creation process.
+ */
 public class ChoosePostSportDialogFragment extends DialogFragment {
 
+    /**
+     * Listener interface to handle user actions within this dialog.
+     */
     public interface SportListener extends CancelCreate {
+        /**
+         * Callback for when a sport is selected.
+         * @param sport The selected sport.
+         */
         public void onSportPositiveClick(Sport sport);
     }
 
-    SportListener tl;
-    Sport sport = Sport.SOCCER;
+    private SportListener tl;  // Listener for user actions
+    private Sport sport = Sport.SOCCER;  // The selected sport. Defaults to SOCCER.
+
+    /**
+     * Callback for when the dialog is first created.
+     */
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Activity a = getActivity();
@@ -56,7 +71,6 @@ public class ChoosePostSportDialogFragment extends DialogFragment {
         RadioGroup radioGroup = dialogView.findViewById(R.id.radioGroup);
         final String[] items = Stream.of(Sport.values()).map(sport -> sport.name).collect(Collectors.toList()).toArray(new String[0]);
 
-        // Add RadioButton for each sport
         // Add RadioButton for each sport
         for (int i = 0; i < items.length; i++) {
             RadioButton radioButton = new RadioButton(a);
@@ -76,9 +90,6 @@ public class ChoosePostSportDialogFragment extends DialogFragment {
         // Use the Builder class for convenient dialog construction
         Builder builder = new Builder(a);
         builder.setView(dialogView);
-
-
-
 
         builder.setPositiveButton("Next", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -101,11 +112,12 @@ public class ChoosePostSportDialogFragment extends DialogFragment {
             }
         });
 
-
         return dialog;
     }
 
-
+    /**
+     * Callback for when the dialog is starting.
+     */
     @Override
     public void onStart() {
         super.onStart();
@@ -137,6 +149,9 @@ public class ChoosePostSportDialogFragment extends DialogFragment {
         }
     }
 
+    /**
+     * Callback for when the dialog is attached to a context.
+     */
     @Override
     public void onAttach(Context context){
         super.onAttach(context);

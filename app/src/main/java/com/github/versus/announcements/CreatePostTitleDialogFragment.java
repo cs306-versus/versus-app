@@ -24,19 +24,33 @@ import com.github.versus.R;
 import com.github.versus.db.FsPostManager;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+/**
+ * A custom dialog fragment used for entering the title when creating a new post.
+ * This dialog allows users to input a post title, and to cancel the post creation process.
+ */
 public class CreatePostTitleDialogFragment extends DialogFragment {
 
+    /**
+     * Listener interface to handle user actions within this dialog.
+     */
     public interface TitleListener extends CancelCreate {
+        /**
+         * Callback for when a title is inputted.
+         * @param title The inputted title.
+         */
         void onTitlePositiveClick(String title);
     }
 
-    TitleListener tl;
+    private TitleListener tl;  // Listener for user actions
 
+    /**
+     * Callback for when the dialog is first created.
+     */
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Activity a = getActivity();
-        Fragment f = getParentFragment();
-        tl = (TitleListener) f;
+
+        Fragment fragment = getParentFragment();
+        tl = (TitleListener) fragment;
         LayoutInflater inflater = requireActivity().getLayoutInflater();
 
         // Inflate custom layout
@@ -45,7 +59,7 @@ public class CreatePostTitleDialogFragment extends DialogFragment {
         // Find your EditText view
         EditText et = innerView.findViewById(R.id.editPostTitle);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(a, R.style.CustomAlertDialog);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.CustomAlertDialog);
         FsPostManager fpm = new FsPostManager(FirebaseFirestore.getInstance());
         builder.setView(innerView)
                 .setPositiveButton("Next", new DialogInterface.OnClickListener() {
@@ -75,6 +89,9 @@ public class CreatePostTitleDialogFragment extends DialogFragment {
         return dialog;
     }
 
+    /**
+     * Callback for when the dialog is starting.
+     */
     @Override
     public void onStart() {
         super.onStart();
@@ -93,7 +110,7 @@ public class CreatePostTitleDialogFragment extends DialogFragment {
 
                     // Define how much width and height you want to set
                     int dialogWindowWidth = (int) (displayMetrics.widthPixels * 0.85); // 85% of screen width
-                    int dialogWindowHeight = (int) (displayMetrics.heightPixels * 0.25); // 85% of screen height
+                    int dialogWindowHeight = (int) (displayMetrics.heightPixels * 0.25); // 25% of screen height
 
                     // Set size
                     WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
@@ -106,7 +123,9 @@ public class CreatePostTitleDialogFragment extends DialogFragment {
         }
     }
 
-
+    /**
+     * Callback for when the dialog is attached to a context.
+     */
     @Override
     public void onAttach(Context context){
         super.onAttach(context);
