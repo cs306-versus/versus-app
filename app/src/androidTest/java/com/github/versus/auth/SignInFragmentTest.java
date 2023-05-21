@@ -45,10 +45,11 @@ public class SignInFragmentTest {
     }
 
     @Test
-    public void testOnSuccessSignIn() {
+    public void testOnSuccessSignIn() throws InterruptedException {
         onView(withId(R.id.mail)).perform(replaceText(validMail()));
         onView(withId(R.id.pwd)).perform(replaceText(validPassword()));
         onView(withId(R.id.signin)).perform(click());
+        Thread.sleep(2000); // Wait for 2 secs
         onView(withId(R.id.main_activity_layout)).check(matches(isDisplayed()));
     }
 
