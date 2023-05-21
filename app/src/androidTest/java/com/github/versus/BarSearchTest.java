@@ -103,6 +103,7 @@ public class BarSearchTest {
         IdlingRegistry.getInstance().unregister(idlingResource2);
 
     }
+
     @Test
     public void testSearchBarByClicking() throws InterruptedException {
         // Open the options menu in the action bar
