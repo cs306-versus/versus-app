@@ -75,15 +75,15 @@ public final class SignInFragment extends Fragment {
         });
         // HR : if the connection failed
         task.addOnFailureListener(ex -> {
-            Toast.makeText(getActivity(),
-                    "Connection failed",
-                    Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getActivity(),
+            //        "Connection failed",
+            //        Toast.LENGTH_SHORT).show();
         });
         // HR : if the connection was cancelled
         task.addOnCanceledListener(() -> {
-            Toast.makeText(getActivity(),
-                    "Connection was cancelled for some reason",
-                    Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getActivity(),
+            //        "Connection was cancelled for some reason",
+            //        Toast.LENGTH_SHORT).show();
         });
     }
 
