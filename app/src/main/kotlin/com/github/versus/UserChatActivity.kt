@@ -46,9 +46,11 @@ class UserChatActivity : AppCompatActivity(){
         //getting info on the user we are currently messaging
         val name = intent.getStringExtra("UserToChatName")
         val receiverUid = intent.getStringExtra("uid")
-        //getting info on the current user
-        val senderUid = FirebaseAuth.getInstance().currentUser?.uid
 
+        //getting info on the current user
+        //TODO: replace this line once sync with Auth DB is made
+        //val senderUid = FirebaseAuth.getInstance().currentUser?.uid
+        val senderUid = "E974963F"
         //initializing field
         chatRecyclerView = findViewById(R.id.chatRecyclerView)
         messageBox = findViewById(R.id.inputMessage)
@@ -76,7 +78,10 @@ class UserChatActivity : AppCompatActivity(){
         val cman = FsChatManager(FirebaseFirestore.getInstance())
         val chat = cman.fetch(chatId) as CompletableFuture<Chat>
         chat.thenAccept { c ->
-            messageList = c.messages as ArrayList<Message>
+            c.messages.forEach{
+                m -> messageList.add(m)
+            }
+            messageAdapter.notifyDataSetChanged()
 
 
             //------------------------------------------------------------------------
@@ -87,13 +92,21 @@ class UserChatActivity : AppCompatActivity(){
                 //local modification of the layout
                 messageList.add(message)
                 messageAdapter.notifyDataSetChanged()
+                //remote modification to the database:
+                cman.addMessageToChat(chatId, message)
+                //clearing the message
                 messageBox.text = ""
+
+                //scrolling down to the bottom of the view
                 val itemCount: Int = messageAdapter.itemCount
-                chatRecyclerView.smoothScrollToPosition(itemCount - 1)
+                if(itemCount > 0){
+                    chatRecyclerView.smoothScrollToPosition(itemCount - 1)
+                }
 
                 //updating the database
                 cman.addMessageToChat(chatId, message)
             }
+
             backButton.setOnClickListener(){
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
@@ -112,7 +125,9 @@ class UserChatActivity : AppCompatActivity(){
                     if (keypadHeight > screenHeight * 0.15) {
                         // Keyboard is visible, scroll to the last item
                         val lastItemPosition = messageAdapter.itemCount - 1
-                        chatRecyclerView.smoothScrollToPosition(lastItemPosition)
+                        if (lastItemPosition > 0){
+                            chatRecyclerView.smoothScrollToPosition(lastItemPosition)
+                        }
                     }
                 }
             })

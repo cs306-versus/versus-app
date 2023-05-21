@@ -47,14 +47,14 @@ class ChatsFragment : Fragment() {
         userRecyclerView.adapter = adapter
 
         // getting the current user from the database
-
+        //TO DO: this next line has to change
         val currUserUID = VersusUser.computeUID("jane.doe@versus.ch")
+
         val fman = FsUserManager(FirebaseFirestore.getInstance())
         val future = fman.fetch(currUserUID) as CompletableFuture<User>
         future.thenAccept { currUser  ->
             val currUserV = currUser as VersusUser
             currUserV.friends.forEach { uid ->
-                Log.d("Tag", "The friends is: ${uid}")
                 val userFuture = fman.fetch(uid) as CompletableFuture<User>
                 userFuture.thenAccept{
                     friend ->

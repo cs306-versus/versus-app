@@ -12,8 +12,8 @@ import java.util.Map;
 public class Chat {
 
     private String chatId;
-    private String user1;
-    private String user2;
+    private String user1Uid;
+    private String user2Uid;
     private List<Message> messages;
 
     public static String computeChatId(String u1, String u2){
@@ -22,14 +22,14 @@ public class Chat {
 
     /**
      * main constructor of a Chat class
-     * @param user1  first user contributing to the chat
-     * @param user2 second user contributing to the chat
+     * @param user1Uid  first user contributing to the chat
+     * @param user2Uid second user contributing to the chat
      * @param chatId the unique id used to identify the chat
      */
-    public Chat(String user1, String user2, String chatId) {
+    public Chat(String user1Uid, String user2Uid, String chatId) {
         this.chatId = chatId;
-        this.user1 = user1;
-        this.user2 = user2;
+        this.user1Uid = user1Uid;
+        this.user2Uid= user2Uid;
         this.messages = new ArrayList<>();
     }
     public Chat(){
@@ -40,15 +40,15 @@ public class Chat {
      *
      * @return first user contributing to the chat
      */
-    public String getUser1UID() {
-        return user1;
+    public String getUser1Uid() {
+        return user1Uid;
     }
     /**
      *
      * @return second user contributing to the chat
      */
-    public String getUser2UID() {
-        return user2;
+    public String getUser2Uid() {
+        return user2Uid;
     }
     /**
      *
@@ -79,8 +79,8 @@ public class Chat {
      */
     public Map<String, Object>getAllAttributes(){
         Map<String, Object> res =  new HashMap<String, Object>();
-        res.put("user1", getUser1UID());
-        res.put("user2", getUser2UID());
+        res.put("user1Uid", getUser1Uid());
+        res.put("user2Uid", getUser2Uid());
         res.put("messages", getMessages());
         res.put("chatId", getChatId());
         return res;
@@ -97,8 +97,8 @@ public class Chat {
 
         Chat other = (Chat) obj;
         return this.getChatId().equals(other.getChatId()) &&
-                this.getUser1UID().equals(other.getUser1UID())&&
-                this.getUser2UID().equals(other.getUser2UID())&&
+                this.getUser1Uid().equals(other.getUser1Uid())&&
+                this.getUser2Uid().equals(other.getUser2Uid())&&
                 this.getMessages().equals(other.getMessages());
     }
 }
