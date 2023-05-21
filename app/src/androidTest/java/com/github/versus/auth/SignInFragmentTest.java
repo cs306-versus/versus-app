@@ -3,6 +3,8 @@ package com.github.versus.auth;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.replaceText;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 import static java.util.Objects.isNull;
@@ -20,36 +22,36 @@ import org.junit.runner.RunWith;
 import com.github.versus.utils.*;
 
 import static com.github.versus.utils.auth.EmulatorUserProvider.*;
+import static org.hamcrest.Matchers.not;
 
-//@RunWith(AndroidJUnit4.class)
+@RunWith(AndroidJUnit4.class)
 public class SignInFragmentTest {
+
+    private final Authenticator authenticator = VersusAuthenticator.getInstance(FirebaseEmulator.FIREBASE_AUTH);
 
     @Rule
     public ActivityScenarioRule<AuthActivity> scenario = new ActivityScenarioRule<>(AuthActivity.class);
 
-    //@Before
+    @Before
     public void setUp() {
-        onView(withId(R.id.auth_signin)).perform(click());
+        authenticator.signOut();
+        onView(withId(R.id.auth_fragment_signin)).perform(click());
     }
 
-    //@Test
+    @Test
     public void testOnSuccessSignIn() {
-        //onView(withId(R.id.auth_signin_mail)).perform(replaceText(freeMail()));
-        //onView(withId(R.id.auth_signin_pwd)).perform(replaceText(validPassword()));
-        //onView(withId(R.id.auth_signin_button)).perform(click());
-        // Spin & Check if the currentUser has changed
-        //while (isNull(FirebaseEmulator.FIREBASE_AUTH.getCurrentUser())) ;
-        // TODO HR : This is not the best check, we should check the screen or catch the intent
+        onView(withId(R.id.mail)).perform(replaceText(validMail()));
+        onView(withId(R.id.pwd)).perform(replaceText(validPassword()));
+        onView(withId(R.id.signin)).perform(click());
+        onView(withId(R.id.main_activity_layout)).check(matches(isDisplayed()));
     }
 
-    //@Test
+    @Test
     public void testOnFailSignIn() {
-        //onView(withId(R.id.auth_signin_mail)).perform(replaceText(nonValidMail()));
-        //onView(withId(R.id.auth_signin_pwd)).perform(replaceText(nonValidPassword()));
-        //onView(withId(R.id.auth_signin_button)).perform(click());
-        // TODO HR : Still need to check here for error
+        onView(withId(R.id.mail)).perform(replaceText(validMail()));
+        onView(withId(R.id.pwd)).perform(replaceText(validPassword()));
+        onView(withId(R.id.signin)).perform(click());
+        onView(withId(R.id.main_activity_layout)).check(matches(not(isDisplayed())));
     }
-
-    // TODO HR : Add tests here
 
 }
