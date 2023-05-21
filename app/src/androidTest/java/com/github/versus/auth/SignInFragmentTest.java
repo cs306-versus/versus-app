@@ -57,7 +57,7 @@ public class SignInFragmentTest {
         onView(withId(R.id.mail)).perform(replaceText(validMail()));
         onView(withId(R.id.pwd)).perform(replaceText(validPassword()));
         onView(withId(R.id.signin)).perform(click());
-        onView(withId(R.id.main_activity_layout)).check(doesNotExist());
+        onView(withId(R.id.auth_fragment_signin)).check(matches(isDisplayed()));
     }
 
 }
