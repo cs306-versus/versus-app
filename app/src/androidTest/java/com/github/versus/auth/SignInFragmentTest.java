@@ -3,6 +3,7 @@ package com.github.versus.auth;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.replaceText;
+import static androidx.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
@@ -56,7 +57,7 @@ public class SignInFragmentTest {
         onView(withId(R.id.mail)).perform(replaceText(validMail()));
         onView(withId(R.id.pwd)).perform(replaceText(validPassword()));
         onView(withId(R.id.signin)).perform(click());
-        onView(withId(R.id.main_activity_layout)).check(matches(not(isDisplayed())));
+        onView(withId(R.id.main_activity_layout)).check(doesNotExist());
     }
 
 }
