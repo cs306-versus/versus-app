@@ -105,25 +105,7 @@ public class ChoosePostSportDialogFragment extends DialogFragment {
         return dialog;
     }
 
-    /*@Override
-    public void onStart() {
-        super.onStart();
-        Dialog dialog = getDialog();
-        if (dialog != null) {
-            Window window = dialog.getWindow();
-            if (window != null) {
-                // Apply rounded corners
-                window.setBackgroundDrawableResource(R.drawable.custom_dialog_background);
 
-                // Set size
-                WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
-                layoutParams.copyFrom(window.getAttributes());
-                layoutParams.width = 50; // Set width to your preference
-                layoutParams.height = 600; // Set height to your preference
-                window.setAttributes(layoutParams);
-            }
-        }
-    }*/
     @Override
     public void onStart() {
         super.onStart();
@@ -142,7 +124,7 @@ public class ChoosePostSportDialogFragment extends DialogFragment {
 
                     // Define how much width and height you want to set
                     int dialogWindowWidth = (int) (displayMetrics.widthPixels * 0.85); // 85% of screen width
-                    int dialogWindowHeight = (int) (displayMetrics.heightPixels * 0.30); // 30% of screen height
+                    int dialogWindowHeight = (int) (displayMetrics.heightPixels * 0.47); // 30% of screen height
 
                     // Set size
                     WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
