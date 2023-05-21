@@ -68,6 +68,7 @@ public class MaxPlayerDialogFragment extends DialogFragment {
                 maxPlayerCount = Integer.parseInt(et.getText().toString());
                 tl.onMaxPlayerPositiveClick(maxPlayerCount);
             }
+
         }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 tl.onCancel();
