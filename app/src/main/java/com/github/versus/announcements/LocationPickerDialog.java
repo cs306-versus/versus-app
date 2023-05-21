@@ -9,10 +9,17 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 import androidx.fragment.app.DialogFragment;
 
+import com.github.versus.R;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.widget.Autocomplete;
@@ -54,9 +61,10 @@ public class LocationPickerDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Get the parent fragment, which should implement LocationListener.
         locationListener = (LocationListener) getParentFragment();
+        LayoutInflater inflater = requireActivity().getLayoutInflater();
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-
+        View innerView = inflater.inflate(R.layout.custom_layout_location, null);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(),R.style.CustomAlertDialog);
         // Initialize Places API
         try {
             API_KEY = getContext().getPackageManager().getApplicationInfo(getContext().getPackageName(), PackageManager.GET_META_DATA).metaData.getString("com.google.android.geo.API_KEY");
@@ -65,7 +73,7 @@ public class LocationPickerDialog extends DialogFragment {
             throw new RuntimeException(e);
         }
 
-        builder.setTitle("Choose a location")
+        builder.setView(innerView)
                 .setPositiveButton("Choose", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // Start the autocomplete activity when the "Choose" button is clicked.
@@ -81,9 +89,50 @@ public class LocationPickerDialog extends DialogFragment {
                         locationListener.onCancel();
                     }
                 });
-        return builder.create();
+        AlertDialog dialog = builder.create();
+
+        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface arg0) {
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.WHITE);
+                dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.WHITE);
+            }
+        });
+
+
+        return dialog;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        Dialog dialog = getDialog();
+        if (dialog != null) {
+            Window window = dialog.getWindow();
+            if (window != null) {
+                // Apply rounded corners
+                window.setBackgroundDrawableResource(R.drawable.custom_dialog_background);
+
+                // Post a runnable to resize the dialog
+                window.getDecorView().post(() -> {
+                    // Get current screen size
+                    DisplayMetrics displayMetrics = new DisplayMetrics();
+                    getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+
+                    // Define how much width and height you want to set
+                    int dialogWindowWidth = (int) (displayMetrics.widthPixels * 0.85); // 85% of screen width
+                    int dialogWindowHeight = (int) (displayMetrics.heightPixels * 0.25); // 30% of screen height
+
+                    // Set size
+                    WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+                    layoutParams.copyFrom(window.getAttributes());
+                    layoutParams.width = dialogWindowWidth;
+                    layoutParams.height = dialogWindowHeight;
+                    window.setAttributes(layoutParams);
+                });
+            }
+        }
+    }
     @Override
     public void onAttach(Context context){
         super.onAttach(context);

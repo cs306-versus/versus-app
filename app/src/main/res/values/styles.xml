@@ -19,5 +19,24 @@
 		<item name="android:scrollbarThumbVertical">@color/main_app_color</item>
 	</style>
 
+	<style name="DatePickerDialogTheme" parent="Theme.AppCompat.Light.Dialog">
+		<!-- Customize your theme here. -->
+		<item name="colorAccent">@color/main_app_color</item> <!-- color of the datepicker selection and buttons -->
+		<item name="android:datePickerDialogTheme">@style/MyDatePickerDialogTheme</item>
+		<item name="android:textColorPrimary">@color/main_app_color</item>
+		<item name="android:windowMinWidthMajor">90%</item>
+		<item name="android:windowMinWidthMinor">90%</item>
+		<item name="android:buttonBarButtonStyle">@style/MyButtonStyle</item> <!-- Add this line -->
+	</style>
+	<style name="MyButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
+		<item name="android:textColor">@color/main_app_color</item>
+	</style>
+
+
+	<style name="MyDatePickerDialogTheme" parent="Theme.AppCompat.Light.Dialog">
+		<item name="android:windowBackground">@drawable/custom_dialog_background</item> <!-- Here, the custom_dialog_background is the same one you created for AlertDialog with rounded corners and custom color.-->
+	</style>
+
+
 
 </resources>

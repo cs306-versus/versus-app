@@ -155,39 +155,6 @@ public class ChoosePostSportDialogFragment extends DialogFragment {
         }
     }
 
-
-
-
-    /*@Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        // Use the Builder class for convenient dialog construction
-        Activity a = getActivity();
-        Fragment f = getParentFragment();
-        tl = (SportListener) f;
-        LayoutInflater inflater = requireActivity().getLayoutInflater();
-        Builder builder = new Builder(a);
-        FsPostManager fpm = new FsPostManager(FirebaseFirestore.getInstance());
-        final String[] items = Stream.of(Sport.values()).map(sport -> sport.name).collect(Collectors.toList()).toArray(new String[0]);
-        builder.setTitle("Choose a sport").setSingleChoiceItems(items, 0, new DialogInterface.OnClickListener(){
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        sport = Sport.values()[i];
-                    }
-                })
-                .setPositiveButton("Next", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        tl.onSportPositiveClick(sport);
-                    }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        tl.onCancel();
-                    }
-                });
-        // Create the AlertDialog object and return it
-        return builder.create();
-    }*/
-
     @Override
     public void onAttach(Context context){
         super.onAttach(context);

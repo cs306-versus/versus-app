@@ -46,7 +46,6 @@ public class CreatePostTitleDialogFragment extends DialogFragment {
         EditText et = innerView.findViewById(R.id.editPostTitle);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(a, R.style.CustomAlertDialog);
-
         FsPostManager fpm = new FsPostManager(FirebaseFirestore.getInstance());
         builder.setView(innerView)
                 .setPositiveButton("Next", new DialogInterface.OnClickListener() {
