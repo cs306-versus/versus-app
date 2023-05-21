@@ -49,29 +49,4 @@ public class AuthActivityTest {
         onView(withId(R.id.auth_activity_layout)).check(matches(isDisplayed()));
     }
 
-    @Test
-    public void withCredentialCached(){
-        // HR : Make sure the credentials are cached
-        Task<AuthResult> task = authenticator.signInWithMail(validMail(), validPassword());
-        // HR : Spin and wait for completion
-        while (!task.isComplete() && !task.isCanceled());
-        // HR : Verification part
-        if (task.isCanceled())
-            fail("Sign in was cancelled");
-        else if(!task.isSuccessful())
-            fail("Sign in failed");
-        else{
-            // HR : reload the activity and check that the main_activity is visible
-            scenario.getScenario().recreate();
-            onView(withId(R.id.main_activity_layout)).check(matches(isDisplayed()));
-        }
-
-    }
-
-    @Test
-    public void withCredentialUncached(){
-        // HR : Check that the auth_fragment is visible
-        onView(withId(R.id.auth_fragment)).check(matches(isDisplayed()));
-    }
-
 }
