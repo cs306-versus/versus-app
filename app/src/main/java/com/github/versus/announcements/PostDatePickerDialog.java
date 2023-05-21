@@ -45,12 +45,9 @@ public class PostDatePickerDialog extends DialogFragment implements DatePickerDi
         return d;
     }
 
-
-
     @Override
     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
         Timestamp ts = new Timestamp(year, Month.of(month), day, 4, 4, Timestamp.Meridiem.PM);
         listener.onPickPostDate(ts);
     }
 }
-
