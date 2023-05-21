@@ -14,10 +14,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.github.versus.chats.Chat
 import com.github.versus.chats.Message
 import com.github.versus.chats.MessageAdapter
+import com.github.versus.db.FsChatManager
 import com.github.versus.posts.Timestamp
 import com.github.versus.user.DummyUser
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import java.time.Month
+import java.util.concurrent.CompletableFuture
 
 class UserChatActivity : AppCompatActivity(){
 
@@ -43,9 +46,11 @@ class UserChatActivity : AppCompatActivity(){
         //getting info on the user we are currently messaging
         val name = intent.getStringExtra("UserToChatName")
         val receiverUid = intent.getStringExtra("uid")
-        //getting info on the current user
-        val senderUid = FirebaseAuth.getInstance().currentUser?.uid
 
+        //getting info on the current user
+        //TODO: replace this line once sync with Auth DB is made
+        //val senderUid = FirebaseAuth.getInstance().currentUser?.uid
+        val senderUid = "E974963F"
         //initializing field
         chatRecyclerView = findViewById(R.id.chatRecyclerView)
         messageBox = findViewById(R.id.inputMessage)
@@ -64,69 +69,74 @@ class UserChatActivity : AppCompatActivity(){
         textName.text = name
 
         //------------------------------------------------------------------------
-/*
-      //adding the message to the database
-      val chatmanager = FsChatManager(FirebaseFirestore.getInstance())
-    /*  chatId = ""
-      when {
-          receiverUid == null && senderUid == null -> println("receiverUid is null")
-          receiverUid == null -> println("First string is null")
-          senderUid == null -> println("Second string is null")
-          receiverUid <= senderUid -> chatId = receiverUid+"-"+senderUid
-          receiverUid > senderUid -> chatId = senderUid+"-"+receiverUid
-      }
-     */
- */
-        val u1 = DummyUser(senderUid)
-        val u2 =  DummyUser(receiverUid)
 
-        val chat = Chat(DummyUser(senderUid), DummyUser(receiverUid), "idddd")
+        //fetching the messages from the database
+        val u1 = senderUid
+        val u2 =  receiverUid
+        val chatId = Chat.computeChatId(u1,u2)
 
-
-        messageList.add(Message(u1, u2, "Yo boii what's up", Timestamp(2023, Month.MAY, 14, 7, 30,  Timestamp.Meridiem.AM)))
-        messageList.add(Message(u2, u1, "hey man", Timestamp(2023, Month.MAY, 14, 7, 30,  Timestamp.Meridiem.AM)))
-        messageList.add(Message(u1, u2, "game tomorrow, you down ?", Timestamp(2023, Month.MAY, 14, 7, 30,  Timestamp.Meridiem.AM)))
-        messageList.add(Message(u2, u1, "of couuuuurse man you know me ", Timestamp(2023, Month.MAY, 14, 7, 30,  Timestamp.Meridiem.AM)))
-        messageList.add(Message(u1, u2, "All right see you at 9, usual place", Timestamp(2023, Month.MAY, 14, 7, 30,  Timestamp.Meridiem.AM)))
-        messageList.add(Message(u2, u1, "bet", Timestamp(2023, Month.MAY, 14, 7, 30,  Timestamp.Meridiem.AM)))
-
-        //------------------------------------------------------------------------
-
-        //handling the sending of messages on button click
-        sendButton.setOnClickListener(){
-            val message = Message(  u1, u2 , messageBox.text.toString(), Timestamp(2023, Month.MAY, 14, 9, 30, Timestamp.Meridiem.AM ))
-            messageList.add(message)
-            messageAdapter.notifyDataSetChanged()
-            messageBox.text = ""
-            val itemCount: Int = messageAdapter.itemCount
-            chatRecyclerView.smoothScrollToPosition(itemCount - 1)
-        }
-        backButton.setOnClickListener(){
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-        }
-
-        //update the view on keyboard popup
-        val decorView = window.decorView
-        decorView.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
-            private val rect = Rect()
-
-            override fun onGlobalLayout() {
-                decorView.getWindowVisibleDisplayFrame(rect)
-                val screenHeight = decorView.height
-                val keypadHeight = screenHeight - rect.bottom
-
-                if (keypadHeight > screenHeight * 0.15) {
-                    // Keyboard is visible, scroll to the last item
-                    val lastItemPosition = messageAdapter.itemCount - 1
-                    chatRecyclerView.smoothScrollToPosition(lastItemPosition)
-                }
+        val cman = FsChatManager(FirebaseFirestore.getInstance())
+        val chat = cman.fetch(chatId) as CompletableFuture<Chat>
+        chat.thenAccept { c ->
+            c.messages.forEach{
+                m -> messageList.add(m)
             }
-        })
+            messageAdapter.notifyDataSetChanged()
+
+
+            //------------------------------------------------------------------------
+
+            //handling the sending of messages on button click
+            sendButton.setOnClickListener(){
+                val message = Message(  u1, u2 , messageBox.text.toString(), Timestamp(2023, Month.MAY, 14, 9, 30, Timestamp.Meridiem.AM ))
+                //local modification of the layout
+                messageList.add(message)
+                messageAdapter.notifyDataSetChanged()
+                //remote modification to the database:
+                cman.addMessageToChat(chatId, message)
+                //clearing the message
+                messageBox.text = ""
+
+                //scrolling down to the bottom of the view
+                val itemCount: Int = messageAdapter.itemCount
+                if(itemCount > 0){
+                    chatRecyclerView.smoothScrollToPosition(itemCount - 1)
+                }
+
+                //updating the database
+                cman.addMessageToChat(chatId, message)
+            }
+
+            backButton.setOnClickListener(){
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+            }
+
+            //update the view on keyboard popup
+            val decorView = window.decorView
+            decorView.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+                private val rect = Rect()
+
+                override fun onGlobalLayout() {
+                    decorView.getWindowVisibleDisplayFrame(rect)
+                    val screenHeight = decorView.height
+                    val keypadHeight = screenHeight - rect.bottom
+
+                    if (keypadHeight > screenHeight * 0.15) {
+                        // Keyboard is visible, scroll to the last item
+                        val lastItemPosition = messageAdapter.itemCount - 1
+                        if (lastItemPosition > 0){
+                            chatRecyclerView.smoothScrollToPosition(lastItemPosition)
+                        }
+                    }
+                }
+            })
+
+        }
+
     }
 
 }
-
 
 
 
