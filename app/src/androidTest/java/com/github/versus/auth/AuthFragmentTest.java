@@ -25,7 +25,7 @@ public class AuthFragmentTest {
 
     @Before
     public void setUp() {
-        // HR : Make sure that the user is signed out
+        // HR : Make sure that the user has signed out
         FirebaseEmulator.FIREBASE_AUTH.signOut();
     }
 

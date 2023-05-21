@@ -35,7 +35,12 @@ public class SignInFragmentTest {
     @Before
     public void setUp() {
         authenticator.signOut();
-        onView(withId(R.id.auth_fragment_signin)).perform(click());
+        onView(withId(R.id.signin_btn)).perform(click());
+    }
+
+    @Test
+    public void testVisibility(){
+        onView(withId(R.id.auth_fragment_signin)).check(matches(isDisplayed()));
     }
 
     @Test
