@@ -13,6 +13,7 @@ import com.github.versus.posts.Post;
 import com.github.versus.posts.Timestamp;
 import com.github.versus.schedule.Schedule;
 import com.github.versus.sports.Sport;
+import com.github.versus.utils.FirebaseEmulator;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.junit.Test;
@@ -26,12 +27,17 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeoutException;
 
 public class FsLocationManagerTest {
+
+    static {
+        FirebaseFirestore db = FirebaseEmulator.FIREBASE_FIRESTORE;
+    }
+
     @Test
     public void CorrectFsLocationInsert_Delete() throws ExecutionException, InterruptedException, TimeoutException
     {
         Location l = new Location("tirane", 0, 0);
         // Creating FsLocationManager instance
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseFirestore db = FirebaseEmulator.FIREBASE_FIRESTORE;
         FsLocationManager locm = new FsLocationManager(db);
 
         //inserting the schedule
@@ -58,7 +64,7 @@ public class FsLocationManagerTest {
     {
         String hoaxName = "hoaxxxxxxxxxxxxx" ;
         // Creating FsLocm instance
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseFirestore db = FirebaseEmulator.FIREBASE_FIRESTORE;
         FsLocationManager locm = new FsLocationManager(db);
 
         // delete the test post if it's there

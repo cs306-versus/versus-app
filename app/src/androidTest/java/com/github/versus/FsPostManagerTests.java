@@ -16,6 +16,7 @@ import com.github.versus.posts.Post;
 import com.github.versus.posts.Timestamp;
 import com.github.versus.sports.Sport;
 import com.github.versus.user.DummyUser;
+import com.github.versus.utils.FirebaseEmulator;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -39,10 +40,14 @@ import java.util.stream.Collectors;
 @RunWith(AndroidJUnit4.class)
 public class FsPostManagerTests {
 
+    static {
+        FirebaseFirestore db = FirebaseEmulator.FIREBASE_FIRESTORE;
+    }
+
     @Test
     public void CorrectFsPostInsert_fetch() throws ExecutionException, InterruptedException, TimeoutException {
         // Creating FsPostm instance
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseFirestore db = FirebaseEmulator.FIREBASE_FIRESTORE;
         FsPostManager postm = new FsPostManager(db);
 
         // Creating a test post
@@ -71,7 +76,7 @@ public class FsPostManagerTests {
     @Test
     public void NullGetResultOnAbsentPost() throws ExecutionException, InterruptedException, TimeoutException {
         // Creating FsPostm instance
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseFirestore db = FirebaseEmulator.FIREBASE_FIRESTORE;
         FsPostManager postm = new FsPostManager(db);
 
         // delete the test post if it's there
@@ -88,7 +93,7 @@ public class FsPostManagerTests {
     @Test
     public void CorrectFetchAllPostsFromTestCollection() throws ExecutionException, InterruptedException {
         // Creating FsPostm instance
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseFirestore db = FirebaseEmulator.FIREBASE_FIRESTORE;
         FsPostManager postm = new FsPostManager(db);
         List<Post> l = postm.fetchAll("test_posts").get();
         //creating test posts
@@ -111,7 +116,7 @@ public class FsPostManagerTests {
     @Test
     public void CorrectJoinOnPresentPost() throws ExecutionException, InterruptedException {
         // Creating FsPostm instance
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseFirestore db = FirebaseEmulator.FIREBASE_FIRESTORE;
         FsPostManager postm = new FsPostManager(db);
 
         // Creating a test post
@@ -148,7 +153,7 @@ public class FsPostManagerTests {
     @Test
     public void CorrectFetchSpecific() throws ExecutionException, InterruptedException {
         // Creating FsPostm instance
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseFirestore db = FirebaseEmulator.FIREBASE_FIRESTORE;
         FsPostManager postm = new FsPostManager(db);
 
         // Creating a test post

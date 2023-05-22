@@ -14,14 +14,20 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule;
 
 import com.github.versus.MainActivity;
 import com.github.versus.R;
+import com.github.versus.utils.FirebaseEmulator;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
 
 //@RunWith(AndroidJUnit4.class)
 public class UserInfoFragmentTest {
+
+    static {
+        FirebaseFirestore db = FirebaseEmulator.FIREBASE_FIRESTORE;
+    }
 
     //@Rule
     public ActivityScenarioRule<MainActivity> scenario = new ActivityScenarioRule<>(MainActivity.class);

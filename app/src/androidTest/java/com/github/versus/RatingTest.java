@@ -2,6 +2,8 @@ package com.github.versus;
 
 import com.github.versus.rating.Rating;
 import com.github.versus.user.VersusUser;
+import com.github.versus.utils.FirebaseEmulator;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.junit.Test;
 
@@ -9,6 +11,10 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
 public class RatingTest {
+
+    static {
+        FirebaseFirestore db = FirebaseEmulator.FIREBASE_FIRESTORE;
+    }
 
     @Test
     public void EloComputationstaysBelowMax() throws ExecutionException, InterruptedException, TimeoutException{

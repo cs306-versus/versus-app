@@ -13,6 +13,7 @@ import com.github.versus.utils.FirebaseEmulator;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.junit.After;
 import org.junit.Before;
@@ -36,6 +37,10 @@ import java.io.Serializable;
 
 @RunWith(AndroidJUnit4.class)
 public class EntryActivityTest {
+
+    static {
+        FirebaseFirestore db = FirebaseEmulator.FIREBASE_FIRESTORE;
+    }
 
     public ActivityTestRule<EntryActivity> rule;
 

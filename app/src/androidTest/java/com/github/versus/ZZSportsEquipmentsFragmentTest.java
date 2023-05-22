@@ -32,6 +32,9 @@ import androidx.test.espresso.contrib.DrawerActions;
 import androidx.test.espresso.contrib.DrawerMatchers;
 
 
+import com.github.versus.utils.FirebaseEmulator;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -40,6 +43,10 @@ import org.junit.runner.RunWith;
 @RunWith(AndroidJUnit4.class)
 //Class to test the functinalities of the Sport Equipments Fragment
 public class ZZSportsEquipmentsFragmentTest {
+
+    static {
+        FirebaseFirestore db = FirebaseEmulator.FIREBASE_FIRESTORE;
+    }
 
     //Setting the rule for the ActivityScenario
     @Rule

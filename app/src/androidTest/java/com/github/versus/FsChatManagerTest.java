@@ -15,6 +15,7 @@ import com.github.versus.posts.Timestamp;
 import com.github.versus.schedule.Schedule;
 import com.github.versus.sports.Sport;
 import com.github.versus.user.DummyUser;
+import com.github.versus.utils.FirebaseEmulator;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.junit.Test;
@@ -32,11 +33,15 @@ import java.util.concurrent.TimeoutException;
 
 public class FsChatManagerTest {
 
+    static {
+        FirebaseFirestore db = FirebaseEmulator.FIREBASE_FIRESTORE;
+    }
+
     @Test
     public void CorrectFsChatInsert_fetch() throws ExecutionException, InterruptedException, TimeoutException
     {
         // Creating FsPostm instance
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseFirestore db = FirebaseEmulator.FIREBASE_FIRESTORE;
         FsChatManager chatm = new FsChatManager(db);
 
         // Creating a test post
@@ -65,7 +70,7 @@ public class FsChatManagerTest {
     public void messageAdditionTest() throws ExecutionException, InterruptedException, TimeoutException {
         String testChatId = "p1p2";
         // Creating FsScheduleManager instance
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseFirestore db = FirebaseEmulator.FIREBASE_FIRESTORE;
         FsChatManager chatm = new FsChatManager(db);
 
         // Creating a test chat

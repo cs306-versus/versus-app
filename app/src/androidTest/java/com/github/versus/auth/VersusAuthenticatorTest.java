@@ -8,6 +8,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import com.github.versus.utils.FirebaseEmulator;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,6 +19,10 @@ import static com.github.versus.utils.auth.EmulatorUserProvider.*;
 
 //@RunWith(AndroidJUnit4.class)
 public class VersusAuthenticatorTest {
+
+    static {
+        FirebaseFirestore db = FirebaseEmulator.FIREBASE_FIRESTORE;
+    }
 
     private final VersusAuthenticator auth = VersusAuthenticator.getInstance(FirebaseEmulator.FIREBASE_AUTH);
 

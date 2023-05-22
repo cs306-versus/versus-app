@@ -21,12 +21,17 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import com.github.versus.utils.*;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import static com.github.versus.utils.auth.EmulatorUserProvider.*;
 import static org.hamcrest.Matchers.not;
 
 //@RunWith(AndroidJUnit4.class)
 public class SignInFragmentTest {
+
+    static {
+        FirebaseFirestore db = FirebaseEmulator.FIREBASE_FIRESTORE;
+    }
 
     private final Authenticator authenticator = VersusAuthenticator.getInstance(FirebaseEmulator.FIREBASE_AUTH);
 
