@@ -3,12 +3,17 @@ package com.github.versus.announcements;
 import static android.app.AlertDialog.*;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
 
 import androidx.fragment.app.DialogFragment;
@@ -24,46 +29,96 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class MaxPlayerDialogFragment extends DialogFragment  {
+/**
+ * Dialog Fragment for specifying the maximum player count.
+ */
+public class MaxPlayerDialogFragment extends DialogFragment {
 
+    /**
+     * Interface for listening to user actions within the dialog.
+     */
     public interface MaxPlayerListener extends CancelCreate {
-        public void onMaxPlayerPositiveClick(int playerCount);
+        /**
+         * Callback for when the user submits a maximum player count.
+         *
+         * @param playerCount The selected maximum player count.
+         */
+        void onMaxPlayerPositiveClick(int playerCount);
     }
 
-    int maxPlayerCount = 2;
+    private int maxPlayerCount = 2;  // Default max player count
+    private MaxPlayerListener tl;  // Listener for user actions
 
-    MaxPlayerListener tl;
-
+    /**
+     * Callback for when the dialog is first created.
+     */
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        // Use the Builder class for convenient dialog construction
-        Activity a = getActivity();
-        Fragment f = getParentFragment();
-        tl = (MaxPlayerListener) f;
+        Fragment fragment = getParentFragment();
+        tl = (MaxPlayerListener) fragment;
         LayoutInflater inflater = requireActivity().getLayoutInflater();
-        Builder builder = new Builder(a);
+        Builder builder = new Builder(getActivity());
         FsPostManager fpm = new FsPostManager(FirebaseFirestore.getInstance());
         View innerView = inflater.inflate(R.layout.create_post_max_players, null);
-        builder.setTitle("max number of players").setView(innerView)
-                .setPositiveButton("Next", new OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id){
-                       EditText et =  ((EditText) innerView.findViewById(R.id.editMaxPlayers));
-                       System.out.println(et.getText());
-                        maxPlayerCount = Integer.parseInt(et.getText().toString());
-                        tl.onMaxPlayerPositiveClick(maxPlayerCount);
-                    }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        tl.onCancel();
-                    }
-                });
-        // Create the AlertDialog object and return it
-        return builder.create();
+
+        builder.setView(innerView).setPositiveButton("Next", new OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                EditText et = ((EditText) innerView.findViewById(R.id.editMaxPlayers));
+                System.out.println(et.getText());
+                maxPlayerCount = Integer.parseInt(et.getText().toString());
+                tl.onMaxPlayerPositiveClick(maxPlayerCount);
+            }
+
+        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                tl.onCancel();
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+
+        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface arg0) {
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.WHITE);
+                dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.WHITE);
+            }
+        });
+
+        return dialog;
     }
 
+    /**
+     * Callback for when the fragment is first attached to its context.
+     */
     @Override
-    public void onAttach(Context context){
+    public void onAttach(Context context) {
         super.onAttach(context);
+    }
+
+    /**
+     * Callback for when the fragment starts.
+     */
+    @Override
+    public void onStart() {
+        super.onStart();
+        Dialog dialog = getDialog();
+        if (dialog != null) {
+            Window window = dialog.getWindow();
+            if (window != null) {
+                window.setBackgroundDrawableResource(R.drawable.custom_dialog_background);
+                window.getDecorView().post(() -> {
+                    DisplayMetrics displayMetrics = new DisplayMetrics();
+                    getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+                    int dialogWindowWidth = (int) (displayMetrics.widthPixels * 0.85);
+                    int dialogWindowHeight = (int) (displayMetrics.heightPixels * 0.25);
+                    WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+                    layoutParams.copyFrom(window.getAttributes());
+                    layoutParams.width = dialogWindowWidth;
+                    layoutParams.height = dialogWindowHeight;
+                    window.setAttributes(layoutParams);
+                });
+            }
+        }
     }
 }
