@@ -16,7 +16,6 @@ android:background="@drawable/custom_dialog_background">>
     android:textSize="24sp"
     android:textStyle="bold"
     android:textColor="@android:color/white"
-    android:background="@color/quantum_grey"
     />
 
 <EditText

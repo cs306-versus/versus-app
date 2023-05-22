@@ -16,7 +16,6 @@
         android:textSize="24sp"
         android:textStyle="bold"
         android:textColor="@android:color/white"
-        android:background="@color/quantum_grey"
         />
 
 
