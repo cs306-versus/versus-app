@@ -12,18 +12,24 @@ import com.github.versus.R;
 
 import java.util.Optional;
 
-public class AuthActivity extends AppCompatActivity {
+/**
+ * Main Activity for the authentication process
+ *
+ * @author Hamza REMMAL (hamza.remmal@epfl.ch)
+ */
+public final class AuthActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
         Optional.ofNullable(getSupportActionBar()).ifPresent(ActionBar::hide);
-        setContentView(R.layout.activity_auth);
+        setContentView(R.layout.auth_activity);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
     }
+
 }

@@ -1,7 +1,6 @@
 package com.github.versus;
 
 import static com.github.versus.offline.CachedPost.computeID;
-import static com.github.versus.offline.CachedPost.match;
 import static com.github.versus.offline.CachedPost.postIsInvalid;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -15,7 +14,6 @@ import com.github.versus.posts.Location;
 import com.github.versus.posts.Post;
 import com.github.versus.posts.Timestamp;
 import com.github.versus.sports.Sport;
-import com.github.versus.user.DummyUser;
 import com.github.versus.user.VersusUser;
 
 import org.junit.Test;
@@ -33,8 +31,8 @@ public class CachedPostTest {
         List<Sport> preferredSports2= Arrays.asList(Sport.BOXING);
         List<Sport> preferredSports3= Arrays.asList(Sport.FOOTBALL,Sport.BASKETBALL);
 
-        VersusUser.Builder builder ;
-        builder= new VersusUser.Builder("007");
+        VersusUser.VersusBuilder builder ;
+        builder= new VersusUser.VersusBuilder("007");
         builder.setFirstName("James");
         builder.setLastName("Bond");
         builder.setUserName("NotInfiltrated");
@@ -46,7 +44,7 @@ public class CachedPostTest {
         builder.setPreferredSports(preferredSports1);
         VersusUser JamesBond=   builder.build();
 
-        builder = new VersusUser.Builder("1");
+        builder = new VersusUser.VersusBuilder("1");
         builder.setFirstName("Mohammad");
         builder.setLastName("Ali");
         builder.setUserName("TheGoat");
@@ -58,7 +56,7 @@ public class CachedPostTest {
         builder.setPreferredSports(preferredSports2);
         VersusUser MohammedAli= builder.build();
 
-        builder = new VersusUser.Builder("999");
+        builder = new VersusUser.VersusBuilder("999");
         builder.setFirstName("Regular");
         builder.setLastName("Guy");
         builder.setUserName("BasicGuy");

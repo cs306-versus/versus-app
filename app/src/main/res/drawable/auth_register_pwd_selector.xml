@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:drawable="@drawable/auth_register_field_shape"
+        app:pwd_state="false" />
+    <item android:drawable="@drawable/auth_register_field_shape_error"
+        app:pwd_state="true" />
+
+</selector>

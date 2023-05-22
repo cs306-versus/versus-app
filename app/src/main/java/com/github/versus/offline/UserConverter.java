@@ -1,11 +1,9 @@
 package com.github.versus.offline;
 
 import com.github.versus.sports.Sport;
-import com.github.versus.user.User;
 import com.github.versus.user.VersusUser;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
@@ -44,7 +42,7 @@ public class UserConverter {
         String city = tokens[7];
         int zipCode = Integer.parseInt(tokens[8]);
         List<Sport> preferredSports = SportConverter.convertBackToSports(tokens[9]);
-        VersusUser.Builder builder = new VersusUser.Builder(uid);
+        VersusUser.VersusBuilder builder = new VersusUser.VersusBuilder(uid);
         builder.setFirstName(firstName);
         builder.setLastName(lastName);
         builder.setUserName(userName);
