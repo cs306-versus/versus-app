@@ -21,14 +21,14 @@ public class SearchFriendFragmentTest {
 
     //@Rule
     public ActivityScenarioRule<MainActivity> scenario = new ActivityScenarioRule<>(MainActivity.class);
-
+    
     //@Before
     public void navigateToFrag(){
-       // onView(withId(R.id.main_activity_layout)).check(matches(DrawerMatchers.isClosed(GravityCompat.START))).perform(DrawerActions.open());
-        //onView(withId(R.id.main_activity_layout)).check(matches(DrawerMatchers.isOpen(GravityCompat.START)));
+        onView(withId(R.id.main_activity_layout)).check(matches(DrawerMatchers.isClosed(GravityCompat.START))).perform(DrawerActions.open());
+        onView(withId(R.id.main_activity_layout)).check(matches(DrawerMatchers.isOpen(GravityCompat.START)));
         onView(withId(R.id.friend_search)).perform(click());
     }
-
+    
     //@Test
     public void testScrollRecyclerView(){
         onView(withId(R.id.user_recyclerView)).perform(click());

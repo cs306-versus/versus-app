@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
@@ -20,17 +19,11 @@ import com.google.android.gms.auth.api.identity.Identity;
 import com.google.android.gms.auth.api.identity.SignInClient;
 import com.google.android.gms.auth.api.identity.SignInCredential;
 import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-
-import java.util.concurrent.Executor;
 
 public class GoogleAuthFragment extends Fragment {
 
@@ -107,6 +100,6 @@ public class GoogleAuthFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_google_auth, container, false);
+        return inflater.inflate(R.layout.auth_fragment_google, container, false);
     }
 }

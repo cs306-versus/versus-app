@@ -5,7 +5,6 @@ import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 import static android.content.ContentValues.TAG;
 
-import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -60,7 +59,7 @@ public class SearchFragment extends Fragment implements LocationPickerDialog.Loc
 
     protected RecyclerView recyclerView;
     protected Post newPost;
-    protected VersusUser user = new VersusUser.Builder("fake").build();
+    protected VersusUser user = new VersusUser.VersusBuilder("fake").build();
 
     protected EditText searchBar;
     protected CreatePostTitleDialogFragment cpdf;
@@ -98,7 +97,7 @@ public class SearchFragment extends Fragment implements LocationPickerDialog.Loc
             db = new FsUserManager(FirebaseFirestore.getInstance());
             ((CompletableFuture<User>)db.fetch(FirebaseAuth.getInstance().getUid()))
                     .thenAccept(this::setUser);
-            user = new VersusUser.Builder(FirebaseAuth.getInstance().getUid()).build();
+            user = new VersusUser.VersusBuilder(FirebaseAuth.getInstance().getUid()).build();
         }
 
         loadPosts();

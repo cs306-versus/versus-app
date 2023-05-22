@@ -55,8 +55,8 @@ public class ZZSportsEquipmentsFragmentTest {
     @Before
     public void before_routine() {
         //Open the drawer
-        onView(withId(R.id.drawer_layout)).check(matches(DrawerMatchers.isClosed(GravityCompat.START))).perform(DrawerActions.open());
-        onView(withId(R.id.drawer_layout)).check(matches(DrawerMatchers.isOpen(GravityCompat.START)));
+        onView(withId(R.id.main_activity_layout)).check(matches(DrawerMatchers.isClosed(GravityCompat.START))).perform(DrawerActions.open());
+        onView(withId(R.id.main_activity_layout)).check(matches(DrawerMatchers.isOpen(GravityCompat.START)));
         //Select the nav_sport_equipment option in menu
         onView(withId(R.id.nav_sport_equipments)).perform(click());
     }

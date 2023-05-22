@@ -25,25 +25,25 @@ public class AuthFragmentTest {
 
     @Before
     public void setUp() {
-        // HR : Make sure that the user is signed out
+        // HR : Make sure that the user has signed out
         FirebaseEmulator.FIREBASE_AUTH.signOut();
     }
 
     @Test
     public void testVisibility(){
-        onView(withId(R.id.auth_frag)).check(matches(isDisplayed()));
+        onView(withId(R.id.auth_fragment)).check(matches(isDisplayed()));
     }
 
     @Test
     public void testRegister(){
         onView(withId(R.id.register_btn)).perform(click());
-        onView(withId(R.id.register_layout)).check(matches(isDisplayed()));
+        onView(withId(R.id.auth_fragment_register)).check(matches(isDisplayed()));
     }
 
     @Test
     public void testSignIn(){
         onView(withId(R.id.signin_btn)).perform(click());
-        onView(withId(R.id.frag_auth_layout)).check(matches(isDisplayed()));
+        onView(withId(R.id.auth_fragment_signin)).check(matches(isDisplayed()));
     }
 
 }

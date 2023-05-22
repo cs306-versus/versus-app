@@ -83,4 +83,77 @@ public interface User {
      */
     List<Sport> getPreferredSports();
 
+    abstract class Builder {
+        /**
+         * ???
+         * @param firstName
+         * @return
+         */
+        public abstract Builder setFirstName(String firstName);
+
+        /**
+         * ???
+         * @param lastName
+         * @return
+         */
+        public abstract Builder setLastName(String lastName);
+
+        /**
+         * ???
+         * @param userName
+         * @return
+         */
+        public abstract Builder setUserName(String userName);
+
+        /**
+         * ???
+         * @param mail
+         * @return
+         */
+        public abstract Builder setMail(String mail);
+
+        /**
+         * ???
+         * @param phone
+         * @return
+         */
+        public abstract Builder setPhone(String phone);
+
+        /**
+         * ???
+         * @param rating
+         * @return
+         */
+        public abstract Builder setRating(int rating);
+
+        /**
+         * ???
+         * @param city
+         * @return
+         */
+        public abstract Builder setCity(String city);
+
+        /**
+         * ???
+         * @param zip
+         * @return
+         */
+        public abstract Builder setZipCode(int zip);
+
+        /**
+         * ???
+         * @param sports
+         * @return
+         */
+        public abstract Builder setPreferredSports(List<Sport> sports);
+
+        public abstract Builder setUID(String uid);
+
+        /**
+         * ???
+         * @return
+         */
+        public abstract User build();
+    }
+
 }

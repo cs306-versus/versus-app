@@ -6,6 +6,11 @@ import static androidx.test.espresso.intent.Intents.intending;
 import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static androidx.test.espresso.matcher.ViewMatchers.*;
 
+import static com.github.versus.utils.auth.EmulatorUserProvider.validMail;
+import static com.github.versus.utils.auth.EmulatorUserProvider.validPassword;
+
+import static org.junit.Assert.fail;
+
 import android.app.Instrumentation;
 import android.content.Context;
 import android.content.Intent;
@@ -16,36 +21,32 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.github.versus.R;
+import com.github.versus.utils.FirebaseEmulator;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-//@RunWith(AndroidJUnit4.class)
+@RunWith(AndroidJUnit4.class)
 public class AuthActivityTest {
 
-    private Context ctx;
+    private final Authenticator authenticator = VersusAuthenticator.getInstance(FirebaseEmulator.FIREBASE_AUTH);
 
     @Rule
     public ActivityScenarioRule<AuthActivity> scenario = new ActivityScenarioRule<>(AuthActivity.class);
 
-    //@Before
+    @Before
     public void setUp() {
-        ctx = ApplicationProvider.getApplicationContext();
+        // HR : Make sure that the user has signed out
+        authenticator.signOut();
     }
 
-    //@Test
-    public void checkOnActivityResult() {
-        Instrumentation.ActivityResult result = new Instrumentation.ActivityResult(0, null);
-        try {
-            Intents.init();
-            intending(hasComponent(AuthActivity.class.getName())).respondWith(result);
-            scenario.getScenario().onActivity(a -> a.startActivityForResult(new Intent(ctx, AuthActivity.class), 0));
-        } finally {
-            Intents.release();
-        }
+    @Test
+    public void checkVisibility(){
+        onView(withId(R.id.auth_activity_layout)).check(matches(isDisplayed()));
     }
-
 
 }
