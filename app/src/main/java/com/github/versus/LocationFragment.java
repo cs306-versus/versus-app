@@ -1030,6 +1030,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
             return null;
         }
 
+
         @Override
         protected void onPostExecute(List<LatLng> result) {
             if (result != null) {
