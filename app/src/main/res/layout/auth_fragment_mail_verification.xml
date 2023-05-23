@@ -13,17 +13,17 @@
         android:layout_height="wrap_content">
 
         <View android:background="@drawable/auth_card_shape"
-            android:layout_marginStart="41px"
-            android:layout_marginTop="343px"
-            android:layout_width="1000px"
-            android:layout_height="1800px" />
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="124dp"
+            android:layout_width="363dp"
+            android:layout_height="654dp" />
 
         <ImageView android:id="@+id/vector"
             android:src="@drawable/saly__"
             android:contentDescription="vector"
-            android:layout_marginStart="440px"
-            android:layout_marginTop="219px"
-            android:layout_width="200px"
+            android:layout_marginStart="160dp"
+            android:layout_marginTop="79dp"
+            android:layout_width="72dp"
             android:layout_height="247.45px" />
 
         <TextView android:id="@+id/verify_your_account"
@@ -54,8 +54,8 @@
 
 
         <RelativeLayout android:id="@+id/send_again"
-            android:layout_marginTop="2031px"
-            android:layout_marginStart="183px"
+            android:layout_marginTop="738dp"
+            android:layout_marginStart="66dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
@@ -63,24 +63,24 @@
                 android:fontFamily="Poppins"
                 android:layout_gravity="center_horizontal|center"
                 android:gravity="center"
-                android:textSize="40px"
+                android:textSize="14sp"
                 android:textColor="@color/activation_text_color"
-                android:layout_marginLeft="443px"
-                android:layout_marginTop="0px"
-                android:layout_width="291px"
-                android:layout_height="88px"
+                android:layout_marginStart="161dp"
+                android:layout_marginTop="0dp"
+                android:layout_width="105dp"
+                android:layout_height="32dp"
                 android:text="@string/send_it_again_string" />
 
             <TextView android:id="@+id/didn_t_get_the_mail__"
                 android:fontFamily="Poppins"
                 android:layout_gravity="center_horizontal|center"
                 android:gravity="center"
-                android:textSize="40px"
+                android:textSize="14sp"
                 android:textColor="@color/activation_text_color"
-                android:layout_marginLeft="-7px"
-                android:layout_marginTop="0px"
-                android:layout_width="427px"
-                android:layout_height="88px"
+                android:layout_marginStart="-7px"
+                android:layout_marginTop="0dp"
+                android:layout_width="155dp"
+                android:layout_height="32dp"
                 android:text="@string/didn_t_get_the_mail___string"
                 />
 
@@ -88,9 +88,9 @@
 
         <ImageView android:src="@drawable/ic_send_mail"
             android:contentDescription="vector_ek1"
-            android:layout_marginStart="390px"
-            android:layout_marginTop="1007px"
-            android:layout_width="300px"
+            android:layout_marginStart="141dp"
+            android:layout_marginTop="366dp"
+            android:layout_width="109dp"
             android:layout_height="162.5px" />
 
     </RelativeLayout>
