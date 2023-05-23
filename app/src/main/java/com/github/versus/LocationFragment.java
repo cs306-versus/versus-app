@@ -10,6 +10,7 @@ import android.animation.ValueAnimator;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.location.Location;
 import android.os.AsyncTask;
@@ -17,13 +18,17 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -137,7 +142,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     private double thresholdDistanceInput=1000;
     private  AutocompleteSupportFragment autocompleteFragment;
     //private Marker blinkingMarker ;
-   // private Marker visibleMarker;
+    // private Marker visibleMarker;
     private Polyline lastDrawnLine;
     private double distanceValue;
 
@@ -539,17 +544,21 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
         View view;
         EditText radiusInput;
+        LayoutInflater inflater = requireActivity().getLayoutInflater();
 
-        view = LayoutInflater.from(getActivity()).inflate(R.layout.custom_radius_layout, null);
+        // Inflate custom layout
+        view = inflater.inflate(R.layout.radius_layout, null);
 
-        radiusInput = view.findViewById(R.id.edit_text_radius3);
-
+        // Find your EditText view
+        radiusInput = view.findViewById(R.id.edit_text_radius2);
 
         // Get a reference to the EditText view in the layout
 
         radiusInput.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         radiusInput.setHint("Enter radius (in meters)");
-        AlertDialog dialog = new AlertDialog.Builder(getActivity()).setTitle("Enter radius").setView(view).setPositiveButton("Enter", new DialogInterface.OnClickListener() {
+
+        // Create a dialog to display the EditText view
+        AlertDialog dialog = new AlertDialog.Builder(getActivity(), R.style.CustomAlertDialog).setView(view).setPositiveButton("Enter", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // Get the radius entered by the user
@@ -564,6 +573,28 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
             }
         }).setNegativeButton("Cancel", null).create();
+
+        // Customize the dialog window appearance here
+        Window window = dialog.getWindow();
+        if (window != null) {
+            window.setBackgroundDrawableResource(R.drawable.custom_dialog_background);
+
+            // Apply your resizing logic here
+            window.getDecorView().post(() -> {
+                DisplayMetrics displayMetrics = new DisplayMetrics();
+                getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+                int dialogWindowWidth = (int) (displayMetrics.widthPixels * 0.85); // 85% of screen width
+                int dialogWindowHeight = (int) (displayMetrics.heightPixels * 0.25); // 25% of screen height
+
+                WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+                layoutParams.copyFrom(window.getAttributes());
+                layoutParams.width = dialogWindowWidth;
+                layoutParams.height = dialogWindowHeight;
+                window.setAttributes(layoutParams);
+            });
+        }
+
+
         dialog.show();
     }
 
@@ -575,8 +606,12 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     public void openPlacesDialog() {
         View view;
         EditText radiusInput;
+        LayoutInflater inflater = requireActivity().getLayoutInflater();
 
-        view = LayoutInflater.from(getActivity()).inflate(R.layout.radius_layout, null);
+        // Inflate custom layout
+        view = inflater.inflate(R.layout.radius_layout, null);
+
+        // Find your EditText view
         radiusInput = view.findViewById(R.id.edit_text_radius2);
 
         // Get a reference to the EditText view in the layout
@@ -585,7 +620,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         radiusInput.setHint("Enter radius (in meters)");
 
         // Create a dialog to display the EditText view
-        AlertDialog dialog = new AlertDialog.Builder(getActivity()).setTitle("Enter radius").setView(view).setPositiveButton("Show Places", new DialogInterface.OnClickListener() {
+        AlertDialog dialog = new AlertDialog.Builder(getActivity(), R.style.CustomAlertDialog).setView(view).setPositiveButton("Show Places", new DialogInterface.OnClickListener() {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -605,9 +640,30 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
             }
         }).setNegativeButton("Cancel", null).create();
 
+        // Customize the dialog window appearance here
+        Window window = dialog.getWindow();
+        if (window != null) {
+            window.setBackgroundDrawableResource(R.drawable.custom_dialog_background);
+
+            // Apply your resizing logic here
+            window.getDecorView().post(() -> {
+                DisplayMetrics displayMetrics = new DisplayMetrics();
+                getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+                int dialogWindowWidth = (int) (displayMetrics.widthPixels * 0.85); // 85% of screen width
+                int dialogWindowHeight = (int) (displayMetrics.heightPixels * 0.25); // 25% of screen height
+
+                WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+                layoutParams.copyFrom(window.getAttributes());
+                layoutParams.width = dialogWindowWidth;
+                layoutParams.height = dialogWindowHeight;
+                window.setAttributes(layoutParams);
+            });
+        }
+
         dialog.show();
 
     }
+
 
     /**
      * Shows a list of custom places within a specified radius around the user's current location.
@@ -662,33 +718,87 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
      */
 
     private void showPlacesList() {
-        View customView = LayoutInflater.from(getActivity()).inflate(R.layout.custom_alert_dialog, null);
-        listView = customView.findViewById(R.id.test_list_view2);
-        listView.setAdapter(new ArrayAdapter<>(requireActivity(), android.R.layout.simple_list_item_1, likelyPlaceNames));
-        AlertDialog dialog = new AlertDialog.Builder(getActivity()).setTitle("Select a place").setView(customView).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        // Create a custom title
+        TextView title = new TextView(getActivity());
+        title.setText("Select a place");
+        title.setBackgroundColor(getResources().getColor(R.color.main_app_color)); // Set the background color to your preference
+        title.setPadding(10, 10, 10, 10);
+        title.setGravity(Gravity.CENTER);
+        title.setTextColor(Color.WHITE);
+        title.setTextSize(24);
+        title.setTypeface(null, Typeface.BOLD);
+
+        // Create a custom array adapter
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_single_choice, likelyPlaceNames){
+            @NonNull
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
+            public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                TextView item = (TextView) super.getView(position, convertView, parent);
+
+                // Set the color of the items in the list
+                item.setTextColor(Color.WHITE);
+
+                return item;
             }
-        }).create();
+        };
 
-        dialog.setView(customView);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        // Create a dialog with radio buttons
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.CustomAlertDialog);
+        builder.setCustomTitle(title)
+                .setSingleChoiceItems(adapter, -1, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // User checked an item, update your selectedPlace
+                        selectedPlace = likelyPlaceLatLngs[which];
+                        posSelectedPlace = which;
+                        map.addMarker(new MarkerOptions().title(likelyPlaceNames[which]).position(selectedPlace).snippet(likelyPlaceAddresses[which]));
+                        addBlinkingMarker(selectedPlace, likelyPlaceNames[which], likelyPlaceAddresses[which]);
+                        map.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedPlace, DEFAULT_ZOOM));
+                    }
+                })
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User clicked OK, you might want to do something here
+                        dialog.dismiss();
+                    }
+                })
+                .setNegativeButton("Cancel", null);
+
+        AlertDialog dialog = builder.create();
+
+        // Customize dialog appearance here...
+        Window window = dialog.getWindow();
+        if (window != null) {
+            window.setBackgroundDrawableResource(R.drawable.custom_dialog_background);
+
+            window.getDecorView().post(() -> {
+                DisplayMetrics displayMetrics = new DisplayMetrics();
+                getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+                int dialogWindowWidth = (int) (displayMetrics.widthPixels * 0.85); // 85% of screen width
+                int dialogWindowHeight = (int) (displayMetrics.heightPixels * 0.35); // 25% of screen height
+
+                WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+                layoutParams.copyFrom(window.getAttributes());
+                layoutParams.width = dialogWindowWidth;
+                layoutParams.height = dialogWindowHeight;
+                window.setAttributes(layoutParams);
+            });
+        }
+
+        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                selectedPlace= likelyPlaceLatLngs[position];
-                posSelectedPlace =position;
-                 map.addMarker(new MarkerOptions().title(likelyPlaceNames[position]).position(selectedPlace).snippet(likelyPlaceAddresses[position]));
-
-                addBlinkingMarker(selectedPlace, likelyPlaceNames[position], likelyPlaceAddresses[position]);
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedPlace, DEFAULT_ZOOM));
-                dialog.dismiss();
+            public void onShow(DialogInterface arg0) {
+                dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.WHITE);
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.WHITE);
             }
         });
-        selectedPlace= likelyPlaceLatLngs[posSelectedPlace];
-        dialog.show();
 
+        dialog.show();
     }
+
+
+
 
     /**
      * Displays a custom toast with the specified message.
