@@ -77,14 +77,7 @@ public class CreatePostTitleDialogFragment extends DialogFragment {
         // Create the AlertDialog object and return it
         AlertDialog dialog = builder.create();
 
-        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(DialogInterface arg0) {
-                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.WHITE);
-                dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.WHITE);
-            }
-        });
-
+        changeColorButton(dialog,Color.WHITE);
 
         return dialog;
     }
@@ -93,35 +86,63 @@ public class CreatePostTitleDialogFragment extends DialogFragment {
      * Callback for when the dialog is starting.
      */
     @Override
-    public void onStart() {
+    public  void onStart() {
         super.onStart();
         Dialog dialog = getDialog();
         if (dialog != null) {
             Window window = dialog.getWindow();
             if (window != null) {
-                // Apply rounded corners
-                window.setBackgroundDrawableResource(R.drawable.custom_dialog_background);
-
-                // Post a runnable to resize the dialog
-                window.getDecorView().post(() -> {
-                    // Get current screen size
-                    DisplayMetrics displayMetrics = new DisplayMetrics();
-                    getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-
-                    // Define how much width and height you want to set
-                    int dialogWindowWidth = (int) (displayMetrics.widthPixels * 0.85); // 85% of screen width
-                    int dialogWindowHeight = (int) (displayMetrics.heightPixels * 0.25); // 25% of screen height
-
-                    // Set size
-                    WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
-                    layoutParams.copyFrom(window.getAttributes());
-                    layoutParams.width = dialogWindowWidth;
-                    layoutParams.height = dialogWindowHeight;
-                    window.setAttributes(layoutParams);
-                });
+                DisplayMetrics displayMetrics = new DisplayMetrics();
+                getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+                changeWindowDimensions(window,displayMetrics,0.85,0.25);
             }
         }
     }
+
+    /**
+     * Changes the dimensions of a provided Window object according to specified percentages of the screen dimensions.
+     * The method also applies a background drawable resource to the window.
+     *
+     * @param window The Window object whose dimensions are to be changed.
+     * @param displayMetrics The DisplayMetrics object that contains information about the display, such as its size, density, and font scaling.
+     * @param percentageScreenWidth The percentage of the screen's width that the window should take up.
+     * @param percentageScreenHeight The percentage of the screen's height that the window should take up.
+     */
+    public static void changeWindowDimensions(Window window, DisplayMetrics displayMetrics, double percentageScreenWidth, double percentageScreenHeight){
+        // Apply rounded corners
+        window.setBackgroundDrawableResource(R.drawable.custom_dialog_background);
+        // Post a runnable to resize the dialog
+        window.getDecorView().post(() -> {
+            // Define how much width and height you want to set
+            int dialogWindowWidth = (int) (displayMetrics.widthPixels * percentageScreenWidth);
+            int dialogWindowHeight = (int) (displayMetrics.heightPixels * percentageScreenHeight);
+
+            // Set size
+            WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+            layoutParams.copyFrom(window.getAttributes());
+            layoutParams.width = dialogWindowWidth;
+            layoutParams.height = dialogWindowHeight;
+            window.setAttributes(layoutParams);
+        });
+    }
+
+    /**
+     * Changes the color of the positive and negative buttons of the provided AlertDialog.
+     * The color is applied when the dialog is shown, not before.
+     *
+     * @param dialog The AlertDialog object whose button colors are to be changed.
+     * @param color The color to be applied to the buttons. This should be a resolved color, not a resource id.
+     */
+    public static void changeColorButton(AlertDialog dialog, int color) {
+        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface arg0) {
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color);
+                dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(color);
+            }
+        });
+    }
+
 
     /**
      * Callback for when the dialog is attached to a context.

@@ -577,21 +577,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         // Customize the dialog window appearance here
         Window window = dialog.getWindow();
         if (window != null) {
-            window.setBackgroundDrawableResource(R.drawable.custom_dialog_background);
-
-            // Apply your resizing logic here
-            window.getDecorView().post(() -> {
-                DisplayMetrics displayMetrics = new DisplayMetrics();
-                getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-                int dialogWindowWidth = (int) (displayMetrics.widthPixels * 0.85); // 85% of screen width
-                int dialogWindowHeight = (int) (displayMetrics.heightPixels * 0.25); // 25% of screen height
-
-                WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
-                layoutParams.copyFrom(window.getAttributes());
-                layoutParams.width = dialogWindowWidth;
-                layoutParams.height = dialogWindowHeight;
-                window.setAttributes(layoutParams);
-            });
+           changeWindowDimensions(window);
         }
 
 
@@ -642,27 +628,48 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
         // Customize the dialog window appearance here
         Window window = dialog.getWindow();
+
         if (window != null) {
-            window.setBackgroundDrawableResource(R.drawable.custom_dialog_background);
-
-            // Apply your resizing logic here
-            window.getDecorView().post(() -> {
-                DisplayMetrics displayMetrics = new DisplayMetrics();
-                getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-                int dialogWindowWidth = (int) (displayMetrics.widthPixels * 0.85); // 85% of screen width
-                int dialogWindowHeight = (int) (displayMetrics.heightPixels * 0.25); // 25% of screen height
-
-                WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
-                layoutParams.copyFrom(window.getAttributes());
-                layoutParams.width = dialogWindowWidth;
-                layoutParams.height = dialogWindowHeight;
-                window.setAttributes(layoutParams);
-            });
+            changeWindowDimensions(window);
         }
 
         dialog.show();
 
     }
+    /**
+     * Modifies the dimensions of a given window to certain percentages of the screen's width and height.
+     * Also sets the window's background drawable resource.
+     *
+     * @param window The window that will have its dimensions modified and background set.
+     */
+    private void changeWindowDimensions(Window window) {
+        // Set the window's background drawable resource
+        window.setBackgroundDrawableResource(R.drawable.custom_dialog_background);
+
+        // Apply the resizing logic inside a post() call on the window's decor view,
+        // which ensures that it is executed after the window has been laid out.
+        window.getDecorView().post(() -> {
+            // Obtain the current display metrics
+            DisplayMetrics displayMetrics = new DisplayMetrics();
+            getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+
+            // Calculate new dimensions as percentages of the screen's width and height
+            int dialogWindowWidth = (int) (displayMetrics.widthPixels * 0.85); // 85% of screen width
+            int dialogWindowHeight = (int) (displayMetrics.heightPixels * 0.25); // 25% of screen height
+
+            // Create a new WindowManager.LayoutParams object and copy the current window's attributes into it
+            WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+            layoutParams.copyFrom(window.getAttributes());
+
+            // Set the new dimensions
+            layoutParams.width = dialogWindowWidth;
+            layoutParams.height = dialogWindowHeight;
+
+            // Apply the new attributes to the window
+            window.setAttributes(layoutParams);
+        });
+    }
+
 
 
     /**
