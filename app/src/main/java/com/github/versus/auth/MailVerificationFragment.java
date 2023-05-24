@@ -1,19 +1,28 @@
 package com.github.versus.auth;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.github.versus.MainActivity;
 import com.github.versus.R;
 import com.github.versus.databinding.AuthFragmentMailVerificationBinding;
+import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class MailVerificationFragment extends Fragment {
 
     private AuthFragmentMailVerificationBinding binding;
+    private final Handler handler = new Handler();
+
+    private final VersusAuthenticator auth = VersusAuthenticator.getInstance(FirebaseAuth.getInstance());
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -25,6 +34,28 @@ public class MailVerificationFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = AuthFragmentMailVerificationBinding.inflate(inflater);
         return binding.getRoot();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // HR : Periodically check if the user has verified its mail
+        // HR : this is a kick start
+        handler.postDelayed(new CheckMail(), 3000);
+    }
+
+    private final class CheckMail implements Runnable {
+
+        @Override
+        public void run() {
+            auth.reload();
+            if(auth.hasValidMail()){
+                startActivity(new Intent(getContext(), MainActivity.class));
+                getActivity().finish();
+            }
+            else
+                handler.postDelayed(this, 1000);
+        }
     }
 
 }
