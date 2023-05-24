@@ -1,5 +1,6 @@
 package com.github.versus.db;
 
+import com.github.versus.sports.Sport;
 import com.github.versus.user.User;
 import com.github.versus.user.VersusUser;
 import com.google.android.gms.tasks.Task;
@@ -93,7 +94,7 @@ public class FsUserManager implements DataBaseManager<User> {
             for (DocumentSnapshot doc: docs
             ) {
                 //converting the data we get into an actual post object
-                VersusUser.VersusBuilder builder = build(doc);
+                VersusUser.Builder builder = build(doc);
                 //.setZipCode(content.get(ZIP_CODE_FIELD, int.class))
                 //.setPreferredSports(new ArrayList<>());
                 users.add(builder.build());
@@ -106,26 +107,24 @@ public class FsUserManager implements DataBaseManager<User> {
         return future;
     }
 
-    private VersusUser.VersusBuilder build(DocumentSnapshot doc){
-        VersusUser.VersusBuilder builder = new VersusUser.VersusBuilder(doc.getId());
+    private VersusUser.Builder build(DocumentSnapshot doc){
+        VersusUser.Builder builder = new VersusUser.VersusBuilder(doc.getId());
         return builder.setFirstName(doc.get(FIRST_NAME_FIELD, String.class))
                 .setLastName(doc.get(LAST_NAME_FIELD, String.class))
                 .setUserName(doc.get(USERNAME_FIELD, String.class))
                 .setMail(doc.get(MAIL_FIELD, String.class))
                 .setPhone(doc.get(PHONE_FIELD, String.class))
-                // TODO HR : Fix the issue here,
-                //  cannot deserialize field as was done before
-                //.setRating(content.get(RATING_FIELD, int.class))
+                .setRating(doc.get(RATING_FIELD) == null ?  2000 : ((Long)doc.get(RATING_FIELD)).intValue())
+                .setPreferredSports((List<Sport>)doc.get(PREF_SPORTS_FIELD))
                 .setCity(doc.get(CITY_FIELD, String.class));
     }
-
     @Override
     public Future<User> fetch(String uid) {
         CollectionReference collection = db.collection(USERS_COLLECTION_ID);
         CompletableFuture<User> future = new CompletableFuture<>();
         Task<DocumentSnapshot> doc = collection.document(uid).get();
         doc.addOnSuccessListener(content -> {
-            VersusUser.VersusBuilder builder = build(content);
+            VersusUser.Builder builder = build(content);
             future.complete(builder.build());
         })
         .addOnFailureListener(failure -> {

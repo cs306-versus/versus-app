@@ -99,7 +99,7 @@ public class SeachFragmentTest {
 //    }
     @Test
     public void testCreatePostWithLocationCanceled() {
-        
+
         onView(withId(R.id.add_posts)).perform(click());
         onView(withId(R.id.editPostTitle)).check(matches(isDisplayed()));
         onView(withId(R.id.editPostTitle)).perform(typeText("TEST POST"), closeSoftKeyboard());
