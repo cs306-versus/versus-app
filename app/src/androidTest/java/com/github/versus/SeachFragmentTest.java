@@ -23,7 +23,7 @@ import org.junit.Rule;
 import org.junit.Test;
 
 public class SeachFragmentTest {
-    
+
 
     @Rule
     public ActivityScenarioRule<MainActivity> scenario = new ActivityScenarioRule<>(MainActivity.class);
@@ -99,6 +99,7 @@ public class SeachFragmentTest {
 //    }
     @Test
     public void testCreatePostWithLocationCanceled() {
+        
         onView(withId(R.id.add_posts)).perform(click());
         onView(withId(R.id.editPostTitle)).check(matches(isDisplayed()));
         onView(withId(R.id.editPostTitle)).perform(typeText("TEST POST"), closeSoftKeyboard());
