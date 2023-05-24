@@ -40,7 +40,7 @@ public class WeatherServiceTest {
         Timestamp timestamp= new Timestamp(2022, Month.MAY,3,6,21,   Timestamp.Meridiem.PM);
         java.util.Map<String, String> fetched= WeatherService.getWeather(location,timestamp);
         Assert.assertTrue(fetched.get("day").equals("2022-05-03")
-                                   && fetched.get("time").equals("18:00:00"));
+                && fetched.get("time").equals("18:00:00"));
     }
 
     //@Test
