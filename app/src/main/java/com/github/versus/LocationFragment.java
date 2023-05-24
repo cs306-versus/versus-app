@@ -547,10 +547,10 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         LayoutInflater inflater = requireActivity().getLayoutInflater();
 
         // Inflate custom layout
-        view = inflater.inflate(R.layout.radius_layout, null);
+        view = inflater.inflate(R.layout.custom_radius_layout, null);
 
         // Find your EditText view
-        radiusInput = view.findViewById(R.id.edit_text_radius2);
+        radiusInput = view.findViewById(R.id.edit_text_radius3);
 
         // Get a reference to the EditText view in the layout
 

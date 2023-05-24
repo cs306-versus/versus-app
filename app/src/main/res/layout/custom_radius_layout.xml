@@ -1,8 +1,34 @@
-<EditText xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/edit_text_radius3"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:hint="Enter radius in meters"
-    android:inputType="number"
-    android:maxLines="1"
-    android:textSize="16sp" />
+    android:padding="25dp"
+    android:background="@drawable/custom_dialog_background">>
+
+    <TextView
+        android:id="@+id/dialogTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enter a radius"
+        android:layout_gravity="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        />
+
+
+    <EditText
+        android:id="@+id/edit_text_radius3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter a radius in meters ... "
+        android:inputType="number"
+        android:maxLines="1"
+        android:padding="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/create_post_editview_background"
+        android:textColor="@android:color/black"/>
+
+</LinearLayout>
