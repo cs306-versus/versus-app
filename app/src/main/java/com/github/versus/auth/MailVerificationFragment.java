@@ -33,15 +33,10 @@ public class MailVerificationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = AuthFragmentMailVerificationBinding.inflate(inflater);
-        return binding.getRoot();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
         // HR : Periodically check if the user has verified its mail
         // HR : this is a kick start
-        handler.postDelayed(new CheckMail(), 3000);
+        while(!handler.post(new CheckMail()));
+        return binding.getRoot();
     }
 
     private final class CheckMail implements Runnable {
@@ -54,7 +49,7 @@ public class MailVerificationFragment extends Fragment {
                 getActivity().finish();
             }
             else
-                handler.postDelayed(this, 1000);
+                while(!handler.postDelayed(this, 1000));
         }
     }
 
