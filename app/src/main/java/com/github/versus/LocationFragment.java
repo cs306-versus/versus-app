@@ -636,6 +636,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         dialog.show();
 
     }
+
     /**
      * Modifies the dimensions of a given window to certain percentages of the screen's width and height.
      * Also sets the window's background drawable resource.
