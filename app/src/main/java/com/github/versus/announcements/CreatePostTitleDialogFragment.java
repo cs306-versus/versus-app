@@ -133,6 +133,7 @@ public class CreatePostTitleDialogFragment extends DialogFragment {
      * @param dialog The AlertDialog object whose button colors are to be changed.
      * @param color The color to be applied to the buttons. This should be a resolved color, not a resource id.
      */
+
     public static void changeColorButton(AlertDialog dialog, int color) {
         dialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
