@@ -50,6 +50,7 @@ public class UserInfoFragment extends Fragment {
      * @param user
      */
     public void updateUI(User user){
+        
         if(isNull(user))
             return;
         binding.infoUid.setText(user.getUID());
