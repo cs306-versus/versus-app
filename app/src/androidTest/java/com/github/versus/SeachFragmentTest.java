@@ -23,6 +23,7 @@ import org.junit.Rule;
 import org.junit.Test;
 
 public class SeachFragmentTest {
+    
 
     @Rule
     public ActivityScenarioRule<MainActivity> scenario = new ActivityScenarioRule<>(MainActivity.class);
