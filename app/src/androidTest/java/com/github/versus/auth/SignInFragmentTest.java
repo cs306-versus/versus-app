@@ -68,6 +68,7 @@ public final class SignInFragmentTest {
 
     @Test
     public void testSignInWithGoogle() throws InterruptedException {
+        
         onView(withId(R.id.google_signin)).perform(click());
         // Wait for fragment to appear
         Thread.sleep(2000);
