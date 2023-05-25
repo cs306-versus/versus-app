@@ -116,6 +116,7 @@ public class FsUserManager implements DataBaseManager<User> {
                 .setPhone(doc.get(PHONE_FIELD, String.class))
                 .setRating(doc.get(RATING_FIELD) == null ?  2000 : ((Long)doc.get(RATING_FIELD)).intValue())
                 .setPreferredSports((List<Sport>)doc.get(PREF_SPORTS_FIELD))
+
                 .setCity(doc.get(CITY_FIELD, String.class));
     }
     @Override

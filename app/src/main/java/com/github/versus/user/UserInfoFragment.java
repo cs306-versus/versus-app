@@ -50,7 +50,7 @@ public class UserInfoFragment extends Fragment {
      * @param user
      */
     public void updateUI(User user){
-        
+
         if(isNull(user))
             return;
         binding.infoUid.setText(user.getUID());
@@ -59,9 +59,8 @@ public class UserInfoFragment extends Fragment {
         binding.infoUsername.setText(user.getUserName());
         binding.infoMail.setText(user.getMail());
         binding.infoPhone.setText(user.getPhone());
-        binding.infoRating.setText(user.getRating());
+        binding.infoRating.setText(Integer.toString(user.getRating()));
         binding.infoCity.setText(user.getCity());
-        binding.infoZipCode.setText(user.getZipCode());
     }
 
 }
