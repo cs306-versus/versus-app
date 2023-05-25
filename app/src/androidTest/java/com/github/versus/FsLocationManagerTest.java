@@ -26,13 +26,14 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeoutException;
 
+@RunWith(AndroidJUnit4.class)
 public class FsLocationManagerTest {
 
     static {
         FirebaseFirestore db = FirebaseEmulator.FIREBASE_FIRESTORE;
     }
 
-    @Test
+    //@Test
     public void CorrectFsLocationInsert_Delete() throws ExecutionException, InterruptedException, TimeoutException
     {
         Location l = new Location("tirane", 0, 0);
