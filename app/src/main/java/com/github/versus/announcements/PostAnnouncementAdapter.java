@@ -60,7 +60,7 @@ public class PostAnnouncementAdapter extends RecyclerView.Adapter<PostAnnounceme
         setViewText(viewHolder, currentPost);
         boolean owner = false;
         if(currentPost.getPlayers().size() > 0){
-            owner = currentPost.getPlayers().get(0).getUID().equals(user.getUID());
+            owner = currentPost.getPlayers().get(0).getUID().equals(this.user.getUID());
         }
         if(owner){
             viewHolder.getJoinButton().setText("Edit Post");

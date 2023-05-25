@@ -83,7 +83,6 @@ public class SearchFragment extends Fragment implements LocationPickerDialog.Loc
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         onCancel();
         View rootView = inflater.inflate(R.layout.fragment_research,container,false);
-        assignViews(rootView);
 
         Button addPost = (Button) rootView.findViewById(R.id.add_posts);
         addPost.setOnClickListener(new View.OnClickListener() {
@@ -99,6 +98,7 @@ public class SearchFragment extends Fragment implements LocationPickerDialog.Loc
                     .thenAccept(this::setUser);
             user = new VersusUser.VersusBuilder(FirebaseAuth.getInstance().getUid()).build();
         }
+        assignViews(rootView);
 
         loadPosts();
 

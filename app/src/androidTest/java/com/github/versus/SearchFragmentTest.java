@@ -117,6 +117,7 @@ public final class SearchFragmentTest {
 
     @Test
     public void findEditSearch() {
+        testMakePost();
         boolean success = false;
         for (int i = 0; i < 50; i++) {
             onView(withId(R.id.recyclerView)).perform(RecyclerViewActions.scrollToPosition(i));
