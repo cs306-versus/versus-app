@@ -60,8 +60,6 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.Circle;
-import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -74,14 +72,12 @@ import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
-import com.google.maps.android.PolyUtil;
+
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -126,10 +122,6 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     private PlacesClient placesClient;
     // The entry point to the Fused Location Provider.
     private FusedLocationProviderClient fusedLocationProviderClient;
-    private EditText editTextRadius;
-    private float radius;
-    //private Marker lastClickedMarker;
-    private Circle lastDrawnCircle;
     private DataBaseManager dummyLocationManager;
 
     private List<CustomPlace> customPlaces;
@@ -193,7 +185,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                         blinkingMarker.remove();
                     }
                     if (lastDrawnLine != null) {
-                        //Clearing the map from previous circles
+
                         lastDrawnLine.remove();
                     }
                     if(blueMarker != null){
@@ -362,9 +354,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         if (item.getItemId() == R.id.option_choose_location) {
-            if (lastDrawnCircle != null) {
-                lastDrawnCircle.remove();
-            }
+
             if(redMarker!= null){
                 redMarker.remove();
             }
@@ -375,7 +365,6 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                 blinkingMarker.remove();
             }
             if (lastDrawnLine != null) {
-                //Clearing the map from previous circles
                 lastDrawnLine.remove();
             }
 
@@ -383,9 +372,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
           enableCustomLocationSelection();
         }
         else if (item.getItemId() == R.id.option_choose_radius) {
-            if (lastDrawnCircle != null) {
-                lastDrawnCircle.remove();
-            }
+
             if(redMarker!= null){
                 redMarker.remove();
             }
@@ -394,7 +381,6 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                 blinkingMarker.remove();
             }
             if (lastDrawnLine != null) {
-                //Clearing the map from previous circles
                 lastDrawnLine.remove();
             }
           map.setOnMapClickListener(null);
@@ -402,9 +388,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
           chooseDefaultRadius();
         }
         else if (item.getItemId() == R.id.search_bar) {
-            if (lastDrawnCircle != null) {
-                lastDrawnCircle.remove();
-            }
+
             if(blueMarker != null){
                 blueMarker.remove();
             }
@@ -415,7 +399,6 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                 blinkingMarker.remove();
             }
             if (lastDrawnLine != null) {
-                //Clearing the map from previous circles
                 lastDrawnLine.remove();
             }
           map.setOnMapClickListener(null);
@@ -434,9 +417,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
-                if (lastDrawnCircle != null) {
-                    lastDrawnCircle.remove();
-                }
+
                 if(redMarker!= null){
                     redMarker.remove();
                 }
@@ -791,23 +772,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         toast.show();
     }
 
-    /**
-     * Draws a circle with the specified radius around a predefined center point (localPos) on the map.
-     * The method clears the map of any previous circles and applies a flashing animation to the newly drawn circle.
-     *
-     * @param radius The radius (in meters) of the circle to be drawn.
-     */
-    private void drawCircle(double radius) {
-        if (lastDrawnCircle != null) {
-            //Clearing the map from previous circles
-            lastDrawnCircle.remove();
-        }
 
-
-        CircleOptions circleOptions = new CircleOptions().center(localPos).radius(radius).strokeWidth(2);
-        lastDrawnCircle = map.addCircle(circleOptions);
-        applyFlashingAnimation(lastDrawnCircle);
-    }
 
     /**
      * Calculates the haversine distance between two LatLng points in meters.
@@ -824,17 +789,6 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         double c = 2 * atan2(sqrt(a), sqrt(1 - a));
         return earthRadius * c * 1000; // Distance in meters
     }
-    /**
-     * Calculates the haversine distance between two LatLng points in meters.
-     *
-     * @param currentPos The first LatLng point.
-     * @param selectedPos The second LatLng point.
-     * @return The haversine distance between the two points in meters.
-     */
-    private double calculateDistance(LatLng currentPos, LatLng selectedPos) {
-        return   distanceValue;
-    }
-
     /**
      * Applies a blinking animation to a given marker on the map.
      *
@@ -853,27 +807,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         handler.postDelayed(blinkingRunnable, 500);
     }
 
-    /**
-     * Applies a flashing animation to a given circle on the map by altering its stroke and fill colors' alpha values.
-     *
-     * @param circle The circle to apply the flashing animation to.
-     */
 
-    private void applyFlashingAnimation(Circle circle) {
-        ValueAnimator animator = ValueAnimator.ofInt(100, 255);
-        animator.setDuration(1000);
-        animator.setRepeatCount(ValueAnimator.INFINITE);
-        animator.setRepeatMode(ValueAnimator.REVERSE);
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                int alpha = (int) animation.getAnimatedValue();
-                circle.setStrokeColor(Color.argb(alpha, 26, 115, 232));
-                circle.setFillColor(Color.argb(alpha / 2, 26, 115, 232));
-            }
-        });
-        animator.start();
-    }
 
     /**
      * Adds a blinking marker to the map at the specified position with the provided title and snippet.
@@ -894,13 +828,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         applyBlinkingAnimation(blinkingMarker);
     }
     private void drawPath(GoogleMap map, List<LatLng> points) {
-        if (lastDrawnCircle != null) {
-            //Clearing the map from previous circles
-            lastDrawnCircle.remove();
-        }
-
         if (lastDrawnLine != null) {
-            //Clearing the map from previous circles
             lastDrawnLine.remove();
         }
 
@@ -984,15 +912,9 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                         errorMessage = "No routes found in the API response";
                     }
                 }
-            } catch (MalformedURLException e) {
-                errorMessage = "Error in the URL";
-                Log.e("FetchDirectionsTask", errorMessage, e);
-            } catch (IOException e) {
-                errorMessage = "Error connecting to the API";
-                Log.e("FetchDirectionsTask", errorMessage, e);
-                e.printStackTrace();
-            } catch (JSONException e) {
-                errorMessage = "Error parsing the JSON response";
+            }
+            catch (Exception e) {
+                errorMessage = "An error occurred";
                 Log.e("FetchDirectionsTask", errorMessage, e);
             }
 
