@@ -108,6 +108,7 @@ public class GameFragmentTest {
         rectangleView1.perform(ViewActions.scrollTo());
         rectangleView1.perform(ViewActions.scrollTo());
         rectangleView1.perform(ViewActions.scrollTo());
+        
         rectangleView1.perform(ViewActions.scrollTo());
 
 
