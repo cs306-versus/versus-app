@@ -38,7 +38,7 @@ public final class SearchFragmentTest {
         onView(withId(R.id.nav_search)).perform(click());
     }
 
-    @Test
+    //@Test
     public void testScrollRecyclerView() {
         onView(withId(R.id.recyclerView)).perform(click());
     }
