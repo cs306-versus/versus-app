@@ -140,5 +140,17 @@
             </RelativeLayout>
         </RelativeLayout>
 
+        <TextView android:id="@+id/email_or_password_wrong"
+            android:visibility="invisible"
+            android:fontFamily="@font/poppins_medium"
+            android:textSize="9sp"
+            android:textColor="@color/email_or_password_wrong_color"
+            android:layout_marginStart="69dp"
+            android:layout_marginTop="445dp"
+            android:layout_width="346.5px"
+            android:layout_height="55.5px"
+            android:text="@string/email_or_password_wrong_string"
+            />
+
     </RelativeLayout>
 </RelativeLayout>

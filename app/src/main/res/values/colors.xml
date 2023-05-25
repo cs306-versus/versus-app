@@ -81,4 +81,6 @@
 
     <color name="mail_already_used_color">#EB3A3A</color>
 
+    <color name="email_or_password_wrong_color">#EB3A3A</color>
+
 </resources>
