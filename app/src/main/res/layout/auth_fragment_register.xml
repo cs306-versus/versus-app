@@ -60,6 +60,7 @@
 
         <EditText
             android:id="@+id/firstName"
+            android:inputType="textPersonName"
             android:background="@drawable/auth_register_field_shape"
             android:layout_marginStart="0dp"
             android:layout_marginTop="11dp"
@@ -97,6 +98,7 @@
 
         <EditText
             android:id="@+id/lastName"
+            android:inputType="textPersonName"
             android:background="@drawable/auth_register_field_shape"
             android:layout_marginStart="0dp"
             android:layout_marginTop="11dp"
@@ -134,6 +136,7 @@
 
         <EditText
             android:id="@+id/mail"
+            android:inputType="textEmailAddress"
             android:background="@drawable/auth_register_field_shape"
             android:layout_marginStart="0dp"
             android:layout_marginTop="11dp"
@@ -172,6 +175,7 @@
 
         <EditText
             android:id="@+id/phone"
+            android:inputType="phone"
             android:background="@drawable/auth_register_field_shape"
             android:layout_marginStart="0dp"
             android:layout_marginTop="11dp"
@@ -209,6 +213,7 @@
 
         <EditText
             android:id="@+id/pwd"
+            android:inputType="textPassword"
             android:background="@drawable/auth_register_pwd_selector"
             android:layout_marginStart="0dp"
             android:layout_marginTop="11dp"
@@ -247,6 +252,7 @@
         <EditText
             android:id="@+id/confirm_pwd"
             android:background="@drawable/auth_register_pwd_selector"
+            android:inputType="textPassword"
             android:layout_marginStart="0dp"
             android:padding="9dp"
             android:layout_marginTop="11dp"
@@ -298,24 +304,26 @@
     </RelativeLayout>
 
     <TextView android:id="@+id/mail_already_used"
-        android:fontFamily="Poppins"
+        android:visibility="invisible"
+        android:fontFamily="@font/poppins_medium"
         android:textSize="10sp"
         android:textColor="@color/mail_already_used_color"
         android:layout_marginStart="50dp"
         android:layout_marginTop="406dp"
-        android:layout_width="255.5px"
-        android:layout_height="55.5px"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="@string/mail_already_used_string"
         />
 
     <TextView android:id="@+id/passwords_are_not_similar"
-        android:fontFamily="Poppins"
+        android:visibility="invisible"
+        android:fontFamily="@font/poppins_medium"
         android:textSize="10sp"
         android:textColor="@color/mail_already_used_color"
         android:layout_marginStart="50dp"
         android:layout_marginTop="661dp"
-        android:layout_width="354.5px"
-        android:layout_height="55.5px"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="@string/passwords_are_not_similar_string"
         />
 
