@@ -16,6 +16,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.github.versus.R;
 import com.github.versus.databinding.AuthFragmentSigninBinding;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 import com.github.versus.MainActivity;
@@ -67,11 +68,18 @@ public final class SignInFragment extends Fragment {
         // TODO HR : Handle if the mail doesn't follow the pattern
         String pwd = binding.pwd.getText().toString();
         // TODO HR : Handle if the pwd is empty
-        Task<?> task = auth.signInWithMail(mail, pwd);
+        Task<AuthResult> task = auth.signInWithMail(mail, pwd);
         // HR : if the connection was successful, move to the MainActivity
         task.addOnSuccessListener(res -> {
-            startActivity(new Intent(getContext(), MainActivity.class));
-            getActivity().finish();
+            if(res.getUser().isEmailVerified()){
+                startActivity(new Intent(getContext(), MainActivity.class));
+                getActivity().finish();
+            } else {
+                FragmentManager manager = getParentFragmentManager();
+                FragmentTransaction transaction = manager.beginTransaction();
+                transaction.replace(R.id.auth_fragment_container, MailVerificationFragment.class, null);
+                transaction.commit();
+            }
         });
         // HR : if the connection failed
         task.addOnFailureListener(ex -> {
