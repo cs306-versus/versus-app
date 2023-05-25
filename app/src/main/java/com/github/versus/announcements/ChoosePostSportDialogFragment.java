@@ -2,6 +2,8 @@ package com.github.versus.announcements;
 
 import static android.app.AlertDialog.*;
 
+import static com.github.versus.announcements.CreatePostTitleDialogFragment.changeWindowDimensions;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -120,31 +122,15 @@ public class ChoosePostSportDialogFragment extends DialogFragment {
      */
     @Override
     public void onStart() {
+
         super.onStart();
         Dialog dialog = getDialog();
         if (dialog != null) {
             Window window = dialog.getWindow();
             if (window != null) {
-                // Apply rounded corners
-                window.setBackgroundDrawableResource(R.drawable.custom_dialog_background);
-
-                // Post a runnable to resize the dialog
-                window.getDecorView().post(() -> {
-                    // Get current screen size
-                    DisplayMetrics displayMetrics = new DisplayMetrics();
-                    getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-
-                    // Define how much width and height you want to set
-                    int dialogWindowWidth = (int) (displayMetrics.widthPixels * 0.85); // 85% of screen width
-                    int dialogWindowHeight = (int) (displayMetrics.heightPixels * 0.47); // 30% of screen height
-
-                    // Set size
-                    WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
-                    layoutParams.copyFrom(window.getAttributes());
-                    layoutParams.width = dialogWindowWidth;
-                    layoutParams.height = dialogWindowHeight;
-                    window.setAttributes(layoutParams);
-                });
+                DisplayMetrics displayMetrics = new DisplayMetrics();
+                getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+                changeWindowDimensions(window,displayMetrics,0.85,0.47);
             }
         }
     }

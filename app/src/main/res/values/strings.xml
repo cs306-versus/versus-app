@@ -106,4 +106,9 @@
     <string name="password">Password</string>
     <string name="confirm_password">Confirm Password</string>
     <!-- -->
+
+    <string name="verify_your_account_string">Verify Your Account</string>
+    <string name="activation_text_string">Account activation link has been sent to the provided email address</string>
+    <string name="send_it_again_string">Send it again</string>
+    <string name="didn_t_get_the_mail___string">Didnt get the mail ?</string>
 </resources>
