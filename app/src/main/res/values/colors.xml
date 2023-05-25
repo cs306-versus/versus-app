@@ -79,4 +79,6 @@
     <color name="verify_your_account_color">#335CC5</color>
     <color name="activation_text_color">#808080</color>
 
+    <color name="mail_already_used_color">#EB3A3A</color>
+
 </resources>
