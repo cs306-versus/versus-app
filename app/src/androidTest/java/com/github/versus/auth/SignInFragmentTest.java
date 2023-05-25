@@ -57,11 +57,12 @@ public final class SignInFragmentTest {
     }
 
     @Test
-    public void testOnFailSignIn() {
+    public void testOnFailSignIn() throws InterruptedException {
         onView(withId(R.id.mail)).perform(replaceText(nonValidMail()));
         onView(withId(R.id.pwd)).perform(replaceText(nonValidPassword()));
         onView(withId(R.id.signin)).perform(click());
-        onView(withId(R.id.auth_fragment_signin)).check(matches(isDisplayed()));
+        Thread.sleep(2000); // Wait for 2 secs
+        onView(withId(R.id.email_or_password_wrong)).check(matches(isDisplayed()));
     }
 
     @Test
