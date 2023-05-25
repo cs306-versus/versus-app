@@ -5,9 +5,12 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+
+
 
 import androidx.core.view.GravityCompat;
 import androidx.test.espresso.contrib.DrawerActions;
@@ -116,6 +119,11 @@ public final class SearchFragmentTest {
     }
 
     @Test
+    public void touchAdapter(){
+        onView(withId(R.id.recyclerView)).check(matches(isDisplayed()));
+    }
+
+    @Test
     public void findEditSearch() {
         testMakePost();
         boolean success = false;
@@ -123,9 +131,14 @@ public final class SearchFragmentTest {
             try {
                 onView(withId(R.id.recyclerView)).perform(RecyclerViewActions.scrollToPosition(i));
                 onView(withText("Edit Post")).perform(click());
+
                 success = true;
                 break;
             } catch (Exception e) {
+                try{
+                    onView(withText("Join")).perform(click());
+                    onView(withText("Leave")).perform(click());
+                }  catch (Exception e1) {}
 
             }
         }

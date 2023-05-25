@@ -88,6 +88,7 @@ public final class FsChatManagerTest {
         //adding the post to the schedule
 
 
+
         Future<Boolean> messageAdditionResult = chatm.addMessageToChat(testChatId, testMessage);
         assertTrue(messageAdditionResult.get());
 
