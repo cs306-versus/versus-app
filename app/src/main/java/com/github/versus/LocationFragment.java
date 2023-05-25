@@ -180,21 +180,32 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         // Build the map
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        Button drawPathButton = view.findViewById(R.id.draw_path_button);
-        drawPathButton.setOnClickListener(new View.OnClickListener() {
+        Button nearMeButton = view.findViewById(R.id.near_me_button);
+        nearMeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Replace originLatLng and destinationLatLng with the actual LatLng objects
-                if(selectedPlace != null){
-                    FetchDirectionsTask fetchDirectionsTask = new FetchDirectionsTask(localPos, selectedPlace);
-                    fetchDirectionsTask.execute();
-                    calculateDistance(localPos,selectedPlace);
-                }
-                else {
-                    showToast("No selected place !");
+
+                    if(redMarker!= null){
+                        redMarker.remove();
+                    }
+                    if(blinkingMarker!= null){
+                        blinkingMarker.remove();
+                    }
+                    if (lastDrawnLine != null) {
+                        //Clearing the map from previous circles
+                        lastDrawnLine.remove();
+                    }
+                    if(blueMarker != null){
+                        findClosestFields(blueMarker.getPosition());
+                    }
+                    else {
+                        findClosestFields(localPos);
+                    }
                 }
 
-            }
+
+
         });
 
 
@@ -336,10 +347,6 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         inflater.inflate(R.menu.current_place_menu, menu);
 
         // Get the menu item that contains the EditText view
-        MenuItem radiusItem = menu.findItem(R.id.option_get_place);
-
-        // Get the EditText view from the menu item
-        editTextRadius = (EditText) radiusItem.getActionView();
 
         super.onCreateOptionsMenu(menu, inflater);
     }
@@ -353,28 +360,8 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.option_get_place) {
 
-            if(redMarker!= null){
-               redMarker.remove();
-            }
-            if(blinkingMarker!= null){
-                blinkingMarker.remove();
-            }
-            if (lastDrawnLine != null) {
-                //Clearing the map from previous circles
-                lastDrawnLine.remove();
-            }
-            if(blueMarker != null){
-                findClosestFields(blueMarker.getPosition());
-            }
-            else {
-                findClosestFields(localPos);
-            }
-
-
-
-        } else if (item.getItemId() == R.id.option_choose_location) {
+        if (item.getItemId() == R.id.option_choose_location) {
             if (lastDrawnCircle != null) {
                 lastDrawnCircle.remove();
             }
@@ -392,7 +379,8 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                 lastDrawnLine.remove();
             }
 
-            enableCustomLocationSelection();
+
+          enableCustomLocationSelection();
         }
         else if (item.getItemId() == R.id.option_choose_radius) {
             if (lastDrawnCircle != null) {
@@ -409,8 +397,9 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                 //Clearing the map from previous circles
                 lastDrawnLine.remove();
             }
+          map.setOnMapClickListener(null);
 
-            chooseDefaultRadius();
+          chooseDefaultRadius();
         }
         else if (item.getItemId() == R.id.search_bar) {
             if (lastDrawnCircle != null) {
@@ -429,8 +418,9 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                 //Clearing the map from previous circles
                 lastDrawnLine.remove();
             }
+          map.setOnMapClickListener(null);
 
-            autocompleteFragment.getView().setVisibility(View.VISIBLE);
+          autocompleteFragment.getView().setVisibility(View.VISIBLE);
         }
 
         return true;
@@ -685,54 +675,6 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
             window.setAttributes(layoutParams);
         });
     }
-
-
-
-    /**
-     * Shows a list of custom places within a specified radius around the user's current location.
-     * If no custom places are found within the radius, a toast message is displayed to the user.
-     *
-     * @param radius The radius (in meters) around the user's current location to search for custom places.
-     */
-    public void showCurrentPlaces(double radius) {
-        //moving to our current location if we changed it
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(localPos, 15));
-        List<CustomPlace> filteredPlaces = new ArrayList<>();
-        for (CustomPlace customPlace : customPlaces) {
-            double distance = haversineDistance(localPos, customPlace.latLng);
-
-            if (distance <= radius) {
-                filteredPlaces.add(customPlace);
-                hasLocations = true;
-            }
-
-        }
-        int count = filteredPlaces.size();
-
-        likelyPlaceNames = new String[count];
-        likelyPlaceAddresses = new String[count];
-        likelyPlaceLatLngs = new LatLng[count];
-
-        for (int i = 0; i < count; i++) {
-            CustomPlace customPlace = filteredPlaces.get(i);
-            likelyPlaceNames[i] = customPlace.name;
-            likelyPlaceAddresses[i] = customPlace.address;
-            likelyPlaceLatLngs[i] = customPlace.latLng;
-        }
-
-        // Show a dialog offering the user the list of custom places, and add a
-        // marker at the selected place.
-        if (!hasLocations && radius != 0) {
-            showToast("No locations found within the selected radius");
-
-        } else {
-            showPlacesList();
-            drawCircle(radius);
-        }
-        hasLocations = false;
-
-    }
-
 
     /**
      * Creates and displays a custom dialog containing a list of nearby custom places.

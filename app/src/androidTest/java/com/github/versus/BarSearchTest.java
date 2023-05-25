@@ -66,7 +66,7 @@ public class BarSearchTest {
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
 
         // Find the menu item "Search" by its text and perform a click. This should open the search bar.
-        onView(withText("Search")).perform(click());
+        onView(withText("By Search")).perform(click());
 
         long waitingTime = 6000;
         // Get the instance of the device on which the test is running
@@ -101,7 +101,7 @@ public class BarSearchTest {
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
 
         // Find the menu item "Search" by its text and perform a click. This should open the search bar.
-        onView(withText("Search")).perform(click());
+        onView(withText("By Search")).perform(click());
 
         long waitingTime = 6000;
         // Get the instance of the device on which the test is running

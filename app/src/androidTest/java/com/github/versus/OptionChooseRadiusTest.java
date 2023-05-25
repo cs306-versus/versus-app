@@ -52,16 +52,19 @@ public class OptionChooseRadiusTest {
     public void testChoosingRadius() throws InterruptedException {
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
         // Find the menu item by its ID and perform a click
-        onView(withText("Choose radius")).perform(click());
+        onView(withText("Change distance")).perform(click());
         onView(withId(R.id.edit_text_radius3)).perform(typeText("1500"), closeSoftKeyboard());
         onView(withText("Enter")).inRoot(isDialog()).perform(click());
+        onView(withId(R.id.near_me_button)).perform(click());
+
+
     }
     
     @Test
     public void testCancelingRadius() throws InterruptedException {
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
         // Find the menu item by its ID and perform a click
-        onView(withText("Choose radius")).perform(click());
+        onView(withText("Change distance")).perform(click());
         onView(withId(R.id.edit_text_radius3)).perform(typeText("1500"), closeSoftKeyboard());
         onView(withText("Cancel")).inRoot(isDialog()).perform(click());
     }
