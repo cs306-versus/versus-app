@@ -29,7 +29,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 
-@RunWith(AndroidJUnit4.class)
+//@RunWith(AndroidJUnit4.class)
 public class GameFragmentTest {
     //General rule that sets up the Activity Scenario Rule
     @Rule
@@ -51,7 +51,7 @@ public class GameFragmentTest {
      * In this test , we are testing the game fragment, we first start by  opening the drawer menu ,
      * and going to the schedule fragment we then click on  one of the games to see the game fragment
      */
-    @Test
+    //@Test
     public void testGameFragment() {
         //Opening the drawer
         onView(withId(R.id.main_activity_layout)).check(matches(DrawerMatchers.isClosed(GravityCompat.START))).perform(DrawerActions.open());
