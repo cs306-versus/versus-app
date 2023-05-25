@@ -41,7 +41,13 @@ public class UserConverter {
         int rating = Integer.parseInt(tokens[6]);
         String city = tokens[7];
         int zipCode = Integer.parseInt(tokens[8]);
-        List<Sport> preferredSports = SportConverter.convertBackToSports(tokens[9]);
+        List<Sport> preferredSports;
+        try{
+            preferredSports = SportConverter.convertBackToSports(tokens[9]);
+        }
+        catch (IndexOutOfBoundsException e){
+            preferredSports= List.of();
+        }
         VersusUser.VersusBuilder builder = new VersusUser.VersusBuilder(uid);
         builder.setFirstName(firstName);
         builder.setLastName(lastName);

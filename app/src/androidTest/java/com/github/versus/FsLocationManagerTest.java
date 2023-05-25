@@ -6,32 +6,30 @@ import static org.junit.Assert.assertTrue;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
-import com.github.versus.db.FsPostManager;
 import com.github.versus.db.FsLocationManager;
 import com.github.versus.posts.Location;
-import com.github.versus.posts.Post;
-import com.github.versus.posts.Timestamp;
-import com.github.versus.schedule.Schedule;
-import com.github.versus.sports.Sport;
+import com.github.versus.utils.FirebaseEmulator;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.time.Month;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeoutException;
 
-public class FsLocationManagerTest {
+@RunWith(AndroidJUnit4.class)
+public final class FsLocationManagerTest {
+
+    static {
+        FirebaseFirestore db = FirebaseEmulator.FIREBASE_FIRESTORE;
+    }
+
     @Test
-    public void CorrectFsLocationInsert_Delete() throws ExecutionException, InterruptedException, TimeoutException
-    {
+    public void CorrectFsLocationInsert_Delete() throws ExecutionException, InterruptedException {
         Location l = new Location("tirane", 0, 0);
         // Creating FsLocationManager instance
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseFirestore db = FirebaseEmulator.FIREBASE_FIRESTORE;
         FsLocationManager locm = new FsLocationManager(db);
 
         //inserting the schedule
@@ -46,7 +44,7 @@ public class FsLocationManagerTest {
         // Verify that the schedule was inserted into Firestore
         //by fetching it and then comparing
         Location fetchedLocation = locm.fetch(l.getName()).get();
-        assertTrue(fetchedLocation.equals(l));
+        assertEquals(fetchedLocation, l);
 
         // Clean up the test data
         boolean deletionSuccess = locm.delete(l.getName()).get();
@@ -54,11 +52,10 @@ public class FsLocationManagerTest {
     }
 
     @Test
-    public void NullGetResultOnAbsentLoc() throws ExecutionException, InterruptedException, TimeoutException
-    {
-        String hoaxName = "hoaxxxxxxxxxxxxx" ;
+    public void NullGetResultOnAbsentLoc() throws ExecutionException, InterruptedException {
+        String hoaxName = "hoaxxxxxxxxxxxxx";
         // Creating FsLocm instance
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseFirestore db = FirebaseEmulator.FIREBASE_FIRESTORE;
         FsLocationManager locm = new FsLocationManager(db);
 
         // delete the test post if it's there
@@ -69,6 +66,5 @@ public class FsLocationManagerTest {
         Location p = locm.fetch(hoaxName).get();
         assertNull(p);
     }
-
 
 }

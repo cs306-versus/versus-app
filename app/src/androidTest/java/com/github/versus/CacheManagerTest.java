@@ -15,6 +15,8 @@ import com.github.versus.posts.Post;
 import com.github.versus.posts.Timestamp;
 import com.github.versus.sports.Sport;
 import com.github.versus.user.VersusUser;
+import com.github.versus.utils.FirebaseEmulator;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.junit.After;
 import org.junit.Before;
@@ -33,6 +35,11 @@ import java.util.concurrent.Future;
 
 @RunWith(AndroidJUnit4.class)
 public class CacheManagerTest {
+
+    static {
+        FirebaseFirestore db = FirebaseEmulator.FIREBASE_FIRESTORE;
+    }
+
     @Rule
     public ActivityScenarioRule<MainActivity> testRule = new ActivityScenarioRule<>(MainActivity.class);
 

@@ -21,6 +21,9 @@ import androidx.test.rule.GrantPermissionRule;
 import androidx.test.runner.AndroidJUnit4;
 import androidx.test.uiautomator.UiDevice;
 
+import com.github.versus.utils.FirebaseEmulator;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -32,7 +35,11 @@ import org.junit.runner.RunWith;
  * Tests the behavior of clicking on the map to choose a location.
  */
 @RunWith(AndroidJUnit4.class)
-public class OptionChooseLocationTest {
+public final class OptionChooseLocationTest {
+
+    static {
+        FirebaseFirestore db = FirebaseEmulator.FIREBASE_FIRESTORE;
+    }
 
     // Declare activity rule and permission rule
     @Rule
@@ -46,22 +53,11 @@ public class OptionChooseLocationTest {
      */
     @Before
     public void setUp() {
-        Intents.init();
         // Open the drawer_layout
         onView(withId(R.id.main_activity_layout)).check(matches(DrawerMatchers.isClosed(GravityCompat.START))).perform(DrawerActions.open());
         onView(withId(R.id.main_activity_layout)).check(matches(DrawerMatchers.isOpen(GravityCompat.START)));
         onView(withId(R.id.nav_location)).perform(click());
     }
-
-    /**
-     * Cleans up the testing environment after each test.
-     * Releases the Intents framework.
-     */
-    @After
-    public void tearDown() {
-        Intents.release();
-    }
-
 
     /**
      * Test for simulating a click on the map.
@@ -70,7 +66,7 @@ public class OptionChooseLocationTest {
      * @throws InterruptedException if the test is interrupted
      */
     @Test
-    public void testClick() throws InterruptedException {
+    public void testClick() {
         long waitingTime = 6000;
         ElapsedTimeIdlingResource idlingResourceFirst = new ElapsedTimeIdlingResource(waitingTime);
 
@@ -78,19 +74,7 @@ public class OptionChooseLocationTest {
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
 
         // Open the Choose location option
-        onView(withText("Choose location")).perform(click());
-
-        // Get screen dimensions
-        /*DisplayMetrics displayMetrics = new DisplayMetrics();
-        WindowManager windowManager = (WindowManager) ApplicationProvider.getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
-        windowManager.getDefaultDisplay().getRealMetrics(displayMetrics);
-
-        // Calculate the center coordinates
-        int centerX = displayMetrics.widthPixels / 2;
-        int centerY = displayMetrics.heightPixels / 2;
-*/
-
-        // Simulate a map click event at the center of the screen
+        onView(withText("By Click")).perform(click());
         simulateMapClick(540, 1170);
 
         long waitingTime2 =5000;
