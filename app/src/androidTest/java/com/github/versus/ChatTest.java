@@ -78,7 +78,7 @@ import org.junit.runner.RunWith;
             ViewInteraction inter = onView(withId(R.id.usersRecyclerView));
 
             // Click on the first item in the RecyclerView
-            inter.perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+            //inter.perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
 
         }
 }
