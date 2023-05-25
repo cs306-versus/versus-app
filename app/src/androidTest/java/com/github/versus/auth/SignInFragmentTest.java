@@ -61,8 +61,8 @@ public class SignInFragmentTest {
 
     @Test
     public void testOnFailSignIn() {
-        onView(withId(R.id.mail)).perform(replaceText(validMail()));
-        onView(withId(R.id.pwd)).perform(replaceText(validPassword()));
+        onView(withId(R.id.mail)).perform(replaceText(nonValidMail()));
+        onView(withId(R.id.pwd)).perform(replaceText(nonValidPassword()));
         onView(withId(R.id.signin)).perform(click());
         onView(withId(R.id.auth_fragment_signin)).check(matches(isDisplayed()));
     }

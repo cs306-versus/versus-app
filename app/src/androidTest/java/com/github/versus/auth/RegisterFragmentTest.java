@@ -51,7 +51,7 @@ public class RegisterFragmentTest {
     // TODO HR : Add missing tests
 
     @Test
-    public void testAccountCreation(){
+    public void testAccountCreation() throws InterruptedException {
         // HR : Fill out the form
         onView(withId(R.id.firstName)).perform(replaceText("John")); // HR : Set the first name
         onView(withId(R.id.lastName)).perform(replaceText("Doe")); // HR : Set the last name
@@ -64,6 +64,7 @@ public class RegisterFragmentTest {
         onView(withId(R.id.register_btn)).perform(click());
 
         // HR : Check that the validation mail fragment is visible
+        Thread.sleep(2000);
         onView(withId(R.id.auth_fragment_mail_validation)).check(matches(isDisplayed()));
     }
 
