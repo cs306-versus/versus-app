@@ -70,7 +70,7 @@ public class GameFragmentTest {
             // handle the exception
         }
         onView(ViewMatchers.withId(R.id.mail))
-                .perform(typeText("john.doe@versus.ch"), closeSoftKeyboard());
+                .perform(typeText("abdess9ess@gmail.com"), closeSoftKeyboard());
 
         // Enter password
         onView(ViewMatchers.withId(R.id.pwd))
