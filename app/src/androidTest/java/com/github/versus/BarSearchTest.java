@@ -75,6 +75,7 @@ public class BarSearchTest {
         // Open the options menu in the action bar
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
 
+
         // Find the menu item "Search" by its text and perform a click. This should open the search bar.
         onView(withText("By Search")).perform(click());
 
