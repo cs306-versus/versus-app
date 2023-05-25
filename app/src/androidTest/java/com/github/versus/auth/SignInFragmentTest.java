@@ -27,6 +27,7 @@ import static org.hamcrest.Matchers.not;
 public final class SignInFragmentTest {
 
     static {
+        
         // HR : Make sure the emulator is launched
         FirebaseFirestore db = FirebaseEmulator.FIREBASE_FIRESTORE;
     }
