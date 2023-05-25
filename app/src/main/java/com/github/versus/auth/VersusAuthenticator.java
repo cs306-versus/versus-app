@@ -83,4 +83,15 @@ public final class VersusAuthenticator implements Authenticator {
         auth.signOut();
         currentUser.set(null);
     }
+
+    @Override
+    public boolean hasValidMail() {
+        return currentUser() != null && auth.getCurrentUser().isEmailVerified();
+    }
+
+    @Override
+    public void reload() {
+        if(auth.getCurrentUser() != null)
+            auth.getCurrentUser().reload();
+    }
 }

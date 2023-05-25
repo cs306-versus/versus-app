@@ -65,6 +65,7 @@ public class ZOptionGetPlacesTest {
         onView(withId(R.id.edit_text_radius2)).perform(typeText("1500"), closeSoftKeyboard());
         onView(withText("Show Places")).inRoot(isDialog()).perform(click());
         onView(withText(placeName)).perform(click());
+        onView(withText("OK")).perform(click());
         onView(withText("Draw Path")).perform(click());
     }
 
