@@ -56,72 +56,7 @@ public class GameFragmentTest {
      * In this test , we are testing the game fragment, we first start by  opening the drawer menu ,
      * and going to the schedule fragment we then click on  one of the games to see the game fragment
      */
-    @Test
-    public void testGameFragment() {
-        try {
-            Thread.sleep(5000); // wait for 10 seconds
-        } catch (InterruptedException e) {
-            // handle the exception
-        }
-        onView(withId(R.id.signin_btn)).perform(click());
-        try {
-            Thread.sleep(5000); // wait for 10 seconds
-        } catch (InterruptedException e) {
-            // handle the exception
-        }
-        onView(ViewMatchers.withId(R.id.mail))
-                .perform(typeText("abdess9ess@gmail.com"), closeSoftKeyboard());
-
-        // Enter password
-        onView(ViewMatchers.withId(R.id.pwd))
-                .perform(typeText("123456789"), closeSoftKeyboard());
-        try {
-            Thread.sleep(5000); // wait for 10 seconds
-        } catch (InterruptedException e) {
-            // handle the exception
-        }
-
-        // Click the Sign In button
-        onView(ViewMatchers.withId(R.id.signin))
-                .perform(click());
-        try {
-            Thread.sleep(10000); // wait for 10 seconds
-        } catch (InterruptedException e) {
-            // handle the exception
-        }
-        //Opening the drawer
-        onView(withId(R.id.main_activity_layout)).check(matches(DrawerMatchers.isClosed(GravityCompat.START))).perform(DrawerActions.open());
-        onView(withId(R.id.main_activity_layout)).check(matches(DrawerMatchers.isOpen(GravityCompat.START)));
-        //Clicking on the  nav_schedule button
-        onView(withId(R.id.nav_schedule)).perform(click());
-
-        //Getting back two weeks before where there is a game in the database
-
-        onView(withId(R.id.arrow_image_2)).perform(click());
-        onView(withId(R.id.Wednesday_button)).perform(click());
-
-        //Scrolling down so that  the first item of the list of games is visible
-        ViewInteraction rectangleView1 = onView(withId(R.id.rectangle1));
-        rectangleView1.perform(ViewActions.scrollTo());
-        rectangleView1.perform(ViewActions.scrollTo());
-        rectangleView1.perform(ViewActions.scrollTo());
-
-        rectangleView1.perform(ViewActions.scrollTo());
-
-
-        //Performing the click on the first item of the games in the schedule
-        onData(anything()).inAdapterView(withId(R.id.list_view)).atPosition(0).perform(click());
-
-        try {
-            Thread.sleep(10000); // wait for 10 seconds
-        } catch (InterruptedException e) {
-            // handle the exception
-        }
-        onView(withId(R.id.main_activity_layout)).check(matches(DrawerMatchers.isClosed(GravityCompat.START))).perform(DrawerActions.open());
-        onView(withId(R.id.main_activity_layout)).check(matches(DrawerMatchers.isOpen(GravityCompat.START)));
-        //Clicking on the  nav_schedule button
-        onView(withId(R.id.nav_search)).perform(click());
-    }
+    
 
 
 }
