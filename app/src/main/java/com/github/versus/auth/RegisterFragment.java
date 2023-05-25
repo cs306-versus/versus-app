@@ -60,6 +60,7 @@ public final class RegisterFragment extends Fragment {
         String lastName = binding.lastName.getText().toString();
         if (!pwd.equals(pwd_confirmation)) {
             binding.passwordsAreNotSimilar.setVisibility(View.VISIBLE);
+            return;
         }
         VersusUser.VersusBuilder builder = new VersusUser.VersusBuilder(null);
         builder.setFirstName(firstName)
