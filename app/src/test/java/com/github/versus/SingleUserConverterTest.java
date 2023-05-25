@@ -1,7 +1,7 @@
 package com.github.versus;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
-import static org.junit.Assert.assertTrue;
 
 import com.github.versus.offline.UserConverter;
 import com.github.versus.sports.Sport;
@@ -12,16 +12,16 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.List;
 
-public class SingleUserConverterTest {
-   private static String strUser= buildTestString();
+public final class SingleUserConverterTest {
+    private static final String strUser = buildTestString();
 
-   private static VersusUser user = buildTestUser();
+    private static final VersusUser user = buildTestUser();
 
-   private static VersusUser reverted= UserConverter.convertBackUser(strUser);
+    private static final VersusUser reverted = UserConverter.convertBackUser(strUser);
 
-   private static VersusUser buildTestUser() {
-        List<Sport> preferredSports= Arrays.asList(Sport.BOXING,Sport.CLIMBING,Sport.CRICKET,
-                Sport.BASKETBALL,Sport.FOOTBALL);
+    private static VersusUser buildTestUser() {
+        List<Sport> preferredSports = Arrays.asList(Sport.BOXING, Sport.CLIMBING, Sport.CRICKET,
+                Sport.BASKETBALL, Sport.FOOTBALL);
         VersusUser.VersusBuilder builder = new VersusUser.VersusBuilder("007");
         builder.setFirstName("James");
         builder.setLastName("Bond");
@@ -32,76 +32,76 @@ public class SingleUserConverterTest {
         builder.setCity("London");
         builder.setZipCode(700);
         builder.setPreferredSports(preferredSports);
-        return  builder.build();
+        return builder.build();
     }
-    private static String buildTestString(){
-       return "007|James|Bond|NotInfiltrated|notfakemail@gmail.com|0000077777|5|London|700|BOXING, CLIMBING, CRICKET, BASKETBALL, FOOTBALL";
+
+    private static String buildTestString() {
+        return "007|James|Bond|NotInfiltrated|notfakemail@gmail.com|0000077777|5|London|700|BOXING, CLIMBING, CRICKET, BASKETBALL, FOOTBALL";
     }
 
     @Test
-      public void convertUserConvertsCorrectly(){
-        assertTrue(UserConverter.convertUser(user).equals(strUser));
+    public void convertUserConvertsCorrectly() {
+        assertEquals(UserConverter.convertUser(user), strUser);
     }
 
     @Test
-    public void convertBackUserYieldsCorrectUID(){
-        assertTrue(user.getUID().equals(reverted.getUID()));
+    public void convertBackUserYieldsCorrectUID() {
+        assertEquals(user.getUID(), reverted.getUID());
     }
 
     @Test
-    public void convertBackUserYieldsCorrectFirstName(){
-        assertTrue(user.getFirstName().equals(reverted.getFirstName()));
+    public void convertBackUserYieldsCorrectFirstName() {
+        assertEquals(user.getFirstName(), reverted.getFirstName());
     }
 
     @Test
-    public void convertBackUserYieldsCorrectLastName(){
-        assertTrue(user.getLastName().equals(reverted.getLastName()));
+    public void convertBackUserYieldsCorrectLastName() {
+        assertEquals(user.getLastName(), reverted.getLastName());
     }
 
     @Test
-    public void convertBackUserYieldsCorrectUserName(){
-        assertTrue(user.getUserName().equals(reverted.getUserName()));
+    public void convertBackUserYieldsCorrectUserName() {
+        assertEquals(user.getUserName(), reverted.getUserName());
     }
 
     @Test
-    public void convertBackUserYieldsCorrectMail(){
-        assertTrue(user.getMail().equals(reverted.getMail()));
+    public void convertBackUserYieldsCorrectMail() {
+        assertEquals(user.getMail(), reverted.getMail());
     }
 
     @Test
-    public void convertBackUserYieldsCorrectPhone(){
-        assertTrue(user.getPhone().equals(reverted.getPhone()));
+    public void convertBackUserYieldsCorrectPhone() {
+        assertEquals(user.getPhone(), reverted.getPhone());
     }
 
     @Test
-    public void convertBackUserYieldsCorrectRating(){
-        assertTrue(user.getRating()==(reverted.getRating()));
+    public void convertBackUserYieldsCorrectRating() {
+        assertEquals(user.getRating(), (reverted.getRating()));
     }
 
     @Test
-    public void convertBackUserYieldsCorrectCity(){
-        assertTrue(user.getCity().equals(reverted.getCity()));
-    }
-    @Test
-    public void convertBackUserYieldsCorrectZIP(){
-        assertTrue(user.getZipCode()==(reverted.getZipCode()));
-    }
-    @Test
-    public void convertBackUserYieldsCorrectPreferredSports(){
-        assertTrue(user.getPreferredSports().equals(reverted.getPreferredSports()));
-    }
-
-
-    @Test
-    public void convertEmptyUserFails(){
-        assertThrows(Exception.class,()->UserConverter.convertUser(new VersusUser()));
+    public void convertBackUserYieldsCorrectCity() {
+        assertEquals(user.getCity(), reverted.getCity());
     }
 
     @Test
-    public void convertBackEmptyStringFails(){
-        assertThrows(Exception.class,()->UserConverter.convertBackUser(""));
+    public void convertBackUserYieldsCorrectZIP() {
+        assertEquals(user.getZipCode(), (reverted.getZipCode()));
     }
 
+    @Test
+    public void convertBackUserYieldsCorrectPreferredSports() {
+        assertEquals(user.getPreferredSports(), reverted.getPreferredSports());
+    }
 
+    @Test
+    public void convertEmptyUserFails() {
+        assertThrows(Exception.class, () -> UserConverter.convertUser(new VersusUser()));
+    }
+
+    @Test
+    public void convertBackEmptyStringFails() {
+        assertThrows(Exception.class, () -> UserConverter.convertBackUser(""));
+    }
 
 }

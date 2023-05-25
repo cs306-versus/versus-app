@@ -17,13 +17,14 @@ import java.util.List;
 import java.util.Map;
 
 
-public class AnnouncementAdapterTest {
+public final class AnnouncementAdapterTest {
 
-    private Post validPost = new Post(){
+    private final Post validPost = new Post() {
         @Override
         public String getTitle() {
             return "title";
         }
+
         @Override
         public Sport getSport() {
             return Sport.ROCKCLIMBING;
@@ -56,23 +57,23 @@ public class AnnouncementAdapterTest {
     };
 
     @Test(expected = IllegalArgumentException.class)
-    public void createAdapterNullPosts(){
+    public void createAdapterNullPosts() {
         PostAnnouncementAdapter aa = new PostAnnouncementAdapter(null, null, null, null);
     }
 
     @Test
-    public void createAdapterPostsLength(){
+    public void createAdapterPostsLength() {
         assertEquals(0, new PostAnnouncementAdapter(new ArrayList<>(), null, null, null).getItemCount());
         ArrayList<Post> a = new ArrayList();
         a.add(new Post());
         assertEquals(1, new PostAnnouncementAdapter(a, null, null, null).getItemCount());
     }
-    @Test(expected = NullPointerException.class)
-    public void onCreateViewHolderNull(){
-        ArrayList<Post> a = new ArrayList<>();
 
+    @Test(expected = NullPointerException.class)
+    public void onCreateViewHolderNull() {
+        ArrayList<Post> a = new ArrayList<>();
         a.add(validPost);
-      new PostAnnouncementAdapter(a, null, null, null).onCreateViewHolder(null, 0);
+        new PostAnnouncementAdapter(a, null, null, null).onCreateViewHolder(null, 0);
     }
 
 }
