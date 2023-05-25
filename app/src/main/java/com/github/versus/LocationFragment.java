@@ -141,10 +141,11 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     // Threshold distance to consider a field as nearby (in meters)
     private double thresholdDistanceInput=1000;
     private  AutocompleteSupportFragment autocompleteFragment;
-    //private Marker blinkingMarker ;
-    // private Marker visibleMarker;
+    private Marker blueMarker ;
+    private Marker redMarker;
     private Polyline lastDrawnLine;
     private double distanceValue;
+    private Marker blinkingMarker;
 
 
     @Override
@@ -225,11 +226,8 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                     // Remove the previous markers if they exist
 
                     // Add a new marker at the selected place
-                    map.addMarker(new MarkerOptions().title(place.getName()).position(selectedPlace).snippet(place.getAddress()));
-                    map.addMarker(new MarkerOptions().position(selectedPlace).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).title("Clicked Location"));
+                     blueMarker= map.addMarker(new MarkerOptions().title(place.getName()).position(selectedPlace).snippet(place.getAddress()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
 
-                    // Add a blinking marker at the selected place
-                    addBlinkingMarker(selectedPlace, place.getName(), place.getName());
                 }
             }
 
@@ -356,11 +354,42 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.option_get_place) {
-            openPlacesDialog();
+
+            if(redMarker!= null){
+               redMarker.remove();
+            }
+            if(blinkingMarker!= null){
+                blinkingMarker.remove();
+            }
+            if (lastDrawnLine != null) {
+                //Clearing the map from previous circles
+                lastDrawnLine.remove();
+            }
+            if(blueMarker != null){
+                findClosestFields(blueMarker.getPosition());
+            }
+            else {
+                findClosestFields(localPos);
+            }
+
+
 
         } else if (item.getItemId() == R.id.option_choose_location) {
             if (lastDrawnCircle != null) {
                 lastDrawnCircle.remove();
+            }
+            if(redMarker!= null){
+                redMarker.remove();
+            }
+            if(blueMarker != null){
+                blueMarker.remove();
+            }
+            if(blinkingMarker!= null){
+                blinkingMarker.remove();
+            }
+            if (lastDrawnLine != null) {
+                //Clearing the map from previous circles
+                lastDrawnLine.remove();
             }
 
             enableCustomLocationSelection();
@@ -369,12 +398,36 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
             if (lastDrawnCircle != null) {
                 lastDrawnCircle.remove();
             }
+            if(redMarker!= null){
+                redMarker.remove();
+            }
+
+            if(blinkingMarker!= null){
+                blinkingMarker.remove();
+            }
+            if (lastDrawnLine != null) {
+                //Clearing the map from previous circles
+                lastDrawnLine.remove();
+            }
 
             chooseDefaultRadius();
         }
         else if (item.getItemId() == R.id.search_bar) {
             if (lastDrawnCircle != null) {
                 lastDrawnCircle.remove();
+            }
+            if(blueMarker != null){
+                blueMarker.remove();
+            }
+            if(redMarker!= null){
+                redMarker.remove();
+            }
+            if(blinkingMarker!= null){
+                blinkingMarker.remove();
+            }
+            if (lastDrawnLine != null) {
+                //Clearing the map from previous circles
+                lastDrawnLine.remove();
             }
 
             autocompleteFragment.getView().setVisibility(View.VISIBLE);
@@ -387,9 +440,29 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
      * When the map is clicked, it calls the findClosestFields method to find the closest fields to the clicked position.
      */
     private void enableCustomLocationSelection() {
+
         map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
+                if (lastDrawnCircle != null) {
+                    lastDrawnCircle.remove();
+                }
+                if(redMarker!= null){
+                    redMarker.remove();
+                }
+
+                if(blinkingMarker!= null){
+                    blinkingMarker.remove();
+                }
+                if (lastDrawnLine != null) {
+
+                    lastDrawnLine.remove();
+                }
+                if (blueMarker!= null) {
+
+                    blueMarker.remove();
+                }
+
                 // Find closest fields to the clicked position
                 findClosestFields(latLng);
             }
@@ -407,13 +480,8 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
      */
     private void findClosestFields(LatLng clickedPosition) {
 
-
-        // Remove the last clicked marker if it exists
-
-
-
         // Add a new marker to the map at the clicked position
-        map.addMarker(new MarkerOptions().position(clickedPosition).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).title("Clicked Location"));
+        blueMarker=map.addMarker(new MarkerOptions().position(clickedPosition).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)).title("Clicked Location"));
 
         // Iterate through the custom places and find the ones within the threshold distance
         List<CustomPlace> nearbyFields = customPlaces.stream().filter(place -> haversineDistance(clickedPosition, place.latLng) <= thresholdDistanceInput).collect(Collectors.toList());
@@ -585,59 +653,6 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     }
 
     /**
-     * Opens a custom dialog for users to input a radius value (in meters).
-     * After the user enters the radius and clicks "Show Places," the app will show the current place
-     * and draw a circle with the given radius.
-     */
-    public void openPlacesDialog() {
-        View view;
-        EditText radiusInput;
-        LayoutInflater inflater = requireActivity().getLayoutInflater();
-
-        // Inflate custom layout
-        view = inflater.inflate(R.layout.radius_layout, null);
-
-        // Find your EditText view
-        radiusInput = view.findViewById(R.id.edit_text_radius2);
-
-        // Get a reference to the EditText view in the layout
-
-        radiusInput.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-        radiusInput.setHint("Enter radius (in meters)");
-
-        // Create a dialog to display the EditText view
-        AlertDialog dialog = new AlertDialog.Builder(getActivity(), R.style.CustomAlertDialog).setView(view).setPositiveButton("Show Places", new DialogInterface.OnClickListener() {
-
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // Get the radius entered by the user
-                String radiusStr = radiusInput.getText().toString();
-                if (!TextUtils.isEmpty(radiusStr)) {
-                    radius = Float.parseFloat(radiusInput.getText().toString());
-                    dialog.dismiss();
-                    showCurrentPlaces(radius);
-                    drawCircle(radius);
-                } else {
-                    dialog.dismiss();
-                    showToast("Please enter a radius");
-                }
-
-
-            }
-        }).setNegativeButton("Cancel", null).create();
-
-        // Customize the dialog window appearance here
-        Window window = dialog.getWindow();
-
-        if (window != null) {
-            changeWindowDimensions(window);
-        }
-
-        dialog.show();
-
-    }
-
-    /**
      * Modifies the dimensions of a given window to certain percentages of the screen's width and height.
      * Also sets the window's background drawable resource.
      *
@@ -759,7 +774,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                         // User checked an item, update your selectedPlace
                         selectedPlace = likelyPlaceLatLngs[which];
                         posSelectedPlace = which;
-                        map.addMarker(new MarkerOptions().title(likelyPlaceNames[which]).position(selectedPlace).snippet(likelyPlaceAddresses[which]));
+                        redMarker=map.addMarker(new MarkerOptions().title(likelyPlaceNames[which]).position(selectedPlace).snippet(likelyPlaceAddresses[which]));
                         addBlinkingMarker(selectedPlace, likelyPlaceNames[which], likelyPlaceAddresses[which]);
                         map.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedPlace, DEFAULT_ZOOM));
                     }
@@ -927,10 +942,14 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
      */
     private void addBlinkingMarker(LatLng position, String title, String snippet) {
 
+        FetchDirectionsTask fetchDirectionsTask = new FetchDirectionsTask(blueMarker.getPosition(), selectedPlace);
+        fetchDirectionsTask.execute();
+
         MarkerOptions blinkingMarkerOptions = new MarkerOptions().position(position).title(title).snippet(snippet).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).alpha(0.5f).visible(false);
 
+        blinkingMarker= map.addMarker(blinkingMarkerOptions);
 
-        applyBlinkingAnimation(map.addMarker(blinkingMarkerOptions));
+        applyBlinkingAnimation(blinkingMarker);
     }
     private void drawPath(GoogleMap map, List<LatLng> points) {
         if (lastDrawnCircle != null) {
@@ -1042,7 +1061,6 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         @Override
         protected void onPostExecute(List<LatLng> result) {
             if (result != null) {
-
                 drawPath(map, result);
                 showToast("Distance: " + distanceText);
             } else {
