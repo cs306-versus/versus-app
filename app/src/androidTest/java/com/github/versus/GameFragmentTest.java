@@ -56,7 +56,10 @@ public class GameFragmentTest {
      * In this test , we are testing the game fragment, we first start by  opening the drawer menu ,
      * and going to the schedule fragment we then click on  one of the games to see the game fragment
      */
-    
+    @Test
+    public void testGameFragment() {
+
+    }
 
 
 }
