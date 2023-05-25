@@ -47,7 +47,6 @@ class ChatsFragment : Fragment() {
         userRecyclerView.adapter = adapter
 
         // getting the current user from the database
-        //TO DO: this next line has to change
         val currUserUID = FirebaseAuth.getInstance().uid;
 
         val fman = FsUserManager(FirebaseFirestore.getInstance())

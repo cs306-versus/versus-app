@@ -3,21 +3,21 @@ package com.github.versus;
 import android.content.Intent
 import android.graphics.Rect
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.ViewTreeObserver
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.github.versus.chats.Chat
 import com.github.versus.chats.Message
 import com.github.versus.chats.MessageAdapter
 import com.github.versus.db.FsChatManager
+import com.github.versus.posts.Post
 import com.github.versus.posts.Timestamp
-import com.github.versus.user.DummyUser
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
 import java.time.Month
 import java.util.concurrent.CompletableFuture
@@ -38,6 +38,7 @@ class UserChatActivity : AppCompatActivity(){
     //bottom of the layout
     private lateinit var messageBox : TextView
     private lateinit var sendButton : ImageView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState);
@@ -77,10 +78,41 @@ class UserChatActivity : AppCompatActivity(){
         val cman = FsChatManager(FirebaseFirestore.getInstance())
         val chat = cman.fetch(chatId) as CompletableFuture<Chat>
         chat.thenAccept { c ->
+            messageList.clear()
             c.messages.forEach{
                 m -> messageList.add(m)
             }
             messageAdapter.notifyDataSetChanged()
+
+            val db = FirebaseFirestore.getInstance()
+            db.collection("chats").whereEqualTo(
+                "chatId", chatId
+            ).addSnapshotListener { documentSnapshot, error ->
+
+
+                // Check if the document exists
+                if (error==null && documentSnapshot != null ) {
+                    // Retrieve the field value
+                    val changes = documentSnapshot.documentChanges
+                    for(change in changes){
+
+                            //converting the data we get into an actual chat object
+                            val mapper = ObjectMapper()
+                            // Map the document data to a Chat object
+                            val chat: Chat? = mapper.convertValue(change.document.data, Chat::class.java)
+                            messageList.clear()
+                            if (chat != null) {
+                                messageList.addAll(chat.messages)
+                            }
+                            messageAdapter.notifyDataSetChanged()
+                            //scrolling down to the bottom of the view
+                            val itemCount: Int = messageAdapter.itemCount
+                            if(itemCount > 0){
+                                chatRecyclerView.smoothScrollToPosition(itemCount - 1)
+                            }
+                        }
+                }
+            }
 
 
             //------------------------------------------------------------------------

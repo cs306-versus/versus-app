@@ -98,10 +98,10 @@ public final class RegisterFragment extends Fragment {
             //--------adding the user to the users and his schedule to schedules-------
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             FsUserManager uman = new FsUserManager(db);
-            FsScheduleManager sman = new FsScheduleManager(db);
             String newUserUID = res.getUser().getUid();
             uman.insert(builder.setUID(newUserUID).build());
             //inserting the schedule
+            FsScheduleManager sman = new FsScheduleManager(db);
             Schedule s = new Schedule(newUserUID);
             sman.insert(s);
             //------------------------------------------------------------------------
