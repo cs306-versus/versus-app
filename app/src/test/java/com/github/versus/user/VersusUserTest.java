@@ -16,22 +16,22 @@ import java.util.Objects;
 public final class VersusUserTest {
 
     // ======================================= USER'S DATA =========================================
-    private static final String UID        = "";
+    private static final String UID = "";
     private static final String FIRST_NAME = "John";
-    private static final String LAST_NAME  = "Doe";
-    private static final String USERNAME   = "test_user";
-    private static final String MAIL       = "test@versus.ch";
-    private static final String PHONE      = "+41782345678";
-    private static final int RATING        = 5;
-    private static final String CITY       = "Lausanne";
-    private static final int ZIP_CODE      = 1234;
+    private static final String LAST_NAME = "Doe";
+    private static final String USERNAME = "test_user";
+    private static final String MAIL = "test@versus.ch";
+    private static final String PHONE = "+41782345678";
+    private static final int RATING = 5;
+    private static final String CITY = "Lausanne";
+    private static final int ZIP_CODE = 1234;
 
     // ============================================================================================
 
     private User user;
 
     @Before
-    public void buildUser(){
+    public void buildUser() {
         VersusUser.VersusBuilder builder = new VersusUser.VersusBuilder(UID);
         builder.setFirstName(FIRST_NAME)
                 .setLastName(LAST_NAME)
@@ -46,73 +46,73 @@ public final class VersusUserTest {
     }
 
     @Test
-    public void testUid(){
+    public void testUid() {
         assertEquals(UID, user.getUID());
     }
 
     @Test
-    public void testFirstName(){
+    public void testFirstName() {
         assertEquals(FIRST_NAME, user.getFirstName());
     }
 
     @Test
-    public void testLastName(){
+    public void testLastName() {
         assertEquals(LAST_NAME, user.getLastName());
     }
 
     @Test
-    public void testUserName(){
+    public void testUserName() {
         assertEquals(USERNAME, user.getUserName());
     }
 
     @Test
-    public void testMail(){
+    public void testMail() {
         assertEquals(MAIL, user.getMail());
     }
 
     @Test
-    public void testPhone(){
+    public void testPhone() {
         assertEquals(PHONE, user.getPhone());
     }
 
     @Test
-    public void testRating(){
+    public void testRating() {
         assertEquals(RATING, user.getRating());
     }
 
     @Test
-    public void testCity(){
+    public void testCity() {
         assertEquals(CITY, user.getCity());
     }
 
     @Test
-    public void testZip(){
+    public void testZip() {
         assertEquals(ZIP_CODE, user.getZipCode());
     }
 
     @Test
-    public void testPreferredSports(){
+    public void testPreferredSports() {
         assertEquals(0, user.getPreferredSports().size());
     }
 
     @Test
-    public void testEqualsWithDifferentType(){
+    public void testEqualsWithDifferentType() {
         assertNotEquals(user, new Object());
     }
 
     @Test
-    public void testWithSameUID(){
+    public void testWithSameUID() {
         VersusUser.VersusBuilder builder = new VersusUser.VersusBuilder(UID);
         assertEquals(user, builder.build());
     }
 
     @Test
-    public void testHashCode(){
+    public void testHashCode() {
         assertEquals(Objects.hashCode(UID), user.hashCode());
     }
 
     @Test
-    public void testToString(){
+    public void testToString() {
         assertEquals(String.format("[User %s - %s]", UID, USERNAME), user.toString());
     }
 
