@@ -31,6 +31,8 @@ import com.github.versus.announcements.MaxPlayerDialogFragment;
 import com.github.versus.announcements.PostDatePickerDialog;
 import com.github.versus.db.FsPostManager;
 import com.github.versus.db.FsUserManager;
+import com.github.versus.offline.CacheManager;
+import com.github.versus.offline.NetworkManager;
 import com.github.versus.posts.Location;
 import com.github.versus.posts.Post;
 import com.github.versus.posts.Timestamp;
@@ -227,20 +229,34 @@ public class SearchFragment extends Fragment implements LocationPickerDialog.Loc
         // Insert the new post into the database
         pm.insert(newPost);
 
+        CacheManager.getCacheManager(getContext()).insert(newPost);
+
         // Load the posts
         loadPosts();
     }
 
 
     protected void loadPosts(){
-        CompletableFuture<List<Post>> postsFuture = (CompletableFuture<List<Post>>) pm.fetchAll("posts");
-        postsFuture.thenApply(newPosts -> {
-            posts.clear();
-            posts.addAll(newPosts);
-            filterPosts();
-            return posts;
-        });
+        if(NetworkManager.isNetworkAvailable(getContext())) {
+            CompletableFuture<List<Post>> postsFuture = (CompletableFuture<List<Post>>) pm.fetchAll("posts");
+            postsFuture.thenApply(newPosts -> {
+                posts.clear();
+                posts.addAll(newPosts);
+                CacheManager.getCacheManager(getContext()).filterThenInsert(newPosts);
+                filterPosts();
+                return posts;
+            });
+        }
+        else{
+            ((CompletableFuture<List<Post>>)CacheManager.getCacheManager(getContext()).getAllPosts())
+                    .thenApply(newPosts -> {
+                        posts.clear();
+                        posts.addAll(newPosts);
+                        filterPosts();
+                        return posts;});
+        }
     }
+
 
     protected void filterPosts(){
         filter = searchBar.getText().toString();
