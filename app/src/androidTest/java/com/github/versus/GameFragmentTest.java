@@ -89,7 +89,6 @@ public class GameFragmentTest {
         } catch (InterruptedException e) {
             // handle the exception
         }
-        onView(withId(R.id.arrow_11)).perform(click());
         //Opening the drawer
         onView(withId(R.id.main_activity_layout)).check(matches(DrawerMatchers.isClosed(GravityCompat.START))).perform(DrawerActions.open());
         onView(withId(R.id.main_activity_layout)).check(matches(DrawerMatchers.isOpen(GravityCompat.START)));
