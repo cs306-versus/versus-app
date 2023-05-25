@@ -114,7 +114,7 @@ public class FsUserManager implements DataBaseManager<User> {
                 .setUserName(doc.get(USERNAME_FIELD, String.class))
                 .setMail(doc.get(MAIL_FIELD, String.class))
                 .setPhone(doc.get(PHONE_FIELD, String.class))
-                .setRating(doc.get(RATING_FIELD) == null ?  2000 : ((Long)doc.get(RATING_FIELD)).intValue())
+                .setRating(doc.get(RATING_FIELD) == null ?  2000 : (long) doc.get(RATING_FIELD))
                 .setPreferredSports((List<Sport>)doc.get(PREF_SPORTS_FIELD))
 
                 .setCity(doc.get(CITY_FIELD, String.class));

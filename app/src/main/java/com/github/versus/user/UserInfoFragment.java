@@ -59,7 +59,7 @@ public class UserInfoFragment extends Fragment {
         binding.infoUsername.setText(user.getUserName());
         binding.infoMail.setText(user.getMail());
         binding.infoPhone.setText(user.getPhone());
-        binding.infoRating.setText(Integer.toString(user.getRating()));
+        binding.infoRating.setText(Long.toString(user.getRating()));
         binding.infoCity.setText(user.getCity());
     }
 
