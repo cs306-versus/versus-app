@@ -29,22 +29,6 @@ public class SearchFriendFragmentTest {
         onView(withId(R.id.friend_search)).perform(click());
     }
     
-    //@Test
-    public void testScrollRecyclerView(){
-        onView(withId(R.id.user_recyclerView)).perform(click());
-    }
-
-    //@Test
-    public void testPressProfile(){
-        onView(withId(R.id.search_users)).perform(typeText("arnie"), closeSoftKeyboard());
-        onView(withId(R.id.view_profile)).perform(click());
-    }
-
-    //@Test
-    public void testSearchBar(){
-        onView(withId(R.id.search_users)).perform(typeText("John"), closeSoftKeyboard());
-        onView((withText("John"))).check(matches(isDisplayed()));
-    }
 
 
 }

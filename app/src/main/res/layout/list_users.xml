@@ -1,52 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="150dp" >
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="8dp"
+    >
+
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/imageProfileUserAnnouncement"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/ic_user"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:riv_oval="true"
+        />
 
 
     <TextView
-        android:id="@+id/user_fn"
-        android:layout_width="139dp"
+        android:id="@+id/announcement_user_name"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="45dp"
-        android:layout_marginTop="30dp"
-        android:text="Title" />
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="8dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:paddingLeft="20dp"
+        android:text="userName"
+        android:textColor="@color/primary_text"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@id/announcement_user_rating"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/imageProfileUserAnnouncement"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/view_profile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="39dp"
-        android:layout_marginBottom="28dp"
-        android:text="View Profile" />
+        <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/ratingIcon"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:background="@drawable/ic_rating"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toTopOf="@id/separation_user_announcements"
+        app:layout_constraintEnd_toStartOf="@id/announcement_user_rating"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@id/imageProfileUserAnnouncement"
+        app:layout_constraintTop_toBottomOf="@id/announcement_user_name"
+        app:layout_constraintVertical_bias="0.0"
+        android:visibility="visible"
+            android:layout_marginLeft="30dp"
 
-    <TextView
-        android:id="@+id/user_city"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/view_profile"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="102dp"
-        android:layout_marginBottom="26dp"
-        android:text="5/6" />
 
-    <TextView
-        android:id="@+id/user_un"
-        android:layout_width="142dp"
+        app:riv_oval="true" />
+
+
+        <TextView
+        android:id="@+id/announcement_user_rating"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="45dp"
-        android:layout_marginEnd="47dp"
-        android:layout_marginBottom="44dp"
-        android:layout_toStartOf="@+id/view_profile"
-        android:text="TextView" />
-</RelativeLayout>
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="8dp"
+        android:maxLines="1"
+        android:textColor="@color/primary_text"
+        android:textSize="25sp"
+        android:text="1200"
+        app:layout_constraintBottom_toTopOf="@id/separation_user_announcements"
+        app:layout_constraintEnd_toStartOf="@id/friend_added"
+        app:layout_constraintStart_toEndOf="@id/ratingIcon"
+        app:layout_constraintTop_toBottomOf="@id/announcement_user_name" />
+
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/friend_added"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/ic_add_friend"
+        android:paddingRight="20dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toTopOf="@id/separation_user_announcements"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@id/announcement_user_rating"
+        app:layout_constraintTop_toBottomOf="@id/announcement_user_name"
+        app:layout_constraintVertical_bias="0.0"
+        android:visibility="visible"
+        app:riv_oval="true" />
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/friend_added_true"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/ic_friend_added"
+        android:paddingRight="20dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toTopOf="@id/separation_user_announcements"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@id/announcement_user_rating"
+        app:layout_constraintTop_toBottomOf="@id/announcement_user_name"
+        app:layout_constraintVertical_bias="0.0"
+        android:visibility="invisible"
+        app:riv_oval="true" />
+
+    <View
+        android:id="@+id/separation_user_announcements"
+        app:layout_constraintTop_toBottomOf="@id/friend_added"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#D3D3D3" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

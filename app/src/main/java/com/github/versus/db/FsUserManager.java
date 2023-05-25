@@ -1,11 +1,15 @@
 package com.github.versus.db;
 
+import androidx.annotation.NonNull;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.versus.posts.Post;
 import com.github.versus.rating.Rating;
 import com.github.versus.sports.Sport;
 import com.github.versus.user.User;
 import com.github.versus.user.VersusUser;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -131,6 +135,45 @@ public class FsUserManager implements DataBaseManager<User> {
         });
         return future;
     }
+
+    public Future<Boolean> addFriend(String uid, String friendUID) {
+        CompletableFuture<Boolean> future = new CompletableFuture<>();
+        CollectionReference collection = db.collection(USERS_COLLECTION_ID);
+        DocumentReference doc = collection.document(uid);
+        doc.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot.exists()) {
+                    // Document exists, retrieve the old value of the players field
+                    List<String> friends = (ArrayList<String>)(documentSnapshot.get("friends"));
+                    friends.add(friendUID);
+                    Map<String, Object> updates = new HashMap<>();
+                    updates.put("friends", friends);
+                    doc.update(updates)
+                            .addOnSuccessListener(aV -> future.complete(true) )
+                            .addOnFailureListener(aV -> future.complete(false));
+
+                } else {
+                    future.complete(false);
+                }
+            }
+        })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        future.complete(false);
+                    }
+                });
+        return future;
+    }
+
+    public CompletableFuture<Boolean> createFriendship(String f1, String f2){
+        CompletableFuture<Boolean> b1 = (CompletableFuture<Boolean>)addFriend(f1, f2);
+        CompletableFuture<Boolean> b2= (CompletableFuture<Boolean>)addFriend(f2, f1);
+        return b1.thenCombine(b2, (result1, result2) -> result1.booleanValue() && result2);
+
+    }
+
 
     @Override
     public Future<Boolean> delete(String id) {

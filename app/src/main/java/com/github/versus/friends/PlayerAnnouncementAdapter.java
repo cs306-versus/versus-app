@@ -76,17 +76,21 @@ public class PlayerAnnouncementAdapter extends RecyclerView.Adapter<PlayerAnnoun
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private final TextView fn;
-        private final TextView un;
-        private final Button button;
+        private  TextView fn;
+        private  TextView un;
+        private  Button button;
 
         public ViewHolder(View view) {
-            super(view);
-            button = (Button) view.findViewById(R.id.view_profile);
+          super(view);
+          /*  button = (Button) view.findViewById(R.id.view_profile);
             un = (TextView) view.findViewById(R.id.user_un);
 
             fn = (TextView) view.findViewById(R.id.user_fn);
+            */
+
+
         }
+
 
         public TextView getFirstName() {
             return fn;

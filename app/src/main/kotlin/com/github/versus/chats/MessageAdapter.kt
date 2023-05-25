@@ -28,8 +28,8 @@ class MessageAdapter(val context: Context, val messageList: ArrayList<Message>) 
 
     override fun getItemViewType(position: Int): Int {
         val currentMessage = messageList[position]
-        //TODO: this line has to change once sync to db is done
-        if(VersusUser.computeUID("jane.doe@versus.ch").equals(currentMessage.sender)){
+        val currUserUid = FirebaseAuth.getInstance().uid
+        if(currUserUid.equals(currentMessage.sender)){
             return ITEM_SENT
         }
         return ITEM_RECEIVE

@@ -35,7 +35,7 @@ class ChatsFragment : Fragment() {
         val view = inflater.inflate(R.layout.chat_users_layout, container, false)
 
         mAuth = FirebaseAuth.getInstance()
-        mDbRef = FirebaseFirestore.getInstance().collection("user")
+        mDbRef = FirebaseFirestore.getInstance().collection("users")
 
         userList = ArrayList()
         adapter = UserAdapter(requireContext(), userList)
@@ -48,7 +48,7 @@ class ChatsFragment : Fragment() {
 
         // getting the current user from the database
         //TO DO: this next line has to change
-        val currUserUID = VersusUser.computeUID("jane.doe@versus.ch")
+        val currUserUID = FirebaseAuth.getInstance().uid;
 
         val fman = FsUserManager(FirebaseFirestore.getInstance())
         val future = fman.fetch(currUserUID) as CompletableFuture<User>
