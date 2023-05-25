@@ -70,8 +70,8 @@
     </string-array>
 
     <string name="login_string">Login</string>
-    <string name="enter_your_mail_string">Enter your mail</string>
-    <string name="enter_your_password_string">Enter your password</string>
+    <string name="enter_your_mail_string">Mail</string>
+    <string name="enter_your_password_string">Password</string>
     <string name="did_you_forget_your_password___string">Did you forget your password ?</string>
     <string name="reset_it_string">Reset it</string>
     <string name="login_ek1_string">Login</string>
