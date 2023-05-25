@@ -3,12 +3,9 @@ package com.github.versus.auth;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.replaceText;
-import static androidx.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-
-import static java.util.Objects.isNull;
 
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -21,30 +18,36 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import com.github.versus.utils.*;
+import com.google.firebase.firestore.FirebaseFirestore;
 
-import static com.github.versus.utils.auth.EmulatorUserProvider.*;
+import static com.github.versus.utils.EmulatorUserProvider.*;
 import static org.hamcrest.Matchers.not;
 
-//@RunWith(AndroidJUnit4.class)
-public class SignInFragmentTest {
+@RunWith(AndroidJUnit4.class)
+public final class SignInFragmentTest {
+
+    static {
+        // HR : Make sure the emulator is launched
+        FirebaseFirestore db = FirebaseEmulator.FIREBASE_FIRESTORE;
+    }
 
     private final Authenticator authenticator = VersusAuthenticator.getInstance(FirebaseEmulator.FIREBASE_AUTH);
 
-    //@Rule
+    @Rule
     public ActivityScenarioRule<AuthActivity> scenario = new ActivityScenarioRule<>(AuthActivity.class);
 
-    //@Before
+    @Before
     public void setUp() {
         authenticator.signOut();
         onView(withId(R.id.signin_btn)).perform(click());
     }
 
-    //@Test
+    @Test
     public void testVisibility(){
         onView(withId(R.id.auth_fragment_signin)).check(matches(isDisplayed()));
     }
 
-    //@Test
+    @Test
     public void testOnSuccessSignIn() throws InterruptedException {
         onView(withId(R.id.mail)).perform(replaceText(validMail()));
         onView(withId(R.id.pwd)).perform(replaceText(validPassword()));
@@ -53,12 +56,30 @@ public class SignInFragmentTest {
         onView(withId(R.id.main_activity_layout)).check(matches(isDisplayed()));
     }
 
-    //@Test
+    @Test
     public void testOnFailSignIn() {
-        onView(withId(R.id.mail)).perform(replaceText(validMail()));
+        onView(withId(R.id.mail)).perform(replaceText(nonValidMail()));
+        onView(withId(R.id.pwd)).perform(replaceText(nonValidPassword()));
+        onView(withId(R.id.signin)).perform(click());
+        onView(withId(R.id.auth_fragment_signin)).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void testNonVerifiedMailedSignIn() throws InterruptedException {
+        onView(withId(R.id.mail)).perform(replaceText(nonVerifiedUser()));
         onView(withId(R.id.pwd)).perform(replaceText(validPassword()));
         onView(withId(R.id.signin)).perform(click());
-        //onView(withId(R.id.auth_fragment_signin)).check(matches(isDisplayed()));
+        Thread.sleep(2000); // Wait for 2 secs
+        onView(withId(R.id.auth_fragment_mail_validation)).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void testSignInWithGoogle() throws InterruptedException {
+        onView(withId(R.id.google_signin)).perform(click());
+        // Wait for fragment to appear
+        Thread.sleep(2000);
+        // HR : the fragment is invisible. See layout/auth_fragment_google.xml
+        onView(withId(R.id.auth_fragment_google)).check(matches(not(isDisplayed())));
     }
 
 }

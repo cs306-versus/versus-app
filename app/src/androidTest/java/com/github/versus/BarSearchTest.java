@@ -25,6 +25,9 @@ import androidx.test.uiautomator.UiObject;
 import androidx.test.uiautomator.UiObjectNotFoundException;
 import androidx.test.uiautomator.UiSelector;
 
+import com.github.versus.utils.FirebaseEmulator;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -35,13 +38,16 @@ import org.junit.runner.RunWith;
 @RunWith(AndroidJUnit4.class)
 public class BarSearchTest {
 
+    static {
+        FirebaseFirestore db = FirebaseEmulator.FIREBASE_FIRESTORE;
+    }
+
     // Declare activity rule and permission rule
     @Rule
     public ActivityScenarioRule<MainActivity> activityRule = new ActivityScenarioRule<>(MainActivity.class);
 
     @Rule
     public GrantPermissionRule grantPermissionRule = GrantPermissionRule.grant(android.Manifest.permission.ACCESS_FINE_LOCATION);
-
 
     /**
      * Sets up the testing environment before each test.
@@ -61,9 +67,44 @@ public class BarSearchTest {
      *
      * @throws InterruptedException if the thread sleep is interrupted
      */
+    @Test
+    public void testSearchBar() throws InterruptedException {
+        // Open the options menu in the action bar
+        Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
 
+        // Find the menu item "Search" by its text and perform a click. This should open the search bar.
+        onView(withText("Search")).perform(click());
+
+        long waitingTime = 6000;
+        // Get the instance of the device on which the test is running
+        ElapsedTimeIdlingResource idlingResourceFirst = new ElapsedTimeIdlingResource(waitingTime);
+        UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
+        UiObject searchBox = device.findObject(new UiSelector().text("Search"));
+        try {
+            // Click on the search bar to focus it, then type "Unil sport" into the search bar
+            searchBox.click();
+            searchBox.setText("Unil sport");
+            IdlingRegistry.getInstance().register(idlingResourceFirst);
+
+            // Simulate pressing the enter key twice. This might be necessary if the first press only closes the keyboard.
+            device.pressEnter();
+            device.pressEnter();
+            IdlingRegistry.getInstance().unregister(idlingResourceFirst);
+        } catch (UiObjectNotFoundException e) {
+            // If we couldn't find the search bar, fail the test
+            fail("Could not find the Autocomplete widget");
+        }
+        // Sleep for another 2 seconds to give time for the search to complete
+        long waitingTime2 =5000;
+        ElapsedTimeIdlingResource idlingResource2 = new ElapsedTimeIdlingResource(waitingTime2);
+        IdlingRegistry.getInstance().register(idlingResource2);
+
+        IdlingRegistry.getInstance().unregister(idlingResource2);
+
+    }
     @Test
     public void testSearchBarByClicking() throws InterruptedException {
+
         // Open the options menu in the action bar
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
 

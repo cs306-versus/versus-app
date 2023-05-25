@@ -1,5 +1,5 @@
-
 package com.github.versus;
+
 
 import com.github.versus.posts.Location;
 import com.github.versus.posts.Timestamp;
@@ -9,43 +9,103 @@ import com.github.versus.weather.WeatherService;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.time.Month;
-import java.util.HashMap;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 public class WeatherServiceTest {
     private static final Location location= new Location("Lausanne",46.519962,6.633597);
-    private static final Timestamp timestamp= new Timestamp(2023, Month.MAY,20,3,17,   Timestamp.Meridiem.PM);
+    private static final Timestamp timestamp= getTomorrowTimestamp();
     private static final Map<String,String> weather_map =WeatherService.getWeather(location,timestamp);
-    //@Test
+    @Test
     public void AsynchronousYieldsSameResult() throws ExecutionException, InterruptedException {
-
-        Assert.assertTrue(WeatherService.getWeatherAsynchronously(location, timestamp).get().get("day").equals("2023-05-20"));
+        Assert.assertEquals(getTomorrowStringFormat(), WeatherService.getWeatherAsynchronously(location, timestamp).get().get("day"));
     }
 
-    //@Test
-    public void correctDateIsfetched(){
-        Assert.assertTrue(weather_map.get("day").equals("2023-05-20"));
+    @Test
+    public void correctDateIsFetched(){
+        Assert.assertEquals(getTomorrowStringFormat(), weather_map.get("day"));
     }
 
-    //@Test
+    @Test
     public void correctTimeIsFetched(){
         Assert.assertEquals("15:00:00", WeatherService.getWeather(location, timestamp).get("time"));
     }
 
-    //@Test
-    public void fetchingPastDaysIsPossible(){
-        Location location= new Location("Lausanne",46.519962,6.633597);
-        Timestamp timestamp= new Timestamp(2022, Month.MAY,3,6,21,   Timestamp.Meridiem.PM);
-        java.util.Map<String, String> fetched= WeatherService.getWeather(location,timestamp);
-        Assert.assertTrue(fetched.get("day").equals("2022-05-03")
-                && fetched.get("time").equals("18:00:00"));
+
+    @Test
+    public void weatherReturnUnavailableWhenIconNull(){
+        Assert.assertSame(Weather.weather_unavailable,Weather.extractWeather(Map.of()));
     }
 
-    //@Test
-    public void weatherReturnUnavailableWhenIconIsWrong(){
-        Assert.assertTrue(Weather.extractWeather(new HashMap<>())==Weather.weather_unavailable);
+    @Test
+    public void weatherReturnRainyIconWhenNeeded(){
+        Assert.assertSame(Weather.rainy,Weather.extractWeather(Map.of("icon","rain")));
+    }
+
+    @Test
+    public void weatherReturnClearDayIconWhenNeeded(){
+        Assert.assertSame(Weather.clear_day,Weather.extractWeather(Map.of("icon","clear-day")));
+    }
+
+    @Test
+    public void weatherReturnClearNighIconWhenNeeded(){
+        Assert.assertSame(Weather.clear_night,Weather.extractWeather(Map.of("icon","clear-night")));
+    }
+
+    @Test
+    public void weatherReturnSnowyIconWhenNeeded(){
+        Assert.assertSame(Weather.snowy,Weather.extractWeather(Map.of("icon","snow")));
+    }
+
+    @Test
+    public void weatherReturnFoggyIconWhenNeeded(){
+        Assert.assertSame(Weather.foggy,Weather.extractWeather(Map.of("icon","fog")));
+    }
+
+    @Test
+    public void weatherReturnWindyIconWhenNeeded(){
+        Assert.assertSame(Weather.windy,Weather.extractWeather(Map.of("icon","wind")));
+    }
+
+    @Test
+    public void weatherReturnCloudyIconWhenNeeded(){
+        Assert.assertSame(Weather.cloudy,Weather.extractWeather(Map.of("icon","cloudy")));
+    }
+
+    @Test
+    public void weatherReturnCloudyDayIconWhenNeeded(){
+        Assert.assertSame(Weather.cloudy_day,Weather.extractWeather(Map.of("icon","partly-cloudy-day")));
+    }
+
+    @Test
+    public void weatherReturnCloudyNightIconWhenNeeded(){
+        Assert.assertSame(Weather.cloudy_night,Weather.extractWeather(Map.of("icon","partly-cloudy-night")));
+    }
+
+    @Test
+    public void weatherReturnUnavailableWhenIconWrong(){
+        Assert.assertSame(Weather.weather_unavailable,Weather.extractWeather(Map.of("icon","sand-tempest")));
+    }
+
+
+
+    private static String getTomorrowStringFormat(){
+        LocalDate today = LocalDate.now();
+        LocalDate tomorrow = today.plusDays(1);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return tomorrow.format(formatter);
+    }
+
+
+    private static Timestamp getTomorrowTimestamp() {
+        LocalDate currentDate = LocalDate.now();
+        LocalDate tomorrowDate = currentDate.plusDays(1);
+        return new Timestamp(tomorrowDate.getYear(),
+                tomorrowDate.getMonth(),tomorrowDate.getDayOfMonth(),3,17
+                , Timestamp.Meridiem.PM);
+
     }
 
 }
