@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.github.versus.user.User;
@@ -32,7 +33,6 @@ public class AddFriendFragment extends Fragment {
         TextView username = root.findViewById(R.id.username);
         real_name.setText(user.getFirstName() + " " + user.getLastName());
         username.setText(user.getUserName());
-
         return root;
     }
 

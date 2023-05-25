@@ -19,6 +19,7 @@ import com.github.versus.db.FsUserManager;
 import com.github.versus.friends.UserAnnouncementAdapter;
 import com.github.versus.user.User;
 import com.github.versus.user.VersusUser;
+import com.google.common.base.StandardSystemProperty;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -110,12 +111,17 @@ public class SearchFriendsFragment extends Fragment{
     protected void filterUsers(){
         filter = searchBar.getText().toString();
         displayUsers.clear();
+        //dont show anything if no search is made
         if(filter.length() == 0){
-            displayUsers.addAll(users);
+            displayUsers.clear();
         }
         else {
             displayUsers.addAll(
                     users.stream().filter(user -> {
+                        //remove yourself
+                        if(user.getUID().equals(this.user.getUID())){
+                            return false;
+                        }
                         return user.getFirstName().toLowerCase().contains(filter.toLowerCase())
                                 || user.getLastName().toLowerCase().contains(filter.toLowerCase())
                                 || user.getUID().toLowerCase().contains(filter.toLowerCase());
