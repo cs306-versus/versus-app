@@ -29,6 +29,7 @@ import java.util.stream.Collectors;
 
 public class EditPostFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
+
     private Post post;
     private Post newPost;
     private FsPostManager fpm;
