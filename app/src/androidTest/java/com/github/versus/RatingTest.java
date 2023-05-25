@@ -19,7 +19,7 @@ public final class RatingTest {
     }
 
     @Test
-    public void EloComputationstaysBelowMax() throws ExecutionException, InterruptedException, TimeoutException {
+    public void EloComputationstaysBelowMax() {
         VersusUser u1 = new VersusUser.VersusBuilder("abdess1").setRating(Rating.MAX_ELO).build();
         VersusUser u2 = new VersusUser.VersusBuilder("abdess2").setRating(Rating.MAX_ELO).build();
         float newU2Rating = new Rating(u2, u1, 5).computeNewRating();
@@ -27,7 +27,7 @@ public final class RatingTest {
     }
 
     @Test
-    public void EloComputationstaysAboveMin() throws ExecutionException, InterruptedException, TimeoutException {
+    public void EloComputationstaysAboveMin() {
         VersusUser u1 = new VersusUser.VersusBuilder("abdess1").setRating(Rating.MIN_RATING).build();
         VersusUser u2 = new VersusUser.VersusBuilder("abdess2").setRating(Rating.MIN_RATING).build();
         float newU2Rating = new Rating(u2, u1, 1).computeNewRating();
@@ -35,7 +35,7 @@ public final class RatingTest {
     }
 
     @Test
-    public void EloRatingFromBetterPlayerGivesBetterResult() throws ExecutionException, InterruptedException, TimeoutException {
+    public void EloRatingFromBetterPlayerGivesBetterResult() {
         VersusUser u1 = new VersusUser.VersusBuilder("abdess1").setRating(4000).build();
         VersusUser u2 = new VersusUser.VersusBuilder("abdess2").setRating(4500).build();
         VersusUser u3 = new VersusUser.VersusBuilder("abdess3").setRating(3000).build();

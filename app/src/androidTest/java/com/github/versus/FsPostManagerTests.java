@@ -1,14 +1,10 @@
 package com.github.versus;
 
-import android.content.Context;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
-import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import static org.junit.Assert.*;
 
 import com.github.versus.db.FsPostManager;
 import com.github.versus.posts.Location;
@@ -17,9 +13,10 @@ import com.github.versus.posts.Timestamp;
 import com.github.versus.sports.Sport;
 import com.github.versus.user.DummyUser;
 import com.github.versus.utils.FirebaseEmulator;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import java.time.Month;
 import java.util.ArrayList;
@@ -28,23 +25,21 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
-import java.util.stream.Collectors;
 
 /**
  * Instrumented test, which will execute on an Android device.
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
-//@RunWith(AndroidJUnit4.class)
-public class FsPostManagerTests {
+@RunWith(AndroidJUnit4.class)
+public final class FsPostManagerTests {
 
     static {
         FirebaseFirestore db = FirebaseEmulator.FIREBASE_FIRESTORE;
     }
 
-    //@Test
+    @Test
     public void CorrectFsPostInsert_fetch() throws ExecutionException, InterruptedException, TimeoutException {
         // Creating FsPostm instance
         FirebaseFirestore db = FirebaseEmulator.FIREBASE_FIRESTORE;
@@ -66,14 +61,14 @@ public class FsPostManagerTests {
         // Verify that the post was inserted into Firestore
         //by fetching it and then comparing
         Post p = postm.fetch("_test_").get();
-        assertTrue(post.equals(p));
+        assertEquals(post, p);
 
         // Clean up the test data
         boolean deletionSuccess = postm.delete("_test_").get();
         assertTrue(deletionSuccess);
     }
 
-    //@Test
+    @Test
     public void NullGetResultOnAbsentPost() throws ExecutionException, InterruptedException, TimeoutException {
         // Creating FsPostm instance
         FirebaseFirestore db = FirebaseEmulator.FIREBASE_FIRESTORE;
@@ -89,8 +84,7 @@ public class FsPostManagerTests {
         assertNull(p);
     }
 
-
-    //@Test
+    @Test
     public void CorrectFetchAllPostsFromTestCollection() throws ExecutionException, InterruptedException {
         // Creating FsPostm instance
         FirebaseFirestore db = FirebaseEmulator.FIREBASE_FIRESTORE;
@@ -113,7 +107,7 @@ public class FsPostManagerTests {
         assertEquals(resultPosts, refSet);
     }
 
-    //@Test
+    @Test
     public void CorrectJoinOnPresentPost() throws ExecutionException, InterruptedException {
         // Creating FsPostm instance
         FirebaseFirestore db = FirebaseEmulator.FIREBASE_FIRESTORE;
@@ -142,15 +136,14 @@ public class FsPostManagerTests {
         //getting the new post from db
         Post updatedPost = postm.fetch(postName).get();
         String playerId = updatedPost.getPlayers().get(0).getUID();
-        assertTrue(playerId.equals(name));
+        assertEquals(playerId, name);
 
         boolean deletionSuccess = postm.delete(postName).get();
         assertTrue(deletionSuccess);
 
     }
 
-
-    //@Test
+    @Test
     public void CorrectFetchSpecific() throws ExecutionException, InterruptedException {
         // Creating FsPostm instance
         FirebaseFirestore db = FirebaseEmulator.FIREBASE_FIRESTORE;
@@ -174,12 +167,11 @@ public class FsPostManagerTests {
         // Verify that the post was inserted into Firestore
         //by fetching it and then comparing
         List<Post> fetchedPosts = postm.fetchSpecific("location", testLocation).get();
-        assertTrue(post.equals(fetchedPosts.get(0)));
+        assertEquals(post, fetchedPosts.get(0));
 
         // Clean up the test data
         boolean deletionSuccess = postm.delete(testPostName).get();
         assertTrue(deletionSuccess);
     }
-
 
 }

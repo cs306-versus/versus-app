@@ -20,7 +20,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
-public class SearchFriendFragmentTest {
+public final class SearchFriendFragmentTest {
 
     static {
         FirebaseFirestore db = FirebaseEmulator.FIREBASE_FIRESTORE;
