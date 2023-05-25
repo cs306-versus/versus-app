@@ -1,6 +1,8 @@
 package com.github.versus.auth;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
@@ -54,8 +56,7 @@ public class VersusAuthenticatorTest {
         builder.setMail(mail);
         // Request an account creation
         Task<AuthResult> task = auth.createAccountWithMail(mail, validPassword(), builder);
-        // spin and wait for the task to complete
-        while (!(task.isComplete() || task.isCanceled())) ;
+        spinAndWait(task);
         // Generate the error message & execute the test
         Optional.ofNullable(task.getException())
                 .map(Throwable::getMessage)
@@ -70,8 +71,7 @@ public class VersusAuthenticatorTest {
         builder.setMail(mail);
         // Request an account creation
         Task<AuthResult> task = auth.createAccountWithMail(mail, nonValidPassword(), builder);
-        // spin and wait for the task to complete
-        while (!(task.isComplete() || task.isCanceled())) ;
+        spinAndWait(task);
         // Generate the error message & execute the test
         Optional.ofNullable(task.getException())
                 .map(Throwable::getMessage)
@@ -87,10 +87,7 @@ public class VersusAuthenticatorTest {
     public void successSignInWithMail() {
         // Request an account creation
         Task<AuthResult> task = auth.signInWithMail(validMail(), validPassword());
-
-        // spin and wait for the task to complete
-        while (!(task.isComplete() || task.isCanceled())) ;
-
+        spinAndWait(task);
         // Generate the error message & execute the test
         Optional.ofNullable(task.getException())
                 .map(Throwable::getMessage)
@@ -102,10 +99,7 @@ public class VersusAuthenticatorTest {
     public void failedSignInWithMail() {
         // Request an account creation
         Task<AuthResult> task = auth.signInWithMail(nonValidMail(), nonValidPassword());
-
-        // spin and wait for the task to complete
-        while (!(task.isComplete() || task.isCanceled())) ;
-
+        spinAndWait(task);
         // Generate the error message & execute the test
         Optional.ofNullable(task.getException())
                 .map(Throwable::getMessage)
@@ -121,6 +115,43 @@ public class VersusAuthenticatorTest {
     public void testSignOut() {
         auth.signOut();
         assertNull(auth.currentUser());
+    }
+
+    // ============================================================================================
+    // ================================== MAIL VALIDITY TESTS =====================================
+    // ============================================================================================
+
+    //@Test
+    public void testValidMail(){
+        Task<AuthResult> task = auth.signInWithMail(validMail(), validPassword());
+        spinAndWait(task);
+        assertTrue(task.isSuccessful());
+        assertNotNull(auth.currentUser());
+        assertTrue(auth.hasValidMail());
+    }
+
+    @Test
+    public void testInvalidMail(){
+        Task<AuthResult> task = auth.signInWithMail(nonVerifiedUser(), validPassword());
+        spinAndWait(task);
+        assertTrue(task.isSuccessful());
+        assertFalse(auth.hasValidMail());
+    }
+
+    @Test
+    public void testWithNoUser(){
+        auth.signOut();
+        assertFalse(auth.hasValidMail());
+    }
+
+    // ============================================================================================
+    // ========================================= UTILITY METHODS ==================================
+    // ============================================================================================
+
+    private Task<AuthResult> spinAndWait(Task<AuthResult> task){
+        // spin and wait for the task to complete
+        while (!(task.isComplete() || task.isCanceled())) ;
+        return task;
     }
 
 }

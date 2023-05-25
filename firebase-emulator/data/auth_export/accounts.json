@@ -1,1 +1,173 @@
-{"kind":"identitytoolkit#DownloadAccountResponse","users":[{"localId":"8wJU8q3jyyDYq3PhI5Ej3F8IakFU","createdAt":"1684775302751","lastLoginAt":"1684775302751","displayName":"Unverified user","photoUrl":"","passwordHash":"fakeHash:salt=fakeSaltbiAdtzTmLgoPtSRkLxJ6:password=123456789","salt":"fakeSaltbiAdtzTmLgoPtSRkLxJ6","passwordUpdatedAt":1684934332336,"providerUserInfo":[{"providerId":"password","email":"unverified.user@test.versus.ch","federatedId":"unverified.user@test.versus.ch","rawId":"unverified.user@test.versus.ch","displayName":"Unverified user","photoUrl":""}],"validSince":"1684934332","email":"unverified.user@test.versus.ch","emailVerified":false,"disabled":false},{"localId":"Np1wXLjcotD3Z7JkZAxKnBtA79Tz","createdAt":"1684775280791","lastLoginAt":"1684775280791","displayName":"Jane Doe","photoUrl":"","passwordHash":"fakeHash:salt=fakeSaltlhZXQU1AvsP03fvwPAc3:password=123456789","salt":"fakeSaltlhZXQU1AvsP03fvwPAc3","passwordUpdatedAt":1684934332336,"providerUserInfo":[{"providerId":"password","email":"jane.doe@versus.ch","federatedId":"jane.doe@versus.ch","rawId":"jane.doe@versus.ch","displayName":"Jane Doe","photoUrl":""}],"validSince":"1684934332","email":"jane.doe@versus.ch","emailVerified":false,"disabled":false},{"localId":"PPftSym08ucsiwIsOatWFqHUDGiq","createdAt":"1684775212329","lastLoginAt":"1684775212329","displayName":"User #2","photoUrl":"","passwordHash":"fakeHash:salt=fakeSaltHN8IndxYEUuW9dMrfABS:password=123456789","salt":"fakeSaltHN8IndxYEUuW9dMrfABS","passwordUpdatedAt":1684934332336,"providerUserInfo":[{"providerId":"password","email":"auth.user+2@test.versus.ch","federatedId":"auth.user+2@test.versus.ch","rawId":"auth.user+2@test.versus.ch","displayName":"User #2","photoUrl":""}],"validSince":"1684934332","email":"auth.user+2@test.versus.ch","emailVerified":false,"disabled":false},{"localId":"U7atijagEHDxTkKtKIV3vvvBrTIk","createdAt":"1684775266414","lastLoginAt":"1684775266414","displayName":"John Doe","photoUrl":"","passwordHash":"fakeHash:salt=fakeSaltLDaDoG25fiuen10c1SuJ:password=123456789","salt":"fakeSaltLDaDoG25fiuen10c1SuJ","passwordUpdatedAt":1684934332336,"providerUserInfo":[{"providerId":"password","email":"john.doe@versus.ch","federatedId":"john.doe@versus.ch","rawId":"john.doe@versus.ch","displayName":"John Doe","photoUrl":""}],"validSince":"1684934332","email":"john.doe@versus.ch","emailVerified":false,"disabled":false},{"localId":"Uk0rK6hKqTuVsAzf01rtCwncbXlv","createdAt":"1684775249013","lastLoginAt":"1684775249013","displayName":"Horsey McHorse","photoUrl":"","passwordHash":"fakeHash:salt=fakeSaltddXUXE7vqfMZX9Wklwts:password=123456789","salt":"fakeSaltddXUXE7vqfMZX9Wklwts","passwordUpdatedAt":1684934332336,"providerUserInfo":[{"providerId":"password","email":"horsey.mchorse@versus.ch","federatedId":"horsey.mchorse@versus.ch","rawId":"horsey.mchorse@versus.ch","displayName":"Horsey McHorse","photoUrl":""}],"validSince":"1684934332","email":"horsey.mchorse@versus.ch","emailVerified":true,"disabled":false},{"localId":"fRZYnqU7K5bKtI0oKKDUerLu1Xm1","createdAt":"1684775197221","lastLoginAt":"1684775197221","displayName":"User #1","photoUrl":"","passwordHash":"fakeHash:salt=fakeSaltnfGFz3cXaMVnJvcCwhat:password=123456789","salt":"fakeSaltnfGFz3cXaMVnJvcCwhat","passwordUpdatedAt":1684934332336,"providerUserInfo":[{"providerId":"password","email":"auth.user+1@test.versus.ch","federatedId":"auth.user+1@test.versus.ch","rawId":"auth.user+1@test.versus.ch","displayName":"User #1","photoUrl":""}],"validSince":"1684934332","email":"auth.user+1@test.versus.ch","emailVerified":true,"disabled":false},{"localId":"h4VJb8UPmiogeJ411P8eFHveWJp2","createdAt":"1684775165863","lastLoginAt":"1684775165863","displayName":"User #0","photoUrl":"","passwordHash":"fakeHash:salt=fakeSaltiedMd7wEcPBnv3oDD737:password=123456789","salt":"fakeSaltiedMd7wEcPBnv3oDD737","passwordUpdatedAt":1684934332336,"providerUserInfo":[{"providerId":"password","email":"auth.user+0@test.versus.ch","federatedId":"auth.user+0@test.versus.ch","rawId":"auth.user+0@test.versus.ch","displayName":"User #0","photoUrl":""}],"validSince":"1684934332","email":"auth.user+0@test.versus.ch","emailVerified":true,"disabled":false}]}
+{
+  "kind": "identitytoolkit#DownloadAccountResponse",
+  "users": [
+    {
+      "localId": "8wJU8q3jyyDYq3PhI5Ej3F8IakFU",
+      "createdAt": "1684775302751",
+      "lastLoginAt": "1684775302751",
+      "displayName": "Unverified user",
+      "photoUrl": "",
+      "passwordHash": "fakeHash:salt=fakeSaltbiAdtzTmLgoPtSRkLxJ6:password=123456789",
+      "salt": "fakeSaltbiAdtzTmLgoPtSRkLxJ6",
+      "passwordUpdatedAt": 1684934332336,
+      "providerUserInfo": [
+        {
+          "providerId": "password",
+          "email": "unverified.user@test.versus.ch",
+          "federatedId": "unverified.user@test.versus.ch",
+          "rawId": "unverified.user@test.versus.ch",
+          "displayName": "Unverified user",
+          "photoUrl": ""
+        }
+      ],
+      "validSince": "1684934332",
+      "email": "unverified.user@test.versus.ch",
+      "emailVerified": false,
+      "disabled": false
+    },
+    {
+      "localId": "Np1wXLjcotD3Z7JkZAxKnBtA79Tz",
+      "createdAt": "1684775280791",
+      "lastLoginAt": "1684775280791",
+      "displayName": "Jane Doe",
+      "photoUrl": "",
+      "passwordHash": "fakeHash:salt=fakeSaltlhZXQU1AvsP03fvwPAc3:password=123456789",
+      "salt": "fakeSaltlhZXQU1AvsP03fvwPAc3",
+      "passwordUpdatedAt": 1684934332336,
+      "providerUserInfo": [
+        {
+          "providerId": "password",
+          "email": "jane.doe@versus.ch",
+          "federatedId": "jane.doe@versus.ch",
+          "rawId": "jane.doe@versus.ch",
+          "displayName": "Jane Doe",
+          "photoUrl": ""
+        }
+      ],
+      "validSince": "1684934332",
+      "email": "jane.doe@versus.ch",
+      "emailVerified": false,
+      "disabled": false
+    },
+    {
+      "localId": "PPftSym08ucsiwIsOatWFqHUDGiq",
+      "createdAt": "1684775212329",
+      "lastLoginAt": "1684775212329",
+      "displayName": "User #2",
+      "photoUrl": "",
+      "passwordHash": "fakeHash:salt=fakeSaltHN8IndxYEUuW9dMrfABS:password=123456789",
+      "salt": "fakeSaltHN8IndxYEUuW9dMrfABS",
+      "passwordUpdatedAt": 1684934332336,
+      "providerUserInfo": [
+        {
+          "providerId": "password",
+          "email": "auth.user+2@test.versus.ch",
+          "federatedId": "auth.user+2@test.versus.ch",
+          "rawId": "auth.user+2@test.versus.ch",
+          "displayName": "User #2",
+          "photoUrl": ""
+        }
+      ],
+      "validSince": "1684934332",
+      "email": "auth.user+2@test.versus.ch",
+      "emailVerified": false,
+      "disabled": false
+    },
+    {
+      "localId": "U7atijagEHDxTkKtKIV3vvvBrTIk",
+      "createdAt": "1684775266414",
+      "lastLoginAt": "1684775266414",
+      "displayName": "John Doe",
+      "photoUrl": "",
+      "passwordHash": "fakeHash:salt=fakeSaltLDaDoG25fiuen10c1SuJ:password=123456789",
+      "salt": "fakeSaltLDaDoG25fiuen10c1SuJ",
+      "passwordUpdatedAt": 1684934332336,
+      "providerUserInfo": [
+        {
+          "providerId": "password",
+          "email": "john.doe@versus.ch",
+          "federatedId": "john.doe@versus.ch",
+          "rawId": "john.doe@versus.ch",
+          "displayName": "John Doe",
+          "photoUrl": ""
+        }
+      ],
+      "validSince": "1684934332",
+      "email": "john.doe@versus.ch",
+      "emailVerified": false,
+      "disabled": false
+    },
+    {
+      "localId": "Uk0rK6hKqTuVsAzf01rtCwncbXlv",
+      "createdAt": "1684775249013",
+      "lastLoginAt": "1684775249013",
+      "displayName": "Horsey McHorse",
+      "photoUrl": "",
+      "passwordHash": "fakeHash:salt=fakeSaltddXUXE7vqfMZX9Wklwts:password=123456789",
+      "salt": "fakeSaltddXUXE7vqfMZX9Wklwts",
+      "passwordUpdatedAt": 1684934332336,
+      "providerUserInfo": [
+        {
+          "providerId": "password",
+          "email": "horsey.mchorse@versus.ch",
+          "federatedId": "horsey.mchorse@versus.ch",
+          "rawId": "horsey.mchorse@versus.ch",
+          "displayName": "Horsey McHorse",
+          "photoUrl": ""
+        }
+      ],
+      "validSince": "1684934332",
+      "email": "horsey.mchorse@versus.ch",
+      "emailVerified": true,
+      "disabled": false
+    },
+    {
+      "localId": "fRZYnqU7K5bKtI0oKKDUerLu1Xm1",
+      "createdAt": "1684775197221",
+      "lastLoginAt": "1684775197221",
+      "displayName": "User #1",
+      "photoUrl": "",
+      "passwordHash": "fakeHash:salt=fakeSaltnfGFz3cXaMVnJvcCwhat:password=123456789",
+      "salt": "fakeSaltnfGFz3cXaMVnJvcCwhat",
+      "passwordUpdatedAt": 1684934332336,
+      "providerUserInfo": [
+        {
+          "providerId": "password",
+          "email": "auth.user+1@test.versus.ch",
+          "federatedId": "auth.user+1@test.versus.ch",
+          "rawId": "auth.user+1@test.versus.ch",
+          "displayName": "User #1",
+          "photoUrl": ""
+        }
+      ],
+      "validSince": "1684934332",
+      "email": "auth.user+1@test.versus.ch",
+      "emailVerified": true,
+      "disabled": false
+    },
+    {
+      "localId": "h4VJb8UPmiogeJ411P8eFHveWJp2",
+      "createdAt": "1684775165863",
+      "lastLoginAt": "1684775165863",
+      "displayName": "User #0",
+      "photoUrl": "",
+      "passwordHash": "fakeHash:salt=fakeSaltiedMd7wEcPBnv3oDD737:password=123456789",
+      "salt": "fakeSaltiedMd7wEcPBnv3oDD737",
+      "passwordUpdatedAt": 1684934332336,
+      "providerUserInfo": [
+        {
+          "providerId": "password",
+          "email": "auth.user+0@test.versus.ch",
+          "federatedId": "auth.user+0@test.versus.ch",
+          "rawId": "auth.user+0@test.versus.ch",
+          "displayName": "User #0",
+          "photoUrl": ""
+        }
+      ],
+      "validSince": "1684934332",
+      "email": "auth.user+0@test.versus.ch",
+      "emailVerified": true,
+      "disabled": false
+    }
+  ]
+}

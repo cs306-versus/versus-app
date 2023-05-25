@@ -53,5 +53,9 @@ public class EmulatorUserProvider {
         return String.format("auth.user#%d@test.versus.ch", freeMailsCounter.getAndIncrement());
     }
 
+    public static String nonVerifiedUser(){
+        return "unverified.user@test.versus.ch";
+    }
+
 
 }
