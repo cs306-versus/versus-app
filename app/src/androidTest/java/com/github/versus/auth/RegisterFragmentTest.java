@@ -2,9 +2,13 @@ package com.github.versus.auth;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+
+import static com.github.versus.utils.auth.EmulatorUserProvider.freeMail;
+import static com.github.versus.utils.auth.EmulatorUserProvider.validPassword;
 
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -22,6 +26,7 @@ import org.junit.runner.RunWith;
 public class RegisterFragmentTest {
 
     static {
+        // HR : Make sure the emulator is launched
         FirebaseFirestore db = FirebaseEmulator.FIREBASE_FIRESTORE;
     }
 
@@ -44,5 +49,22 @@ public class RegisterFragmentTest {
     }
 
     // TODO HR : Add missing tests
+
+    @Test
+    public void testAccountCreation(){
+        // HR : Fill out the form
+        onView(withId(R.id.firstName)).perform(replaceText("John")); // HR : Set the first name
+        onView(withId(R.id.lastName)).perform(replaceText("Doe")); // HR : Set the last name
+        onView(withId(R.id.mail)).perform(replaceText(freeMail())); // HR : Set the mail
+        onView(withId(R.id.phone)).perform(replaceText("0781234567")); // HR : Set the phone
+        onView(withId(R.id.pwd)).perform(replaceText(validPassword())); // HR : Set the pwd
+        onView(withId(R.id.confirm_pwd)).perform(replaceText(validPassword())); // HR : Set the pwd confirmation
+
+        // HR : Request account creation
+        onView(withId(R.id.register_btn)).perform(click());
+
+        // HR : Check that the validation mail fragment is visible
+        onView(withId(R.id.auth_fragment_mail_validation)).check(matches(isDisplayed()));
+    }
 
 }

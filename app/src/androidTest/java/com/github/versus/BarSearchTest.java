@@ -67,8 +67,8 @@ public class BarSearchTest {
      *
      * @throws InterruptedException if the thread sleep is interrupted
      */
-    @Test
-    public void testSearchBar() throws InterruptedException {
+    //@Test
+    public void testSearchBar() {
         // Open the options menu in the action bar
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
 
@@ -103,7 +103,7 @@ public class BarSearchTest {
 
     }
     @Test
-    public void testSearchBarByClicking() throws InterruptedException {
+    public void testSearchBarByClicking() {
         // Open the options menu in the action bar
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
 

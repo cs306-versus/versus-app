@@ -35,9 +35,9 @@ import org.junit.runner.RunWith;
 public class AuthActivityTest {
 
     static {
+        // HR : Make sure the emulator is launched
         FirebaseFirestore db = FirebaseEmulator.FIREBASE_FIRESTORE;
     }
-
     private final Authenticator authenticator = VersusAuthenticator.getInstance(FirebaseEmulator.FIREBASE_AUTH);
 
     @Rule

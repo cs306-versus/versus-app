@@ -22,6 +22,7 @@ import org.junit.runner.RunWith;
 public class AuthFragmentTest {
 
     static {
+        // HR : Make sure the emulator is launched
         FirebaseFirestore db = FirebaseEmulator.FIREBASE_FIRESTORE;
     }
 
