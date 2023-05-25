@@ -52,8 +52,7 @@ public class GameFragment extends Fragment {
         View view =inflater.inflate(R.layout.fragment_game,container,false);
 
         ListView listView = (ListView) view.findViewById(R.id.list_players_view);
-        //TODO : THIS IS HARDCODED BECAUSE THE LOCATION IN POST HAS NONEXISTENT COORDINATES THE STRING SHOULD BE CHANGED TO location WHEN IT'S FIXED
-        Location position= LocationConverter.GameFragmentLocation("CHAVANNES (45.6, 4.4)");
+        Location position= LocationConverter.GameFragmentLocation(location);
         Timestamp timestamp= TimeStampConverter.GameFragmentTimestamp(date);
         TextView weather_txt= view.findViewById (R.id.weather);
         ImageView weather_icon= view.findViewById(R.id.weathericon);

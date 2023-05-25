@@ -7,6 +7,7 @@ import com.github.versus.offline.UserConverter;
 import com.github.versus.sports.Sport;
 import com.github.versus.user.VersusUser;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -103,5 +104,26 @@ public final class SingleUserConverterTest {
     public void convertBackEmptyStringFails() {
         assertThrows(Exception.class, () -> UserConverter.convertBackUser(""));
     }
+
+    @Test
+    public void canConvertUsersWithEmptySportPreferences(){
+        List<Sport> preferredSports= List.of();
+        VersusUser.VersusBuilder builder = new VersusUser.VersusBuilder("error");
+        builder.setFirstName("Buggy");
+        builder.setLastName("User");
+        builder.setUserName("I don't like anything");
+        builder.setMail("bugs@gmail.com");
+        builder.setPhone("that's a problem");
+        builder.setRating(1);
+        builder.setCity("BugCity");
+        builder.setZipCode(700);
+        builder.setPreferredSports(preferredSports);
+        VersusUser buggyUser= builder.build();
+        VersusUser buggyConversion= UserConverter.convertBackUser(UserConverter.convertUser(buggyUser));
+        Assert.assertTrue(buggyConversion.getPreferredSports().isEmpty()&&
+                                    buggyConversion.getUID().equals(buggyUser.getUID()));
+    }
+
+
 
 }
