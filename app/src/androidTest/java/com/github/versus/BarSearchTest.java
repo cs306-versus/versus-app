@@ -42,6 +42,7 @@ public class BarSearchTest {
     @Rule
     public GrantPermissionRule grantPermissionRule = GrantPermissionRule.grant(android.Manifest.permission.ACCESS_FINE_LOCATION);
 
+    
     /**
      * Sets up the testing environment before each test.
      * Initializes the Intents framework and opens the drawer layout.
@@ -60,7 +61,7 @@ public class BarSearchTest {
      *
      * @throws InterruptedException if the thread sleep is interrupted
      */
-   
+
     @Test
     public void testSearchBarByClicking() throws InterruptedException {
         // Open the options menu in the action bar
