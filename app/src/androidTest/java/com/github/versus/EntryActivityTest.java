@@ -87,6 +87,16 @@ public class EntryActivityTest {
         public void signOut() {
 
         }
+
+        @Override
+        public boolean hasValidMail() {
+            return false;
+        }
+
+        @Override
+        public void reload() {
+
+        }
     }
 
     private static class UserAuthenticator implements Authenticator, Serializable {
@@ -108,6 +118,16 @@ public class EntryActivityTest {
 
         @Override
         public void signOut() {
+
+        }
+
+        @Override
+        public boolean hasValidMail() {
+            return false;
+        }
+
+        @Override
+        public void reload() {
 
         }
     }

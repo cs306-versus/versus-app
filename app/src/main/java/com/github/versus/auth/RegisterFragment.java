@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.github.versus.MainActivity;
 import com.github.versus.R;
@@ -83,6 +85,13 @@ public final class RegisterFragment extends Fragment {
         Task<AuthResult> task = auth.createAccountWithMail(mail, pwd, builder);
         Log.d("TAG", "account creation started");
         task.addOnSuccessListener(res -> {
+            // HR : Send mail
+            res.getUser().sendEmailVerification();
+            FragmentManager manager = getParentFragmentManager();
+            FragmentTransaction transaction = manager.beginTransaction();
+            transaction.replace(R.id.auth_fragment_container, MailVerificationFragment.class, null);
+            transaction.commit();
+            Log.d(this.getClass().getName(), "account creation successful but mail not validated");
             startActivity(new Intent(getContext(), MainActivity.class));
             getActivity().finish();
             Log.d("TAG", "account creation successful");
