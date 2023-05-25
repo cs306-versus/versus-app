@@ -14,10 +14,16 @@ import androidx.fragment.app.Fragment;
 import com.github.versus.MainActivity;
 import com.github.versus.R;
 import com.github.versus.databinding.AuthFragmentRegisterBinding;
+import com.github.versus.db.FsPostManager;
+import com.github.versus.db.FsScheduleManager;
+import com.github.versus.db.FsUserManager;
+import com.github.versus.rating.Rating;
+import com.github.versus.schedule.Schedule;
 import com.github.versus.user.VersusUser;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
 
@@ -66,10 +72,12 @@ public final class RegisterFragment extends Fragment {
                 .setUserName(String.format("%s-%s", firstName, lastName).toLowerCase()) // TODO HR : Do we keep the username ?
                 .setPhone(phone)
                 .setMail(mail)
-                .setRating(3)
+                .setRating(Rating.DEFAULT_ELO)
                 .setZipCode(0) // TODO HR : This is still hardcoded
                 .setCity("Lausanne") // TODO HR : This is still hardcoded
-                .setPreferredSports(List.of()); // TODO HR : This is still hardcoded
+                .setPreferredSports(List.of())
+                .setFriends(List.of());
+
 
         // Request from firebase
         Task<AuthResult> task = auth.createAccountWithMail(mail, pwd, builder);
@@ -78,6 +86,15 @@ public final class RegisterFragment extends Fragment {
             startActivity(new Intent(getContext(), MainActivity.class));
             getActivity().finish();
             Log.d("TAG", "account creation successful");
+            //adding the user to the users and his schedule to schedules
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            FsUserManager uman = new FsUserManager(db);
+            FsScheduleManager sman = new FsScheduleManager(db);
+            String newUserUID = res.getUser().getUid();
+            uman.insert(builder.setUID(newUserUID).build());
+            //inserting the schedule
+            Schedule s = new Schedule(newUserUID);
+            sman.insert(s);
         });
         // HR : if the connection failed
         task.addOnFailureListener(ex -> {

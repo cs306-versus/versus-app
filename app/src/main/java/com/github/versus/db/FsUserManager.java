@@ -2,6 +2,7 @@ package com.github.versus.db;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.versus.posts.Post;
+import com.github.versus.rating.Rating;
 import com.github.versus.sports.Sport;
 import com.github.versus.user.User;
 import com.github.versus.user.VersusUser;
@@ -33,6 +34,8 @@ public class FsUserManager implements DataBaseManager<User> {
     private static final String FIRST_NAME_FIELD  = "first-name";
     private static final String LAST_NAME_FIELD   = "last-name";
     private static final String USERNAME_FIELD    = "username";
+
+    private static final String FRIENDS_FIELD    = "friends";
     private static final String MAIL_FIELD        = "mail";
     private static final String PHONE_FIELD       = "phone";
     private static final String RATING_FIELD      = "rating";
@@ -56,17 +59,6 @@ public class FsUserManager implements DataBaseManager<User> {
         CollectionReference collection = db.collection(USERS_COLLECTION_ID);
         DocumentReference doc = collection.document(user.getUID());
         Map<String, Object> fields = ((VersusUser)user).getAllAttributes();
-
-        // Add All fields
-        fields.put(FIRST_NAME_FIELD, user.getFirstName());
-        fields.put(LAST_NAME_FIELD, user.getLastName());
-        fields.put(USERNAME_FIELD, user.getUserName());
-        fields.put(MAIL_FIELD, user.getMail());
-        fields.put(PHONE_FIELD, user.getPhone());
-        fields.put(RATING_FIELD, user.getRating());
-        fields.put(CITY_FIELD, user.getCity());
-        fields.put(ZIP_CODE_FIELD, user.getZipCode());
-        fields.put(PREF_SPORTS_FIELD, user.getPreferredSports());
 
         // Update actual DB
         CompletableFuture<Boolean> future = new CompletableFuture<>();
@@ -110,16 +102,16 @@ public class FsUserManager implements DataBaseManager<User> {
     }
 
     private VersusUser.Builder build(DocumentSnapshot doc){
-        VersusUser.Builder builder = new VersusUser.VersusBuilder(doc.getId());
+        VersusUser.VersusBuilder builder = new VersusUser.VersusBuilder(doc.getId());
         return builder.setFirstName(doc.get(FIRST_NAME_FIELD, String.class))
                 .setLastName(doc.get(LAST_NAME_FIELD, String.class))
                 .setUserName(doc.get(USERNAME_FIELD, String.class))
                 .setMail(doc.get(MAIL_FIELD, String.class))
                 .setPhone(doc.get(PHONE_FIELD, String.class))
-                // TODO HR : Fix the issue here,
-                //  cannot deserialize field as was done before
-                //.setRating(content.get(RATING_FIELD, int.class))
-                .setCity(doc.get(CITY_FIELD, String.class));
+                .setRating(doc.get(RATING_FIELD) == null ? Rating.DEFAULT_ELO : ((Long)doc.get(RATING_FIELD)).intValue())
+                .setPreferredSports((List<Sport>)doc.get(PREF_SPORTS_FIELD))
+                .setCity(doc.get(CITY_FIELD, String.class))
+                .setFriends((List<String>)doc.get(FRIENDS_FIELD));
     }
 
     @Override

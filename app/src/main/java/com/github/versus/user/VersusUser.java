@@ -38,8 +38,8 @@ public final class VersusUser implements User, Serializable {
 
 
     public VersusUser(){
-        city = null;
-        preferredSports = null;
+        city = "";
+        preferredSports =  new ArrayList<>();
         zip = -1;
         rating = 0;
         phone = "";
@@ -48,7 +48,7 @@ public final class VersusUser implements User, Serializable {
         uid = "";
         firstName = "";
         lastName = "";
-        friends = null;
+        friends = new ArrayList<>();
     }
     public VersusUser(String uid, String firstName,String lastName,String userName, String mail, String phone , int rating , String city, int zipCode,List<Sport> preferredSports, List<String> friends ){
         this.uid = uid;
@@ -136,16 +136,16 @@ public final class VersusUser implements User, Serializable {
         Map<String, Object> fields = new HashMap<>();
 
         // Add All fields
-        fields.put("firstName", getFirstName());
-        fields.put("lastName", getLastName());
+        fields.put("first-name", getFirstName());
+        fields.put("last-name", getLastName());
         fields.put("uid", getUID());
-        fields.put("userName", getUserName());
+        fields.put("username", getUserName());
         fields.put("mail", getMail());
         fields.put("phone", getPhone());
         fields.put("rating", getRating());
         fields.put("city", getCity());
-        fields.put("zipCode", getZipCode());
-        fields.put("preferredSports", getPreferredSports());
+        fields.put("zip", getZipCode());
+        fields.put("preferred-sports", getPreferredSports());
         fields.put("friends", getFriends());
 
         return fields;
