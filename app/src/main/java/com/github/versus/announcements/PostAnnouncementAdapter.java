@@ -52,7 +52,7 @@ public class PostAnnouncementAdapter extends RecyclerView.Adapter<PostAnnounceme
         viewHolder.getSportTextView().setText(currentPost.getSport().name);
         viewHolder.getMaxPlayerCountTextView().setText(currentPost.getPlayers().size() + "/" + currentPost.getPlayerLimit());
         viewHolder.getDateTextView().setText(currentPost.getDate().getDay() + "/" +currentPost.getDate().getMonth().getValue() + "/" + currentPost.getDate().getYear());
-        viewHolder.getLocationTextView().setText(currentPost.getLocation().toString());
+        viewHolder.getLocationTextView().setText(currentPost.getLocation().toString().substring(0,currentPost.getLocation().toString().indexOf("(")));
     }
     @Override
     public void onBindViewHolder(@NonNull PostAnnouncementAdapter.ViewHolder viewHolder, int position) {
