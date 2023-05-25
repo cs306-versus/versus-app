@@ -1,6 +1,5 @@
 package com.github.versus;
 
-import static org.junit.Assert.assertEquals;
 
 import com.github.versus.posts.Location;
 import com.github.versus.posts.Timestamp;
@@ -8,6 +7,7 @@ import com.github.versus.weather.Weather;
 import com.github.versus.weather.WeatherService;
 
 import org.junit.Assert;
+import org.junit.Test;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

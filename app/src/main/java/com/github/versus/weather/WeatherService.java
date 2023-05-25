@@ -77,7 +77,7 @@ public final class WeatherService {
                 Map<String,String> server_error_map= new HashMap<>();
                 int http_status= weather_response.code();
                 server_error_map.put("HTTP error",String.valueOf(http_status));
-                if(http_status == 429 && key_index++ < API_KEYS.length){
+                if(http_status == 429 && ++key_index < API_KEYS.length){
                     return getWeather(location,timestamp);
                 }
                 else {
