@@ -56,21 +56,8 @@ public class TopGamesTest {
         onView(withId(R.id.arrow_left)).perform(click());
         onView(withId(R.id.arrow_left)).perform(click());
         onView(withId(R.id.arrow_left)).perform(click());
-
-        try {
-            Thread.sleep(10000); // wait for 10 seconds
-        } catch (InterruptedException e) {
-            // handle the exception
-        }
         //Clicking on the image in order to show the filtered posts of the trending sport.
         onView(withId(R.id.rectangle_22)).perform(ViewActions.scrollTo()).perform(click());
-
-        try {
-            Thread.sleep(10000); // wait for 10 seconds
-        } catch (InterruptedException e) {
-            // handle the exception
-        }
-
 
     }
 
