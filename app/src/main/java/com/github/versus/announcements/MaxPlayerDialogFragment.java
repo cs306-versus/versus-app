@@ -2,6 +2,8 @@ package com.github.versus.announcements;
 
 import static android.app.AlertDialog.*;
 
+import static com.github.versus.announcements.CreatePostTitleDialogFragment.changeWindowDimensions;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -101,23 +103,15 @@ public class MaxPlayerDialogFragment extends DialogFragment {
      */
     @Override
     public void onStart() {
+
         super.onStart();
         Dialog dialog = getDialog();
         if (dialog != null) {
             Window window = dialog.getWindow();
             if (window != null) {
-                window.setBackgroundDrawableResource(R.drawable.custom_dialog_background);
-                window.getDecorView().post(() -> {
-                    DisplayMetrics displayMetrics = new DisplayMetrics();
-                    getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-                    int dialogWindowWidth = (int) (displayMetrics.widthPixels * 0.85);
-                    int dialogWindowHeight = (int) (displayMetrics.heightPixels * 0.25);
-                    WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
-                    layoutParams.copyFrom(window.getAttributes());
-                    layoutParams.width = dialogWindowWidth;
-                    layoutParams.height = dialogWindowHeight;
-                    window.setAttributes(layoutParams);
-                });
+                DisplayMetrics displayMetrics = new DisplayMetrics();
+                getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+                changeWindowDimensions(window,displayMetrics,0.85,0.25);
             }
         }
     }
