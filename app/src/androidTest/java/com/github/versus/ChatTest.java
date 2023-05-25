@@ -44,11 +44,14 @@ public final class ChatTest {
     public ActivityScenarioRule<MainActivity> scenario = new ActivityScenarioRule<>(MainActivity.class);
 
     @Before
-    public void setup(){
+    public void setup() throws ExecutionException, InterruptedException {
         // Sign in the user
         VersusAuthenticator auth = VersusAuthenticator.getInstance(FirebaseAuth.getInstance());
         Task<AuthResult> task = auth.signInWithMail(validMail(), validPassword());
         spinAndWait(task);
+        FsUserManager fsm = new FsUserManager(FirebaseFirestore.getInstance());
+        fsm.addFriend(FirebaseAuth.getInstance().getUid(), "0ZnBDoch6feHhmNxlLjPNSne0HL2").get();
+
 
         onView(withId(R.id.main_activity_layout)).check(matches(DrawerMatchers.isClosed(GravityCompat.START))).perform(DrawerActions.open());
         onView(withId(R.id.main_activity_layout)).check(matches(DrawerMatchers.isOpen(GravityCompat.START)));
@@ -57,12 +60,11 @@ public final class ChatTest {
     }
     @Test
     public void testChatActivity() throws ExecutionException, InterruptedException {
-        FsUserManager fsm = new FsUserManager(FirebaseFirestore.getInstance());
-        fsm.addFriend(FirebaseAuth.getInstance().getUid(), "0ZnBDoch6feHhmNxlLjPNSne0HL2").get();
         onView(withId(R.id.usersRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
         onView(withId(R.id.inputMessage)).perform(click());
         onView(withId(R.id.inputMessage)).perform(replaceText("haha"));
         onView(withId(R.id.imageSend)).perform(click());
+        FsUserManager fsm = new FsUserManager(FirebaseFirestore.getInstance());
 
         fsm.unfriendAll(FirebaseAuth.getInstance().getUid());
 
