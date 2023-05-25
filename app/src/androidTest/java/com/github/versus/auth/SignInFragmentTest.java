@@ -65,7 +65,7 @@ public final class SignInFragmentTest {
         onView(withId(R.id.auth_fragment_signin)).check(matches(isDisplayed()));
     }
 
-    
+
     @Test
     public void testSignInWithGoogle() throws InterruptedException {
         onView(withId(R.id.google_signin)).perform(click());
