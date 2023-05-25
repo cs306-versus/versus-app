@@ -37,7 +37,7 @@ public final class FsChatManagerTest {
         FsChatManager chatm = new FsChatManager(db);
 
         // Creating a test post
-        Chat chat = new Chat(new DummyUser("abdess"), new DummyUser("aymane"), "hehe");
+        Chat chat = new Chat("abdess", "aymane", "hehe");
 
         //inserting the chat
         Future<Boolean> insertResult = chatm.insert(chat);
@@ -66,9 +66,7 @@ public final class FsChatManagerTest {
         FsChatManager chatm = new FsChatManager(db);
 
         // Creating a test chat
-        DummyUser u1 = new DummyUser("p1");
-        DummyUser u2 = new DummyUser("p2");
-        Chat chat = new Chat(u1, u2, testChatId);
+        Chat chat = new Chat("p1", "p2", testChatId);
 
         //inserting the chat
         Future<Boolean> insertResult = chatm.insert(chat);
@@ -79,7 +77,7 @@ public final class FsChatManagerTest {
 
         // creating a new message and adding it
 
-        Message testMessage = new Message(u1, u2, "heyy", new Timestamp(2023, Month.AUGUST, 18, 11, 15, Timestamp.Meridiem.AM));
+        Message testMessage = new Message("p1", "p2", "heyy", new Timestamp(2023, Month.AUGUST, 18, 11, 15, Timestamp.Meridiem.AM));
         boolean additionSuccess = chatm.addMessageToChat(testChatId, testMessage).get();
 
         // Verify that the addition operation succeeded
