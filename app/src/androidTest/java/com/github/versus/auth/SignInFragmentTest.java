@@ -76,4 +76,13 @@ public class SignInFragmentTest {
         onView(withId(R.id.auth_fragment_mail_validation)).check(matches(isDisplayed()));
     }
 
+    @Test
+    public void testSignInWithGoogle() throws InterruptedException {
+        onView(withId(R.id.google_signin)).perform(click());
+        // Wait for fragment to appear
+        Thread.sleep(2000);
+        // HR : the fragment is invisible. See layout/auth_fragment_google.xml
+        onView(withId(R.id.auth_fragment_google)).check(matches(not(isDisplayed())));
+    }
+
 }
