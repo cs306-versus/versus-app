@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.github.versus.MainActivity;
 import com.github.versus.R;
@@ -60,24 +62,25 @@ public final class RegisterFragment extends Fragment {
             binding.pwd.getBackground().setState(new int[]{R.attr.pwd_state});
         }
         VersusUser.VersusBuilder builder = new VersusUser.VersusBuilder(null);
-        // TODO HR : Link this when the UI is ready (see issue #58 in versus-app)
         builder.setFirstName(firstName)
                 .setLastName(lastName)
-                .setUserName(String.format("%s-%s", firstName, lastName).toLowerCase()) // TODO HR : Do we keep the username ?
+                .setUserName(String.format("%s-%s", firstName, lastName).toLowerCase())
                 .setPhone(phone)
                 .setMail(mail)
                 .setRating(3)
-                .setZipCode(0) // TODO HR : This is still hardcoded
-                .setCity("Lausanne") // TODO HR : This is still hardcoded
-                .setPreferredSports(List.of()); // TODO HR : This is still hardcoded
+                .setPreferredSports(List.of());
 
         // Request from firebase
         Task<AuthResult> task = auth.createAccountWithMail(mail, pwd, builder);
         Log.d("TAG", "account creation started");
         task.addOnSuccessListener(res -> {
-            startActivity(new Intent(getContext(), MainActivity.class));
-            getActivity().finish();
-            Log.d("TAG", "account creation successful");
+            // HR : Send mail
+            res.getUser().sendEmailVerification();
+            FragmentManager manager = getParentFragmentManager();
+            FragmentTransaction transaction = manager.beginTransaction();
+            transaction.replace(R.id.auth_fragment_container, MailVerificationFragment.class, null);
+            transaction.commit();
+            Log.d(this.getClass().getName(), "account creation successful but mail not validated");
         });
         // HR : if the connection failed
         task.addOnFailureListener(ex -> {

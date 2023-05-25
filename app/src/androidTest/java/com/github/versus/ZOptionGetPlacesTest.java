@@ -18,6 +18,9 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.rule.GrantPermissionRule;
 import androidx.test.runner.AndroidJUnit4;
 
+import com.github.versus.utils.FirebaseEmulator;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -28,7 +31,11 @@ import org.junit.runner.RunWith;
  * Tests the behavior of the Get Places operation, including edge cases like no radius input or no places within the specified radius.
  */
 @RunWith(AndroidJUnit4.class)
-public class ZOptionGetPlacesTest {
+public final class ZOptionGetPlacesTest {
+
+    static {
+        FirebaseFirestore db = FirebaseEmulator.FIREBASE_FIRESTORE;
+    }
 
     // Declare activity rule and permission rule
     @Rule
@@ -58,6 +65,7 @@ public class ZOptionGetPlacesTest {
         onView(withId(R.id.edit_text_radius2)).perform(typeText("1500"), closeSoftKeyboard());
         onView(withText("Show Places")).inRoot(isDialog()).perform(click());
         onView(withText(placeName)).perform(click());
+        onView(withText("OK")).perform(click());
         onView(withText("Draw Path")).perform(click());
     }
 
