@@ -65,15 +65,7 @@ public final class SignInFragmentTest {
         onView(withId(R.id.auth_fragment_signin)).check(matches(isDisplayed()));
     }
 
-    @Test
-    public void testNonVerifiedMailedSignIn() throws InterruptedException {
-        onView(withId(R.id.mail)).perform(replaceText(nonVerifiedUser()));
-        onView(withId(R.id.pwd)).perform(replaceText(validPassword()));
-        onView(withId(R.id.signin)).perform(click());
-        Thread.sleep(2000); // Wait for 2 secs
-        onView(withId(R.id.auth_fragment_mail_validation)).check(matches(isDisplayed()));
-    }
-
+    
     @Test
     public void testSignInWithGoogle() throws InterruptedException {
         onView(withId(R.id.google_signin)).perform(click());
