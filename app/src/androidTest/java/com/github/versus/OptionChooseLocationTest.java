@@ -74,19 +74,7 @@ public final class OptionChooseLocationTest {
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
 
         // Open the Choose location option
-        onView(withText("Choose location")).perform(click());
-
-        // Get screen dimensions
-        /*DisplayMetrics displayMetrics = new DisplayMetrics();
-        WindowManager windowManager = (WindowManager) ApplicationProvider.getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
-        windowManager.getDefaultDisplay().getRealMetrics(displayMetrics);
-
-        // Calculate the center coordinates
-        int centerX = displayMetrics.widthPixels / 2;
-        int centerY = displayMetrics.heightPixels / 2;
-*/
-
-        // Simulate a map click event at the center of the screen
+        onView(withText("By Click")).perform(click());
         simulateMapClick(540, 1170);
 
         long waitingTime2 =5000;

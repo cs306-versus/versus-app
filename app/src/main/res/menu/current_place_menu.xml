@@ -14,23 +14,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/search_bar"
-        android:title="Search"
+        android:title="By Search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
 
         />
-    <item
-        android:id="@+id/option_get_place"
-        android:title="Get Place"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
 
-        />
     <item
         android:id="@+id/option_choose_location"
-        android:title="Choose location"
+        android:title="By Click"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -39,7 +32,7 @@
 
     <item
         android:id="@+id/option_choose_radius"
-        android:title="Choose radius"
+        android:title="Change distance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
