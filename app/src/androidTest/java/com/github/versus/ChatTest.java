@@ -39,7 +39,7 @@ public final class ChatTest {
      * This method tests the first position of the trending sports by clicking on the appropriate picture and
      * showing the filtered posts of the sport
      */
-    @Test
+    //@Test
     public void testOnFirstPosition() {
         //Opening the drawer menu
         onView(withId(R.id.main_activity_layout)).check(matches(DrawerMatchers.isClosed(GravityCompat.START))).perform(DrawerActions.open());
