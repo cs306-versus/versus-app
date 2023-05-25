@@ -94,7 +94,7 @@ public class ScheduleFragment extends Fragment {
                     TextView sportText = (TextView)(view.findViewById(R.id.sport_text));
                     TextView locationText = (TextView)(view.findViewById(R.id.Location_text));
                     TextView date = (TextView)(viewFrag.findViewById(R.id.date));
-
+                    List<PlayerToBeRated> fakeList = new ArrayList<>();
                     Post p  = posts.stream().filter(post -> {
 
 
@@ -103,9 +103,8 @@ public class ScheduleFragment extends Fragment {
 
 
                     //Dummy List Of players waiting to connect this to the concept of user in the DB
-                    List<PlayerToBeRated> fakeList = new ArrayList<>();
-                    fakeList.add(new PlayerToBeRated(true,"Abdess_piquant","4"));
-                    fakeList.add(new PlayerToBeRated(true,"Aymane_lam","5"));
+                    fakeList.add(new PlayerToBeRated(false,"Abdess_piquant","4"));
+                    fakeList.add(new PlayerToBeRated(false,"Aymane_lam","5"));
                     fakeList.add(new PlayerToBeRated(true,"Mernissi_Adam","4"));
                     fakeList.add(new PlayerToBeRated(true,"Si-Ziazi","5"));
 

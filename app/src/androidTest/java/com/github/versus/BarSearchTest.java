@@ -42,7 +42,7 @@ public class BarSearchTest {
     @Rule
     public GrantPermissionRule grantPermissionRule = GrantPermissionRule.grant(android.Manifest.permission.ACCESS_FINE_LOCATION);
 
-    
+
     /**
      * Sets up the testing environment before each test.
      * Initializes the Intents framework and opens the drawer layout.
