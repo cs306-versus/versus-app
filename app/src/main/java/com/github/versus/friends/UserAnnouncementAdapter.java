@@ -51,7 +51,7 @@ public class UserAnnouncementAdapter extends RecyclerView.Adapter<UserAnnounceme
         viewHolder.getFirstName().setText(currentUser.getFirstName()+ " "+ currentUser.getLastName());
         viewHolder.getUsername().setText(currentUser.getUserName());
         viewHolder.getCity().setText(currentUser.getCity());
-        viewHolder.getAddFriend().setOnClickListener(new View.OnClickListener() {
+        viewHolder.getAddFriend().setOnClickListener(new View .OnClickListener() {
             @Override
             public void onClick(View view) {
                 FragmentManager manager = ((AppCompatActivity)context).getSupportFragmentManager();

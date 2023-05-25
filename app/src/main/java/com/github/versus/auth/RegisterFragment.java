@@ -95,7 +95,7 @@ public final class RegisterFragment extends Fragment {
             startActivity(new Intent(getContext(), MainActivity.class));
             getActivity().finish();
             Log.d("TAG", "account creation successful");
-            //adding the user to the users and his schedule to schedules
+            //--------adding the user to the users and his schedule to schedules-------
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             FsUserManager uman = new FsUserManager(db);
             FsScheduleManager sman = new FsScheduleManager(db);
@@ -104,6 +104,7 @@ public final class RegisterFragment extends Fragment {
             //inserting the schedule
             Schedule s = new Schedule(newUserUID);
             sman.insert(s);
+            //------------------------------------------------------------------------
         });
         // HR : if the connection failed
         task.addOnFailureListener(ex -> {

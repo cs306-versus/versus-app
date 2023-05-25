@@ -48,9 +48,8 @@ class UserChatActivity : AppCompatActivity(){
         val receiverUid = intent.getStringExtra("uid")
 
         //getting info on the current user
-        //TODO: replace this line once sync with Auth DB is made
         //val senderUid = FirebaseAuth.getInstance().currentUser?.uid
-        val senderUid = "E974963F"
+        val senderUid = FirebaseAuth.getInstance().uid
         //initializing field
         chatRecyclerView = findViewById(R.id.chatRecyclerView)
         messageBox = findViewById(R.id.inputMessage)
