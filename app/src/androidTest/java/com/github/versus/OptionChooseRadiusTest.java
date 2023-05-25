@@ -48,6 +48,7 @@ public class OptionChooseRadiusTest {
         onView(withId(R.id.nav_location)).perform(click());
     }
 
+
     @Test
     public void testChoosingRadius() throws InterruptedException {
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
