@@ -13,16 +13,23 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.versus.R;
-import com.github.versus.databinding.FragmentAuthBinding;
+import com.github.versus.databinding.AuthFragmentBinding;
 
-public class AuthFragment extends Fragment {
+/**
+ * Entry point of the authentication process
+ * It welcomes the user and request from it to either
+ * login or register
+ *
+ * @author Hamza REMMAL (hamza.remmal@epfl.ch)
+ */
+public final class AuthFragment extends Fragment {
 
-    private FragmentAuthBinding binding;
+    private AuthFragmentBinding binding;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentAuthBinding.inflate(inflater);
+        binding = AuthFragmentBinding.inflate(inflater);
         return binding.getRoot();
     }
 
@@ -35,7 +42,8 @@ public class AuthFragment extends Fragment {
     private void switchTo(Class<? extends Fragment> clz){
         FragmentManager manager = getParentFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.fragmentContainerView, clz, null);
+        transaction.replace(R.id.auth_fragment_container, clz, null);
         transaction.commit();
     }
+
 }

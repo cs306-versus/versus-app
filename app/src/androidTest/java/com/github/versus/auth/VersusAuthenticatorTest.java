@@ -24,7 +24,7 @@ public class VersusAuthenticatorTest {
     //@Test
     public void createSuccessfulMailAccount() {
         // Request an account creation
-        Task<AuthResult> task = auth.createAccountWithMail(freeMail(), validPassword());
+        Task<AuthResult> task = auth.createAccountWithMail(freeMail(), validPassword(), null);
 
         // spin and wait for the task to complete
         while (!(task.isComplete() || task.isCanceled())) ;

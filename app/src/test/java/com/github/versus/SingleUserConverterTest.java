@@ -5,7 +5,6 @@ import static org.junit.Assert.assertTrue;
 
 import com.github.versus.offline.UserConverter;
 import com.github.versus.sports.Sport;
-import com.github.versus.user.User;
 import com.github.versus.user.VersusUser;
 
 import org.junit.Test;
@@ -23,7 +22,7 @@ public class SingleUserConverterTest {
    private static VersusUser buildTestUser() {
         List<Sport> preferredSports= Arrays.asList(Sport.BOXING,Sport.CLIMBING,Sport.CRICKET,
                 Sport.BASKETBALL,Sport.FOOTBALL);
-        VersusUser.Builder builder = new VersusUser.Builder("007");
+        VersusUser.VersusBuilder builder = new VersusUser.VersusBuilder("007");
         builder.setFirstName("James");
         builder.setLastName("Bond");
         builder.setUserName("NotInfiltrated");

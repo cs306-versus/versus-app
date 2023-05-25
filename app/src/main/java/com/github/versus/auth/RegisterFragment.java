@@ -1,78 +1,92 @@
 package com.github.versus.auth;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
-import com.github.versus.databinding.FragmentRegisterBinding;
-import com.github.versus.db.FsUserManager;
+import com.github.versus.MainActivity;
+import com.github.versus.R;
+import com.github.versus.databinding.AuthFragmentRegisterBinding;
 import com.github.versus.user.VersusUser;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
 
 /**
  * ???
  */
-public final class RegisterFragment extends BaseAuthFragment {
+public final class RegisterFragment extends Fragment {
 
-    private FragmentRegisterBinding binding;
+    private AuthFragmentRegisterBinding binding;
+    /** Instance of the authenticator we use */
+    private Authenticator auth;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        this.auth = VersusAuthenticator.getInstance(FirebaseAuth.getInstance());
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentRegisterBinding.inflate(inflater);
+        binding = AuthFragmentRegisterBinding.inflate(inflater);
         return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        registerLoginButton(binding.registerBtn);
+        binding.registerBtn.setOnClickListener(this::createAccount);
     }
 
-    @Override
-    protected Task<AuthResult> requestAuthentication() {
-        String mailText = binding.emailAddress.getText().toString();
-        String pwdText = binding.password.getText().toString();
-        Task<AuthResult> task = auth.createAccountWithMail(mailText, pwdText);
-        task.addOnSuccessListener(result -> {
-            String uid = result.getUser().getUid();
-            VersusUser.Builder builder = new VersusUser.Builder(uid);
-            // TODO HR : Link this when the UI is ready (see issue #58 in versus-app)
-            builder.setFirstName("John")
-                    .setLastName("Doe")
-                    .setUserName("johndoe")
-                    .setPhone("+41782345678")
-                    .setMail("john.doe@versus.ch")
-                    .setRating(3)
-                    .setZipCode(0)
-                    .setCity("Lausanne")
-                    .setPreferredSports(List.of());
-            new FsUserManager(FirebaseFirestore.getInstance()).insert(builder.build());
+    private void createAccount(View view) {
+        String mail = binding.mail.getText().toString(); // HR : fetch the mail
+        String pwd = binding.pwd.getText().toString(); // HR : Fetch the pwd
+        String pwd_confirmation = binding.confirmPwd.getText().toString();
+        String phone = binding.phone.getText().toString();
+        String firstName = binding.firstName.getText().toString();
+        String lastName = binding.lastName.getText().toString();
+        if (!pwd.equals(pwd_confirmation)) {
+            binding.pwd.getBackground().setState(new int[]{R.attr.pwd_state});
+        }
+        VersusUser.VersusBuilder builder = new VersusUser.VersusBuilder(null);
+        // TODO HR : Link this when the UI is ready (see issue #58 in versus-app)
+        builder.setFirstName(firstName)
+                .setLastName(lastName)
+                .setUserName(String.format("%s-%s", firstName, lastName).toLowerCase()) // TODO HR : Do we keep the username ?
+                .setPhone(phone)
+                .setMail(mail)
+                .setRating(3)
+                .setZipCode(0) // TODO HR : This is still hardcoded
+                .setCity("Lausanne") // TODO HR : This is still hardcoded
+                .setPreferredSports(List.of()); // TODO HR : This is still hardcoded
+
+        // Request from firebase
+        Task<AuthResult> task = auth.createAccountWithMail(mail, pwd, builder);
+        Log.d("TAG", "account creation started");
+        task.addOnSuccessListener(res -> {
+            startActivity(new Intent(getContext(), MainActivity.class));
+            getActivity().finish();
+            Log.d("TAG", "account creation successful");
         });
-        return task;
+        // HR : if the connection failed
+        task.addOnFailureListener(ex -> {
+            Log.d("TAG", "account creation failed");
+        });
+        // HR : if the connection was cancelled
+        task.addOnCanceledListener(() -> {
+            Log.d("TAG", "account creation cancelled");
+        });
     }
 
-    @Override
-    protected void handleSuccessfulConnection(AuthResult result) {
-        // TODO : Implement the successful result here
-    }
-
-    @Override
-    protected void handleFailedConnection(Exception exception) {
-        // TODO : Implement the successful result here
-    }
-
-    @Override
-    protected void handleCancelledConnection() {
-        // TODO : Implement the successful result here
-    }
 }

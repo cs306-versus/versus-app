@@ -54,8 +54,8 @@ public class GameFragmentTest {
     @Test
     public void testGameFragment() {
         //Opening the drawer
-        onView(withId(R.id.drawer_layout)).check(matches(DrawerMatchers.isClosed(GravityCompat.START))).perform(DrawerActions.open());
-        onView(withId(R.id.drawer_layout)).check(matches(DrawerMatchers.isOpen(GravityCompat.START)));
+        onView(withId(R.id.main_activity_layout)).check(matches(DrawerMatchers.isClosed(GravityCompat.START))).perform(DrawerActions.open());
+        onView(withId(R.id.main_activity_layout)).check(matches(DrawerMatchers.isOpen(GravityCompat.START)));
         //Clicking on the  nav_schedule button
         onView(withId(R.id.nav_schedule)).perform(click());
 

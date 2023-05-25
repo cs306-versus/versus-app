@@ -20,6 +20,8 @@ import org.junit.runner.RunWith;
 @RunWith(AndroidJUnit4.class)
 public class RegisterFragmentTest {
 
+    private final Authenticator authenticator = VersusAuthenticator.getInstance(FirebaseEmulator.FIREBASE_AUTH);
+
 
     @Rule
     public ActivityScenarioRule<AuthActivity> scenario = new ActivityScenarioRule<>(AuthActivity.class);
@@ -27,13 +29,13 @@ public class RegisterFragmentTest {
     @Before
     public void setUp() {
         // HR : Make sure that the user is signed out
-        FirebaseEmulator.FIREBASE_AUTH.signOut();
+        authenticator.signOut();
         onView(withId(R.id.register_btn)).perform(click());
     }
 
     @Test
     public void testVisibility(){
-        onView(withId(R.id.register_layout)).check(matches(isDisplayed()));
+        onView(withId(R.id.auth_fragment_register)).check(matches(isDisplayed()));
     }
 
     // TODO HR : Add missing tests

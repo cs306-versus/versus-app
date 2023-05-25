@@ -63,11 +63,18 @@ public final class VersusUser implements User, Serializable {
         this.preferredSports = preferredSports;
         this.friends = friends;
     }
-    public VersusUser(Builder builder){
-        this(builder.uid, builder.firstName, builder.lastName, builder.userName,
-                builder.mail, builder.phone, builder.rating, builder.city, builder.zipCode,
-                builder.preferredSports, builder.friends);
-
+    public VersusUser(VersusBuilder builder){
+        this.uid = builder.uid;
+        this.firstName = builder.firstName;
+        this.lastName = builder.lastName;
+        this.userName = builder.userName;
+        this.mail = builder.mail;
+        this.phone = builder.phone;
+        this.rating = builder.rating;
+        this.city = builder.city;
+        this.zip = builder.zipCode;
+        this.preferredSports = builder.preferredSports ==  null ? new ArrayList<>() :List.copyOf(builder.preferredSports);
+        this.friends = builder.friends ==  null ? new ArrayList<>() :List.copyOf(builder.friends);
     }
 
     @Override
@@ -170,9 +177,9 @@ public final class VersusUser implements User, Serializable {
      * @author Hamza REMMAL (hamza.remmal@epfl.ch)
      * @since SPRINT 2
      */
-    public static final class Builder {
+    public static final class VersusBuilder extends Builder{
 
-        private final String uid;
+        private String uid;
         private String firstName;
         private String lastName;
         private String userName;
@@ -183,12 +190,13 @@ public final class VersusUser implements User, Serializable {
         private int zipCode;
         private List<Sport> preferredSports = new ArrayList<>();
 
-        private  List<String> friends = new ArrayList<>();
+        private List<String> friends = new ArrayList<>();
+
         /**
          * ???
          * @param uid
          */
-        public Builder(String uid){
+        public VersusBuilder(String uid){
             this.uid = uid;
         }
 
@@ -197,7 +205,8 @@ public final class VersusUser implements User, Serializable {
          * @param firstName
          * @return
          */
-        public Builder setFirstName(String firstName){
+        @Override
+        public VersusBuilder setFirstName(String firstName){
             this.firstName = firstName;
             return this;
         }
@@ -207,7 +216,8 @@ public final class VersusUser implements User, Serializable {
          * @param lastName
          * @return
          */
-        public Builder setLastName(String lastName){
+        @Override
+        public VersusBuilder setLastName(String lastName){
             this.lastName = lastName;
             return this;
         }
@@ -217,7 +227,8 @@ public final class VersusUser implements User, Serializable {
          * @param userName
          * @return
          */
-        public Builder setUserName(String userName){
+        @Override
+        public VersusBuilder setUserName(String userName){
             this.userName = userName;
             return this;
         }
@@ -227,7 +238,8 @@ public final class VersusUser implements User, Serializable {
          * @param mail
          * @return
          */
-        public Builder setMail(String mail){
+        @Override
+        public VersusBuilder setMail(String mail){
             this.mail = mail;
             return this;
         }
@@ -237,7 +249,8 @@ public final class VersusUser implements User, Serializable {
          * @param phone
          * @return
          */
-        public Builder setPhone(String phone){
+        @Override
+        public VersusBuilder setPhone(String phone){
             this.phone = phone;
             return this;
         }
@@ -247,7 +260,8 @@ public final class VersusUser implements User, Serializable {
          * @param rating
          * @return
          */
-        public Builder setRating(int rating){
+        @Override
+        public VersusBuilder setRating(int rating){
             this.rating = rating;
             return this;
         }
@@ -257,7 +271,8 @@ public final class VersusUser implements User, Serializable {
          * @param city
          * @return
          */
-        public Builder setCity(String city){
+        @Override
+        public VersusBuilder setCity(String city){
             this.city = city;
             return this;
         }
@@ -267,7 +282,8 @@ public final class VersusUser implements User, Serializable {
          * @param zip
          * @return
          */
-        public Builder setZipCode(int zip){
+        @Override
+        public VersusBuilder setZipCode(int zip){
             this.zipCode = zip;
             return this;
         }
@@ -277,7 +293,8 @@ public final class VersusUser implements User, Serializable {
          * @param sports
          * @return
          */
-        public Builder setPreferredSports(List<Sport> sports){
+        @Override
+        public VersusBuilder setPreferredSports(List<Sport> sports){
             this.preferredSports = sports;
             return this;
         }
@@ -289,6 +306,12 @@ public final class VersusUser implements User, Serializable {
 
         public Builder addFriend(String friendUID){
             friends.add(friendUID);
+            return this;
+        }
+
+        @Override
+        public VersusBuilder setUID(String uid){
+            this.uid = uid;
             return this;
         }
 

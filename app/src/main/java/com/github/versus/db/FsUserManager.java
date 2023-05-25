@@ -30,19 +30,15 @@ public class FsUserManager implements DataBaseManager<User> {
     private static final String USERS_COLLECTION_ID = "users";
 
     // ===================================== USERS FIELDS =========================================
-    private static final String FIRST_NAME_FIELD  = "firstName";
-    private static final String LAST_NAME_FIELD   = "lastName";
-    private static final String USERNAME_FIELD    = "userName";
-    private static final String UID_FIELD    = "uid";
-
+    private static final String FIRST_NAME_FIELD  = "first-name";
+    private static final String LAST_NAME_FIELD   = "last-name";
+    private static final String USERNAME_FIELD    = "username";
     private static final String MAIL_FIELD        = "mail";
     private static final String PHONE_FIELD       = "phone";
     private static final String RATING_FIELD      = "rating";
     private static final String CITY_FIELD        = "city";
     private static final String ZIP_CODE_FIELD    = "zip";
-    private static final String PREF_SPORTS_FIELD = "preferredSports";
-    private static final String FRIENDS_FIELD = "friends";
-
+    private static final String PREF_SPORTS_FIELD = "preferred-sports";
     // ============================================================================================
 
     private final FirebaseFirestore db;
@@ -61,6 +57,16 @@ public class FsUserManager implements DataBaseManager<User> {
         DocumentReference doc = collection.document(user.getUID());
         Map<String, Object> fields = ((VersusUser)user).getAllAttributes();
 
+        // Add All fields
+        fields.put(FIRST_NAME_FIELD, user.getFirstName());
+        fields.put(LAST_NAME_FIELD, user.getLastName());
+        fields.put(USERNAME_FIELD, user.getUserName());
+        fields.put(MAIL_FIELD, user.getMail());
+        fields.put(PHONE_FIELD, user.getPhone());
+        fields.put(RATING_FIELD, user.getRating());
+        fields.put(CITY_FIELD, user.getCity());
+        fields.put(ZIP_CODE_FIELD, user.getZipCode());
+        fields.put(PREF_SPORTS_FIELD, user.getPreferredSports());
 
         // Update actual DB
         CompletableFuture<Boolean> future = new CompletableFuture<>();
@@ -91,6 +97,8 @@ public class FsUserManager implements DataBaseManager<User> {
             ) {
                 //converting the data we get into an actual post object
                 VersusUser.Builder builder = build(doc);
+                //.setZipCode(content.get(ZIP_CODE_FIELD, int.class))
+                //.setPreferredSports(new ArrayList<>());
                 users.add(builder.build());
             }
             future.complete(users);
@@ -108,9 +116,9 @@ public class FsUserManager implements DataBaseManager<User> {
                 .setUserName(doc.get(USERNAME_FIELD, String.class))
                 .setMail(doc.get(MAIL_FIELD, String.class))
                 .setPhone(doc.get(PHONE_FIELD, String.class))
-                .setRating(doc.get(RATING_FIELD) == null ?  2000 : ((Long)doc.get(RATING_FIELD)).intValue())
-                .setFriends((List<String>)doc.get(FRIENDS_FIELD))
-                .setPreferredSports((List<Sport>)doc.get(PREF_SPORTS_FIELD))
+                // TODO HR : Fix the issue here,
+                //  cannot deserialize field as was done before
+                //.setRating(content.get(RATING_FIELD, int.class))
                 .setCity(doc.get(CITY_FIELD, String.class));
     }
 
@@ -120,15 +128,15 @@ public class FsUserManager implements DataBaseManager<User> {
         CompletableFuture<User> future = new CompletableFuture<>();
         Task<DocumentSnapshot> doc = collection.document(uid).get();
         doc.addOnSuccessListener(content -> {
-                    VersusUser.Builder builder = build(content);
-                    future.complete(builder.build());
-                })
-                .addOnFailureListener(failure -> {
-                    future.cancel(true);
-                })
-                .addOnCanceledListener(() -> {
-                    future.cancel(true);
-                });
+            VersusUser.VersusBuilder builder = build(content);
+            future.complete(builder.build());
+        })
+        .addOnFailureListener(failure -> {
+            future.cancel(true);
+        })
+        .addOnCanceledListener(() -> {
+            future.cancel(true);
+        });
         return future;
     }
 
