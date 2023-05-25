@@ -78,7 +78,6 @@ public class BarSearchTest {
         // Find the menu item "Search" by its text and perform a click. This should open the search bar.
         onView(withText("By Search")).perform(click());
 
-
     }
 
 
