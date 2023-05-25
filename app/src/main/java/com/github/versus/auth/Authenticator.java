@@ -42,5 +42,9 @@ public interface Authenticator extends Serializable {
      */
     void signOut();
 
+    boolean hasValidMail();
+
+    void reload();
+
 
 }

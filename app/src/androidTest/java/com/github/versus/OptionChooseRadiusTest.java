@@ -18,6 +18,9 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.rule.GrantPermissionRule;
 import androidx.test.runner.AndroidJUnit4;
 
+import com.github.versus.utils.FirebaseEmulator;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -28,7 +31,12 @@ import org.junit.runner.RunWith;
  * Tests the behavior of the Get Places operation, including edge cases like no radius input or no places within the specified radius.
  */
 @RunWith(AndroidJUnit4.class)
-public class OptionChooseRadiusTest {
+public final class OptionChooseRadiusTest {
+
+    static {
+        FirebaseFirestore db = FirebaseEmulator.FIREBASE_FIRESTORE;
+    }
+
     // Declare activity rule and permission rule
     @Rule
     public ActivityScenarioRule<MainActivity> activityRule = new ActivityScenarioRule<>(MainActivity.class);
@@ -49,7 +57,7 @@ public class OptionChooseRadiusTest {
     }
 
     @Test
-    public void testChoosingRadius() throws InterruptedException {
+    public void testChoosingRadius() {
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
         // Find the menu item by its ID and perform a click
         onView(withText("Change distance")).perform(click());
@@ -61,7 +69,7 @@ public class OptionChooseRadiusTest {
     }
     
     @Test
-    public void testCancelingRadius() throws InterruptedException {
+    public void testCancelingRadius() {
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
         // Find the menu item by its ID and perform a click
         onView(withText("Change distance")).perform(click());
