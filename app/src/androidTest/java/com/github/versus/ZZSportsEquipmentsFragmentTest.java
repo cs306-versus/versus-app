@@ -40,7 +40,6 @@ import org.junit.runner.RunWith;
 @RunWith(AndroidJUnit4.class)
 //Class to test the functinalities of the Sport Equipments Fragment
 public class ZZSportsEquipmentsFragmentTest {
-
     //Setting the rule for the ActivityScenario
     @Rule
     public ActivityScenarioRule<MainActivity> scenario = new ActivityScenarioRule<>(MainActivity.class);
