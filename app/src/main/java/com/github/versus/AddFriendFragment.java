@@ -19,9 +19,6 @@ public class AddFriendFragment extends Fragment {
 
     User user;
 
-    public static AddFriendFragment newInstance() {
-        return new AddFriendFragment();
-    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,

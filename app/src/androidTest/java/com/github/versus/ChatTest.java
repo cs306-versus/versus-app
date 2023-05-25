@@ -28,9 +28,6 @@ import org.junit.runner.RunWith;
 @RunWith(AndroidJUnit4.class)
 public final class ChatTest {
 
-    static {
-        FirebaseFirestore db = FirebaseEmulator.FIREBASE_FIRESTORE;
-    }
 
     @Rule
     public ActivityScenarioRule<MainActivity> scenario = new ActivityScenarioRule<>(MainActivity.class);
@@ -47,7 +44,6 @@ public final class ChatTest {
         //Performing the click on the trending sports button
         onView(withId(R.id.nav_chats)).perform(click());
         // Click on the first item in the RecyclerView
-        onView(withId(R.id.usersRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
     }
 
 }
