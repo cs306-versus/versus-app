@@ -67,22 +67,14 @@ public class GameFragmentTest {
         //Clicking on the  nav_schedule button
         onView(withId(R.id.nav_schedule)).perform(click());
 
-        try {
-            Thread.sleep(10000); // wait for 1 second
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
         //Getting back two weeks before where there is a game in the database
         onView(withId(R.id.arrow_11)).perform(click());
         onView(withId(R.id.arrow_11)).perform(click());
         onView(withId(R.id.arrow_11)).perform(click());
         onView(withId(R.id.arrow_11)).perform(click());
         onView(withId(R.id.Tuesday_button)).perform(click());
-        try {
-            Thread.sleep(10000); // wait for 1 second
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
         //Scrolling down so that  the first item of the list of games is visible
         ViewInteraction rectangleView1 = onView(withId(R.id.rectangle1));
         rectangleView1.perform(ViewActions.scrollTo());

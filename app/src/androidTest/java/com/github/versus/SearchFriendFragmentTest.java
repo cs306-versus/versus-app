@@ -30,10 +30,11 @@ public final class SearchFriendFragmentTest {
     public void navigateToFrag(){
         onView(withId(R.id.main_activity_layout)).check(matches(DrawerMatchers.isClosed(GravityCompat.START))).perform(DrawerActions.open());
         onView(withId(R.id.main_activity_layout)).check(matches(DrawerMatchers.isOpen(GravityCompat.START)));
-        onView(withId(R.id.friend_search)).perform(click());
+
     }
     @Test
-    public void test(){
+    public void testSearchBar(){
+        onView(withId(R.id.friend_search)).perform(click());
 
     }
     
