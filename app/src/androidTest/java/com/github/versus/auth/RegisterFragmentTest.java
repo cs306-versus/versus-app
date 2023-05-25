@@ -81,7 +81,25 @@ public final class RegisterFragmentTest {
 
         // HR : Check that the register fragment is still visible
         Thread.sleep(2000);
-        onView(withId(R.id.auth_fragment_register)).check(matches(isDisplayed()));
+        onView(withId(R.id.mail_already_used)).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void failOnDifferentPassword() throws InterruptedException {
+        // HR : Fill out the form
+        onView(withId(R.id.firstName)).perform(replaceText("John")); // HR : Set the first name
+        onView(withId(R.id.lastName)).perform(replaceText("Doe")); // HR : Set the last name
+        onView(withId(R.id.mail)).perform(replaceText(freeMail())); // HR : Set the mail
+        onView(withId(R.id.phone)).perform(replaceText("0781234567")); // HR : Set the phone
+        onView(withId(R.id.pwd)).perform(replaceText(validPassword())); // HR : Set the pwd
+        onView(withId(R.id.confirm_pwd)).perform(replaceText(validPassword() + "1")); // HR : Set the pwd confirmation
+
+        // HR : Request account creation
+        onView(withId(R.id.register_btn)).perform(click());
+
+        // HR : Check that the register fragment is still visible
+        Thread.sleep(2000);
+        onView(withId(R.id.passwords_are_not_similar)).check(matches(isDisplayed()));
     }
 
 }
