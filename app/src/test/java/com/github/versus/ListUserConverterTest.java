@@ -9,6 +9,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -145,5 +146,30 @@ public class ListUserConverterTest {
     @Test
     public void convertBackListUsersFailsOnEmptyString(){
         assertThrows(Exception.class,()-> UserConverter.convertBackListOfUsers(""));
+    }
+
+    @Test
+    public void convertListUsersWithBuggyUserWorks(){
+        List<Sport> preferredSports= List.of();
+        VersusUser.VersusBuilder builder = new VersusUser.VersusBuilder("error");
+        builder.setFirstName("Buggy");
+        builder.setLastName("User");
+        builder.setUserName("I don't like anything");
+        builder.setMail("bugs@gmail.com");
+        builder.setPhone("that's a problem");
+        builder.setRating(1);
+        builder.setCity("BugCity");
+        builder.setZipCode(700);
+        builder.setPreferredSports(preferredSports);
+        VersusUser buggyUser= builder.build();
+        List<VersusUser> testUsers= new ArrayList<>(users);
+        testUsers.add(1,buggyUser);
+        List<VersusUser> revertedUsers= UserConverter.convertBackListOfUsers(UserConverter.convertListOfUsers(testUsers));
+        boolean uid0=(testUsers.get(0).getUID().equals(revertedUsers.get(0).getUID()));
+        boolean uid1=(testUsers.get(1).getUID().equals(revertedUsers.get(1).getUID()));
+        boolean uid2=(testUsers.get(2).getUID().equals(revertedUsers.get(2).getUID()));
+        boolean uid3=(testUsers.get(3).getUID().equals(revertedUsers.get(3).getUID()));
+        boolean empty=(testUsers.get(1).getPreferredSports().isEmpty());
+        assertTrue(uid0 && uid1 && uid2 && uid3 && empty);
     }
 }
