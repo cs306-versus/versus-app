@@ -23,7 +23,7 @@ public final class WeatherService {
                                              "H4DNTYBMHPAU7EC3D4KC3W7KW"};
 
     private static int key_index = 0;
-    private static final String API_KEY= API_KEYS[key_index];
+
 
     private static Retrofit retrofit= new Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -35,11 +35,12 @@ public final class WeatherService {
 
     public static Map<String,String> getWeather(Location location, Timestamp timestamp){
 
+
         Call<WeatherResponse> call= weatherApiService
                 .getWeatherTimeline(String.valueOf(location.getLatitude()),
                                     String.valueOf(location.getLongitude()),
                                     formatDate(timestamp),
-                                    API_KEY);
+                                    API_KEYS[key_index]);
         try {
             Response<WeatherResponse> weather_response = call.execute();
             if (weather_response.isSuccessful()) {
