@@ -71,7 +71,7 @@ public final class RegisterFragment extends Fragment {
         // TODO HR : Link this when the UI is ready (see issue #58 in versus-app)
         builder.setFirstName(firstName)
                 .setLastName(lastName)
-                .setUserName(String.format("%s-%s", firstName, lastName).toLowerCase()) // TODO HR : Do we keep the username ?
+                .setUserName(String.format("%s-%s", firstName, lastName).toLowerCase())
                 .setPhone(phone)
                 .setMail(mail)
                 .setRating(Rating.DEFAULT_ELO)
@@ -92,19 +92,6 @@ public final class RegisterFragment extends Fragment {
             transaction.replace(R.id.auth_fragment_container, MailVerificationFragment.class, null);
             transaction.commit();
             Log.d(this.getClass().getName(), "account creation successful but mail not validated");
-            startActivity(new Intent(getContext(), MainActivity.class));
-            getActivity().finish();
-            Log.d("TAG", "account creation successful");
-            //--------adding the user to the users and his schedule to schedules-------
-            FirebaseFirestore db = FirebaseFirestore.getInstance();
-            FsUserManager uman = new FsUserManager(db);
-            String newUserUID = res.getUser().getUid();
-            uman.insert(builder.setUID(newUserUID).build());
-            //inserting the schedule
-            FsScheduleManager sman = new FsScheduleManager(db);
-            Schedule s = new Schedule(newUserUID);
-            sman.insert(s);
-            //------------------------------------------------------------------------
         });
         // HR : if the connection failed
         task.addOnFailureListener(ex -> {

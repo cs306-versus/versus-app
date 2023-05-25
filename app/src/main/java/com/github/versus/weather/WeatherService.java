@@ -3,7 +3,9 @@ package com.github.versus.weather;
 import com.github.versus.posts.Location;
 import com.github.versus.posts.Timestamp;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -15,7 +17,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public final class WeatherService {
     private static final String BASE_URL = "https://weather.visualcrossing.com/";
-    private static final String API_KEY= "H4DNTYBMHPAU7EC3D4KC3W7KW";
+
+    private static final String API_KEYS[]= {"PXK3D8BHEMG9V5DQ9K3DN93DP",
+                                             "Y8QEGKP8ASQWLATHV8UBM4DJB",
+                                             "H4DNTYBMHPAU7EC3D4KC3W7KW"};
+
+    private static int key_index = 0;
+
+
     private static Retrofit retrofit= new Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
@@ -26,11 +35,12 @@ public final class WeatherService {
 
     public static Map<String,String> getWeather(Location location, Timestamp timestamp){
 
+
         Call<WeatherResponse> call= weatherApiService
                 .getWeatherTimeline(String.valueOf(location.getLatitude()),
                                     String.valueOf(location.getLongitude()),
                                     formatDate(timestamp),
-                                    API_KEY);
+                                    API_KEYS[key_index]);
         try {
             Response<WeatherResponse> weather_response = call.execute();
             if (weather_response.isSuccessful()) {
@@ -66,8 +76,15 @@ public final class WeatherService {
                 }
             else {
                 Map<String,String> server_error_map= new HashMap<>();
-                server_error_map.put("HTTP error",String.valueOf(weather_response.code()));
-                return server_error_map;
+                int http_status= weather_response.code();
+                server_error_map.put("HTTP error",String.valueOf(http_status));
+                if(http_status == 429 && ++key_index < API_KEYS.length){
+                    return getWeather(location,timestamp);
+                }
+                else {
+                    key_index=0;
+                    return server_error_map;
+                }
             }
 
         } catch (Exception e) {

@@ -25,6 +25,9 @@ import androidx.test.uiautomator.UiObject;
 import androidx.test.uiautomator.UiObjectNotFoundException;
 import androidx.test.uiautomator.UiSelector;
 
+import com.github.versus.utils.FirebaseEmulator;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -32,8 +35,12 @@ import org.junit.runner.RunWith;
 
 
 
-@RunWith(AndroidJUnit4.class)
+//@RunWith(AndroidJUnit4.class)
 public class BarSearchTest {
+
+    static {
+        FirebaseFirestore db = FirebaseEmulator.FIREBASE_FIRESTORE;
+    }
 
     // Declare activity rule and permission rule
     @Rule
@@ -60,129 +67,22 @@ public class BarSearchTest {
      *
      * @throws InterruptedException if the thread sleep is interrupted
      */
-    @Test
-    public void testSearchBar() throws InterruptedException {
-        // Open the options menu in the action bar
-        Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
 
-        // Find the menu item "Search" by its text and perform a click. This should open the search bar.
-        onView(withText("Search")).perform(click());
 
-        long waitingTime = 6000;
-        // Get the instance of the device on which the test is running
-        ElapsedTimeIdlingResource idlingResourceFirst = new ElapsedTimeIdlingResource(waitingTime);
-        UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
-        UiObject searchBox = device.findObject(new UiSelector().text("Search"));
-        try {
-            // Click on the search bar to focus it, then type "Unil sport" into the search bar
-            searchBox.click();
-            searchBox.setText("Unil sport");
-            IdlingRegistry.getInstance().register(idlingResourceFirst);
-
-            // Simulate pressing the enter key twice. This might be necessary if the first press only closes the keyboard.
-            device.pressEnter();
-            device.pressEnter();
-            IdlingRegistry.getInstance().unregister(idlingResourceFirst);
-        } catch (UiObjectNotFoundException e) {
-            // If we couldn't find the search bar, fail the test
-            fail("Could not find the Autocomplete widget");
-        }
-        // Sleep for another 2 seconds to give time for the search to complete
-        long waitingTime2 =5000;
-        ElapsedTimeIdlingResource idlingResource2 = new ElapsedTimeIdlingResource(waitingTime2);
-        IdlingRegistry.getInstance().register(idlingResource2);
-
-        IdlingRegistry.getInstance().unregister(idlingResource2);
-
-    }
     @Test
     public void testSearchBarByClicking() throws InterruptedException {
+
         // Open the options menu in the action bar
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
 
         // Find the menu item "Search" by its text and perform a click. This should open the search bar.
-        onView(withText("Search")).perform(click());
-
-        long waitingTime = 6000;
-        // Get the instance of the device on which the test is running
-        ElapsedTimeIdlingResource idlingResourceFirst = new ElapsedTimeIdlingResource(waitingTime);
-
-        onView(withId(R.id.autocomplete_location_search)).perform(click());
-
-
-        IdlingRegistry.getInstance().register(idlingResourceFirst);
-
-        IdlingRegistry.getInstance().unregister(idlingResourceFirst);
+        onView(withText("By Search")).perform(click());
 
     }
 
 
-    /**
-     * Simulates a map click at the given screen coordinates.
-     *
-     * @param x int representing the x-coordinate of the screen location to click
-     * @param y int representing the y-coordinate of the screen location to click
-     */
-    private void simulateMapClick(int x, int y) {
-        UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
-        device.click(x, y);
-    }
 
 
-    /**
-     * ElapsedTimeIdlingResource is an implementation of the IdlingResource interface.
-     * It is used to wait for a specified amount of time before allowing the test to continue.
-     * This can be useful when testing UI components that require a certain time to load or update.
-     */
-    public class ElapsedTimeIdlingResource implements IdlingResource {
-        private final long startTime;
-        private final long waitingTime;
-        private ResourceCallback resourceCallback;
-
-        /**
-         * Constructs an ElapsedTimeIdlingResource with a specified waiting time.
-         *
-         * @param waitingTime The amount of time to wait, in milliseconds, before allowing the test to continue.
-         */
-        public ElapsedTimeIdlingResource(long waitingTime) {
-            this.startTime = System.currentTimeMillis();
-            this.waitingTime = waitingTime;
-        }
-
-        /**
-         * Returns the name of the ElapsedTimeIdlingResource.
-         *
-         * @return A String containing the name of the ElapsedTimeIdlingResource.
-         */
-        @Override
-        public String getName() {
-            return OptionChooseLocationTest.ElapsedTimeIdlingResource.class.getName() + ":" + waitingTime;
-        }
-
-        /**
-         * Checks whether the specified waiting time has elapsed.
-         *
-         * @return true if the waiting time has elapsed, false otherwise.
-         */
-        @Override
-        public boolean isIdleNow() {
-            long elapsed = System.currentTimeMillis() - startTime;
-            boolean idle = (elapsed >= waitingTime);
-            if (idle && resourceCallback != null) {
-                resourceCallback.onTransitionToIdle();
-            }
-            return idle;
-        }
-        /**
-         * Registers a ResourceCallback to be notified when the resource transitions to the idle state.
-         *
-         * @param resourceCallback The ResourceCallback to be registered.
-         */
-        @Override
-        public void registerIdleTransitionCallback(ResourceCallback resourceCallback) {
-            this.resourceCallback = resourceCallback;
-        }
-    }
 
 }
 

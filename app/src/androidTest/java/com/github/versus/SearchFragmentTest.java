@@ -2,15 +2,12 @@ package com.github.versus;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
+import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static androidx.test.espresso.matcher.ViewMatchers.withHint;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-
-import static org.junit.Assert.fail;
 
 import androidx.core.view.GravityCompat;
 import androidx.test.espresso.contrib.DrawerActions;
@@ -18,11 +15,18 @@ import androidx.test.espresso.contrib.DrawerMatchers;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 
+import com.github.versus.utils.FirebaseEmulator;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
-public class SeachFragmentTest {
+public final class SearchFragmentTest {
+
+    static {
+        FirebaseFirestore db = FirebaseEmulator.FIREBASE_FIRESTORE;
+    }
 
     @Rule
     public ActivityScenarioRule<MainActivity> scenario = new ActivityScenarioRule<>(MainActivity.class);
@@ -66,7 +70,7 @@ public class SeachFragmentTest {
     }
 
 
-//    @Test
+    //    @Test
 //    public void testCreatePostWithLocation() throws InterruptedException {
 //        onView(withId(R.id.add_posts)).perform(click());
 //        onView(withId(R.id.editPostTitle)).check(matches(isDisplayed()));
@@ -112,30 +116,23 @@ public class SeachFragmentTest {
     }
 
     @Test
-    public void findEditSearch(){
+    public void findEditSearch() {
         boolean success = false;
-        for(int i = 0; i < 50; i ++){
+        for (int i = 0; i < 50; i++) {
             onView(withId(R.id.recyclerView)).perform(RecyclerViewActions.scrollToPosition(i));
-            try{
+            try {
                 onView(withText("Edit Post")).perform(click());
                 success = true;
                 break;
-            }
-            catch(Exception e){
+            } catch (Exception e) {
 
             }
         }
-        if(success) {
+        if (success) {
             onView(withId(R.id.game_players)).perform(click());
             onView(withId(R.id.game_players)).perform(click());
             onView(withId(R.id.edit_sport)).perform(click());
         }
     }
 
-
-
 }
-
-
-
-
