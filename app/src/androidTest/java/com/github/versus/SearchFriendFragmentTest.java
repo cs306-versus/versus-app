@@ -22,18 +22,19 @@ import org.junit.Test;
 
 public final class SearchFriendFragmentTest {
 
-    static {
-        FirebaseFirestore db = FirebaseEmulator.FIREBASE_FIRESTORE;
-    }
 
-    //@Rule
+    @Rule
     public ActivityScenarioRule<MainActivity> scenario = new ActivityScenarioRule<>(MainActivity.class);
     
-    //@Before
+    @Before
     public void navigateToFrag(){
         onView(withId(R.id.main_activity_layout)).check(matches(DrawerMatchers.isClosed(GravityCompat.START))).perform(DrawerActions.open());
         onView(withId(R.id.main_activity_layout)).check(matches(DrawerMatchers.isOpen(GravityCompat.START)));
         onView(withId(R.id.friend_search)).perform(click());
+    }
+    @Test
+    public void test(){
+
     }
     
 
