@@ -105,6 +105,8 @@
     <string name="phone_number">Phone Number</string>
     <string name="password">Password</string>
     <string name="confirm_password">Confirm Password</string>
+    <string name="mail_already_used_string">Mail already used</string>
+    <string name="passwords_are_not_similar_string">Passwords are not similar</string>
     <!-- -->
 
     <string name="verify_your_account_string">Verify Your Account</string>

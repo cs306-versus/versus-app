@@ -297,5 +297,27 @@
 
     </RelativeLayout>
 
+    <TextView android:id="@+id/mail_already_used"
+        android:fontFamily="Poppins"
+        android:textSize="10sp"
+        android:textColor="@color/mail_already_used_color"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="406dp"
+        android:layout_width="255.5px"
+        android:layout_height="55.5px"
+        android:text="@string/mail_already_used_string"
+        />
+
+    <TextView android:id="@+id/passwords_are_not_similar"
+        android:fontFamily="Poppins"
+        android:textSize="10sp"
+        android:textColor="@color/mail_already_used_color"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="661dp"
+        android:layout_width="354.5px"
+        android:layout_height="55.5px"
+        android:text="@string/passwords_are_not_similar_string"
+        />
+
 
 </RelativeLayout>
