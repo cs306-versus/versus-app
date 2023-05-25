@@ -144,7 +144,7 @@ public class ListUserConverterTest {
 
 
     @Test
-    public void convertBackListUsersFailsOnEmptyString(){
+    public void convertBackListUsersFailsOnInvalidInput(){
         assertThrows(Exception.class,()-> UserConverter.convertBackListOfUsers(""));
     }
 
@@ -169,7 +169,7 @@ public class ListUserConverterTest {
         boolean uid1=(testUsers.get(1).getUID().equals(revertedUsers.get(1).getUID()));
         boolean uid2=(testUsers.get(2).getUID().equals(revertedUsers.get(2).getUID()));
         boolean uid3=(testUsers.get(3).getUID().equals(revertedUsers.get(3).getUID()));
-        boolean empty=(testUsers.get(1).getPreferredSports().isEmpty());
+        boolean empty= testUsers.get(1).getPreferredSports().isEmpty();
         assertTrue(uid0 && uid1 && uid2 && uid3 && empty);
     }
 }
