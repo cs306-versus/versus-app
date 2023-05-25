@@ -61,7 +61,7 @@
                     <EditText
                         android:id="@+id/mail"
                         android:background="@drawable/auth_register_pwd_selector"
-                        android:inputType="textPassword"
+                        android:inputType="textEmailAddress"
                         android:layout_marginStart="0dp"
                         android:padding="9dp"
                         android:layout_marginTop="11dp"
