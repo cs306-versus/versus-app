@@ -74,30 +74,30 @@
 
     </RelativeLayout>
 
-        <TextView android:id="@+id/register_btn"
-            android:fontFamily="@font/poppins_medium"
-            android:background="@drawable/register_btn_ek1_shape"
-            android:gravity="center"
-            android:textSize="21sp"
-            android:textColor="@color/_bg__authentication_screen_ek2_color"
-            android:layout_marginStart="14dp"
-            android:layout_marginTop="727dp"
-            android:layout_width="187dp"
-            android:layout_height="96dp"
-            android:text="@string/register_string"
-            />
+    <TextView android:id="@+id/register_btn"
+        android:fontFamily="@font/poppins_medium"
+        android:background="@drawable/register_btn_ek1_shape"
+        android:gravity="center"
+        android:textSize="21sp"
+        android:textColor="@color/_bg__authentication_screen_ek2_color"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="727dp"
+        android:layout_width="187dp"
+        android:layout_height="96dp"
+        android:text="@string/register_string"
+        />
 
-        <TextView android:id="@+id/signin_btn"
-            android:fontFamily="@font/poppins_medium"
-            android:background="@drawable/signin_btn_ek1_shape"
-            android:gravity="center"
-            android:textSize="21sp"
-            android:textColor="@color/_bg__authentication_screen_ek2_color"
-            android:layout_marginStart="196dp"
-            android:layout_marginTop="727dp"
-            android:layout_width="187dp"
-            android:layout_height="96dp"
-            android:text="@string/sign_in_string"
-            />
+    <TextView android:id="@+id/signin_btn"
+        android:fontFamily="@font/poppins_medium"
+        android:background="@drawable/signin_btn_ek1_shape"
+        android:gravity="center"
+        android:textSize="21sp"
+        android:textColor="@color/_bg__authentication_screen_ek2_color"
+        android:layout_marginStart="196dp"
+        android:layout_marginTop="727dp"
+        android:layout_width="187dp"
+        android:layout_height="96dp"
+        android:text="@string/sign_in_string"
+        />
 
 </RelativeLayout>
