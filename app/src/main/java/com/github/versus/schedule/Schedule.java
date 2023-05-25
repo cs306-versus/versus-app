@@ -58,8 +58,7 @@ public class Schedule{
      * @param newPosts the posts to add
      */
     public void addPosts(Iterable<Post> newPosts){
-        for (Post p: newPosts
-             ) {
+        for (Post p: newPosts) {
             addPost(p);
         }
     }
