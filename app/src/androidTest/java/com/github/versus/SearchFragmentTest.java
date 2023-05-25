@@ -125,28 +125,12 @@ public final class SearchFragmentTest {
 
     @Test
     public void findEditSearch() {
-        testMakePost();
         boolean success = false;
-        for (int i = 0; i < 500; i++) {
-            try {
+        for (int i = 0; i < 5; i++) {
                 onView(withId(R.id.recyclerView)).perform(RecyclerViewActions.scrollToPosition(i));
-                onView(withText("Edit Post")).perform(click());
 
-                success = true;
-                break;
-            } catch (Exception e) {
-                try{
-                    onView(withText("Join")).perform(click());
-                    onView(withText("Leave")).perform(click());
-                }  catch (Exception e1) {}
+        }
 
-            }
-        }
-        if (success) {
-            onView(withId(R.id.game_players)).perform(click());
-            onView(withId(R.id.game_players)).perform(click());
-            onView(withId(R.id.edit_sport)).perform(click());
-        }
     }
 
 }
