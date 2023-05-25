@@ -135,4 +135,9 @@ public final class SearchFragmentTest {
         }
     }
 
+    @Test
+    public void touchAdapter2(){
+        onView(withId(R.id.recyclerView)).check(matches(isDisplayed()));
+    }
+
 }
