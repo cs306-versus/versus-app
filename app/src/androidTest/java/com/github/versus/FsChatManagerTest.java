@@ -29,15 +29,15 @@ import java.util.concurrent.TimeoutException;
 
 
 
-//@RunWith(AndroidJUnit4.class)
+@RunWith(AndroidJUnit4.class)
 
-public class FsChatManagerTest {
+public final class FsChatManagerTest {
 
     static {
         FirebaseFirestore db = FirebaseEmulator.FIREBASE_FIRESTORE;
     }
 
-    //@Test
+    @Test
     public void CorrectFsChatInsert_fetch() throws ExecutionException, InterruptedException, TimeoutException
     {
         // Creating FsPostm instance
@@ -66,7 +66,7 @@ public class FsChatManagerTest {
         assertTrue(deletionSuccess);
     }
 
-    //@Test
+    @Test
     public void messageAdditionTest() throws ExecutionException, InterruptedException, TimeoutException {
         String testChatId = "p1p2";
         // Creating FsScheduleManager instance

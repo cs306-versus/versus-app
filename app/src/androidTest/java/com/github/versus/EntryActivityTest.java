@@ -6,13 +6,11 @@ import androidx.test.rule.ActivityTestRule;
 
 import com.github.versus.auth.AuthActivity;
 import com.github.versus.auth.Authenticator;
-import com.github.versus.auth.VersusAuthenticator;
 import com.github.versus.user.User;
 import com.github.versus.user.VersusUser;
 import com.github.versus.utils.FirebaseEmulator;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.junit.After;
@@ -20,15 +18,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.intent.Intents.intended;
 import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
-import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
-import static com.github.versus.utils.auth.EmulatorUserProvider.validMail;
-import static com.github.versus.utils.auth.EmulatorUserProvider.validPassword;
 import static org.junit.Assert.fail;
 
 import android.content.Intent;
@@ -36,7 +29,7 @@ import android.content.Intent;
 import java.io.Serializable;
 
 @RunWith(AndroidJUnit4.class)
-public class EntryActivityTest {
+public final class EntryActivityTest {
 
     static {
         FirebaseFirestore db = FirebaseEmulator.FIREBASE_FIRESTORE;

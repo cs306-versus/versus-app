@@ -19,7 +19,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(AndroidJUnit4.class)
-public class AuthFragmentTest {
+public final class AuthFragmentTest {
 
     static {
         // HR : Make sure the emulator is launched

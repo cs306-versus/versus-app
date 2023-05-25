@@ -20,10 +20,10 @@ import org.junit.runner.RunWith;
 
 import java.util.Optional;
 
-import static com.github.versus.utils.auth.EmulatorUserProvider.*;
+import static com.github.versus.utils.EmulatorUserProvider.*;
 
 @RunWith(AndroidJUnit4.class)
-public class VersusAuthenticatorTest {
+public final class VersusAuthenticatorTest {
 
     static {
         FirebaseFirestore db = FirebaseEmulator.FIREBASE_FIRESTORE;

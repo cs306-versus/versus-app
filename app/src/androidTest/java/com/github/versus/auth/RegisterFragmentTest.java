@@ -7,9 +7,9 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
-import static com.github.versus.utils.auth.EmulatorUserProvider.freeMail;
-import static com.github.versus.utils.auth.EmulatorUserProvider.validMail;
-import static com.github.versus.utils.auth.EmulatorUserProvider.validPassword;
+import static com.github.versus.utils.EmulatorUserProvider.freeMail;
+import static com.github.versus.utils.EmulatorUserProvider.validMail;
+import static com.github.versus.utils.EmulatorUserProvider.validPassword;
 
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -24,7 +24,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(AndroidJUnit4.class)
-public class RegisterFragmentTest {
+public final class RegisterFragmentTest {
 
     static {
         // HR : Make sure the emulator is launched
@@ -32,7 +32,6 @@ public class RegisterFragmentTest {
     }
 
     private final Authenticator authenticator = VersusAuthenticator.getInstance(FirebaseEmulator.FIREBASE_AUTH);
-
 
     @Rule
     public ActivityScenarioRule<AuthActivity> scenario = new ActivityScenarioRule<>(AuthActivity.class);
@@ -48,8 +47,6 @@ public class RegisterFragmentTest {
     public void testVisibility(){
         onView(withId(R.id.auth_fragment_register)).check(matches(isDisplayed()));
     }
-
-    // TODO HR : Add missing tests
 
     @Test
     public void successAccountCreation() throws InterruptedException {

@@ -31,7 +31,7 @@ import org.junit.runner.RunWith;
  * Tests the behavior of the Get Places operation, including edge cases like no radius input or no places within the specified radius.
  */
 @RunWith(AndroidJUnit4.class)
-public class OptionChooseRadiusTest {
+public final class OptionChooseRadiusTest {
 
     static {
         FirebaseFirestore db = FirebaseEmulator.FIREBASE_FIRESTORE;
@@ -57,7 +57,7 @@ public class OptionChooseRadiusTest {
     }
 
     @Test
-    public void testChoosingRadius() throws InterruptedException {
+    public void testChoosingRadius() {
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
         // Find the menu item by its ID and perform a click
         onView(withText("Choose radius")).perform(click());
@@ -66,7 +66,7 @@ public class OptionChooseRadiusTest {
     }
     
     @Test
-    public void testCancelingRadius() throws InterruptedException {
+    public void testCancelingRadius() {
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
         // Find the menu item by its ID and perform a click
         onView(withText("Choose radius")).perform(click());

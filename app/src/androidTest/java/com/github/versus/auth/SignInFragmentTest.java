@@ -3,12 +3,9 @@ package com.github.versus.auth;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.replaceText;
-import static androidx.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-
-import static java.util.Objects.isNull;
 
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -23,11 +20,11 @@ import org.junit.runner.RunWith;
 import com.github.versus.utils.*;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import static com.github.versus.utils.auth.EmulatorUserProvider.*;
+import static com.github.versus.utils.EmulatorUserProvider.*;
 import static org.hamcrest.Matchers.not;
 
 @RunWith(AndroidJUnit4.class)
-public class SignInFragmentTest {
+public final class SignInFragmentTest {
 
     static {
         // HR : Make sure the emulator is launched

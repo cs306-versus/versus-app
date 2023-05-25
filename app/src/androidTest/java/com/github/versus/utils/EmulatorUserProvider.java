@@ -1,4 +1,4 @@
-package com.github.versus.utils.auth;
+package com.github.versus.utils;
 
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -6,7 +6,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * Provides the mail address and password of users stored in the emulator database
  */
-public class EmulatorUserProvider {
+public final class EmulatorUserProvider {
 
     private static final Random rnd = new Random();
     private static final AtomicInteger freeMailsCounter = new AtomicInteger(1);
