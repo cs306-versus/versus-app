@@ -174,6 +174,63 @@ public class FsUserManager implements DataBaseManager<User> {
 
     }
 
+    public Future<Boolean> unfriend(String uid, String friendUID) {
+        CompletableFuture<Boolean> future = new CompletableFuture<>();
+        CollectionReference collection = db.collection(USERS_COLLECTION_ID);
+        DocumentReference doc = collection.document(uid);
+        doc.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        if (documentSnapshot.exists()) {
+                            // Document exists, retrieve the old value of the players field
+                            List<String> friends = (ArrayList<String>)(documentSnapshot.get("friends"));
+                            friends.remove(friendUID);
+                            Map<String, Object> updates = new HashMap<>();
+                            updates.put("friends", friends);
+                            doc.update(updates)
+                                    .addOnSuccessListener(aV -> future.complete(true) )
+                                    .addOnFailureListener(aV -> future.complete(false));
+
+                        } else {
+                            future.complete(false);
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        future.complete(false);
+                    }
+                });
+        return future;
+    }
+
+    public CompletableFuture<Boolean> removeFriendship(String f1, String f2){
+        CompletableFuture<Boolean> b1 = (CompletableFuture<Boolean>)unfriend(f1, f2);
+        CompletableFuture<Boolean> b2= (CompletableFuture<Boolean>)unfriend(f2, f1);
+        return b1.thenCombine(b2, (result1, result2) -> result1.booleanValue() && result2);
+
+    }
+
+    public Task<DocumentSnapshot> unfriendAll(String uid) {
+        CollectionReference collection = db.collection(USERS_COLLECTION_ID);
+        DocumentReference doc = collection.document(uid);
+        return doc.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        if (documentSnapshot.exists()) {
+                            // Document exists, retrieve the old value of the players field
+                            List<String> friends = (ArrayList<String>)(documentSnapshot.get("friends"));
+                            friends.forEach(fuid -> unfriend(uid, fuid));
+
+                        }
+                    }
+                });
+
+    }
+
+
+
 
     @Override
     public Future<Boolean> delete(String id) {

@@ -20,6 +20,7 @@ import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 
 import com.github.versus.auth.VersusAuthenticator;
+import com.github.versus.db.FsUserManager;
 import com.github.versus.utils.FirebaseEmulator;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -56,8 +57,16 @@ public final class SearchFriendFragmentTest {
     }
     @Test
     public void testFriending(){
-        onView(withId(R.id.search_users_recycler_view)).perform(click());
-        onView(withId(R.id.search_users_recycler_view)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+        FsUserManager fum = new FsUserManager(FirebaseFirestore.getInstance());
+        fum.unfriendAll(FirebaseAuth.getInstance().getUid()).continueWith(
+                res -> {
+                     onView(withId(R.id.friend_added_true)).perform(click());
+                     return true;
+
+                }
+
+        );
+
 
     }
 
