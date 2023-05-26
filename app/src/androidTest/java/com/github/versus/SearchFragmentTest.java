@@ -1,9 +1,11 @@
 package com.github.versus;
 
+import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.typeText;
+import static androidx.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
@@ -59,6 +61,7 @@ public final class SearchFragmentTest {
     @Test
     public void testScrollRecyclerView() {
         onView(withId(R.id.recyclerView)).perform(click());
+        onView(withId(R.id.recyclerView)).check(matches(isDisplayed()));
     }
 
     @Test
@@ -72,6 +75,12 @@ public final class SearchFragmentTest {
         onView(withId(R.id.editMaxPlayers)).perform(typeText("4"), closeSoftKeyboard());
         onView(withId(android.R.id.button1)).perform(click());
         onView(withId(android.R.id.button1)).perform(click());
+
+        onView(withId(R.id.main_activity_layout)).perform(DrawerActions.open());
+        onView(withId(R.id.nav_search)).perform(click());
+
+        onView(withId(R.id.search_posts)).perform(typeText("Archery"), closeSoftKeyboard());
+        onData(withText("Archery")).check(matches(isDisplayed()));
     }
 
 
@@ -85,6 +94,7 @@ public final class SearchFragmentTest {
         onView(withId(android.R.id.button1)).perform(click());
         onView(withId(R.id.editMaxPlayers)).perform(typeText("4"), closeSoftKeyboard());
         onView(withId(android.R.id.button2)).perform(click());
+        onView(withId(R.id.editMaxPlayers)).check(doesNotExist());
     }
 
 
@@ -111,6 +121,7 @@ public final class SearchFragmentTest {
         onView(withId(R.id.editPostTitle)).perform(typeText("TEST POST"), closeSoftKeyboard());
 
         onView(withText("CANCEL")).perform(click());
+        onView(withId(R.id.editPostTitle)).check(doesNotExist());
 
 
 

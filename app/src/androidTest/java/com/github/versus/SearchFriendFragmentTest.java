@@ -53,6 +53,7 @@ public final class SearchFriendFragmentTest {
     @Test
     public void testScrollRecyclerView(){
         onView(withId(R.id.search_users_recycler_view)).perform(click());
+        onView(withId(R.id.search_users_recycler_view)).check(matches(isDisplayed()));
     }
 
     @Test

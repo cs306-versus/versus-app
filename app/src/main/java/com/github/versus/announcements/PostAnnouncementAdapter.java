@@ -63,7 +63,7 @@ public class PostAnnouncementAdapter extends RecyclerView.Adapter<PostAnnounceme
         Post currentPost = posts.get(position);
         setViewText(viewHolder, currentPost);
         boolean owner = false;
-        if(currentPost.getPlayers().size() > 0){
+        if(currentPost.getPlayers().size() > 0 && user != null){
             owner = currentPost.getPlayers().get(0).getUID().equals(user.getUID());
         }
         if(owner){
@@ -85,7 +85,11 @@ public class PostAnnouncementAdapter extends RecyclerView.Adapter<PostAnnounceme
                     }
             );
         } else {
-            boolean joined = currentPost.getPlayers().stream().map(user -> user.getUID()).collect(Collectors.toList()).contains(user.getUID());
+
+            boolean joined = false;
+            if(user != null) {
+                joined = currentPost.getPlayers().stream().map(user -> user.getUID()).collect(Collectors.toList()).contains(user.getUID());
+            }
             if (joined) {
                 viewHolder.getJoinButton().setText("Leave");
                 viewHolder.getButtonText().setText("Leave");
