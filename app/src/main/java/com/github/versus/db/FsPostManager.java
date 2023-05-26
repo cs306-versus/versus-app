@@ -1,10 +1,7 @@
 package com.github.versus.db;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.ObjectCodec;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.versus.posts.Post;
-import com.github.versus.user.DummyUser;
 import com.github.versus.user.User;
 import com.google.android.gms.tasks.*;
 import com.google.firebase.firestore.CollectionReference;
@@ -12,15 +9,12 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
-import java.util.concurrent.FutureTask;
-import java.util.stream.Collectors;
+
 
 public class FsPostManager implements DataBaseManager<Post> {
 
@@ -245,8 +239,6 @@ public class FsPostManager implements DataBaseManager<Post> {
             List<HashMap> players = (List<HashMap>) res.get("players");
 
             //getting the player limit
-            long playerLimit = (long)res.get("playerLimit");
-
 
                 //creating a new list corresponding to the old one - the user
             List<HashMap> newPlayers = new ArrayList<>();
@@ -316,7 +308,7 @@ public class FsPostManager implements DataBaseManager<Post> {
 
         return future;
     }
-    public Future<Boolean> joinPost(String postId, DummyUser user){
+    public Future<Boolean> joinPost(String postId, User user){
         //accessing the collection
         CollectionReference postsRef = db.collection(POSTCOLLECTION.toString());
         //finding the announcement with the right id
