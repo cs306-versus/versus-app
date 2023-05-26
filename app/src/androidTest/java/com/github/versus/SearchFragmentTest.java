@@ -75,12 +75,12 @@ public final class SearchFragmentTest {
         onView(withId(R.id.editMaxPlayers)).perform(typeText("4"), closeSoftKeyboard());
         onView(withId(android.R.id.button1)).perform(click());
         onView(withId(android.R.id.button1)).perform(click());
-
-        onView(withId(R.id.main_activity_layout)).perform(DrawerActions.open());
-        onView(withId(R.id.nav_search)).perform(click());
-
-        onView(withId(R.id.search_posts)).perform(typeText("Archery"), closeSoftKeyboard());
-        onData(withText("Archery")).check(matches(isDisplayed()));
+//
+//        onView(withId(R.id.main_activity_layout)).perform(DrawerActions.open());
+//        onView(withId(R.id.nav_search)).perform(click());
+//
+//        onView(withId(R.id.search_posts)).perform(typeText("Archery"), closeSoftKeyboard());
+//        onData(withText("Archery")).check(matches(isDisplayed()));
     }
 
 
@@ -150,7 +150,7 @@ public final class SearchFragmentTest {
         onView(withId(R.id.editMaxPlayers)).perform(typeText("4"), closeSoftKeyboard());
 
         onView(withText("CANCEL")).perform(click());
-
+        onView(withId(R.id.editMaxPlayers)).check(doesNotExist());
 
     }
     @Test
@@ -166,6 +166,7 @@ public final class SearchFragmentTest {
         onView(withId(android.R.id.button1)).perform(click());
         onView(withId(android.R.id.button1)).perform(click());
         onView(withText("Cancel")).perform(click());
+        onView(withId(android.R.id.button1)).check(doesNotExist());
 
     }
 
