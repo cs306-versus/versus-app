@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.github.versus.auth.VersusAuthenticator;
 import com.github.versus.db.FsUserManager;
 import com.github.versus.friends.UserAnnouncementAdapter;
 import com.github.versus.user.User;
@@ -31,7 +32,7 @@ public class SearchFriendsFragment extends Fragment{
 
 
     protected RecyclerView recyclerView;
-    protected VersusUser user = new VersusUser.VersusBuilder("fake").build();
+    protected User user;
 
     protected EditText searchBar;
 
@@ -47,12 +48,7 @@ public class SearchFriendsFragment extends Fragment{
         View rootView = inflater.inflate(R.layout.search_users_fragment,container,false);
         assignViews(rootView);
 
-        FsUserManager db = null;
-        if(FirebaseAuth.getInstance() != null && FirebaseFirestore.getInstance() != null && FirebaseAuth.getInstance().getUid() != null) {
-            user = new VersusUser.VersusBuilder(FirebaseAuth.getInstance().getUid()).build();
-            db = new FsUserManager(FirebaseFirestore.getInstance());
-            ((CompletableFuture<User>)db.fetch(FirebaseAuth.getInstance().getUid())).thenAccept(this::setUser);
-        }
+        user = VersusAuthenticator.getInstance(FirebaseAuth.getInstance()).currentUser();
 
         loadUsers();
 
@@ -60,9 +56,7 @@ public class SearchFriendsFragment extends Fragment{
 
         return rootView;
     }
-    private void setUser(User user){
-        this.user = (VersusUser) user;
-    }
+
     protected void assignViews(View rootView){
         recyclerView = rootView.findViewById(R.id.user_recyclerView);
         recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
