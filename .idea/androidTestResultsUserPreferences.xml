@@ -3,7 +3,7 @@
   <component name="AndroidTestResultsUserPreferences">
     <option name="androidTestResultsTableState">
       <map>
-        <entry key="-567358134">
+        <entry key="-1914920667">
           <value>
             <AndroidTestResultsTableState>
               <option name="preferredColumnWidths">
@@ -16,7 +16,7 @@
             </AndroidTestResultsTableState>
           </value>
         </entry>
-        <entry key="659715845">
+        <entry key="-1532894163">
           <value>
             <AndroidTestResultsTableState>
               <option name="preferredColumnWidths">
@@ -29,7 +29,33 @@
             </AndroidTestResultsTableState>
           </value>
         </entry>
-        <entry key="1001771370">
+        <entry key="390063438">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="Pixel_5_API_33" value="120" />
+                  <entry key="Tests" value="360" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
+        <entry key="439759843">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="Pixel_5_API_33" value="120" />
+                  <entry key="Tests" value="360" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
+        <entry key="1224580843">
           <value>
             <AndroidTestResultsTableState>
               <option name="preferredColumnWidths">

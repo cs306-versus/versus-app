@@ -4,6 +4,7 @@ package com.github.versus;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
@@ -74,9 +75,10 @@ public class BarSearchTest {
 
         // Open the options menu in the action bar
         Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
-
         // Find the menu item "Search" by its text and perform a click. This should open the search bar.
+        onView(withText("By Search")).check(matches(isDisplayed()));
         onView(withText("By Search")).perform(click());
+
 
     }
 
