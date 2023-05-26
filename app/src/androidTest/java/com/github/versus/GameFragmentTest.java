@@ -37,6 +37,7 @@ import org.junit.runner.RunWith;
 
 @RunWith(AndroidJUnit4.class)
 public class GameFragmentTest {
+    
     //General rule that sets up the Activity Scenario Rule
     @Rule
     public ActivityScenarioRule<AuthActivity> scenario = new ActivityScenarioRule<>(AuthActivity.class);
