@@ -90,4 +90,5 @@ public final class ScheduleTest {
         onView(withId(R.id.Sunday_button)).perform(click());
     }
 
+
 }
