@@ -28,7 +28,7 @@ import android.content.Intent;
 
 import java.io.Serializable;
 
-//@RunWith(AndroidJUnit4.class)
+@RunWith(AndroidJUnit4.class)
 public final class EntryActivityTest {
 
     static {
@@ -46,7 +46,7 @@ public final class EntryActivityTest {
         Intents.release();
     }
 
-    //@Test
+    @Test
     public void switchToMainActivity(){
         Intent intent = new Intent();
         intent.putExtra(EntryActivity.AUTH_INTENT, new UserAuthenticator());
@@ -55,7 +55,7 @@ public final class EntryActivityTest {
         intended(hasComponent(MainActivity.class.getName()));
     }
 
-   // @Test
+   @Test
     public void switchToAuthActivity(){
         Intent intent = new Intent();
         intent.putExtra(EntryActivity.AUTH_INTENT, new NoUserAuthenticator());
