@@ -41,6 +41,13 @@ public final class SearchFriendFragmentTest {
         onView(withId(R.id.user_recyclerView)).perform(click());
     }
 
+    @Test
+    public void testSearch(){
+        onView(withId(R.id.search_users)).perform(click());
+    }
+
+
+
 
 
 
