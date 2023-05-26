@@ -26,6 +26,7 @@ import static com.github.versus.utils.EmulatorUserProvider.*;
 public final class VersusAuthenticatorTest {
 
     static {
+        
         FirebaseFirestore db = FirebaseEmulator.FIREBASE_FIRESTORE;
     }
 
