@@ -78,7 +78,7 @@ public class UserAnnouncementAdapter extends RecyclerView.Adapter<UserAnnounceme
                                     FsChatManager fcm = new FsChatManager(db);
                                     String friend1 = currentUser.getUID();
                                     String friend2 = appUserUid;
-                                    Chat newChat = new Chat(friend1, friend2, Chat.computeChatId(friend1, friend2));
+                                    Chat newChat = new Chat(currentUser.getUID(), appUserUid, Chat.computeChatId(friend1, friend2));
                                     fcm.insert(newChat);
                                     //updating the friendship icon
                                     viewHolder.getAddFriend().setVisibility(View.INVISIBLE);

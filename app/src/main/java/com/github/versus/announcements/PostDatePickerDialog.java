@@ -48,11 +48,8 @@ public class PostDatePickerDialog extends DialogFragment implements DatePickerDi
         Fragment f = getParentFragment();
         listener = (PickDateListener) f;
         final Calendar c = Calendar.getInstance();
-        int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
-        int day = c.get(Calendar.DAY_OF_MONTH);
         // Create a new instance of DatePickerDialog and return it
-        DatePickerDialog d = new DatePickerDialog(requireContext(), R.style.DatePickerDialogTheme, this, year, month, day);
+        DatePickerDialog d = new DatePickerDialog(requireContext(), R.style.DatePickerDialogTheme, this,  c.get(Calendar.YEAR), c.get(Calendar.MONTH),  c.get(Calendar.DAY_OF_MONTH));
         d.setTitle("             When will you play?");
         return d;
     }
