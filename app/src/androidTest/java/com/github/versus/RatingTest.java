@@ -44,4 +44,5 @@ public final class RatingTest {
         assertTrue(newU2Rating <= newU3Rating);
     }
 
+
 }
