@@ -122,10 +122,11 @@ public final class VersusAuthenticatorTest {
     // ============================================================================================
 
     @Test
-    public void testValidMail(){
+    public void testValidMail() throws InterruptedException {
         Task<AuthResult> task = auth.signInWithMail(validMail(), validPassword());
         spinAndWait(task);
         assertTrue(task.isSuccessful());
+        Thread.sleep(2000);
         assertNotNull(auth.currentUser());
         assertTrue(auth.hasValidMail());
     }
