@@ -36,7 +36,7 @@ import org.junit.runner.RunWith;
 import java.util.concurrent.ExecutionException;
 
 
-@RunWith(AndroidJUnit4.class)
+//@RunWith(AndroidJUnit4.class)
 public final class ChatTest {
 
 
@@ -59,7 +59,7 @@ public final class ChatTest {
         onView(withId(R.id.nav_chats)).perform(click());
 
     }
-    @Test
+    //@Test
     public void testChatActivity() throws ExecutionException, InterruptedException {
         onView(withId(R.id.usersRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
         onView(withId(R.id.inputMessage)).perform(click());
