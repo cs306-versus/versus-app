@@ -146,12 +146,16 @@ public class FsUserManager implements DataBaseManager<User> {
                 if (documentSnapshot.exists()) {
                     // Document exists, retrieve the old value of the players field
                     List<String> friends = (ArrayList<String>)(documentSnapshot.get("friends"));
-                    friends.add(friendUID);
-                    Map<String, Object> updates = new HashMap<>();
-                    updates.put("friends", friends);
-                    doc.update(updates)
-                            .addOnSuccessListener(aV -> future.complete(true) )
-                            .addOnFailureListener(aV -> future.complete(false));
+                    if(friends != null){
+                        friends.add(friendUID);
+                        Map<String, Object> updates = new HashMap<>();
+                        updates.put("friends", friends);
+                        doc.update(updates)
+                                .addOnSuccessListener(aV -> future.complete(true) )
+                                .addOnFailureListener(aV -> future.complete(false));
+                    }
+                    future.complete(true);
+
 
                 } else {
                     future.complete(false);
