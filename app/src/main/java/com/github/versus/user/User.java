@@ -60,7 +60,7 @@ public interface User {
      *
      * @return (int) - Fetch the User's rating
      */
-    int getRating();
+    long getRating();
 
     /**
      * Fetch the User's city information
@@ -124,7 +124,8 @@ public interface User {
          * @param rating
          * @return
          */
-        public abstract Builder setRating(int rating);
+        public abstract Builder setRating(long rating);
+
 
         /**
          * ???
