@@ -32,10 +32,10 @@ import java.util.concurrent.CompletableFuture;
 
 public class UserAnnouncementAdapter extends RecyclerView.Adapter<UserAnnouncementAdapter.ViewHolder> {
     private List<User> users;
-    private VersusUser user;
+    private User user;
     private Context context;
     private FsUserManager fum;
-    public UserAnnouncementAdapter(List<User> users, VersusUser currentUser, FsUserManager fum, Context context){
+    public UserAnnouncementAdapter(List<User> users, User currentUser, FsUserManager fum, Context context){
         if(users == null) {
             throw new IllegalArgumentException("Users must be non-null!");
         }
