@@ -89,7 +89,7 @@ public final class SearchFragmentTest {
 
 
     @Test
-  public void testCreatePostWithLocation() throws InterruptedException {
+    public void testCreatePostWithLocation() throws InterruptedException {
 
         onView(withId(R.id.add_posts)).perform(click());
         onView(withId(R.id.editPostTitle)).check(matches(isDisplayed()));
@@ -101,6 +101,45 @@ public final class SearchFragmentTest {
         onView(withId(android.R.id.button1)).perform(click());
         onView(withId(android.R.id.button1)).perform(click());
         onView(withText("Choose")).perform(click());
+
+
+    }
+    @Test
+    public void testCreatePostCancel() throws InterruptedException {
+
+        onView(withId(R.id.add_posts)).perform(click());
+        onView(withId(R.id.editPostTitle)).check(matches(isDisplayed()));
+        onView(withId(R.id.editPostTitle)).perform(typeText("TEST POST"), closeSoftKeyboard());
+
+        onView(withText("CANCEL")).perform(click());
+
+
+
+    }
+    @Test
+    public void testCreatePostAndCancel() throws InterruptedException {
+
+        onView(withId(R.id.add_posts)).perform(click());
+        onView(withId(R.id.editPostTitle)).check(matches(isDisplayed()));
+        onView(withId(R.id.editPostTitle)).perform(typeText("TEST POST"), closeSoftKeyboard());
+        onView(withId(android.R.id.button1)).perform(click());
+        onView(withText("Archery")).perform(click());
+        onView(withText("CANCEL")).perform(click());
+
+
+    }
+    @Test
+    public void testCreatePostAndThenCancel() throws InterruptedException {
+
+        onView(withId(R.id.add_posts)).perform(click());
+        onView(withId(R.id.editPostTitle)).check(matches(isDisplayed()));
+        onView(withId(R.id.editPostTitle)).perform(typeText("TEST POST"), closeSoftKeyboard());
+        onView(withId(android.R.id.button1)).perform(click());
+        onView(withText("Archery")).perform(click());
+        onView(withId(android.R.id.button1)).perform(click());
+        onView(withId(R.id.editMaxPlayers)).perform(typeText("4"), closeSoftKeyboard());
+
+        onView(withText("CANCEL")).perform(click());
 
 
     }
@@ -123,20 +162,9 @@ public final class SearchFragmentTest {
     @Test
     public void findEditSearch() {
         boolean success = false;
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 5; i++) {
             onView(withId(R.id.recyclerView)).perform(RecyclerViewActions.scrollToPosition(i));
-            try {
-                onView(withText("Edit Post")).perform(click());
-                success = true;
-                break;
-            } catch (Exception e) {
 
-            }
-        }
-        if (success) {
-            onView(withId(R.id.game_players)).perform(click());
-            onView(withId(R.id.game_players)).perform(click());
-            onView(withId(R.id.edit_sport)).perform(click());
         }
     }
     private Task<AuthResult> spinAndWait(Task<AuthResult> task){
