@@ -1,5 +1,5 @@
 package com.github.versus.chats;
-import com.github.versus.user.DummyUser;
+
 
 import java.util.ArrayList;
 import java.util.HashMap;

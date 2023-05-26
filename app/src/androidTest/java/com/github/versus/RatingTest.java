@@ -47,6 +47,7 @@ public final class RatingTest {
         assertTrue(newU2Rating <= newU3Rating);
     }
 
+
     @Test
     public void testConstructor1(){
         assertThrows(IllegalArgumentException.class, () -> new Rating(null, null, 0));
@@ -61,5 +62,6 @@ public final class RatingTest {
     public void testGetRated(){
         assertNull(new Rating(null, null, 3).getRated());
     }
+
 
 }

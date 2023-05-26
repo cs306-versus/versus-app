@@ -2,7 +2,6 @@ package com.github.versus.posts;
 
 import com.github.versus.rating.Rating;
 import com.github.versus.sports.Sport;
-import com.github.versus.user.DummyUser;
 import com.github.versus.user.User;
 import com.github.versus.user.VersusUser;
 
