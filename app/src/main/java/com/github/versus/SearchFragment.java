@@ -79,10 +79,14 @@ public class SearchFragment extends Fragment implements LocationPickerDialog.Loc
     protected FsPostManager pm;
     protected Boolean isCalledSportsFrag=false;
     public String SearchTextSportsFrag="";
+
+    private VersusAuthenticator auth;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         onCancel();
+
+        auth = VersusAuthenticator.getInstance(FirebaseAuth.getInstance());
 
         //---------------------------------------------------------------
 
@@ -138,12 +142,14 @@ public class SearchFragment extends Fragment implements LocationPickerDialog.Loc
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         pm = new FsPostManager(db);
-        FsUserManager uman = new FsUserManager(db);
+        VersusUser vuser = null;
+
+        do{
+            vuser = (VersusUser) auth.currentUser();
+        } while (vuser == null);
 
         //getting the user and updating the field accordingly
 
-        VersusAuthenticator auth = VersusAuthenticator.getInstance(FirebaseAuth.getInstance());
-        VersusUser vuser = (VersusUser) auth.currentUser();
         aa = new PostAnnouncementAdapter(displayPosts, vuser, pm, getContext());
         recyclerView.setAdapter(aa);
 

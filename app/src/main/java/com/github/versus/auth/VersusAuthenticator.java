@@ -21,7 +21,7 @@ import java.util.concurrent.atomic.AtomicReference;
  */
 public final class VersusAuthenticator implements Authenticator {
 
-    private final AtomicReference<User> currentUser = new AtomicReference<>(null);
+    private static final AtomicReference<User> currentUser = new AtomicReference<>(null);
     private final FsUserManager user_manager;
 
     private final FsScheduleManager schedule_manager;
@@ -35,11 +35,6 @@ public final class VersusAuthenticator implements Authenticator {
         this.auth = auth;
         this.user_manager = new FsUserManager(FirebaseFirestore.getInstance());
         this.schedule_manager = new FsScheduleManager(FirebaseFirestore.getInstance());
-        if(auth.getCurrentUser() != null) {
-            CompletableFuture<User> user = (CompletableFuture<User>) user_manager.fetch(auth.getCurrentUser().getUid());
-                user.thenAccept(currentUser::set);
-                while (currentUser.get() == null);
-        }
     }
 
     /**
