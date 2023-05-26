@@ -1,6 +1,5 @@
 package com.github.versus.auth;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -12,6 +11,7 @@ import com.github.versus.user.VersusUser;
 import com.github.versus.utils.FirebaseEmulator;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.junit.Before;
@@ -26,7 +26,7 @@ import static com.github.versus.utils.EmulatorUserProvider.*;
 public final class VersusAuthenticatorTest {
 
     static {
-        
+        FirebaseAuth.getInstance().signOut();
         FirebaseFirestore db = FirebaseEmulator.FIREBASE_FIRESTORE;
     }
 
