@@ -1,5 +1,7 @@
 package com.github.versus;
 
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
 import com.github.versus.rating.Rating;
@@ -42,6 +44,21 @@ public final class RatingTest {
         float newU2Rating = new Rating(u1, u3, 3).computeNewRating();
         float newU3Rating = new Rating(u2, u3, 3).computeNewRating();
         assertTrue(newU2Rating <= newU3Rating);
+    }
+
+    @Test
+    public void testConstructor1(){
+        assertThrows(IllegalArgumentException.class, () -> new Rating(null, null, 0));
+    }
+
+    @Test
+    public void testConstructor2(){
+        assertThrows(IllegalArgumentException.class, () -> new Rating(null, null, 6));
+    }
+
+    @Test
+    public void testGetRated(){
+        assertNull(new Rating(null, null, 3).getRated());
     }
 
 }
