@@ -40,7 +40,7 @@ import android.widget.Button;
 public class TestSearch {
     //General rule that sets up the Activity Scenario Rule
     @Rule
-    public ActivityScenarioRule<AuthActivity> scenario = new ActivityScenarioRule<>(AuthActivity.class);
+    public ActivityScenarioRule<MainActivity> scenario = new ActivityScenarioRule<>(MainActivity.class);
 
     //Initiating the intents
     @Before
@@ -60,15 +60,7 @@ public class TestSearch {
      */
     @Test
     public void testGameFragment() {
-        onView(withId(R.id.signin_btn)).perform(click());
-        try {
-            Thread.sleep(5000); // wait for 1 second
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        onView(withId(R.id.mail)).perform(replaceText("abdess9ess@gmail.com"));
-        onView(withId(R.id.pwd)).perform(replaceText("123456789"));
-        onView(withId(R.id.signin)).perform(click());
+
         try {
             Thread.sleep(5000); // wait for 1 second
         } catch (InterruptedException e) {
