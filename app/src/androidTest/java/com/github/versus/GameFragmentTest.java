@@ -4,6 +4,7 @@ import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
+import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
@@ -58,6 +59,64 @@ public class GameFragmentTest {
      */
     @Test
     public void testGameFragment() {
+        onView(withId(R.id.signin_btn)).perform(click());
+        try {
+            Thread.sleep(5000); // wait for 1 second
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        onView(withId(R.id.mail)).perform(replaceText("abdess9ess@gmail.com"));
+        onView(withId(R.id.pwd)).perform(replaceText("123456789"));
+        onView(withId(R.id.signin)).perform(click());
+        try {
+            Thread.sleep(5000); // wait for 1 second
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        //Opening the drawer
+        onView(withId(R.id.main_activity_layout)).check(matches(DrawerMatchers.isClosed(GravityCompat.START))).perform(DrawerActions.open());
+        onView(withId(R.id.main_activity_layout)).check(matches(DrawerMatchers.isOpen(GravityCompat.START)));
+        //Clicking on the  nav_schedule button
+        onView(withId(R.id.nav_schedule)).perform(click());
+
+        try {
+            Thread.sleep(2000); // wait for 1 second
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        onView(withId(R.id.arrow_image_2)).perform(click());
+        onView(withId(R.id.Wednesday_button)).perform(click());
+        try {
+            Thread.sleep(2000); // wait for 1 second
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        //Scrolling down so that  the first item of the list of games is visible
+        ViewInteraction rectangleView1 = onView(withId(R.id.rectangle1));
+        rectangleView1.perform(ViewActions.scrollTo());
+        rectangleView1.perform(ViewActions.scrollTo());
+        rectangleView1.perform(ViewActions.scrollTo());
+        rectangleView1.perform(ViewActions.scrollTo());
+        try {
+            Thread.sleep(2000); // wait for 1 second
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        try {
+            Thread.sleep(2000); // wait for 1 second
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+
+
+        }
+        //Performing the click on the first item of the games in the schedule
+        onData(anything()).inAdapterView(withId(R.id.list_view)).atPosition(0).perform(click());
+        try {
+            Thread.sleep(2000); // wait for 1 second
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
     }
 
