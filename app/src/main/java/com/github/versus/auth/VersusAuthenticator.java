@@ -21,7 +21,7 @@ import java.util.concurrent.atomic.AtomicReference;
  */
 public final class VersusAuthenticator implements Authenticator {
 
-    private static final AtomicReference<User> currentUser = new AtomicReference<>(null);
+    private final AtomicReference<User> currentUser = new AtomicReference<>(null);
     private final FsUserManager user_manager;
 
     private final FsScheduleManager schedule_manager;
