@@ -19,6 +19,7 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,12 +31,14 @@ import com.github.versus.announcements.MaxPlayerDialogFragment;
 import com.github.versus.announcements.PostDatePickerDialog;
 import com.github.versus.auth.VersusAuthenticator;
 import com.github.versus.db.FsPostManager;
+import com.github.versus.db.FsUserManager;
 import com.github.versus.offline.CacheManager;
 import com.github.versus.offline.NetworkManager;
 import com.github.versus.posts.Location;
 import com.github.versus.posts.Post;
 import com.github.versus.posts.Timestamp;
 import com.github.versus.sports.Sport;
+import com.github.versus.user.User;
 import com.github.versus.user.VersusUser;
 import com.google.android.gms.common.api.Status;
 import com.google.android.libraries.places.api.model.Place;
@@ -76,10 +79,14 @@ public class SearchFragment extends Fragment implements LocationPickerDialog.Loc
     protected FsPostManager pm;
     protected Boolean isCalledSportsFrag=false;
     public String SearchTextSportsFrag="";
+
+    private VersusAuthenticator auth;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         onCancel();
+
+        auth = VersusAuthenticator.getInstance(FirebaseAuth.getInstance());
 
         //---------------------------------------------------------------
 
@@ -135,11 +142,14 @@ public class SearchFragment extends Fragment implements LocationPickerDialog.Loc
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         pm = new FsPostManager(db);
+        VersusUser vuser = null;
+
+        do{
+            vuser = (VersusUser) auth.currentUser();
+        } while (vuser == null);
 
         //getting the user and updating the field accordingly
 
-        VersusAuthenticator auth = VersusAuthenticator.getInstance(FirebaseAuth.getInstance());
-        VersusUser vuser = (VersusUser) auth.currentUser();
         aa = new PostAnnouncementAdapter(displayPosts, vuser, pm, getContext());
         recyclerView.setAdapter(aa);
 
@@ -211,6 +221,7 @@ public class SearchFragment extends Fragment implements LocationPickerDialog.Loc
         //fetching the currentUser
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         pm = new FsPostManager(db);
+        FsUserManager uman = new FsUserManager(db);
 
 
 
@@ -276,6 +287,12 @@ public class SearchFragment extends Fragment implements LocationPickerDialog.Loc
 
         aa.notifyDataSetChanged();
     }
+
+    protected void clearFilter(){
+        searchBar.setText("");
+        filterPosts();
+    }
+
     @Override
     public void onMaxPlayerPositiveClick(int playerCount) {
         newPost.setPlayerLimit(playerCount);

@@ -1,6 +1,5 @@
 package com.github.versus.auth;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -12,8 +11,10 @@ import com.github.versus.user.VersusUser;
 import com.github.versus.utils.FirebaseEmulator;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,13 +27,14 @@ import static com.github.versus.utils.EmulatorUserProvider.*;
 public final class VersusAuthenticatorTest {
 
     static {
-        
+        FirebaseAuth.getInstance().signOut();
         FirebaseFirestore db = FirebaseEmulator.FIREBASE_FIRESTORE;
     }
 
     private final VersusAuthenticator auth = VersusAuthenticator.getInstance(FirebaseEmulator.FIREBASE_AUTH);
 
-    private final VersusUser.VersusBuilder builder =(VersusUser.VersusBuilder) (new VersusUser.VersusBuilder(null)
+    private final VersusUser.VersusBuilder builder =
+            (VersusUser.VersusBuilder) (new VersusUser.VersusBuilder(null)
             .setFirstName("John")
             .setLastName("Doe")
             .setUserName("john-doe")
@@ -42,6 +44,7 @@ public final class VersusAuthenticatorTest {
             .setRating(0));
 
     @Before
+    @After
     public void setUp(){
         auth.signOut();
     }
@@ -127,7 +130,7 @@ public final class VersusAuthenticatorTest {
         Task<AuthResult> task = auth.signInWithMail(validMail(), validPassword());
         spinAndWait(task);
         assertTrue(task.isSuccessful());
-        Thread.sleep(2000);
+        Thread.sleep(5000);
         assertNotNull(auth.currentUser());
         assertTrue(auth.hasValidMail());
     }
