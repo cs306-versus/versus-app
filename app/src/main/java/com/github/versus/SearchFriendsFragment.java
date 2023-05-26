@@ -121,10 +121,7 @@ public class SearchFriendsFragment extends Fragment{
         aa.notifyDataSetChanged();
     }
 
-    protected void clearFilter(){
-        searchBar.setText("");
-        filterUsers();
-    }
+
 
 
 

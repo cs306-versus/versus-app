@@ -34,7 +34,6 @@ public class GameFragment extends Fragment {
     private String sport;
    private  String location;
    private  String date;
-     private int number_of_players;
     private int max_number;
     private List<PlayerToBeRated> players;
      public GameFragment(String title,String sport,String location,String date,int max_number,List<PlayerToBeRated> players){

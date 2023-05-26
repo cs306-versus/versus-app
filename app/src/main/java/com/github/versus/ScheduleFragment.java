@@ -64,7 +64,6 @@ public class ScheduleFragment extends Fragment {
         Month month = today.getMonth();
         int year = today.getYear();
 
-        DayOfWeek dayOfWeek = today.getDayOfWeek();
 
         List c=new ArrayList<List<String>>();
 
