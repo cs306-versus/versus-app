@@ -281,12 +281,6 @@ public class SearchFragment extends Fragment implements LocationPickerDialog.Loc
 
         aa.notifyDataSetChanged();
     }
-
-    protected void clearFilter(){
-        searchBar.setText("");
-        filterPosts();
-    }
-
     @Override
     public void onMaxPlayerPositiveClick(int playerCount) {
         newPost.setPlayerLimit(playerCount);
