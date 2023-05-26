@@ -33,10 +33,6 @@ import org.junit.Test;
 
 public final class SearchFriendFragmentTest {
 
-    static {
-        FirebaseFirestore db = FirebaseEmulator.FIREBASE_FIRESTORE;
-    }
-
     @Rule
     public ActivityScenarioRule<MainActivity> scenario = new ActivityScenarioRule<>(MainActivity.class);
     
