@@ -101,9 +101,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     // [START maps_current_place_state_keys]
     private static final String KEY_CAMERA_POSITION = "camera_position";
     private static final String KEY_LOCATION = "location";
-    private static final int M_MAX_ENTRIES = 5;
     public static GoogleMap map;//TODO
-    public static MarkerOptions epflMarker;
     private static LatLng localPos;
     private static boolean locationPermissionGranted;
     private static Location lastKnownLocation;
@@ -112,7 +110,6 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     private static String[] likelyPlaceNames;
     private static String[] likelyPlaceAddresses;
     private static LatLng[] likelyPlaceLatLngs;
-    private static ListView listView;
     private static boolean hasLocations = false;
     // A default location (Sydney, Australia) and default zoom to use when location permission is
     // not granted.
@@ -126,10 +123,9 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
     private List<CustomPlace> customPlaces;
     public static  String API_KEY;
-    private Button drawPathButton;
+
     private LatLng   bc = new LatLng(46.51906462963576, 6.561923350291548);
     private LatLng selectedPlace ;
-    private int posSelectedPlace;
     // Threshold distance to consider a field as nearby (in meters)
     private double thresholdDistanceInput=1000;
     private  AutocompleteSupportFragment autocompleteFragment;
@@ -696,7 +692,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                     public void onClick(DialogInterface dialog, int which) {
                         // User checked an item, update your selectedPlace
                         selectedPlace = likelyPlaceLatLngs[which];
-                        posSelectedPlace = which;
+
                         redMarker=map.addMarker(new MarkerOptions().title(likelyPlaceNames[which]).position(selectedPlace).snippet(likelyPlaceAddresses[which]));
                         addBlinkingMarker(selectedPlace, likelyPlaceNames[which], likelyPlaceAddresses[which]);
                         map.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedPlace, DEFAULT_ZOOM));

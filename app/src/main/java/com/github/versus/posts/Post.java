@@ -27,7 +27,7 @@ public class Post implements Serializable {
     private int playerLimit;
     private Sport sport ;
 
-    private String CreatorId;
+
 
     private List<Rating> ratings;
 
@@ -101,9 +101,7 @@ public class Post implements Serializable {
     /**
      * @return the player to player ratings of the game
      */
-    public List<Rating> getRatings() {
-        return ratings;
-    }
+
     /**
      * @return all the attributes of the post in a map fashion
      */
@@ -178,8 +176,6 @@ public class Post implements Serializable {
         this.uid = uid;
     }
 
-    public void addRating(Rating rating) {
-        this.ratings.add(rating);
-    }
+
 
 }

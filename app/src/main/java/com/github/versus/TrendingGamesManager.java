@@ -111,38 +111,7 @@ public class TrendingGamesManager {
         return list.get(position - 1).getKey().name();
     }
 
-    /**
-     * Returns the local time when the last computation of the number of posts per sport was made.
-     *
-     * @return the local time of the last computation
-     */
-    public LocalTime getLastComputedTime() {
-        return lastComputedTime;
-    }
 
-    /**
-     * Returns the ID of the image associated with the sport at a given position in the ranking.
-     *
-     * @param position the position of the sport in the ranking
-     * @return the ID of the image associated with the sport at the given position
-     */
-    public int getSportImageAtPosition(int position) {
-        Sport sport = topSportAtPosition(position);
-        switch (sport) {
-            case FOOTBALL:
-                return R.drawable.football_picture;
-            case HANDBALL:
-                return R.drawable.handball_picture;
-            case TENNIS:
-                return R.drawable.tennis_picture;
-            case BOXING:
-                return R.drawable.boxing_picture;
-            case BASKETBALL:
-                return R.drawable.basketball_picture;
-            default:
-                return R.drawable.handball_picture;
-        }
-    }
     /**
      * Returns the image resource ID for the sport at the specified position in the
      * list of trending sports.

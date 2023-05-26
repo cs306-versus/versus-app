@@ -294,10 +294,7 @@ public final class VersusUser implements User, Serializable {
             return this;
         }
 
-        public Builder addFriend(String friendUID){
-            friends.add(friendUID);
-            return this;
-        }
+
 
         @Override
         public VersusBuilder setUID(String uid){

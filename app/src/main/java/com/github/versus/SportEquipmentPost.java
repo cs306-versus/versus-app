@@ -70,12 +70,7 @@ public class SportEquipmentPost {
         return description;
     }
 
-    /**
-     * Getter for the Url of the image of the object
-     */
-    public String getUrl() {
-        return url;
-    }
+
 
     /**
      * Getter for the user that posted this post
