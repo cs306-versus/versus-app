@@ -244,8 +244,6 @@ public class FsPostManager implements DataBaseManager<Post> {
             List<HashMap> players = (List<HashMap>) res.get("players");
 
             //getting the player limit
-            long playerLimit = (long)res.get("playerLimit");
-
 
                 //creating a new list corresponding to the old one - the user
             List<HashMap> newPlayers = new ArrayList<>();
