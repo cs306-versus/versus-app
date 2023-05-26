@@ -35,12 +35,12 @@ public final class SearchFriendFragmentTest {
         onView(withId(R.id.main_activity_layout)).check(matches(DrawerMatchers.isOpen(GravityCompat.START)));
         onView(withId(R.id.friend_search)).perform(click());
     }
-    
+
+
     @Test
     public void testScrollRecyclerView(){
         onView(withId(R.id.user_recyclerView)).perform(click());
     }
-
 
 
 
