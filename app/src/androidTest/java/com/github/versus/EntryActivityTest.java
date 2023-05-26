@@ -28,7 +28,7 @@ import android.content.Intent;
 
 import java.io.Serializable;
 
-//@RunWith(AndroidJUnit4.class)
+@RunWith(AndroidJUnit4.class)
 public final class EntryActivityTest {
 
     static {
