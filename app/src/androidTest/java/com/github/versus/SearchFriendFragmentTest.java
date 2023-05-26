@@ -56,14 +56,16 @@ public final class SearchFriendFragmentTest {
     }
 
     @Test
-    public void testPressProfile(){
+    public void testPressProfile() throws InterruptedException {
         onView(withId(R.id.search_users)).perform(typeText("Hamza"), closeSoftKeyboard());
+        Thread.sleep(2000);
         onView(withId(R.id.view_profile)).perform(click());
     }
 
     @Test
-    public void testSearchBar(){
+    public void testSearchBar() throws InterruptedException {
         onView(withId(R.id.search_users)).perform(typeText("Hamza"), closeSoftKeyboard());
+        Thread.sleep(2000);
         onView(withText("Hamza")).check(matches(isDisplayed()));
     }
 
