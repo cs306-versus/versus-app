@@ -145,6 +145,12 @@ public final class CacheManager implements DataBaseManager<Post> {
                 .handle((r,e)-> e==null ? r:null);
     }
 
+    public Future<Boolean> filterThenInsert(List<Post> posts){
+        posts= posts.stream().filter(p-> !CachedPost.postIsInvalid(p)).collect(Collectors.toList());
+        return posts.size()==0? CompletableFuture.completedFuture(Boolean.FALSE): insertAll(posts.toArray(posts.toArray(new Post[0])));
+
+    }
+
     /**
      *Erases the cache
      */
