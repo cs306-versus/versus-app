@@ -100,6 +100,7 @@ public final class SearchFragmentTest {
         onView(withId(android.R.id.button1)).perform(click());
         onView(withText("Choose")).perform(click());
 
+
     }
     @Test
     public void testCreatePostWithLocationCanceled() {
