@@ -1,3 +1,4 @@
+
 package com.github.versus;
 
 import static androidx.test.espresso.Espresso.onView;
@@ -84,3 +85,6 @@ public class BarSearchTest {
 
 
 }
+
+
+

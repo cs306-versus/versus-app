@@ -84,6 +84,67 @@ public final class OptionChooseLocationTest {
         IdlingRegistry.getInstance().unregister(idlingResource2);
         IdlingRegistry.getInstance().unregister(idlingResourceFirst);
     }
+    @Test
+    public void selectByClickThenByClick() {
+        // Find the menu item by its ID and perform a click
+        Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
+        onView(withText("By Click")).perform(click());
+        simulateMapClick(540, 1170);
+        long waitingTime2 =5000;
+        ElapsedTimeIdlingResource idlingResource2 = new ElapsedTimeIdlingResource(waitingTime2);
+        IdlingRegistry.getInstance().register(idlingResource2);
+        onView(withText("GooglePlex Football")).perform(click());
+        IdlingRegistry.getInstance().unregister(idlingResource2);
+
+
+        onView(withText("OK")).perform(click());
+        Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
+        onView(withText("By Click")).perform(click());
+        simulateMapClick(540, 1170);
+
+
+
+
+
+    }
+    @Test
+    public void selectByClickThenBySearch() {
+        // Find the menu item by its ID and perform a click
+        Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
+        onView(withText("By Click")).perform(click());
+        simulateMapClick(540, 1170);
+        long waitingTime2 =5000;
+        ElapsedTimeIdlingResource idlingResource2 = new ElapsedTimeIdlingResource(waitingTime2);
+        IdlingRegistry.getInstance().register(idlingResource2);
+        onView(withText("GooglePlex Football")).perform(click());
+        IdlingRegistry.getInstance().unregister(idlingResource2);
+
+
+        onView(withText("OK")).perform(click());
+        Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
+        onView(withText("By Search")).perform(click());
+
+
+
+    }
+
+    @Test
+    public void selectClickOnLocationThenByChangeDistance() {
+        // Find the menu item by its ID and perform a click
+        Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
+        onView(withText("By Click")).perform(click());
+        simulateMapClick(540, 1170);
+        long waitingTime2 =5000;
+        ElapsedTimeIdlingResource idlingResource2 = new ElapsedTimeIdlingResource(waitingTime2);
+        IdlingRegistry.getInstance().register(idlingResource2);
+        onView(withText("GooglePlex Football")).perform(click());
+        IdlingRegistry.getInstance().unregister(idlingResource2);
+
+
+        onView(withText("OK")).perform(click());
+        Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
+        onView(withText("Change distance")).perform(click());
+    }
 
 
     /**

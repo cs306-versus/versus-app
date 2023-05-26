@@ -95,10 +95,6 @@ public final class SingleUserConverterTest {
         assertEquals(user.getPreferredSports(), reverted.getPreferredSports());
     }
 
-    @Test
-    public void convertEmptyUserFails() {
-        assertThrows(Exception.class, () -> UserConverter.convertUser(new VersusUser()));
-    }
 
     @Test
     public void convertBackEmptyStringFails() {

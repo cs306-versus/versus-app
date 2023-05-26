@@ -16,10 +16,16 @@ import androidx.fragment.app.FragmentTransaction;
 import com.github.versus.MainActivity;
 import com.github.versus.R;
 import com.github.versus.databinding.AuthFragmentRegisterBinding;
+import com.github.versus.db.FsPostManager;
+import com.github.versus.db.FsScheduleManager;
+import com.github.versus.db.FsUserManager;
+import com.github.versus.rating.Rating;
+import com.github.versus.schedule.Schedule;
 import com.github.versus.user.VersusUser;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
 
@@ -63,13 +69,18 @@ public final class RegisterFragment extends Fragment {
             return;
         }
         VersusUser.VersusBuilder builder = new VersusUser.VersusBuilder(null);
+        // TODO HR : Link this when the UI is ready (see issue #58 in versus-app)
         builder.setFirstName(firstName)
                 .setLastName(lastName)
                 .setUserName(String.format("%s-%s", firstName, lastName).toLowerCase())
                 .setPhone(phone)
                 .setMail(mail)
-                .setRating(3)
-                .setPreferredSports(List.of());
+                .setRating(Rating.DEFAULT_ELO)
+                .setZipCode(0) // TODO HR : This is still hardcoded
+                .setCity("Lausanne") // TODO HR : This is still hardcoded
+                .setPreferredSports(List.of())
+                .setFriends(List.of());
+
 
         // Request from firebase
         Task<AuthResult> task = auth.createAccountWithMail(mail, pwd, builder);

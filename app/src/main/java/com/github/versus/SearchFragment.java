@@ -61,8 +61,6 @@ public class SearchFragment extends Fragment implements LocationPickerDialog.Loc
 
     protected RecyclerView recyclerView;
     protected Post newPost;
-    protected VersusUser user = new VersusUser.VersusBuilder("fake").build();
-
     protected EditText searchBar;
     protected CreatePostTitleDialogFragment cpdf;
     protected ChoosePostSportDialogFragment cpsdf;
@@ -84,6 +82,9 @@ public class SearchFragment extends Fragment implements LocationPickerDialog.Loc
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         onCancel();
+
+        //---------------------------------------------------------------
+
         View rootView = inflater.inflate(R.layout.fragment_research,container,false);
         assignViews(rootView);
 
@@ -94,13 +95,6 @@ public class SearchFragment extends Fragment implements LocationPickerDialog.Loc
                 createPost();
             }
         });
-        FsUserManager db = null;
-        if(FirebaseFirestore.getInstance() != null && FirebaseAuth.getInstance() != null && FirebaseAuth.getInstance().getUid() != null) {
-            db = new FsUserManager(FirebaseFirestore.getInstance());
-            ((CompletableFuture<User>)db.fetch(FirebaseAuth.getInstance().getUid()))
-                    .thenAccept(this::setUser);
-            user = new VersusUser.VersusBuilder(FirebaseAuth.getInstance().getUid()).build();
-        }
 
         loadPosts();
 
@@ -137,21 +131,27 @@ public class SearchFragment extends Fragment implements LocationPickerDialog.Loc
         }
     }
 
-
-
-
-    private void setUser(User user){
-        this.user = (VersusUser) user;
-    }
     protected void assignViews(View rootView){
         recyclerView = rootView.findViewById(R.id.recyclerView);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
-        pm = new FsPostManager(FirebaseFirestore.getInstance());
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        pm = new FsPostManager(db);
+        FsUserManager uman = new FsUserManager(db);
 
-        aa = new PostAnnouncementAdapter(displayPosts, user, pm, getContext());
+        //getting the user and updating the field accordingly
+
+        CompletableFuture<User> userTask = (CompletableFuture<User>)(uman.fetch(FirebaseAuth.getInstance().getUid()));
+        userTask.thenAccept( user -> {
+            VersusUser vuser = (VersusUser)user;
+            aa = new PostAnnouncementAdapter(displayPosts, vuser, pm, getContext());
+            recyclerView.setAdapter(aa);
+
+        });
+
+
         recyclerView.setLayoutManager(llm);
-        recyclerView.setAdapter(aa);
+
         cpdf = new CreatePostTitleDialogFragment();
         cpsdf = new ChoosePostSportDialogFragment();
         mpdf = new MaxPlayerDialogFragment();
@@ -173,6 +173,7 @@ public class SearchFragment extends Fragment implements LocationPickerDialog.Loc
             public void afterTextChanged(Editable editable) {}
         });
     }
+
 
     public void createPost(){
         cpdf.show(getChildFragmentManager(), "1");
@@ -212,21 +213,28 @@ public class SearchFragment extends Fragment implements LocationPickerDialog.Loc
      */
     @Override
     public void onLocationPositiveClick(Place place) {
-        // Create a new location from the selected place
-        Location location = new Location(place.getName(), place.getLatLng().latitude, place.getLatLng().longitude);
+        //fetching the currentUser
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        pm = new FsPostManager(db);
+        FsUserManager uman = new FsUserManager(db);
+        CompletableFuture<User> userTask = (CompletableFuture<User>)(uman.fetch(FirebaseAuth.getInstance().getUid()));
+        userTask.thenAccept( user -> {
 
-        // Set the location for the new post
-        newPost.setLocation(location);
+                    // Create a new location from the selected place
+                    Location location = new Location(place.getName(), place.getLatLng().latitude, place.getLatLng().longitude);
 
-        // Create a list of users and add the current user to it
-        ArrayList<VersusUser> users = new ArrayList<>();
-        users.add(user);
+                    // Set the location for the new post
+                    newPost.setLocation(location);
 
-        // Set the players for the new post
-        newPost.setPlayers(users);
+                    // Create a list of users and add the current user to it
+                    ArrayList<VersusUser> users = new ArrayList<>();
+                    // Set the players for the new post
+                    newPost.setPlayers(users);
 
-        // Insert the new post into the database
-        pm.insert(newPost);
+                    // Insert the new post into the database
+                    pm.insert(newPost);
+        }
+            );
 
         CacheManager.getCacheManager(getContext()).insert(newPost);
 

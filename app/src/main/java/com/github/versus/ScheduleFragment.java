@@ -68,7 +68,8 @@ public class ScheduleFragment extends Fragment {
 
         List c=new ArrayList<List<String>>();
 
-        try {schedulermanager.getScheduleOnDate(FirebaseAuth.getInstance().getUid(),new Timestamp(year,month,dayOfMonth,0,0, Timestamp.Meridiem.AM)).thenAccept(sched -> {
+        try {
+            schedulermanager.getScheduleOnDate(FirebaseAuth.getInstance().getUid(),new Timestamp(year,month,dayOfMonth,0,0, Timestamp.Meridiem.AM)).thenAccept(sched -> {
             posts=sched.getPosts();
             sched.getPosts().forEach(post -> {
                 List a =new ArrayList<String>();
@@ -575,7 +576,7 @@ public class ScheduleFragment extends Fragment {
 
                 List c=new ArrayList<List<String>>();
 
-                try { schedulermanager.getScheduleOnDate(FirebaseAuth.getInstance().getUid(), new Timestamp(years.get(6),Month.of(months.get(6)),Integer.parseInt(MondayText.getText().toString()),0,0, Timestamp.Meridiem.AM)).thenAccept(sched -> {
+                try { schedulermanager.getScheduleOnDate(FirebaseAuth.getInstance().getUid(),new Timestamp(years.get(6),Month.of(months.get(6)),Integer.parseInt(MondayText.getText().toString()),0,0, Timestamp.Meridiem.AM)).thenAccept(sched -> {
                     posts=sched.getPosts();
                     sched.getPosts().forEach(post -> {
                         List a =new ArrayList<String>();
