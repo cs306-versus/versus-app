@@ -58,10 +58,11 @@ public class SearchFriendsFragment extends Fragment{
     }
 
     protected void assignViews(View rootView){
-        recyclerView = rootView.findViewById(R.id.user_recyclerView);
-        recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
+
+        recyclerView = rootView.findViewById(R.id.search_users_recycler_view);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
+
         pm = new FsUserManager(FirebaseFirestore.getInstance());
 
         aa = new UserAnnouncementAdapter(displayUsers, user, pm, getContext());

@@ -86,6 +86,7 @@
                     android:layout_height="143.5dp"
                     android:text="@string/planning_for_the_day_string"
                     />
+                    
 
                 <View   android:id="@+id/rectangle1"
                     android:background="@drawable/rectangle_1_shape"

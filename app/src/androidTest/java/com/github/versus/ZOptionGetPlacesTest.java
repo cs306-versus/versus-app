@@ -81,8 +81,54 @@ public final class ZOptionGetPlacesTest {
         onView(withId(R.id.near_me_button)).perform(click());
         onView(withText("GooglePlex Football")).perform(click());
         onView(withText("OK")).perform(click());
+        onView(withId(R.id.near_me_button)).perform(click());
+        onView(withText("GooglePlex Football")).perform(click());
+        onView(withText("OK")).perform(click());
+
+
 
     }
+
+    /**
+     * Test for clicking on a specific location.
+     * Ensures that clicking on a location results in the expected behavior.
+     *
+     * @throws InterruptedException if the test is interrupted
+     */
+    @Test
+    public void selectClickOnLocationThenByClick() {
+        // Find the menu item by its ID and perform a click
+        onView(withId(R.id.near_me_button)).perform(click());
+        onView(withText("GooglePlex Football")).perform(click());
+        onView(withText("OK")).perform(click());
+        Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
+
+        onView(withText("By Click")).perform(click());
+    }
+    @Test
+    public void selectClickOnLocationThenBySearch() {
+        // Find the menu item by its ID and perform a click
+        onView(withId(R.id.near_me_button)).perform(click());
+        onView(withText("GooglePlex Football")).perform(click());
+        onView(withText("OK")).perform(click());
+        Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
+
+        onView(withText("By Search")).perform(click());
+    }
+
+    @Test
+    public void selectClickOnLocationThenByChangeDistance() {
+        // Find the menu item by its ID and perform a click
+        onView(withId(R.id.near_me_button)).perform(click());
+        onView(withText("GooglePlex Football")).perform(click());
+        onView(withText("OK")).perform(click());
+        Espresso.openActionBarOverflowOrOptionsMenu(ApplicationProvider.getApplicationContext());
+
+        onView(withText("Change distance")).perform(click());
+    }
+
+
+
 
 
     /**

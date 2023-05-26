@@ -16,13 +16,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.versus.AddFriendFragment;
 import com.github.versus.R;
+import com.github.versus.chats.Chat;
+import com.github.versus.db.FsChatManager;
 import com.github.versus.db.FsUserManager;
 import com.github.versus.user.User;
 import com.github.versus.user.VersusUser;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.makeramen.roundedimageview.RoundedImageView;
 
 import org.checkerframework.checker.units.qual.A;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 public class UserAnnouncementAdapter extends RecyclerView.Adapter<UserAnnouncementAdapter.ViewHolder> {
     private List<User> users;
@@ -48,20 +54,44 @@ public class UserAnnouncementAdapter extends RecyclerView.Adapter<UserAnnounceme
     }
 
     private void setViewText(ViewHolder viewHolder, User currentUser){
-        viewHolder.getFirstName().setText(currentUser.getFirstName()+ " "+ currentUser.getLastName());
-        viewHolder.getUsername().setText(currentUser.getUserName());
-        viewHolder.getCity().setText(currentUser.getCity());
-        viewHolder.getAddFriend().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FragmentManager manager = ((AppCompatActivity)context).getSupportFragmentManager();
-                Fragment f = new AddFriendFragment();
-                Bundle b = new Bundle();
-                b.putSerializable("user", (VersusUser) currentUser);
-                f.setArguments(b);
-                manager.beginTransaction().replace(R.id.fragment_container, f).commit();
-            }
-        });
+        viewHolder.getName().setText(currentUser.getFirstName()+ " "+ currentUser.getLastName());
+        viewHolder.getRating().setText(Integer.toString((currentUser.getRating())));
+        //if the user and the currUser are already friends
+        VersusUser vCurrUser = (VersusUser)currentUser;
+        String appUserUid = FirebaseAuth.getInstance().getUid();
+        if(vCurrUser.getFriends().contains(appUserUid)) {
+            viewHolder.getAddFriend().setVisibility(View.INVISIBLE);
+            viewHolder.getFriend_addded_true().setVisibility(View.VISIBLE);
+        }else{
+            viewHolder.getAddFriend().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //adding the user as a friend
+                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+                    FsUserManager uman = new FsUserManager(db);
+                    uman.addFriend(FirebaseAuth.getInstance().getUid(), currentUser.getUID());
+                    CompletableFuture<Boolean> friendship = uman.createFriendship(currentUser.getUID(), appUserUid);
+                    //changing the icon
+                    friendship.thenAccept(res -> {
+                                if(res){
+                                    //Adding a chat between the 2 friends
+                                    FsChatManager fcm = new FsChatManager(db);
+                                    String friend1 = currentUser.getUID();
+                                    String friend2 = appUserUid;
+                                    Chat newChat = new Chat(friend1, friend2, Chat.computeChatId(friend1, friend2));
+                                    fcm.insert(newChat);
+                                    //updating the friendship icon
+                                    viewHolder.getAddFriend().setVisibility(View.INVISIBLE);
+                                    viewHolder.getFriend_addded_true().setVisibility(View.VISIBLE);
+                                }
+                            }
+
+                    );
+
+                }
+            });
+        }
+
     }
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
@@ -75,27 +105,30 @@ public class UserAnnouncementAdapter extends RecyclerView.Adapter<UserAnnounceme
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private final TextView fn;
-        private final TextView un;
-        private final TextView city;
-        private final Button button;
+        private  TextView userName;
+        private  TextView rating;
+        private RoundedImageView friend_addded;
+        private RoundedImageView friend_addded_true;
+
 
         public ViewHolder(View view) {
 
             super(view);
-//             Define click listener for the ViewHolder's View
-            fn = (TextView) view.findViewById(R.id.user_fn);
-            un = (TextView) view.findViewById(R.id.user_un);
-            city = (TextView) view.findViewById(R.id.user_city);
-            button = (Button) view.findViewById(R.id.view_profile);
+            // Define click listener for the ViewHolder's View
+            userName = (TextView) view.findViewById(R.id.announcement_user_name);
+            rating = (TextView) view.findViewById(R.id.announcement_user_rating);
+            friend_addded = (RoundedImageView) view.findViewById(R.id.friend_added);
+            friend_addded_true = (RoundedImageView) view.findViewById(R.id.friend_added_true);
         }
 
-        public TextView getFirstName() {
-            return fn;
+        public TextView getName() {
+            return userName;
         }
-        public TextView getUsername() { return un; }
-        public TextView getCity() { return city; }
-        public Button getAddFriend() {return button;}
+        public TextView getRating() {
+            return rating;
+        }
+        public RoundedImageView getAddFriend() {return friend_addded;}
+        public RoundedImageView getFriend_addded_true() {return friend_addded_true;}
 
     }
 }

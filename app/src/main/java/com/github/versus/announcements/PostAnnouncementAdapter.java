@@ -18,8 +18,10 @@ import com.github.versus.AddFriendFragment;
 import com.github.versus.EditPostFragment;
 import com.github.versus.R;
 import com.github.versus.db.FsPostManager;
+import com.github.versus.db.FsScheduleManager;
 import com.github.versus.posts.Post;
 import com.github.versus.user.VersusUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -108,6 +110,8 @@ public class PostAnnouncementAdapter extends RecyclerView.Adapter<PostAnnounceme
                                     viewHolder.getJoinButton().setEnabled(false);
                                     currentPost.getPlayers().add(user);
                                     fpm.joinPost(user, currentPost.getUid());
+                                    FsScheduleManager sman = new FsScheduleManager(FirebaseFirestore.getInstance());
+                                    sman.addPostToSchedule(user.getUID(), currentPost);
                                     notifyDataSetChanged();
                                 }
                             }
