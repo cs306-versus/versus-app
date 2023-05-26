@@ -32,9 +32,8 @@ public class UserInfoFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FsUserManager db = new FsUserManager(FirebaseFirestore.getInstance());
-        ((CompletableFuture<User>)db.fetch(FirebaseAuth.getInstance().getUid()))
-                .thenAccept(this::updateUI);
+        VersusAuthenticator auth = VersusAuthenticator.getInstance(FirebaseAuth.getInstance());
+        updateUI(auth.currentUser());
     }
 
     @Override
