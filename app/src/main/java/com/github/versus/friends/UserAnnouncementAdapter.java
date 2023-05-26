@@ -55,7 +55,7 @@ public class UserAnnouncementAdapter extends RecyclerView.Adapter<UserAnnounceme
 
     private void setViewText(ViewHolder viewHolder, User currentUser){
         viewHolder.getName().setText(currentUser.getFirstName()+ " "+ currentUser.getLastName());
-        viewHolder.getRating().setText(Integer.toString((currentUser.getRating())));
+        viewHolder.getRating().setText(Long.toString((currentUser.getRating())));
         //if the user and the currUser are already friends
         VersusUser vCurrUser = (VersusUser)currentUser;
         String appUserUid = FirebaseAuth.getInstance().getUid();

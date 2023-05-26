@@ -29,7 +29,7 @@ public final class VersusUser implements User, Serializable {
     private final String userName;
     private final String mail;
     private final String phone;
-    private final int rating;
+    private final long rating;
     private final String city;
     private final int zip;
     private final List<Sport> preferredSports;
@@ -50,7 +50,7 @@ public final class VersusUser implements User, Serializable {
         lastName = "";
         friends = new ArrayList<>();
     }
-    public VersusUser(String uid, String firstName,String lastName,String userName, String mail, String phone , int rating , String city, int zipCode,List<Sport> preferredSports, List<String> friends ){
+    public VersusUser(String uid, String firstName,String lastName,String userName, String mail, String phone , long rating , String city, int zipCode,List<Sport> preferredSports, List<String> friends ){
         this.uid = uid;
         this.firstName =firstName;
         this.lastName = lastName;
@@ -108,7 +108,7 @@ public final class VersusUser implements User, Serializable {
     }
 
     @Override
-    public int getRating() {
+    public long getRating() {
         return rating;
     }
 
@@ -185,7 +185,7 @@ public final class VersusUser implements User, Serializable {
         private String userName;
         private String mail;
         private String phone;
-        private int rating;
+        private long rating;
         private String city;
         private int zipCode;
         private List<Sport> preferredSports = new ArrayList<>();
@@ -255,16 +255,20 @@ public final class VersusUser implements User, Serializable {
             return this;
         }
 
+        @Override
+        public Builder setRating(long rating) {
+            this.rating = rating;
+            return this;
+        }
+
+
+
         /**
          * ???
          * @param rating
          * @return
          */
-        @Override
-        public VersusBuilder setRating(int rating){
-            this.rating = rating;
-            return this;
-        }
+
 
         /**
          * ???

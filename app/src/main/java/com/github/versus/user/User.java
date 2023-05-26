@@ -126,6 +126,7 @@ public interface User {
          */
         public abstract Builder setRating(long rating);
 
+
         /**
          * ???
          * @param city

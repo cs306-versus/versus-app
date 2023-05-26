@@ -115,8 +115,8 @@ public class FsUserManager implements DataBaseManager<User> {
                 .setPhone(doc.get(PHONE_FIELD, String.class))
                 .setRating(Rating.DEFAULT_ELO )
                 .setPreferredSports((List<Sport>)doc.get(PREF_SPORTS_FIELD))
-                .setCity(doc.get(CITY_FIELD, String.class))
-                .setFriends((List<String>)doc.get(FRIENDS_FIELD));
+                .setCity(doc.get(CITY_FIELD, String.class));
+
     }
 
     @Override
