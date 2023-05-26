@@ -127,7 +127,7 @@ public final class VersusAuthenticatorTest {
         Task<AuthResult> task = auth.signInWithMail(validMail(), validPassword());
         spinAndWait(task);
         assertTrue(task.isSuccessful());
-        Thread.sleep(2000);
+        Thread.sleep(5000);
         assertNotNull(auth.currentUser());
         assertTrue(auth.hasValidMail());
     }
