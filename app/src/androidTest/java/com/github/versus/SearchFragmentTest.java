@@ -8,14 +8,27 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
+
+import static com.github.versus.utils.EmulatorUserProvider.validMail;
+import static com.github.versus.utils.EmulatorUserProvider.validPassword;
+import static org.junit.Assert.fail;
 
 import androidx.core.view.GravityCompat;
 import androidx.test.espresso.contrib.DrawerActions;
 import androidx.test.espresso.contrib.DrawerMatchers;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
+import androidx.test.uiautomator.UiDevice;
+import androidx.test.uiautomator.UiObject;
+import androidx.test.uiautomator.UiObjectNotFoundException;
+import androidx.test.uiautomator.UiSelector;
 
+import com.github.versus.auth.VersusAuthenticator;
 import com.github.versus.utils.FirebaseEmulator;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.junit.Before;
@@ -33,6 +46,9 @@ public final class SearchFragmentTest {
 
     @Before
     public void navigateToFrag() {
+        VersusAuthenticator auth = VersusAuthenticator.getInstance(FirebaseAuth.getInstance());
+        Task <AuthResult> authResultTask = auth.signInWithMail(validMail(),validPassword());
+        spinAndWait(authResultTask);
         onView(withId(R.id.main_activity_layout)).check(matches(DrawerMatchers.isClosed(GravityCompat.START))).perform(DrawerActions.open());
         onView(withId(R.id.main_activity_layout)).check(matches(DrawerMatchers.isOpen(GravityCompat.START)));
         onView(withId(R.id.nav_search)).perform(click());
@@ -70,37 +86,36 @@ public final class SearchFragmentTest {
     }
 
 
-    //    @Test
-//    public void testCreatePostWithLocation() throws InterruptedException {
-//        onView(withId(R.id.add_posts)).perform(click());
-//        onView(withId(R.id.editPostTitle)).check(matches(isDisplayed()));
-//        onView(withId(R.id.editPostTitle)).perform(typeText("TEST POST"), closeSoftKeyboard());
-//        onView(withId(android.R.id.button1)).perform(click());
-//        onView(withText("Archery")).perform(click());
-//        onView(withId(android.R.id.button1)).perform(click());
-//        onView(withId(R.id.editMaxPlayers)).perform(typeText("4"), closeSoftKeyboard());
-//        onView(withId(android.R.id.button1)).perform(click());
-//        onView(withId(android.R.id.button1)).perform(click());
-//        onView(withText("Choose")).perform(click());
-//        UiDevice device = UiDevice.getInstance(getInstrumentation());
-//        UiObject searchBox = device.findObject(new UiSelector().text("Search"));
-//
-//        try {
-//            // Type the text and press enter
-//            searchBox.setText("unilego.");
-//            Thread.sleep(2000);
-//            device.pressEnter();
-//            device.pressEnter();
-//        } catch (UiObjectNotFoundException e) {
-//            fail("Could not find the Autocomplete widget");
-//        } catch (InterruptedException e) {
-//            throw new RuntimeException(e);
-//        }
-//        Thread.sleep(2000);
-//        onView(withId(R.id.add_posts)).perform(click());
-//
-//    }
-   // @Test
+    @Test
+  public void testCreatePostWithLocation() throws InterruptedException {
+        onView(withId(R.id.add_posts)).perform(click());
+        onView(withId(R.id.editPostTitle)).check(matches(isDisplayed()));
+        onView(withId(R.id.editPostTitle)).perform(typeText("TEST POST"), closeSoftKeyboard());
+        onView(withId(android.R.id.button1)).perform(click());
+        onView(withText("Archery")).perform(click());
+        onView(withId(android.R.id.button1)).perform(click());
+        onView(withId(R.id.editMaxPlayers)).perform(typeText("4"), closeSoftKeyboard());
+        onView(withId(android.R.id.button1)).perform(click());
+        onView(withId(android.R.id.button1)).perform(click());
+        onView(withText("Choose")).perform(click());
+        UiDevice device = UiDevice.getInstance(getInstrumentation());
+        UiObject searchBox = device.findObject(new UiSelector().text("Search"));
+
+        try {
+            // Type the text and press enter
+            searchBox.setText("unilego.");
+            Thread.sleep(2000);
+            device.pressEnter();
+            device.pressEnter();
+        } catch (UiObjectNotFoundException e) {
+            fail("Could not find the Autocomplete widget");
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        Thread.sleep(2000);
+        onView(withId(R.id.add_posts)).perform(click());
+    }
+    @Test
     public void testCreatePostWithLocationCanceled() {
         onView(withId(R.id.add_posts)).perform(click());
         onView(withId(R.id.editPostTitle)).check(matches(isDisplayed()));
@@ -133,6 +148,11 @@ public final class SearchFragmentTest {
             onView(withId(R.id.game_players)).perform(click());
             onView(withId(R.id.edit_sport)).perform(click());
         }
+    }
+    private Task<AuthResult> spinAndWait(Task<AuthResult> task){
+        // spin and wait for the task to complete
+        while (!(task.isComplete() || task.isCanceled())) ;
+        return task;
     }
 
 }
