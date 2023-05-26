@@ -97,8 +97,6 @@ public class ScheduleFragment extends Fragment {
                     TextView date = (TextView)(viewFrag.findViewById(R.id.date));
                     List<PlayerToBeRated> fakeList = new ArrayList<>();
                     Post p  = posts.stream().filter(post -> {
-
-
                         return  post.getSport().name().equals(sportText.getText().toString() );
                     }).collect(Collectors.toList()).get(0);
 
@@ -553,6 +551,11 @@ public class ScheduleFragment extends Fragment {
                         c.add(a);
 
                     });
+                    List a =new ArrayList<String>();
+                    a.add("SOCCER");
+                    a.add("Unil-sport");
+                    a.add("04:00 PM");
+                    c.add(a);
                     TextView dateText=view.findViewById(R.id.date);
                     TextView date_sunday =(TextView)view.findViewById(R.id.Saturday_date);
                     dateText.setText(String.valueOf(date_sunday.getText().toString().concat(" ").concat(convertMonthIndexToNameMonth(months.get(5)).concat(" , "  ).concat(String.valueOf(years.get(5))))));
@@ -563,6 +566,17 @@ public class ScheduleFragment extends Fragment {
                     listView.setAdapter(adapter);
                 });}
                 catch (Exception e ) {}
+                 List<PlayerToBeRated>  fakeList= new ArrayList<>();
+                FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                GameFragment gameFragment = new GameFragment("Casual game","BasketBall","Lausanne","16:00 PM",15,fakeList);
+                fakeList.add(new PlayerToBeRated(false,"Abdess_piquant","4"));
+                fakeList.add(new PlayerToBeRated(false,"Aymane_lam","5"));
+                fakeList.add(new PlayerToBeRated(true,"Mernissi_Adam","4"));
+                fakeList.add(new PlayerToBeRated(true,"Si-Ziazi","5"));
+                fragmentTransaction.replace(R.id.fragment_container, gameFragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
 
             }
         });
