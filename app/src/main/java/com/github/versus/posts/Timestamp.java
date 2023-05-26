@@ -34,7 +34,9 @@ public class Timestamp {
         this.meridiem = meridiem;
     }
 
-
+    private Timestamp(){
+        this(CURR_YEAR, Month.FEBRUARY, 1, 0,0,Meridiem.AM );
+    }
 
 
     /**
