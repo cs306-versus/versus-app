@@ -68,6 +68,7 @@ public final class ChatTest {
         FsUserManager fsm = new FsUserManager(FirebaseFirestore.getInstance());
 
         fsm.unfriendAll(FirebaseAuth.getInstance().getUid());
+        //
 
     }
 
