@@ -170,6 +170,11 @@ public class Post implements Serializable {
     public void setUid(String uid) {
         this.uid = uid;
     }
-
+    /**
+     * @return the player to player ratings of the game
+     */
+    public List<Rating> getRatings() {
+        return ratings;
+    }
 
 }
