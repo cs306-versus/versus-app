@@ -1,7 +1,6 @@
 package com.github.versus.chats;
 
 import com.github.versus.posts.Timestamp;
-import com.github.versus.user.DummyUser;
 import com.github.versus.user.User;
 
 /**

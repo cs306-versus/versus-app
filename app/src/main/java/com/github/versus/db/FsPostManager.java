@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.ObjectCodec;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.versus.posts.Post;
-import com.github.versus.user.DummyUser;
 import com.github.versus.user.User;
 import com.google.android.gms.tasks.*;
 import com.google.firebase.firestore.CollectionReference;
@@ -316,7 +315,7 @@ public class FsPostManager implements DataBaseManager<Post> {
 
         return future;
     }
-    public Future<Boolean> joinPost(String postId, DummyUser user){
+    public Future<Boolean> joinPost(String postId, User user){
         //accessing the collection
         CollectionReference postsRef = db.collection(POSTCOLLECTION.toString());
         //finding the announcement with the right id
