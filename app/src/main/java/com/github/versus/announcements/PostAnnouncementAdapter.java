@@ -72,11 +72,11 @@ public class PostAnnouncementAdapter extends RecyclerView.Adapter<PostAnnounceme
                         @Override
                         public void onClick(View view) {
                             FragmentManager manager = ((AppCompatActivity)context).getSupportFragmentManager();
-                            Fragment f = new EditPostFragment(fpm);
+                           // Fragment f = new EditPostFragment(fpm);
                             Bundle b = new Bundle();
                             b.putSerializable("post", (Post) currentPost);
-                            f.setArguments(b);
-                            manager.beginTransaction().replace(R.id.fragment_container, f).commit();
+                           // f.setArguments(b);
+                            //manager.beginTransaction().replace(R.id.fragment_container, f).commit();
                         }
                     }
             );
