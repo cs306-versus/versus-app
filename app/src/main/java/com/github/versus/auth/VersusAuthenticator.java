@@ -34,6 +34,10 @@ public final class VersusAuthenticator implements Authenticator {
         this.auth = auth;
         this.user_manager = new FsUserManager(FirebaseFirestore.getInstance());
         this.schedule_manager = new FsScheduleManager(FirebaseFirestore.getInstance());
+        if(auth.getCurrentUser() != null) {
+            CompletableFuture<User> user = (CompletableFuture<User>) user_manager.fetch(auth.getCurrentUser().getUid());
+            user.thenAccept(currentUser::set);
+        }
     }
 
     /**
