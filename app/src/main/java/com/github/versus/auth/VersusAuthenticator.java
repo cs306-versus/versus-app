@@ -13,6 +13,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
@@ -36,7 +37,8 @@ public final class VersusAuthenticator implements Authenticator {
         this.schedule_manager = new FsScheduleManager(FirebaseFirestore.getInstance());
         if(auth.getCurrentUser() != null) {
             CompletableFuture<User> user = (CompletableFuture<User>) user_manager.fetch(auth.getCurrentUser().getUid());
-            user.thenAccept(currentUser::set);
+                user.thenAccept(currentUser::set);
+                while (currentUser.get() == null);
         }
     }
 
