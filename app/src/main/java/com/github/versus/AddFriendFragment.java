@@ -19,8 +19,6 @@ public class AddFriendFragment extends Fragment {
 
     User user;
 
-
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {

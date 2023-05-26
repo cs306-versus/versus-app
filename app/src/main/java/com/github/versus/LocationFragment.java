@@ -97,20 +97,23 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     private static final String TAG = LocationFragment.class.getSimpleName();
     private static final int DEFAULT_ZOOM = 15;
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
-    // Keys for storing activity state.
-    // [START maps_current_place_state_keys]
+
     private static final String KEY_CAMERA_POSITION = "camera_position";
     private static final String KEY_LOCATION = "location";
+
     public static GoogleMap map;//TODO
+
     private static LatLng localPos;
     private static boolean locationPermissionGranted;
     private static Location lastKnownLocation;
-    private static LatLng epfl;
+
     private static LatLng google;
     private static String[] likelyPlaceNames;
     private static String[] likelyPlaceAddresses;
     private static LatLng[] likelyPlaceLatLngs;
+
     private static boolean hasLocations = false;
+
     // A default location (Sydney, Australia) and default zoom to use when location permission is
     // not granted.
     private final LatLng defaultLocation = new LatLng(-33.8523341, 151.2106085);
@@ -126,6 +129,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
     private LatLng   bc = new LatLng(46.51906462963576, 6.561923350291548);
     private LatLng selectedPlace ;
+
     // Threshold distance to consider a field as nearby (in meters)
     private double thresholdDistanceInput=1000;
     private  AutocompleteSupportFragment autocompleteFragment;
