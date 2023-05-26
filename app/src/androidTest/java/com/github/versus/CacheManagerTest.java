@@ -25,6 +25,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.time.Month;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashSet;
@@ -302,5 +303,40 @@ public class CacheManagerTest {
         assertTrue(fetched.size()==2 && fetched.containsAll(Arrays.asList(post1,post2)));
 
     }
+    @Test
+    public void filterThenInsertValidPostsIsSuccessful() throws Exception {
+        Post post1= SimpleTestPost.postWith("Valid",
+                new Timestamp(Calendar.getInstance().get(Calendar.YEAR), Month.JANUARY, 1, 8, 1, Timestamp.Meridiem.PM),
+                new Location("Lausanne",10,10),10, Sport.SOCCER, users.get(0));
+        Post post2=  SimpleTestPost.postWith("Another Valid one",
+                new Timestamp(Calendar.getInstance().get(Calendar.YEAR), Month.JANUARY, 1, 8, 1, Timestamp.Meridiem.PM),
+                new Location("Lausanne",10,10),10, Sport.SOCCER, users);
+        Future<Boolean> inserted= manager.filterThenInsert(List.of(post1,post2));
+        assertTrue(inserted.get());
+    }
+
+    @Test
+    public void filterThenInsertValidPostsIsSuccessfulIfSomePostsAreInvalid() throws Exception {
+        Post post1= SimpleTestPost.postWith("Valid",
+                new Timestamp(Calendar.getInstance().get(Calendar.YEAR), Month.JANUARY, 1, 8, 1, Timestamp.Meridiem.PM),
+                new Location("Lausanne",10,10),10, Sport.SOCCER, users.get(0));
+        Post post2=  SimpleTestPost.postWith("Another Valid one",
+                new Timestamp(Calendar.getInstance().get(Calendar.YEAR), Month.JANUARY, 1, 8, 1, Timestamp.Meridiem.PM),
+                new Location("Lausanne",10,10),10, Sport.SOCCER, users);
+        List<Post> posts= new ArrayList<>(List.of(post1,post2));
+        posts.add(null);
+        Future<Boolean> inserted= manager.filterThenInsert(posts);
+        assertTrue(inserted.get());
+    }
+
+    @Test
+    public void filterThenInsertValidPostsIsUnsuccessfulALLPostsAreInvalid() throws Exception {
+        Post invalid_post= SimpleTestPost.postWith("Valid",
+                new Timestamp(Calendar.getInstance().get(Calendar.YEAR), Month.JANUARY, 1, 8, 1, Timestamp.Meridiem.PM),
+                new Location("Lausanne",10,10),10, null, users.get(0));
+        Future<Boolean> inserted= manager.filterThenInsert(List.of(invalid_post));
+        assertFalse(inserted.get());
+    }
+
 
 }

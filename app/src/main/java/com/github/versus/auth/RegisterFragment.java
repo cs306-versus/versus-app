@@ -65,7 +65,8 @@ public final class RegisterFragment extends Fragment {
         String firstName = binding.firstName.getText().toString();
         String lastName = binding.lastName.getText().toString();
         if (!pwd.equals(pwd_confirmation)) {
-            binding.pwd.getBackground().setState(new int[]{R.attr.pwd_state});
+            binding.passwordsAreNotSimilar.setVisibility(View.VISIBLE);
+            return;
         }
         VersusUser.VersusBuilder builder = new VersusUser.VersusBuilder(null);
         // TODO HR : Link this when the UI is ready (see issue #58 in versus-app)
@@ -95,7 +96,8 @@ public final class RegisterFragment extends Fragment {
         });
         // HR : if the connection failed
         task.addOnFailureListener(ex -> {
-            Log.d("TAG", "account creation failed");
+            binding.mailAlreadyUsed.setVisibility(View.VISIBLE);
+            Log.d("TAG", ex.toString());
         });
         // HR : if the connection was cancelled
         task.addOnCanceledListener(() -> {

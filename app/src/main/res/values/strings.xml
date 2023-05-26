@@ -10,6 +10,7 @@
     <string name="auth_signin_text">Don\'t have an account ?</string>
     <string name="auth_signin">Sign In</string>
     <string name="auth_login_google">Login with Google</string>
+    <string name="email_or_password_wrong_string">Email or Password wrong</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="login">Login</string>
@@ -69,8 +70,8 @@
     </string-array>
 
     <string name="login_string">Login</string>
-    <string name="enter_your_mail_string">Enter your mail</string>
-    <string name="enter_your_password_string">Enter your password</string>
+    <string name="enter_your_mail_string">Mail</string>
+    <string name="enter_your_password_string">Password</string>
     <string name="did_you_forget_your_password___string">Did you forget your password ?</string>
     <string name="reset_it_string">Reset it</string>
     <string name="login_ek1_string">Login</string>
@@ -105,6 +106,8 @@
     <string name="phone_number">Phone Number</string>
     <string name="password">Password</string>
     <string name="confirm_password">Confirm Password</string>
+    <string name="mail_already_used_string">Mail already used</string>
+    <string name="passwords_are_not_similar_string">Passwords are not similar</string>
     <!-- -->
 
     <string name="verify_your_account_string">Verify Your Account</string>

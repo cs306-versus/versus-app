@@ -65,9 +65,15 @@ public final class SignInFragment extends Fragment {
 
     private void loginWithPWD(View view){
         String mail = binding.mail.getText().toString();
-        // TODO HR : Handle if the mail doesn't follow the pattern
+        if(mail.isEmpty()){
+            binding.emailOrPasswordWrong.setVisibility(View.VISIBLE);
+            return;
+        }
         String pwd = binding.pwd.getText().toString();
-        // TODO HR : Handle if the pwd is empty
+        if(pwd.isEmpty()){
+            binding.emailOrPasswordWrong.setVisibility(View.VISIBLE);
+            return;
+        }
         Task<AuthResult> task = auth.signInWithMail(mail, pwd);
         // HR : if the connection was successful, move to the MainActivity
         task.addOnSuccessListener(res -> {
@@ -83,9 +89,7 @@ public final class SignInFragment extends Fragment {
         });
         // HR : if the connection failed
         task.addOnFailureListener(ex -> {
-            //Toast.makeText(getActivity(),
-            //        "Connection failed",
-            //        Toast.LENGTH_SHORT).show();
+            binding.emailOrPasswordWrong.setVisibility(View.VISIBLE);
         });
         // HR : if the connection was cancelled
         task.addOnCanceledListener(() -> {

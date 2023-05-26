@@ -39,6 +39,9 @@ import java.util.concurrent.ExecutionException;
 @RunWith(AndroidJUnit4.class)
 public final class ChatTest {
 
+    static {
+        FirebaseFirestore db = FirebaseEmulator.FIREBASE_FIRESTORE;
+    }
 
     @Rule
     public ActivityScenarioRule<MainActivity> scenario = new ActivityScenarioRule<>(MainActivity.class);
@@ -55,6 +58,7 @@ public final class ChatTest {
 
         onView(withId(R.id.main_activity_layout)).check(matches(DrawerMatchers.isClosed(GravityCompat.START))).perform(DrawerActions.open());
         onView(withId(R.id.main_activity_layout)).check(matches(DrawerMatchers.isOpen(GravityCompat.START)));
+        //Performing the click on the trending sports button
         onView(withId(R.id.nav_chats)).perform(click());
 
     }

@@ -52,55 +52,103 @@
                     android:textSize="29sp" />
 
                 <!-- FIX OFFSET HERE AND CENTER IT -->
-
-                <EditText android:id="@+id/mail"
-                    android:layout_width="246dp"
-                    android:layout_height="29dp"
-                    android:layout_gravity="center_horizontal|center"
-                    android:layout_marginStart="72dp"
+                <RelativeLayout
                     android:layout_marginTop="407dp"
-                    android:background="@drawable/mail_input_ek1"
-                    android:drawableStart="@drawable/_3_friends"
-                    android:ems="10"
-                    android:fontFamily="@font/poppins_medium"
-                    android:gravity="center"
-                    android:hint="@string/enter_your_mail_string"
-                    android:inputType="textEmailAddress"
-                    android:textColor="@color/login_color"
-                    android:textColorHint="@color/login_color"
-                    android:textSize="13sp" />
+                    android:layout_marginStart="50dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
-                <!-- FIX OFFSET HERE AND CENTER IT -->
+                    <EditText
+                        android:id="@+id/mail"
+                        android:background="@drawable/auth_register_pwd_selector"
+                        android:inputType="textEmailAddress"
+                        android:layout_marginStart="0dp"
+                        android:padding="9dp"
+                        android:layout_marginTop="11dp"
+                        android:layout_width="294dp"
+                        android:layout_height="40dp" />
 
-                <EditText android:id="@+id/pwd"
-                    android:layout_width="246dp"
-                    android:layout_height="29dp"
-                    android:layout_gravity="center_horizontal|center"
-                    android:layout_marginStart="73dp"
+                    <View
+                        android:background="@drawable/auth_rectangle_41_ek5_shape"
+                        android:layout_marginStart="28dp"
+                        android:layout_marginTop="0dp"
+                        android:layout_width="50dp"
+                        android:layout_height="21dp" />
+
+                    <TextView
+                        android:fontFamily="@font/poppins_medium"
+                        android:layout_gravity="center_horizontal|center"
+                        android:gravity="center"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/first_name_color"
+                        android:layout_marginStart="-15dp"
+                        android:layout_marginTop="0dp"
+                        android:layout_width="136dp"
+                        android:layout_height="30dp"
+                        android:text="@string/enter_your_mail_string"
+                        />
+                </RelativeLayout>
+
+                <RelativeLayout
                     android:layout_marginTop="490dp"
-                    android:background="@drawable/mail_input_ek2"
-                    android:drawableStart="@drawable/vector_ek12"
-                    android:ems="10"
-                    android:fontFamily="@font/poppins_medium"
-                    android:gravity="center"
-                    android:hint="@string/enter_your_password_string"
-                    android:inputType="textPassword"
-                    android:textColor="@color/login_color"
-                    android:textColorHint="@color/login_color"
-                    android:textSize="13sp" />
+                    android:layout_marginStart="50dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
-                <Button android:id="@+id/signin"
-                    android:layout_width="181dp"
-                    android:layout_height="54dp"
-                    android:layout_gravity="center_horizontal|center"
-                    android:layout_marginStart="105dp"
+                    <EditText
+                        android:id="@+id/pwd"
+                        android:background="@drawable/auth_register_pwd_selector"
+                        android:inputType="textPassword"
+                        android:layout_marginStart="0dp"
+                        android:padding="9dp"
+                        android:layout_marginTop="11dp"
+                        android:layout_width="294dp"
+                        android:layout_height="40dp" />
+
+                    <View
+                        android:background="@drawable/auth_rectangle_41_ek5_shape"
+                        android:layout_marginStart="28dp"
+                        android:layout_marginTop="0dp"
+                        android:layout_width="90dp"
+                        android:layout_height="21dp" />
+
+                    <TextView
+                        android:fontFamily="@font/poppins_medium"
+                        android:layout_gravity="center_horizontal|center"
+                        android:gravity="center"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/first_name_color"
+                        android:layout_marginLeft="0dp"
+                        android:layout_marginTop="0dp"
+                        android:layout_width="136dp"
+                        android:layout_height="30dp"
+                        android:text="@string/enter_your_password_string"
+                        />
+                </RelativeLayout>
+
+                <RelativeLayout android:id="@+id/signin"
+                    android:background="@drawable/rectangle_3_shape"
                     android:layout_marginTop="598dp"
-                    android:background="@drawable/rectangle_1_shape"
-                    android:fontFamily="@font/poppins_medium"
-                    android:gravity="center"
-                    android:text="@string/login_ek1_string"
-                    android:textColor="@color/login_ek1_color"
-                    android:textSize="17sp" />
+                    android:layout_marginStart="105dp"
+                    android:focusable="true"
+                    android:clickable="true"
+                    android:layout_width="181dp"
+                    android:layout_height="54dp">
+
+                    <TextView
+                        android:fontFamily="@font/poppins_medium"
+                        android:layout_centerInParent="true"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textSize="21sp"
+                        android:textColor="@color/white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/login_ek1_string" />
+
+                </RelativeLayout>
 
                 <ImageView android:src="@drawable/left_line"
                     android:layout_width="65dp"
@@ -139,6 +187,18 @@
 
             </RelativeLayout>
         </RelativeLayout>
+
+        <TextView android:id="@+id/email_or_password_wrong"
+            android:visibility="invisible"
+            android:fontFamily="@font/poppins_medium"
+            android:textSize="9sp"
+            android:textColor="@color/email_or_password_wrong_color"
+            android:layout_marginStart="69dp"
+            android:layout_marginTop="445dp"
+            android:layout_width="346.5px"
+            android:layout_height="55.5px"
+            android:text="@string/email_or_password_wrong_string"
+            />
 
     </RelativeLayout>
 </RelativeLayout>

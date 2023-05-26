@@ -33,6 +33,9 @@ import org.junit.Test;
 
 public final class SearchFriendFragmentTest {
 
+    static {
+        FirebaseFirestore db = FirebaseEmulator.FIREBASE_FIRESTORE;
+    }
 
     @Rule
     public ActivityScenarioRule<MainActivity> scenario = new ActivityScenarioRule<>(MainActivity.class);
@@ -69,6 +72,7 @@ public final class SearchFriendFragmentTest {
 
 
     }
+
 
     private Task<AuthResult> spinAndWait(Task<AuthResult> task){
         // spin and wait for the task to complete
