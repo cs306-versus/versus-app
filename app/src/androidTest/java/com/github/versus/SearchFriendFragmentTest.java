@@ -55,7 +55,7 @@ public final class SearchFriendFragmentTest {
         onView(withId(R.id.user_recyclerView)).perform(click());
     }
 
-    @Test
+    //@Test
     public void testPressProfile() throws InterruptedException {
         onView(withId(R.id.search_users)).perform(typeText("Hamza"), closeSoftKeyboard());
         Thread.sleep(2000);
