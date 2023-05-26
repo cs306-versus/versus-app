@@ -11,7 +11,6 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,7 +18,6 @@ import com.github.versus.auth.VersusAuthenticator;
 import com.github.versus.db.FsUserManager;
 import com.github.versus.friends.UserAnnouncementAdapter;
 import com.github.versus.user.User;
-import com.github.versus.user.VersusUser;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 

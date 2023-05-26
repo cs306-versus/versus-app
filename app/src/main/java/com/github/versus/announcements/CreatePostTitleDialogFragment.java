@@ -1,14 +1,10 @@
 package com.github.versus.announcements;
 
-import static android.app.AlertDialog.*;
-
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -21,8 +17,6 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 import com.github.versus.R;
-import com.github.versus.db.FsPostManager;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 /**
  * A custom dialog fragment used for entering the title when creating a new post.
@@ -60,7 +54,7 @@ public class CreatePostTitleDialogFragment extends DialogFragment {
         EditText et = innerView.findViewById(R.id.editPostTitle);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.CustomAlertDialog);
-        FsPostManager fpm = new FsPostManager(FirebaseFirestore.getInstance());
+
         builder.setView(innerView)
                 .setPositiveButton("Next", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {

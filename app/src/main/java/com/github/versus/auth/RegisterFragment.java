@@ -1,6 +1,5 @@
 package com.github.versus.auth;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,19 +12,13 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.github.versus.MainActivity;
 import com.github.versus.R;
 import com.github.versus.databinding.AuthFragmentRegisterBinding;
-import com.github.versus.db.FsPostManager;
-import com.github.versus.db.FsScheduleManager;
-import com.github.versus.db.FsUserManager;
 import com.github.versus.rating.Rating;
-import com.github.versus.schedule.Schedule;
 import com.github.versus.user.VersusUser;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
 

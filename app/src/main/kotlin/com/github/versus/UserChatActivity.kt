@@ -14,10 +14,8 @@ import com.github.versus.chats.Chat
 import com.github.versus.chats.Message
 import com.github.versus.chats.MessageAdapter
 import com.github.versus.db.FsChatManager
-import com.github.versus.posts.Post
 import com.github.versus.posts.Timestamp
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
 import java.time.Month
 import java.util.concurrent.CompletableFuture

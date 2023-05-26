@@ -9,13 +9,9 @@ import com.github.versus.posts.Location;
 import com.github.versus.posts.Post;
 import com.github.versus.posts.Timestamp;
 import com.github.versus.sports.Sport;
-import com.github.versus.user.User;
 import com.github.versus.user.VersusUser;
 
-import java.time.Month;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 //TODO: Use Class Converter instead of dumb caching
 /*

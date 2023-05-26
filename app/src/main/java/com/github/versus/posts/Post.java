@@ -2,7 +2,6 @@ package com.github.versus.posts;
 
 import com.github.versus.rating.Rating;
 import com.github.versus.sports.Sport;
-import com.github.versus.user.User;
 import com.github.versus.user.VersusUser;
 
 import java.io.Serializable;
@@ -27,7 +26,6 @@ public class Post implements Serializable {
     private int playerLimit;
     private Sport sport ;
 
-    private String CreatorId;
 
     private List<Rating> ratings;
 
@@ -98,12 +96,7 @@ public class Post implements Serializable {
     public Sport getSport() {
         return sport;
     }
-    /**
-     * @return the player to player ratings of the game
-     */
-    public List<Rating> getRatings() {
-        return ratings;
-    }
+
     /**
      * @return all the attributes of the post in a map fashion
      */
@@ -178,8 +171,5 @@ public class Post implements Serializable {
         this.uid = uid;
     }
 
-    public void addRating(Rating rating) {
-        this.ratings.add(rating);
-    }
 
 }

@@ -3,17 +3,12 @@ package com.github.versus.user;
 import static java.util.Objects.isNull;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.github.versus.R;
-import com.github.versus.auth.VersusAuthenticator;
+import androidx.fragment.app.Fragment;
+
 import com.github.versus.databinding.FragmentUserInfoBinding;
 import com.github.versus.db.FsUserManager;
 import com.google.firebase.auth.FirebaseAuth;

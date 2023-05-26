@@ -3,9 +3,7 @@ package com.github.versus.weather;
 import com.github.versus.posts.Location;
 import com.github.versus.posts.Timestamp;
 
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;

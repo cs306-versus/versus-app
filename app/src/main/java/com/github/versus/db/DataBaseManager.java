@@ -1,6 +1,5 @@
 package com.github.versus.db;
 
-import java.util.List;
 import java.util.concurrent.Future;
 
 /**

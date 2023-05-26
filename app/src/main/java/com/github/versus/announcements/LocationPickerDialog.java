@@ -1,8 +1,6 @@
 package com.github.versus.announcements;
 
 
-
-
 import static com.github.versus.announcements.CreatePostTitleDialogFragment.changeWindowDimensions;
 
 import android.app.AlertDialog;
@@ -17,7 +15,6 @@ import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 
 import androidx.fragment.app.DialogFragment;
 
@@ -26,7 +23,6 @@ import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.widget.Autocomplete;
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
-
 
 import java.util.Arrays;
 import java.util.List;

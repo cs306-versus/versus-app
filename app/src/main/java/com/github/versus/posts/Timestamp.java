@@ -1,15 +1,12 @@
 package com.github.versus.posts;
 
-import java.net.MulticastSocket;
 import java.time.Month;
-import java.time.Year;
-import java.time.YearMonth;
 import java.util.Calendar;
 
 public class Timestamp {
 
     private static final int CURR_YEAR = Calendar.getInstance().get(Calendar.YEAR);
-    private static final int MAX_YEAR = CURR_YEAR;
+
     private final int year;
     private final Month month;
     private final int day;
@@ -37,9 +34,7 @@ public class Timestamp {
         this.meridiem = meridiem;
     }
 
-    private Timestamp(){
-        this(CURR_YEAR, Month.FEBRUARY, 1, 0,0,Meridiem.AM );
-    }
+
 
 
     /**

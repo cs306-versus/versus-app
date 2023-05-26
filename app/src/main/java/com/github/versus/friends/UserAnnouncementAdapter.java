@@ -1,20 +1,14 @@
 package com.github.versus.friends;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.github.versus.AddFriendFragment;
 import com.github.versus.R;
 import com.github.versus.chats.Chat;
 import com.github.versus.db.FsChatManager;
@@ -24,8 +18,6 @@ import com.github.versus.user.VersusUser;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.makeramen.roundedimageview.RoundedImageView;
-
-import org.checkerframework.checker.units.qual.A;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;

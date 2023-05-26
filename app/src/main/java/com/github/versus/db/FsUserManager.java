@@ -1,10 +1,7 @@
 package com.github.versus.db;
 
-import com.github.versus.sports.Sport;
 import androidx.annotation.NonNull;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.versus.posts.Post;
 import com.github.versus.rating.Rating;
 import com.github.versus.sports.Sport;
 import com.github.versus.user.User;
@@ -45,7 +42,7 @@ public class FsUserManager implements DataBaseManager<User> {
     private static final String PHONE_FIELD       = "phone";
     private static final String RATING_FIELD      = "rating";
     private static final String CITY_FIELD        = "city";
-    private static final String ZIP_CODE_FIELD    = "zip";
+
     private static final String PREF_SPORTS_FIELD = "preferred-sports";
     // ============================================================================================
 

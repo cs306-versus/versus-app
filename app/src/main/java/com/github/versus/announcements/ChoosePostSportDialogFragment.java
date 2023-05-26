@@ -1,7 +1,6 @@
 package com.github.versus.announcements;
 
-import static android.app.AlertDialog.*;
-
+import static android.app.AlertDialog.Builder;
 import static com.github.versus.announcements.CreatePostTitleDialogFragment.changeWindowDimensions;
 
 import android.app.Activity;
@@ -16,10 +15,6 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -27,12 +22,8 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 import com.github.versus.R;
-import com.github.versus.db.FsPostManager;
 import com.github.versus.sports.Sport;
-import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 

@@ -159,11 +159,6 @@ public final class VersusUser implements User, Serializable {
         return (obj instanceof VersusUser) && uid.equals(((VersusUser) obj).uid);
     }
 
-    public static String computeUID(String mail){
-        String uid =  Integer.toHexString(mail.hashCode()).toUpperCase();
-        return uid;
-    }
-
     @NonNull
     @Override
     public String toString() {
@@ -294,10 +289,6 @@ public final class VersusUser implements User, Serializable {
             return this;
         }
 
-        public Builder addFriend(String friendUID){
-            friends.add(friendUID);
-            return this;
-        }
 
         @Override
         public VersusBuilder setUID(String uid){

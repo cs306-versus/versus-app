@@ -3,7 +3,6 @@ package com.github.versus.offline;
 import com.github.versus.sports.Sport;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 

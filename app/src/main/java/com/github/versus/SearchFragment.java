@@ -22,11 +22,11 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.github.versus.announcements.PostAnnouncementAdapter;
 import com.github.versus.announcements.ChoosePostSportDialogFragment;
 import com.github.versus.announcements.CreatePostTitleDialogFragment;
 import com.github.versus.announcements.LocationPickerDialog;
 import com.github.versus.announcements.MaxPlayerDialogFragment;
+import com.github.versus.announcements.PostAnnouncementAdapter;
 import com.github.versus.announcements.PostDatePickerDialog;
 import com.github.versus.auth.VersusAuthenticator;
 import com.github.versus.db.FsPostManager;

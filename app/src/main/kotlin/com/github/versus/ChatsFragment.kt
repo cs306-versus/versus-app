@@ -1,15 +1,12 @@
 package com.github.versus
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.github.versus.chats.Chat
-import com.github.versus.db.FsChatManager
 import com.github.versus.db.FsUserManager
 import com.github.versus.user.User
 import com.github.versus.user.UserAdapter

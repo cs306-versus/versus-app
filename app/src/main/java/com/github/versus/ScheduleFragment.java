@@ -1,7 +1,6 @@
 package com.github.versus;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +19,6 @@ import androidx.fragment.app.FragmentTransaction;
 import com.github.versus.db.FsScheduleManager;
 import com.github.versus.posts.Post;
 import com.github.versus.posts.Timestamp;
-import com.github.versus.schedule.Schedule;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 

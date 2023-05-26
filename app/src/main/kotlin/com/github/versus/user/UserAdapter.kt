@@ -9,7 +9,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.github.versus.R
 import com.github.versus.UserChatActivity
-import com.google.firebase.auth.FirebaseAuth
 
 class UserAdapter(val context : Context, val userList : ArrayList<VersusUser>):
         RecyclerView.Adapter<UserAdapter.UserViewHolder>() {

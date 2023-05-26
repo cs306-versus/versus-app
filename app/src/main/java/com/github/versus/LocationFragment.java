@@ -6,7 +6,6 @@ import static java.lang.Math.sin;
 import static java.lang.Math.sqrt;
 import static java.lang.Math.toRadians;
 
-import android.animation.ValueAnimator;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -29,12 +28,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,9 +41,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.github.versus.db.DataBaseManager;
 import com.github.versus.db.DummyLocationManager;
 import com.github.versus.user.CustomPlace;
@@ -69,10 +62,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
-import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
-
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -81,7 +72,6 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -117,7 +107,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     private final LatLng defaultLocation = new LatLng(-33.8523341, 151.2106085);
     private CameraPosition cameraPosition;
     // The entry point to the Places API.
-    private PlacesClient placesClient;
+
     // The entry point to the Fused Location Provider.
     private FusedLocationProviderClient fusedLocationProviderClient;
     private DataBaseManager dummyLocationManager;
@@ -134,7 +124,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
     private Marker blueMarker ;
     private Marker redMarker;
     private Polyline lastDrawnLine;
-    private double distanceValue;
+
     private Marker blinkingMarker;
 
 
@@ -162,7 +152,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         } catch (PackageManager.NameNotFoundException e) {
             throw new RuntimeException(e);
         }
-        placesClient = Places.createClient(getActivity());
+
 
         // Construct a FusedLocationProviderClient.
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
@@ -902,7 +892,6 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
                         pathPoints.add(new LatLng(endLat, endLng));
                         JSONObject distanceObject = leg.getJSONObject("distance");
                         distanceText = distanceObject.getString("text");
-                        distanceValue = distanceObject.getDouble("value");
 
                         return pathPoints;
                     } else {

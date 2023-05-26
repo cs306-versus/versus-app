@@ -4,7 +4,6 @@ import com.github.versus.posts.Location;
 import com.github.versus.posts.Post;
 import com.github.versus.posts.Timestamp;
 import com.github.versus.sports.Sport;
-import com.github.versus.user.User;
 import com.github.versus.user.VersusUser;
 
 import java.time.Month;
@@ -12,7 +11,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Map;
 
 /**
  * A class designed for testing the Cache manager

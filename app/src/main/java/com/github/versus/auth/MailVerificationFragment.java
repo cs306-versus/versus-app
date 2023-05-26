@@ -2,20 +2,16 @@ package com.github.versus.auth;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.fragment.app.Fragment;
+
 import com.github.versus.MainActivity;
-import com.github.versus.R;
 import com.github.versus.databinding.AuthFragmentMailVerificationBinding;
 import com.google.firebase.auth.FirebaseAuth;
-
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class MailVerificationFragment extends Fragment {
 
