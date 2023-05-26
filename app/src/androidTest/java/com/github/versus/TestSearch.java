@@ -61,11 +61,7 @@ public class TestSearch {
     @Test
     public void testGameFragment() {
 
-        try {
-            Thread.sleep(5000); // wait for 1 second
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
         //Opening the drawer
         onView(withId(R.id.main_activity_layout)).check(matches(DrawerMatchers.isClosed(GravityCompat.START))).perform(DrawerActions.open());
         onView(withId(R.id.main_activity_layout)).check(matches(DrawerMatchers.isOpen(GravityCompat.START)));
@@ -90,45 +86,19 @@ public class TestSearch {
                         if (button != null) {
                             // Perform a click on the button
                             button.performClick();
-                            try {
-                                Thread.sleep(2000); // wait for 1 second
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
+
                             button.performClick();
 
                         }
                     }
                 }));
-        try {
-            Thread.sleep(2000); // wait for 1 second
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
 
 
 
         //Scrolling down so that  the first item of the list of games is visible
       //  RecyclerView rectangleView1 = onView(withId(R.id.recyclerView));
-        try {
-            Thread.sleep(2000); // wait for 1 second
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        try {
-            Thread.sleep(2000); // wait for 1 second
-        } catch (InterruptedException e) {
-            e.printStackTrace();
 
-
-        }
-        //Performing the click on the first item of the games in the schedule
-       // onData(anything()).inAdapterView(withId(R.id.recyclerView)).atPosition(0).perform(click());
-        try {
-            Thread.sleep(2000); // wait for 1 second
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
 
     }
 
