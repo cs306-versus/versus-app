@@ -90,6 +90,10 @@ public final class SearchFragmentTest {
 
     @Test
     public void testCreatePostWithLocation() throws InterruptedException {
+<<<<<<< HEAD
+=======
+
+>>>>>>> aae83b05c3d0b5ed83f211907688c901e0cb6466
         onView(withId(R.id.add_posts)).perform(click());
         onView(withId(R.id.editPostTitle)).check(matches(isDisplayed()));
         onView(withId(R.id.editPostTitle)).perform(typeText("TEST POST"), closeSoftKeyboard());

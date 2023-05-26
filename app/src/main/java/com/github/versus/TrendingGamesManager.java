@@ -112,6 +112,7 @@ public class TrendingGamesManager {
     }
 
 
+
     /**
      * Returns the image resource ID for the sport at the specified position in the
      * list of trending sports.
