@@ -47,4 +47,11 @@ public class ChatTests {
         Assert.assertEquals(From+To,Chat.computeChatId(From,To));
             }
 
+    @Test
+    public void CorrectIdIsComputed2(){
+        String From= "Adam Lkharita";
+        String To= "Abdess Piquant";
+        Assert.assertEquals(From+To,Chat.computeChatId(To,From));
+    }
+
 }
