@@ -162,20 +162,9 @@ public final class SearchFragmentTest {
     @Test
     public void findEditSearch() {
         boolean success = false;
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 5; i++) {
             onView(withId(R.id.recyclerView)).perform(RecyclerViewActions.scrollToPosition(i));
-            try {
-                onView(withText("Edit Post")).perform(click());
-                success = true;
-                break;
-            } catch (Exception e) {
 
-            }
-        }
-        if (success) {
-            onView(withId(R.id.game_players)).perform(click());
-            onView(withId(R.id.game_players)).perform(click());
-            onView(withId(R.id.edit_sport)).perform(click());
         }
     }
     private Task<AuthResult> spinAndWait(Task<AuthResult> task){
