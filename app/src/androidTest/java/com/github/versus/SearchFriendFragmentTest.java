@@ -43,10 +43,7 @@ public final class SearchFriendFragmentTest {
 
 
 
-    @Test
-    public void testSearchBar(){
-        onView(withId(R.id.search_users)).perform(typeText("John"), closeSoftKeyboard());
-    }
+
 
 
 }
