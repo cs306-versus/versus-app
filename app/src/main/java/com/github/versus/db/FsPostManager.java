@@ -87,15 +87,6 @@ public class FsPostManager implements DataBaseManager<Post> {
         return future;
     }
 
-
-    public void update(String id, Post edits){
-        db.collection("posts").document(id).update("title", edits.getTitle());
-        db.collection("posts").document(id).update("date", edits.getDate());
-        db.collection("posts").document(id).update("location", edits.getLocation());
-        db.collection("posts").document(id).update("playerLimit", edits.getPlayerLimit());
-        db.collection("posts").document(id).update("sport", edits.getSport());
-    }
-
     /**
      *
      * @param collectionName : name of the collection from which we want to fetch elements
@@ -169,56 +160,6 @@ public class FsPostManager implements DataBaseManager<Post> {
 
         return compFuture;
     }
-
-    public Future<Boolean> joinPost(User user, String uid){
-        //accessing the collection
-        CollectionReference postsRef = db.collection(POSTCOLLECTION.toString());
-        //finding the announcement with the right id
-        Task<DocumentSnapshot> task = postsRef.document(uid).get();
-
-        // Wrap the Task in a CompletableFuture that returns the status of the post join
-        CompletableFuture<Boolean> future = new CompletableFuture<>();
-
-        //we complete the future with false if the query failed
-        //otherwise we try to update the value of the players field
-        task.addOnSuccessListener(res-> {
-
-            //getting the documents corresponding to the post
-
-
-            List<User> players = (List<User>)res.get("players");
-
-            //getting the player limit
-            long playerLimit = (long)res.get("playerLimit");
-
-            //check that the limit isn't reached yet
-            if(players.size() >= playerLimit){
-                future.complete(false);
-            }else{
-                //creating a new list corresponding to the old one + the new user
-                List<User> newPlayers = new ArrayList<>(players);
-
-                newPlayers.add(user);
-
-                //updating the field value
-                //if the update task is a success we complete the future with true
-                //otherwise we complete the future with false
-                res.getReference().update("players", newPlayers).addOnSuccessListener(aVoid ->{
-
-                    future.complete(true);
-                }).addOnFailureListener(e ->{
-                    future.complete(false);
-                }
-                );
-            }
-
-        }).addOnFailureListener(e -> {
-            future.complete(false);
-        });
-
-        return future;
-    }
-
 
     public Future<Boolean> leavePost(User user, String uid){
         //accessing the collection
@@ -345,10 +286,5 @@ public class FsPostManager implements DataBaseManager<Post> {
 
         return future;
     }
-
-
-
-
-
 
 }
