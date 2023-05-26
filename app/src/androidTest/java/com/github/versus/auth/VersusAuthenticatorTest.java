@@ -33,7 +33,8 @@ public final class VersusAuthenticatorTest {
 
     private final VersusAuthenticator auth = VersusAuthenticator.getInstance(FirebaseEmulator.FIREBASE_AUTH);
 
-    private final VersusUser.VersusBuilder builder =(VersusUser.VersusBuilder) (new VersusUser.VersusBuilder(null)
+    private final VersusUser.VersusBuilder builder =
+            (VersusUser.VersusBuilder) (new VersusUser.VersusBuilder(null)
             .setFirstName("John")
             .setLastName("Doe")
             .setUserName("john-doe")
@@ -124,7 +125,7 @@ public final class VersusAuthenticatorTest {
     // ================================== MAIL VALIDITY TESTS =====================================
     // ============================================================================================
 
-    //@Test
+    @Test
     public void testValidMail() throws InterruptedException {
         Task<AuthResult> task = auth.signInWithMail(validMail(), validPassword());
         spinAndWait(task);
