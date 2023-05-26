@@ -124,7 +124,7 @@ public class PostAnnouncementAdapter extends RecyclerView.Adapter<PostAnnounceme
                                     viewHolder.getButtonText().setText("Joined");
                                     viewHolder.getJoinButton().setEnabled(false);
                                     currentPost.getPlayers().add(user);
-                                    fpm.joinPost(user, currentPost.getUid());
+                                    fpm.joinPost(currentPost.getTitle(), user);
                                     FsScheduleManager sman = new FsScheduleManager(FirebaseFirestore.getInstance());
                                     sman.addPostToSchedule(user.getUID(), currentPost);
                                     notifyDataSetChanged();
