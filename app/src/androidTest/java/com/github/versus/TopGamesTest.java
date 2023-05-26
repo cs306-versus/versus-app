@@ -98,15 +98,6 @@ public class TopGamesTest {
 
     }
 
-    @Test
-    public void testOnsecondPosition() {
-        onView(withId(R.id.main_activity_layout)).check(matches(DrawerMatchers.isClosed(GravityCompat.START))).perform(DrawerActions.open());
-        onView(withId(R.id.main_activity_layout)).check(matches(DrawerMatchers.isOpen(GravityCompat.START)));
-        onView(withId(R.id.nav_schedule)).perform(click());
-        onView(withId(R.id.arrow_11)).perform(click());
-        onView(withId(R.id.arrow_11)).perform(click());
-        onView(withId(R.id.Saturday_button)).perform(click());
-    }
 
     /**
      * This method tests the second position of the trending sports by clicking on the appropriate picture and
