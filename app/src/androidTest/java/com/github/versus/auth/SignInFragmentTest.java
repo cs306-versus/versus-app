@@ -46,7 +46,11 @@ public final class SignInFragmentTest {
 
     @Test
     public void testOnSuccessSignIn() throws InterruptedException {
-      
+        onView(withId(R.id.mail)).perform(replaceText("abdess9ess@gmail.com"));
+        onView(withId(R.id.pwd)).perform(replaceText("123456789"));
+        onView(withId(R.id.signin)).perform(click());
+        Thread.sleep(5000); // Wait for 2 secs
+
     }
 
     @Test
