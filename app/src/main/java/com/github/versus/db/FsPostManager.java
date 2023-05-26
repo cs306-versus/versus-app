@@ -210,6 +210,7 @@ public class FsPostManager implements DataBaseManager<Post> {
                 //if the update task is a success we complete the future with true
                 //otherwise we complete the future with false
                 res.getReference().update("players", newPlayers).addOnSuccessListener(aVoid ->{
+
                     future.complete(true);
                 }).addOnFailureListener(e ->{
                     future.complete(false);

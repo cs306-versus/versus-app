@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.github.versus.R
+import com.github.versus.user.VersusUser
 import com.google.firebase.auth.FirebaseAuth
 
 class MessageAdapter(val context: Context, val messageList: ArrayList<Message>) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
@@ -16,7 +17,7 @@ class MessageAdapter(val context: Context, val messageList: ArrayList<Message>) 
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        if(viewType == 1){
+        if(viewType == ITEM_RECEIVE){
             val view : View = LayoutInflater.from(context).inflate(R.layout.item_container_received_message, parent, false)
             return ReceiveViewHolder(view)
         }else{
@@ -27,7 +28,8 @@ class MessageAdapter(val context: Context, val messageList: ArrayList<Message>) 
 
     override fun getItemViewType(position: Int): Int {
         val currentMessage = messageList[position]
-        if(FirebaseAuth.getInstance().currentUser?.uid.equals(currentMessage.sender.uid)){
+        val currUserUid = FirebaseAuth.getInstance().uid
+        if(currUserUid.equals(currentMessage.sender)){
             return ITEM_SENT
         }
         return ITEM_RECEIVE
@@ -43,7 +45,7 @@ class MessageAdapter(val context: Context, val messageList: ArrayList<Message>) 
 
         if(holder.javaClass == SentViewHolder::class.java){
             val viewHolder = holder as SentViewHolder
-             viewHolder.sentMessage.text = currentMessage.body
+            viewHolder.sentMessage.text = currentMessage.body
 
 
         }else{

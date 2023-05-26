@@ -9,7 +9,9 @@ import com.github.versus.sports.Sport;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -32,10 +34,12 @@ public final class VersusUser implements User, Serializable {
     private final int zip;
     private final List<Sport> preferredSports;
 
+    private final List<String> friends;
+
 
     public VersusUser(){
-        city = null;
-        preferredSports = null;
+        city = "";
+        preferredSports =  new ArrayList<>();
         zip = -1;
         rating = 0;
         phone = "";
@@ -44,8 +48,9 @@ public final class VersusUser implements User, Serializable {
         uid = "";
         firstName = "";
         lastName = "";
+        friends = new ArrayList<>();
     }
-    public VersusUser(String uid, String firstName,String lastName,String userName, String mail, String phone , int rating , String city, int zipCode,List<Sport> preferredSports ){
+    public VersusUser(String uid, String firstName,String lastName,String userName, String mail, String phone , int rating , String city, int zipCode,List<Sport> preferredSports, List<String> friends ){
         this.uid = uid;
         this.firstName =firstName;
         this.lastName = lastName;
@@ -55,7 +60,8 @@ public final class VersusUser implements User, Serializable {
         this.rating =rating;
         this.city = city;
         this.zip =zipCode;
-        this.preferredSports = List.copyOf(preferredSports);
+        this.preferredSports = preferredSports;
+        this.friends = friends;
     }
     public VersusUser(VersusBuilder builder){
         this.uid = builder.uid;
@@ -67,7 +73,8 @@ public final class VersusUser implements User, Serializable {
         this.rating = builder.rating;
         this.city = builder.city;
         this.zip = builder.zipCode;
-        this.preferredSports = List.copyOf(builder.preferredSports);
+        this.preferredSports = builder.preferredSports ==  null ? new ArrayList<>() :List.copyOf(builder.preferredSports);
+        this.friends = builder.friends ==  null ? new ArrayList<>() :List.copyOf(builder.friends);
     }
 
     @Override
@@ -120,6 +127,29 @@ public final class VersusUser implements User, Serializable {
         return preferredSports;
     }
 
+    public List<String> getFriends() {
+        return friends;
+    }
+
+
+    public Map<String, Object> getAllAttributes(){
+        Map<String, Object> fields = new HashMap<>();
+
+        // Add All fields
+        fields.put("first-name", getFirstName());
+        fields.put("last-name", getLastName());
+        fields.put("uid", getUID());
+        fields.put("username", getUserName());
+        fields.put("mail", getMail());
+        fields.put("phone", getPhone());
+        fields.put("rating", getRating());
+        fields.put("city", getCity());
+        fields.put("zip", getZipCode());
+        fields.put("preferred-sports", getPreferredSports());
+        fields.put("friends", getFriends());
+
+        return fields;
+    }
     @Override
     public int hashCode() {
         return Objects.hashCode(uid);
@@ -128,6 +158,11 @@ public final class VersusUser implements User, Serializable {
     @Override
     public boolean equals(@Nullable Object obj) {
         return (obj instanceof VersusUser) && uid.equals(((VersusUser) obj).uid);
+    }
+
+    public static String computeUID(String mail){
+        String uid =  Integer.toHexString(mail.hashCode()).toUpperCase();
+        return uid;
     }
 
     @NonNull
@@ -154,6 +189,8 @@ public final class VersusUser implements User, Serializable {
         private String city;
         private int zipCode;
         private List<Sport> preferredSports = new ArrayList<>();
+
+        private List<String> friends = new ArrayList<>();
 
         /**
          * ???
@@ -262,11 +299,16 @@ public final class VersusUser implements User, Serializable {
             return this;
         }
 
-        /**
-         * ???
-         * @param userName
-         * @return
-         */
+        public Builder setFriends(List<String> friends){
+            this.friends = friends;
+            return this;
+        }
+
+        public Builder addFriend(String friendUID){
+            friends.add(friendUID);
+            return this;
+        }
+
         @Override
         public VersusBuilder setUID(String uid){
             this.uid = uid;
@@ -277,7 +319,6 @@ public final class VersusUser implements User, Serializable {
          * ???
          * @return
          */
-        @Override
         public VersusUser build(){
             return new VersusUser(this);
         }
