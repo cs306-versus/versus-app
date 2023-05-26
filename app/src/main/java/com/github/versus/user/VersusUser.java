@@ -256,7 +256,7 @@ public final class VersusUser implements User, Serializable {
         }
 
         @Override
-        public Builder setRating(long rating) {
+        public VersusBuilder setRating(long rating) {
             this.rating = rating;
             return this;
         }
