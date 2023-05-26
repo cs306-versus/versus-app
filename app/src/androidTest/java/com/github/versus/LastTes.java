@@ -38,7 +38,7 @@ import org.junit.runner.RunWith;
 
 
 @RunWith(AndroidJUnit4.class)
-public class TopGamesTest {
+public class LastTes {
 
 
 
@@ -59,45 +59,17 @@ public class TopGamesTest {
     }
 
 
-    /**
-     * This method tests the first position of the trending sports by clicking on the appropriate picture and
-     * showing the filtered posts of the sport
-     */
+
+
     @Test
-    public void testOnFirstPosition() {
-        //Opening the drawer menu
+    public void testOnsecondPosition() {
         onView(withId(R.id.main_activity_layout)).check(matches(DrawerMatchers.isClosed(GravityCompat.START))).perform(DrawerActions.open());
         onView(withId(R.id.main_activity_layout)).check(matches(DrawerMatchers.isOpen(GravityCompat.START)));
-        //Performing the click on the trending sports button
-        onView(withId(R.id.nav_trending_sports)).perform(click());
-        //Performing multiple clicks  on the left and right arrow in order to cover all the branches  in the code
-        onView(withId(R.id.arrow_right)).perform(click());
-        onView(withId(R.id.arrow_right)).perform(click());
-        onView(withId(R.id.arrow_right)).perform(click());
-        onView(withId(R.id.arrow_right)).perform(click());
-        onView(withId(R.id.arrow_right)).perform(click());
-        onView(withId(R.id.arrow_left)).perform(click());
-        onView(withId(R.id.arrow_left)).perform(click());
-        onView(withId(R.id.arrow_left)).perform(click());
-        onView(withId(R.id.arrow_left)).perform(click());
-        onView(withId(R.id.arrow_left)).perform(click());
-
-        try {
-            Thread.sleep(10000); // wait for 10 seconds
-        } catch (InterruptedException e) {
-            // handle the exception
-        }
-        //Clicking on the image in order to show the filtered posts of the trending sport.
-
-        try {
-            Thread.sleep(10000); // wait for 10 seconds
-        } catch (InterruptedException e) {
-            // handle the exception
-        }
-
-
+        onView(withId(R.id.nav_schedule)).perform(click());
+        onView(withId(R.id.arrow_11)).perform(click());
+        onView(withId(R.id.arrow_11)).perform(click());
+        onView(withId(R.id.Saturday_button)).perform(click());
     }
-
 
     /**
      * This method tests the second position of the trending sports by clicking on the appropriate picture and
