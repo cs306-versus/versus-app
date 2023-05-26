@@ -51,7 +51,7 @@ public class UserInfoFragment extends Fragment {
     public void updateUI(User user){
         if(isNull(user))
             return;
-        //binding.infoUid.setText(user.getUID());
+        binding.infoUid.setText(user.getUID());
         binding.infoFirstName.setText(user.getFirstName());
         binding.infoLastName.setText(user.getLastName());
         binding.infoUsername.setText(user.getUserName());
