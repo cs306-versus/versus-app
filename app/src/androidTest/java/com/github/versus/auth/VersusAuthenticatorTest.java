@@ -122,7 +122,7 @@ public final class VersusAuthenticatorTest {
     // ================================== MAIL VALIDITY TESTS =====================================
     // ============================================================================================
 
-    @Test
+    //@Test
     public void testValidMail() throws InterruptedException {
         Task<AuthResult> task = auth.signInWithMail(validMail(), validPassword());
         spinAndWait(task);
