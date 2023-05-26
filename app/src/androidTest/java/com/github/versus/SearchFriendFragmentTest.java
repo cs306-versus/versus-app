@@ -36,7 +36,6 @@ public final class SearchFriendFragmentTest {
         onView(withId(R.id.friend_search)).perform(click());
     }
 
-
     @Test
     public void testScrollRecyclerView(){
         onView(withId(R.id.user_recyclerView)).perform(click());
