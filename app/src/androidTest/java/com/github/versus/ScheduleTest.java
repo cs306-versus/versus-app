@@ -41,7 +41,7 @@ public final class ScheduleTest {
 
 
 
-    
+
     @Rule
     public ActivityScenarioRule<MainActivity> scenario = new ActivityScenarioRule<>(MainActivity.class);
 
