@@ -97,7 +97,7 @@ public class TopGamesTest {
 
 
     }
-    
+
     @Test
     public void testOnsecondPosition() {
         onView(withId(R.id.main_activity_layout)).check(matches(DrawerMatchers.isClosed(GravityCompat.START))).perform(DrawerActions.open());
