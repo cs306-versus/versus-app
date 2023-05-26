@@ -69,7 +69,8 @@ public final class RegisterFragment extends Fragment {
             return;
         }
         VersusUser.VersusBuilder builder = new VersusUser.VersusBuilder(FirebaseAuth.getInstance().getUid());
-        ((VersusUser.VersusBuilder)(builder.setFirstName(firstName)
+        // TODO HR : Link this when the UI is ready (see issue #58 in versus-app)
+        ( (VersusUser.VersusBuilder)(builder.setFirstName(firstName)
                 .setLastName(lastName)
                 .setUserName(String.format("%s-%s", firstName, lastName).toLowerCase())
                 .setPhone(phone)

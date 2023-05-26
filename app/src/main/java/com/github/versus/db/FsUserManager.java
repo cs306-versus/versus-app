@@ -108,7 +108,7 @@ public class FsUserManager implements DataBaseManager<User> {
 
     private VersusUser.Builder build(DocumentSnapshot doc){
         VersusUser.VersusBuilder builder = new VersusUser.VersusBuilder(doc.getId());
-        return builder.setFirstName(doc.get(FIRST_NAME_FIELD, String.class))
+        return builder.setFriends((List<String>) doc.get("friends")).setFirstName(doc.get(FIRST_NAME_FIELD, String.class))
                 .setLastName(doc.get(LAST_NAME_FIELD, String.class))
                 .setUserName(doc.get(USERNAME_FIELD, String.class))
                 .setMail(doc.get(MAIL_FIELD, String.class))
@@ -125,7 +125,7 @@ public class FsUserManager implements DataBaseManager<User> {
         CompletableFuture<User> future = new CompletableFuture<>();
         Task<DocumentSnapshot> doc = collection.document(uid).get();
         doc.addOnSuccessListener(content -> {
-            VersusUser.Builder builder = build(content);
+            VersusUser.VersusBuilder builder = (VersusUser.VersusBuilder)build(content);
             future.complete(builder.build());
         })
         .addOnFailureListener(failure -> {

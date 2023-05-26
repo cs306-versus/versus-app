@@ -14,8 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-/**
- * Implementation of a User for Versus
+/* Implementation of a User for Versus
  *
  * @author Hamza REMMAL (hamza.remmal@epfl.ch)
  * @since SPRINT 2
@@ -50,7 +49,7 @@ public final class VersusUser implements User, Serializable {
         lastName = "";
         friends = new ArrayList<>();
     }
-    public VersusUser(String uid, String firstName,String lastName,String userName, String mail, String phone , long rating , String city, int zipCode,List<Sport> preferredSports, List<String> friends ){
+    public VersusUser(String uid, String firstName,String lastName,String userName, String mail, String phone , int rating , String city, int zipCode,List<Sport> preferredSports, List<String> friends ){
         this.uid = uid;
         this.firstName =firstName;
         this.lastName = lastName;
@@ -171,8 +170,7 @@ public final class VersusUser implements User, Serializable {
         return String.format("[User %s - %s]", uid, userName);
     }
 
-    /**
-     * Builder class to build new Versus User
+    /* Builder class to build new Versus User
      *
      * @author Hamza REMMAL (hamza.remmal@epfl.ch)
      * @since SPRINT 2
@@ -192,16 +190,14 @@ public final class VersusUser implements User, Serializable {
 
         private List<String> friends = new ArrayList<>();
 
-        /**
-         * ???
+        /* ???
          * @param uid
          */
         public VersusBuilder(String uid){
             this.uid = uid;
         }
 
-        /**
-         * ???
+        /* ???
          * @param firstName
          * @return
          */
@@ -211,8 +207,7 @@ public final class VersusUser implements User, Serializable {
             return this;
         }
 
-        /**
-         * ???
+        /* ???
          * @param lastName
          * @return
          */
@@ -222,8 +217,7 @@ public final class VersusUser implements User, Serializable {
             return this;
         }
 
-        /**
-         * ???
+        /* ???
          * @param userName
          * @return
          */
@@ -233,8 +227,7 @@ public final class VersusUser implements User, Serializable {
             return this;
         }
 
-        /**
-         * ???
+        /* ???
          * @param mail
          * @return
          */
@@ -244,8 +237,7 @@ public final class VersusUser implements User, Serializable {
             return this;
         }
 
-        /**
-         * ???
+        /* ???
          * @param phone
          * @return
          */
@@ -256,22 +248,18 @@ public final class VersusUser implements User, Serializable {
         }
 
         @Override
-        public VersusBuilder setRating(long rating) {
+        public Builder setRating(long rating) {
             this.rating = rating;
             return this;
         }
 
-
-
-        /**
-         * ???
+        /* ???
          * @param rating
          * @return
          */
 
 
-        /**
-         * ???
+        /* ???
          * @param city
          * @return
          */
@@ -281,8 +269,7 @@ public final class VersusUser implements User, Serializable {
             return this;
         }
 
-        /**
-         * ???
+        /* ???
          * @param zip
          * @return
          */
@@ -292,8 +279,7 @@ public final class VersusUser implements User, Serializable {
             return this;
         }
 
-        /**
-         * ???
+        /* ???
          * @param sports
          * @return
          */
@@ -323,7 +309,6 @@ public final class VersusUser implements User, Serializable {
          * ???
          * @return
          */
-        @Override
         public VersusUser build(){
             return new VersusUser(this);
         }
