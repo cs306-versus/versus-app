@@ -36,7 +36,8 @@ public final class VersusAuthenticator implements Authenticator {
         this.user_manager = new FsUserManager(FirebaseFirestore.getInstance());
         this.schedule_manager = new FsScheduleManager(FirebaseFirestore.getInstance());
         if(auth.getCurrentUser() != null){
-            ((CompletableFuture<User>)user_manager.fetch(auth.getUid())).thenAccept(currentUser::set);
+            ((CompletableFuture<User>)user_manager.fetch(auth.getUid()))
+                    .thenAccept( u-> currentUser.compareAndSet(null, u));
         }
     }
 
@@ -59,7 +60,7 @@ public final class VersusAuthenticator implements Authenticator {
             // HR : Add user information to the database
             User user = builder.setUID(uid).build();
             user_manager.insert(user);
-            currentUser.set(user);
+            currentUser.compareAndSet(null, user);
 
             // HR : Add schedule document for the user
             schedule_manager.insert(new Schedule(uid));
@@ -74,17 +75,15 @@ public final class VersusAuthenticator implements Authenticator {
         // Fill in the current user
         task.addOnSuccessListener(result -> {
             CompletableFuture<User> user = (CompletableFuture<User>) user_manager.fetch(result.getUser().getUid());
-            user.thenAccept(currentUser::set);
+            user.thenAccept(u -> currentUser.compareAndSet(null, u));
         });
         return task;
     }
 
     @Override
     public User currentUser() {
-        // Check firebase for cached user credentials
-        FirebaseUser firebase_user = auth.getCurrentUser();
         // TODO HR : Still need to build the correct user
-        return isNull(firebase_user) ? null : currentUser.get();
+        return currentUser.get();
     }
 
     @Override
