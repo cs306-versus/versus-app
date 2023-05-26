@@ -134,7 +134,6 @@ public class SearchFragment extends Fragment implements LocationPickerDialog.Loc
 
     protected void assignViews(View rootView){
         recyclerView = rootView.findViewById(R.id.recyclerView);
-        recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         FirebaseFirestore db = FirebaseFirestore.getInstance();

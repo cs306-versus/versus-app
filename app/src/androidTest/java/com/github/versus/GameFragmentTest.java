@@ -3,11 +3,15 @@ package com.github.versus;
 import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
+import static androidx.test.espresso.action.ViewActions.replaceText;
+import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 import androidx.test.espresso.ViewInteraction;
 import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.intent.Intents;
+import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
@@ -22,8 +26,7 @@ import androidx.test.espresso.contrib.DrawerActions;
 import androidx.test.espresso.contrib.DrawerMatchers;
 
 
-import com.github.versus.utils.FirebaseEmulator;
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.github.versus.auth.AuthActivity;
 
 import org.junit.After;
 import org.junit.Before;
@@ -35,9 +38,7 @@ import org.junit.runner.RunWith;
 //@RunWith(AndroidJUnit4.class)
 public class GameFragmentTest {
 
-    static {
-        FirebaseFirestore db = FirebaseEmulator.FIREBASE_FIRESTORE;
-    }
+
 
     //General rule that sets up the Activity Scenario Rule
     @Rule
@@ -82,8 +83,9 @@ public class GameFragmentTest {
         rectangleView1.perform(ViewActions.scrollTo());
         rectangleView1.perform(ViewActions.scrollTo());
 
+
+        }
         //Performing the click on the first item of the games in the schedule
         //onData(anything()).inAdapterView(withId(R.id.list_view)).atPosition(0).perform(click());
 
     }
-}

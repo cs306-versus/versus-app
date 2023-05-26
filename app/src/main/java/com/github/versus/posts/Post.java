@@ -178,4 +178,8 @@ public class Post implements Serializable {
         this.uid = uid;
     }
 
+    public void addRating(Rating rating) {
+        this.ratings.add(rating);
+    }
+
 }

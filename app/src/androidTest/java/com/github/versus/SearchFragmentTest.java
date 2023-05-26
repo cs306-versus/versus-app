@@ -42,6 +42,7 @@ public final class SearchFragmentTest {
         FirebaseFirestore db = FirebaseEmulator.FIREBASE_FIRESTORE;
     }
 
+
     @Rule
     public ActivityScenarioRule<MainActivity> scenario = new ActivityScenarioRule<>(MainActivity.class);
 
@@ -105,6 +106,7 @@ public final class SearchFragmentTest {
     }
     @Test
     public void testCreatePostWithLocationCanceled() {
+
         onView(withId(R.id.add_posts)).perform(click());
         onView(withId(R.id.editPostTitle)).check(matches(isDisplayed()));
         onView(withId(R.id.editPostTitle)).perform(typeText("TEST POST"), closeSoftKeyboard());

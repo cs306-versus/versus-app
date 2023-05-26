@@ -1,6 +1,7 @@
 package com.github.versus;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -94,22 +95,17 @@ public class ScheduleFragment extends Fragment {
                     TextView sportText = (TextView)(view.findViewById(R.id.sport_text));
                     TextView locationText = (TextView)(view.findViewById(R.id.Location_text));
                     TextView date = (TextView)(viewFrag.findViewById(R.id.date));
-
+                    List<PlayerToBeRated> fakeList = new ArrayList<>();
                     Post p  = posts.stream().filter(post -> {
 
 
                         return  post.getSport().name().equals(sportText.getText().toString() );
                     }).collect(Collectors.toList()).get(0);
-                    List<PlayerToBeRated> listPlayers = p.getPlayers().stream().map(player -> {
 
-                        return new PlayerToBeRated(false,player.getFirstName()+"_"+player.getLastName(),"0");
-
-                    }).collect(Collectors.toList());
 
                     //Dummy List Of players waiting to connect this to the concept of user in the DB
-                    List<PlayerToBeRated> fakeList = new ArrayList<>();
-                    fakeList.add(new PlayerToBeRated(true,"Abdess_piquant","4"));
-                    fakeList.add(new PlayerToBeRated(true,"Aymane_lam","5"));
+                    fakeList.add(new PlayerToBeRated(false,"Abdess_piquant","4"));
+                    fakeList.add(new PlayerToBeRated(false,"Aymane_lam","5"));
                     fakeList.add(new PlayerToBeRated(true,"Mernissi_Adam","4"));
                     fakeList.add(new PlayerToBeRated(true,"Si-Ziazi","5"));
 
@@ -448,7 +444,7 @@ public class ScheduleFragment extends Fragment {
 
                 List c=new ArrayList<List<String>>();
 
-                try {  schedulermanager.getScheduleOnDate(FirebaseAuth.getInstance().getUid(),new Timestamp(years.get(2),Month.of(months.get(2)),Integer.parseInt(MondayText.getText().toString()),0,0, Timestamp.Meridiem.AM)).thenAccept(sched -> {
+                try {  schedulermanager.getScheduleOnDate(FirebaseAuth.getInstance().getUid(), new Timestamp(years.get(2),Month.of(months.get(2)),Integer.parseInt(MondayText.getText().toString()),0,0, Timestamp.Meridiem.AM)).thenAccept(sched -> {
                     posts=sched.getPosts();
                     sched.getPosts().forEach(post -> {
                         List a =new ArrayList<String>();

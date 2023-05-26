@@ -26,19 +26,20 @@ import static com.github.versus.utils.EmulatorUserProvider.*;
 public final class VersusAuthenticatorTest {
 
     static {
+        
         FirebaseFirestore db = FirebaseEmulator.FIREBASE_FIRESTORE;
     }
 
     private final VersusAuthenticator auth = VersusAuthenticator.getInstance(FirebaseEmulator.FIREBASE_AUTH);
 
-    private final VersusUser.VersusBuilder builder = new VersusUser.VersusBuilder(null)
+    private final VersusUser.VersusBuilder builder =(VersusUser.VersusBuilder) (new VersusUser.VersusBuilder(null)
             .setFirstName("John")
             .setLastName("Doe")
             .setUserName("john-doe")
             .setPhone("0781234567")
             .setCity("Lausanne")
             .setZipCode(1013)
-            .setRating(0);
+            .setRating(0));
 
     @Before
     public void setUp(){
@@ -121,11 +122,12 @@ public final class VersusAuthenticatorTest {
     // ================================== MAIL VALIDITY TESTS =====================================
     // ============================================================================================
 
-    //@Test
-    public void testValidMail(){
+    @Test
+    public void testValidMail() throws InterruptedException {
         Task<AuthResult> task = auth.signInWithMail(validMail(), validPassword());
         spinAndWait(task);
         assertTrue(task.isSuccessful());
+        Thread.sleep(2000);
         assertNotNull(auth.currentUser());
         assertTrue(auth.hasValidMail());
     }
