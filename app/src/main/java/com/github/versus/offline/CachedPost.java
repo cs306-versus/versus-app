@@ -9,7 +9,6 @@ import com.github.versus.posts.Location;
 import com.github.versus.posts.Post;
 import com.github.versus.posts.Timestamp;
 import com.github.versus.sports.Sport;
-import com.github.versus.user.DummyUser;
 import com.github.versus.user.User;
 import com.github.versus.user.VersusUser;
 

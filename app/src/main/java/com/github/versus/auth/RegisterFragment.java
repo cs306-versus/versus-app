@@ -68,9 +68,9 @@ public final class RegisterFragment extends Fragment {
             binding.passwordsAreNotSimilar.setVisibility(View.VISIBLE);
             return;
         }
-        VersusUser.VersusBuilder builder = new VersusUser.VersusBuilder(null);
+        VersusUser.VersusBuilder builder = new VersusUser.VersusBuilder(FirebaseAuth.getInstance().getUid());
         // TODO HR : Link this when the UI is ready (see issue #58 in versus-app)
-        builder.setFirstName(firstName)
+        ( (VersusUser.VersusBuilder)(builder.setFirstName(firstName)
                 .setLastName(lastName)
                 .setUserName(String.format("%s-%s", firstName, lastName).toLowerCase())
                 .setPhone(phone)
@@ -78,7 +78,7 @@ public final class RegisterFragment extends Fragment {
                 .setRating(Rating.DEFAULT_ELO)
                 .setZipCode(0) // TODO HR : This is still hardcoded
                 .setCity("Lausanne") // TODO HR : This is still hardcoded
-                .setPreferredSports(List.of())
+                .setPreferredSports(List.of())))
                 .setFriends(List.of());
 
 

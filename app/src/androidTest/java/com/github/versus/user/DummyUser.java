@@ -56,7 +56,7 @@ public class DummyUser implements User{
     }
 
     @Override
-    public int getRating() {
+    public long getRating() {
         return 0;
     }
 

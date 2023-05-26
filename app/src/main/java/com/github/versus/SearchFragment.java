@@ -29,6 +29,7 @@ import com.github.versus.announcements.CreatePostTitleDialogFragment;
 import com.github.versus.announcements.LocationPickerDialog;
 import com.github.versus.announcements.MaxPlayerDialogFragment;
 import com.github.versus.announcements.PostDatePickerDialog;
+import com.github.versus.auth.VersusAuthenticator;
 import com.github.versus.db.FsPostManager;
 import com.github.versus.db.FsUserManager;
 import com.github.versus.offline.CacheManager;
@@ -132,7 +133,6 @@ public class SearchFragment extends Fragment implements LocationPickerDialog.Loc
 
     protected void assignViews(View rootView){
         recyclerView = rootView.findViewById(R.id.recyclerView);
-        recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -141,13 +141,11 @@ public class SearchFragment extends Fragment implements LocationPickerDialog.Loc
 
         //getting the user and updating the field accordingly
 
-        CompletableFuture<User> userTask = (CompletableFuture<User>)(uman.fetch(FirebaseAuth.getInstance().getUid()));
-        userTask.thenAccept( user -> {
-            VersusUser vuser = (VersusUser)user;
-            aa = new PostAnnouncementAdapter(displayPosts, vuser, pm, getContext());
-            recyclerView.setAdapter(aa);
+        VersusAuthenticator auth = VersusAuthenticator.getInstance(FirebaseAuth.getInstance());
+        VersusUser vuser = (VersusUser) auth.currentUser();
+        aa = new PostAnnouncementAdapter(displayPosts, vuser, pm, getContext());
+        recyclerView.setAdapter(aa);
 
-        });
 
 
         recyclerView.setLayoutManager(llm);
@@ -217,8 +215,8 @@ public class SearchFragment extends Fragment implements LocationPickerDialog.Loc
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         pm = new FsPostManager(db);
         FsUserManager uman = new FsUserManager(db);
-        CompletableFuture<User> userTask = (CompletableFuture<User>)(uman.fetch(FirebaseAuth.getInstance().getUid()));
-        userTask.thenAccept( user -> {
+
+
 
                     // Create a new location from the selected place
                     Location location = new Location(place.getName(), place.getLatLng().latitude, place.getLatLng().longitude);
@@ -233,8 +231,8 @@ public class SearchFragment extends Fragment implements LocationPickerDialog.Loc
 
                     // Insert the new post into the database
                     pm.insert(newPost);
-        }
-            );
+
+
 
         CacheManager.getCacheManager(getContext()).insert(newPost);
 

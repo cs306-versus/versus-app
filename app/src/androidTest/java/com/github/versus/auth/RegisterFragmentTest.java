@@ -26,6 +26,7 @@ import org.junit.runner.RunWith;
 @RunWith(AndroidJUnit4.class)
 public final class RegisterFragmentTest {
 
+
     static {
         // HR : Make sure the emulator is launched
         FirebaseFirestore db = FirebaseEmulator.FIREBASE_FIRESTORE;
@@ -46,6 +47,7 @@ public final class RegisterFragmentTest {
     @Test
     public void testVisibility(){
         onView(withId(R.id.auth_fragment_register)).check(matches(isDisplayed()));
+        
     }
 
     @Test

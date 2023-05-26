@@ -39,9 +39,7 @@ import org.junit.runner.RunWith;
 @RunWith(AndroidJUnit4.class)
 public final class ScheduleTest {
 
-    static {
-        FirebaseFirestore db = FirebaseEmulator.FIREBASE_FIRESTORE;
-    }
+
 
     @Rule
     public ActivityScenarioRule<MainActivity> scenario = new ActivityScenarioRule<>(MainActivity.class);

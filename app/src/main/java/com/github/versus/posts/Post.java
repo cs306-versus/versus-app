@@ -2,7 +2,6 @@ package com.github.versus.posts;
 
 import com.github.versus.rating.Rating;
 import com.github.versus.sports.Sport;
-import com.github.versus.user.DummyUser;
 import com.github.versus.user.User;
 import com.github.versus.user.VersusUser;
 
@@ -177,6 +176,10 @@ public class Post implements Serializable {
 
     public void setUid(String uid) {
         this.uid = uid;
+    }
+
+    public void addRating(Rating rating) {
+        this.ratings.add(rating);
     }
 
 }
