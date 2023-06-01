@@ -77,12 +77,11 @@
 
                 <TextView android:id="@+id/planningForTheDay"
                     android:fontFamily="Inter"
-                    android:textStyle="bold"
                     android:textSize="33sp"
                     android:textColor="@color/planning_for_the_day_color"
-                    android:layout_marginLeft="25dp"
-                    android:layout_marginTop="99dp"
-                    android:layout_width="241.5dp"
+                    android:gravity="center"
+                    android:layout_marginTop="80dp"
+                    android:layout_width="match_parent"
                     android:layout_height="143.5dp"
                     android:text="@string/planning_for_the_day_string"
                     />
@@ -91,21 +90,20 @@
                 <View   android:id="@+id/rectangle1"
                     android:background="@drawable/rectangle_1_shape"
                     android:layout_marginStart="0dp"
-                    android:layout_marginTop="220dp"
+                    android:layout_marginTop="200dp"
                     android:layout_width="match_parent"
                     android:layout_height="676dp" />
 
                 <View
                     android:id="@+id/rectangle2"
-                    android:layout_width="1000dp"
+                    android:layout_width="match_parent"
                     android:layout_height="1000dp"
                     android:layout_marginStart="0dp"
-                    android:layout_marginTop="251dp"
+                    android:layout_marginTop="220dp"
                     android:background="@drawable/rectangle_2_shape" />
 
                 <TextView android:id="@+id/date"
                     android:fontFamily="Comic Neue"
-                    android:textStyle="bold"
                     android:textSize="23sp"
                     android:textColor="@color/_bg__frame_1_ek2_color"
                     android:layout_marginLeft="46dp"
@@ -383,7 +381,7 @@
                     android:textStyle="bold"
                     android:textSize="23sp"
                     android:textColor="@color/planning_for_the_day_color"
-                    android:layout_marginLeft="365dp"
+                    android:layout_marginLeft="360dp"
                     android:layout_marginTop="439dp"
                     android:layout_width="51.5dp"
                     android:layout_height="45.5dp"
@@ -407,10 +405,9 @@
 
                 <TextView android:id="@+id/your_timeline"
                     android:fontFamily="Comic Neue"
-                    android:textStyle="bold"
                     android:textSize="32sp"
                     android:textColor="@color/_bg__frame_1_ek2_color"
-                    android:layout_marginLeft="29dp"
+                    android:layout_centerHorizontal="true"
                     android:layout_marginTop="519dp"
                     android:layout_width="226dp"
                     android:layout_height="96dp"

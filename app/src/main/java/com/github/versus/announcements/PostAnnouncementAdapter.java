@@ -21,6 +21,7 @@ import com.github.versus.db.FsScheduleManager;
 import com.github.versus.posts.Post;
 import com.github.versus.user.VersusUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -51,8 +52,19 @@ public class PostAnnouncementAdapter extends RecyclerView.Adapter<PostAnnounceme
 
     private void setViewText(PostAnnouncementAdapter.ViewHolder viewHolder, Post currentPost){
         viewHolder.getTitleTextView().setText(currentPost.getTitle());
-        viewHolder.getSportTextView().setText(currentPost.getSport().name);
-        viewHolder.getMaxPlayerCountTextView().setText(currentPost.getPlayers().size() + "/" + currentPost.getPlayerLimit());
+        int sport_source = R.drawable.ic_soccer;
+        switch(currentPost.getSport()){
+            case FOOTBALL: sport_source = R.drawable.ic_soccer;
+                            break;
+            case BASEBALL: sport_source = R.drawable.ic_baseball;
+                break;
+            case BASKETBALL: sport_source = R.drawable.ic_basketball;
+                break;
+            case TENNIS: sport_source = R.drawable.ic_tennis;
+                break;
+        }
+
+        viewHolder.getSportView().setImageResource(sport_source);
         viewHolder.getDateTextView().setText(currentPost.getDate().getDay() + "/" +currentPost.getDate().getMonth().getValue() + "/" + currentPost.getDate().getYear());
         String locationString = currentPost.getLocation().toString();
         locationString = locationString.substring(0, locationString.indexOf('(')).trim();
@@ -67,8 +79,9 @@ public class PostAnnouncementAdapter extends RecyclerView.Adapter<PostAnnounceme
             owner = currentPost.getPlayers().get(0).getUID().equals(user.getUID());
         }
         if(owner){
-            viewHolder.getJoinButton().setText("Edit Post");
-            viewHolder.getButtonText().setText("Edit");
+            viewHolder.getJoinButton().setVisibility(View.INVISIBLE);
+            viewHolder.getJoinedButton().setVisibility(View.VISIBLE);
+
 
             viewHolder.getJoinButton().setEnabled(true);
             viewHolder.getJoinButton().setOnClickListener(
@@ -91,15 +104,18 @@ public class PostAnnouncementAdapter extends RecyclerView.Adapter<PostAnnounceme
                 joined = currentPost.getPlayers().stream().map(user -> user.getUID()).collect(Collectors.toList()).contains(user.getUID());
             }
             if (joined) {
-                viewHolder.getJoinButton().setText("Leave");
-                viewHolder.getButtonText().setText("Leave");
+                viewHolder.getJoinButton().setVisibility(View.INVISIBLE);
+                viewHolder.getJoinedButton().setVisibility(View.VISIBLE);
+                viewHolder.getStopLimit().setVisibility(View.INVISIBLE);
+
 
                 viewHolder.getJoinButton().setEnabled(true);
                 viewHolder.getJoinButton().setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View view){
-                        viewHolder.getJoinButton().setText("Left Post");
-                        viewHolder.getButtonText().setText("Left Post");
+                        viewHolder.getJoinButton().setVisibility(View.VISIBLE);
+                        viewHolder.getJoinedButton().setVisibility(View.INVISIBLE);
+                        viewHolder.getStopLimit().setVisibility(View.INVISIBLE);
 
                         viewHolder.getJoinButton().setEnabled(false);
                         fpm.leavePost(user, currentPost.getUid());
@@ -109,19 +125,22 @@ public class PostAnnouncementAdapter extends RecyclerView.Adapter<PostAnnounceme
                 });
             } else {
                 if(currentPost.getPlayers().size() >= currentPost.getPlayerLimit()) {
-                    viewHolder.getJoinButton().setText("Full");
-                    viewHolder.getButtonText().setText("Full");
+                    viewHolder.getJoinButton().setVisibility(View.INVISIBLE);
+                    viewHolder.getJoinedButton().setVisibility(View.INVISIBLE);
+                    viewHolder.getStopLimit().setVisibility(View.VISIBLE);
                     viewHolder.getJoinButton().setEnabled(false);
                 } else {
-                    viewHolder.getJoinButton().setText("Join");
-                    viewHolder.getButtonText().setText("Join");
+                    viewHolder.getJoinButton().setVisibility(View.VISIBLE);
+                    viewHolder.getJoinedButton().setVisibility(View.INVISIBLE);
+                    viewHolder.getStopLimit().setVisibility(View.INVISIBLE);
                     viewHolder.getJoinButton().setEnabled(true);
                     viewHolder.getJoinButton().setOnClickListener(
                             new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    viewHolder.getJoinButton().setText("Joined");
-                                    viewHolder.getButtonText().setText("Joined");
+                                    viewHolder.getJoinButton().setVisibility(View.INVISIBLE);
+                                    viewHolder.getJoinedButton().setVisibility(View.VISIBLE);
+                                    viewHolder.getStopLimit().setVisibility(View.INVISIBLE);
                                     viewHolder.getJoinButton().setEnabled(false);
                                     currentPost.getPlayers().add(user);
                                     fpm.joinPost(currentPost.getTitle(), user);
@@ -143,30 +162,30 @@ public class PostAnnouncementAdapter extends RecyclerView.Adapter<PostAnnounceme
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView title;
-        private final TextView sport;
-        private final TextView maxPlayerCount;
+        private final RoundedImageView sport;
         private final TextView location;
         private final TextView date;
-        private  Button join;
+        private  RoundedImageView join;
+        private  RoundedImageView joined;
+        private  RoundedImageView stopLimit;
+
         private TextView t;
         public ViewHolder(View view) {
 
             super(view);
 //             Define click listener for the ViewHolder's View
-            title = (TextView) view.findViewById(R.id.title_post);
-            sport = (TextView) view.findViewById(R.id.sport_text_on_post);
-            maxPlayerCount = (TextView) view.findViewById(R.id.persons_text_on_post);
-            location = (TextView) view.findViewById(R.id.location_text_on_post);
-            date = (TextView) view.findViewById(R.id.date_on_post);
-            join = (Button) view.findViewById(R.id.join_container_on_post);
-            View joinhold1 = view.findViewById(R.id.joinhold1);
-            t=view.findViewById(R.id.contacing_text);
-            Button joint_post = view.findViewById(R.id.join_container_on_post);
+            title = (TextView) view.findViewById(R.id.announcement_name);
+            sport = (RoundedImageView) view.findViewById(R.id.sportImage);
+            location = (TextView) view.findViewById(R.id.location_txt_post);
+            date = (TextView) view.findViewById(R.id.date_text_post);
+            join = (RoundedImageView) view.findViewById(R.id.join_post);
+            joined = (RoundedImageView) view.findViewById(R.id.joined_post);
+            stopLimit =  (RoundedImageView) view.findViewById(R.id.limit_players);
 
-            joinhold1.setOnClickListener(new View.OnClickListener() {
+            join.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    joint_post.performClick();
+
                 }
             });
         }
@@ -174,11 +193,14 @@ public class PostAnnouncementAdapter extends RecyclerView.Adapter<PostAnnounceme
         public TextView getTitleTextView() {
             return title;
         }
-        public TextView getSportTextView() { return sport; }
-        public TextView getMaxPlayerCountTextView() { return maxPlayerCount; }
+        public RoundedImageView getSportView() { return sport; }
         public TextView getLocationTextView() { return location; }
         public TextView getDateTextView() { return date; }
         public TextView getButtonText() { return t; }
-        public Button getJoinButton() {return join; }
+
+        public RoundedImageView getJoinButton() { return join; }
+        public RoundedImageView getJoinedButton() { return joined; }
+        public RoundedImageView getStopLimit() { return stopLimit; }
+
     }
 }
