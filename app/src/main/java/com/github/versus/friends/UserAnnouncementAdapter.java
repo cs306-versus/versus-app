@@ -63,6 +63,8 @@ public class UserAnnouncementAdapter extends RecyclerView.Adapter<UserAnnounceme
             viewHolder.getAddFriend().setVisibility(View.INVISIBLE);
             viewHolder.getFriend_addded_true().setVisibility(View.VISIBLE);
         }else{
+            viewHolder.getAddFriend().setVisibility(View.VISIBLE);
+            viewHolder.getFriend_addded_true().setVisibility(View.INVISIBLE);
             viewHolder.getAddFriend().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

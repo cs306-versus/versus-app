@@ -82,7 +82,7 @@
                     android:text="@string/search_string"
                     android:textColor="@color/search_color"
                     android:textSize="33sp"
-                    android:textStyle="bold" />
+                     />
 
                 <View
                     android:id="@+id/rectangle1"

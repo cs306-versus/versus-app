@@ -79,10 +79,10 @@
                     android:layout_marginLeft="25dp"
                     android:layout_marginTop="99dp"
                     android:fontFamily="Inter"
-                    android:text="Your Profil!"
+                    android:text="Your Profile!"
                     android:textColor="@color/search_color"
                     android:textSize="33sp"
-                    android:textStyle="bold" />
+                     />
 
                 <View
                     android:id="@+id/rectangle1"
