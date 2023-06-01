@@ -84,14 +84,13 @@
 
 				<TextView android:id="@+id/search"
 					android:fontFamily="Inter"
-					android:textStyle="bold"
 					android:textSize="33sp"
 					android:textColor="@color/search_color"
 					android:layout_marginLeft="25dp"
 					android:layout_marginTop="99dp"
 					android:layout_width="360.5dp"
 					android:layout_height="143.5dp"
-					android:text="Our Top Trending Sports of May"
+					android:text="Our Top Trending Sports of JUNE"
 					 />
 
 				<View   android:id="@+id/rectangle_1"
@@ -112,7 +111,6 @@
 
 				<TextView android:id="@+id/sport_text"
 					android:fontFamily="Inter"
-					android:textStyle="bold"
 					android:textSize="32sp"
 					android:shadowRadius="4"
 					android:shadowColor="#000000"
@@ -128,7 +126,6 @@
 
 				<TextView android:id="@+id/numberofgames"
 					android:fontFamily="Inter"
-					android:textStyle="bold"
 					android:textSize="24sp"
 					android:shadowRadius="4"
 					android:shadowColor="#000000"
@@ -159,7 +156,6 @@
 
 				<TextView android:id="@+id/see_related_posts"
 					android:fontFamily="Comic Neue"
-					android:textStyle="bold"
 					android:textSize="36sp"
 					android:textColor="@color/search_color"
 					android:layout_marginLeft="17dp"

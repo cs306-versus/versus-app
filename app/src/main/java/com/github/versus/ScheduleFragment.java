@@ -199,53 +199,16 @@ public class ScheduleFragment extends Fragment {
 
     private void  increase_date(TextView date,int month_index){
         int number_date= Integer.parseInt(date.getText().toString());
-        if(months.get(month_index)==1 || months.get(month_index)==3 ||months.get(month_index)==5 ||months.get(month_index)==7 ||months.get(month_index)==8 ||months.get(month_index)==10 ||months.get(month_index)==12 ){
-            if(number_date+7<=31){
-                date.setText(String.valueOf((number_date+7)));
+        if(number_date+7<=31){
+            date.setText(String.valueOf((number_date+7)));
 
-            }
-            else {
-
-                date.setText(String.valueOf(7-(31-number_date)));
-                if(months.get(month_index)+1<=12)
-                    months.set(month_index,months.get(month_index)+1);
-                else {
-                    months.set(month_index,1);
-                    years.set(month_index,years.get(month_index)+1);
-
-                }
-
-            }
-        }
-        else if(months.get(month_index)!=2  ){
-            if(number_date+7<=30){
-                date.setText(String.valueOf((number_date+7)));
-
-            }
-            else {
-
-                date.setText(String.valueOf(7-(30-number_date)));
-                if(months.get(month_index)+1<=12)
-                    months.set(month_index,months.get(month_index)+1);
-                else {
-                    months.set(month_index,1);
-                    years.set(month_index,years.get(month_index)+1);
-
-                }
-
-            }
         }
         else {
-            if(number_date+7<=28){
-                date.setText(String.valueOf((number_date+7)));
+            date.setText(String.valueOf((31-number_date+7)));
 
-            }
-            else {
 
-                date.setText(String.valueOf(7-(28-number_date)));
-                months.set(month_index,months.get(month_index)+1);
 
-            }
+
         }}
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {

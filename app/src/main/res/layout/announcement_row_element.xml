@@ -4,14 +4,15 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        >
+    android:padding="5dp"
+    >
 
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/sportImage"
             android:layout_width="90dp"
             android:layout_height="90dp"
-            android:background="@drawable/ic_soccer"
+            android:src="@drawable/ic_soccer"
             android:scaleType="centerCrop"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -23,11 +24,10 @@
             android:id="@+id/announcement_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="5dp"
             android:layout_marginEnd="8dp"
             android:ellipsize="end"
             android:maxLines="1"
-            android:paddingLeft="20dp"
             android:text="announcement title"
             android:textColor="@color/primary_text"
             android:textSize="20sp"
@@ -47,7 +47,7 @@
             android:maxLines="1"
             android:text="date"
             android:textColor="@color/primary_text"
-            android:textSize="20sp"
+            android:textSize="15sp"
             app:layout_constraintStart_toEndOf="@id/date_icon"
             app:layout_constraintTop_toBottomOf="@id/announcement_name" />
 
@@ -77,7 +77,7 @@
             android:maxLines="1"
             android:text="location"
             android:textColor="@color/primary_text"
-            android:textSize="20sp"
+            android:textSize="15sp"
             app:layout_constraintStart_toEndOf="@id/location_image"
             app:layout_constraintTop_toBottomOf="@id/announcement_name" />
 

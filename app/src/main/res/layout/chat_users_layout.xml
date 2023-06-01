@@ -24,7 +24,6 @@
         android:text="Chats"
         android:textColor="@color/white"
         android:textSize="40sp"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/imageBack"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

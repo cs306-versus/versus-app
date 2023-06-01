@@ -62,6 +62,8 @@ public class PostAnnouncementAdapter extends RecyclerView.Adapter<PostAnnounceme
                 break;
             case TENNIS: sport_source = R.drawable.ic_tennis;
                 break;
+            case BOXING: sport_source = R.drawable.ic_box;
+                break;
         }
 
         viewHolder.getSportView().setImageResource(sport_source);
@@ -117,7 +119,6 @@ public class PostAnnouncementAdapter extends RecyclerView.Adapter<PostAnnounceme
                         viewHolder.getJoinedButton().setVisibility(View.INVISIBLE);
                         viewHolder.getStopLimit().setVisibility(View.INVISIBLE);
 
-                        viewHolder.getJoinButton().setEnabled(false);
                         fpm.leavePost(user, currentPost.getUid());
                         currentPost.getPlayers().remove(user);
                         notifyDataSetChanged();
@@ -141,7 +142,6 @@ public class PostAnnouncementAdapter extends RecyclerView.Adapter<PostAnnounceme
                                     viewHolder.getJoinButton().setVisibility(View.INVISIBLE);
                                     viewHolder.getJoinedButton().setVisibility(View.VISIBLE);
                                     viewHolder.getStopLimit().setVisibility(View.INVISIBLE);
-                                    viewHolder.getJoinButton().setEnabled(false);
                                     currentPost.getPlayers().add(user);
                                     fpm.joinPost(currentPost.getTitle(), user);
                                     FsScheduleManager sman = new FsScheduleManager(FirebaseFirestore.getInstance());
@@ -196,7 +196,6 @@ public class PostAnnouncementAdapter extends RecyclerView.Adapter<PostAnnounceme
         public RoundedImageView getSportView() { return sport; }
         public TextView getLocationTextView() { return location; }
         public TextView getDateTextView() { return date; }
-        public TextView getButtonText() { return t; }
 
         public RoundedImageView getJoinButton() { return join; }
         public RoundedImageView getJoinedButton() { return joined; }
