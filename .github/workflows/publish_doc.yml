@@ -18,7 +18,7 @@ jobs:
         run: echo MAPS_API_KEY=${{ secrets.MAPS_API_KEY }} > local.properties
       - name: Generate Documentation for Versus
         run: ./gradlew dokkaHtmlMultiModule
-      - uses: actions/upload-pages-artifact@v1
+      - uses: actions/upload-pages-artifact@v2
         with:
           path: build/dokka/htmlMultiModule/
           
