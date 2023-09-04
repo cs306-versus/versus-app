@@ -56,7 +56,7 @@ dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.makeramen:roundedimageview:2.3.0'
-    dokkaPlugin 'org.jetbrains.dokka:android-documentation-plugin:1.8.10'
+    dokkaPlugin 'org.jetbrains.dokka:android-documentation-plugin:1.9.0'
     implementation 'com.google.android.material:material:1.8.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     //Import for Google Maps
