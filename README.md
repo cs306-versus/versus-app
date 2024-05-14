@@ -18,13 +18,10 @@ The developers of the project are :
 - [Adam Mernissi Arifi](https://people.epfl.ch/adam.mernissiarifi)
 - [Alexander Lukas Müller](https://people.epfl.ch/alexander.muller)
 
-The TAs responsible for the project are :
-- [Yugesh Ajit Kothari](https://people.epfl.ch/yugesh.kothari)
-- [Daniel Demko](https://people.epfl.ch/daniel.demko)
 
 You can find the documentation of the project here : https://cs306-versus.github.io/versus-app/
 
 ## About the App
-TODO : Add a small description of the App
+Straight to the point, need a sport teamate ? Download the app !
 
 
