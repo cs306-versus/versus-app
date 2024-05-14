@@ -1,5 +1,5 @@
 <div align=center>
-    <img src="versus-logo.png">
+    <img src="versus_logo_new.png">
 </div>
 <div align=center>
     <a href="https://cirrus-ci.com/github/cs306-versus/versus-app"><img src="https://api.cirrus-ci.com/github/cs306-versus/versus-app.svg"/></a>
